@@ -1,0 +1,5 @@
+[all:vars]
+log_level=INFO
+
+[barracuda-portal]
+barracuda.news

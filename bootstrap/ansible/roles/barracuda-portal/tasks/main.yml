@@ -1,0 +1,33 @@
+- name: make sure that nessesary directories exists
+  file: path={{ item }} state=directory mode=0777 group=root owner=root
+  with_items:
+    - "/var/log/barracuda"
+    - "/var/lib/barracuda"
+    - "/run"
+
+- name: copy init.d
+  template: src=barracuda-portal dest=/etc/init.d/barracuda-portal owner=root group=root mode=0744
+
+- name: cleanup apps
+  shell: rm -fr /var/lib/barracuda/barracuda-portal
+
+- name: upload artifacts
+  copy: src=../../../../../target/universal/barracuda-news-1.0-SNAPSHOT.tgz dest=/tmp/barracuda-news-1.0-SNAPSHOT.tgz mode=0664 force=true
+
+- name: untar artifacts
+  unarchive: src=/tmp/barracuda-news-1.0-SNAPSHOT.tgz dest=/var/lib/barracuda copy=false
+
+- name: rename artifact
+  command: mv /var/lib/barracuda/barracuda-news-1.0-SNAPSHOT /var/lib/barracuda/barracuda-portal
+
+- name: copy logback.xml
+  template: src=logback.xml dest=/var/lib/barracuda/barracuda-portal/conf/ owner=root group=root mode=0744
+
+- name: stop service
+  service: name=barracuda-portal state=stopped
+
+- name: add service to autostart
+  service: name=barracuda-portal enabled=yes
+
+- name: start service
+  service: name=barracuda-portal state=started

@@ -1,0 +1,27 @@
+<configuration>
+
+    <property name="PATTERN" value="[%date{ISO8601, UTC} UTC][%level][%X{ip}][%X{op}]- %msg%n"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>/var/log/barracuda/barracuda-portal.log</file>
+        <encoder>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <logger name="play" level="INFO"/>
+    <logger name="application" level="{{ log_level }}"/>
+
+    <logger name="org.apache.hadoop" level="WARN"/>
+    <logger name="io.netty" level="WARN"/>
+    <logger name="com.datastax" level="WARN"/>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNCFILE"/>
+    </root>
+
+</configuration>
