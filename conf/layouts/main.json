@@ -1,0 +1,70 @@
+{
+  "rows": [
+    {
+      "height": "HEIGHT4",
+      "blocks": [
+        {
+          "tag": "tag1",
+          "size": "SIZE12",
+          "featured": true,
+          "caption": "barracuda.news"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "tag": "tag2",
+          "size": "SIZE4",
+          "featured": true
+        },
+        {
+          "caption": "garda lake photos",
+          "featured": true,
+          "tag": "tag3",
+          "size": "SIZE4"
+        },
+        {
+          "tag": "tag4",
+          "size": "SIZE4"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT1",
+      "blocks": [
+        {
+          "tag": "tag5",
+          "size": "SIZE4"
+        },
+        {
+          "tag": "tag6",
+          "size": "SIZE8"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "tag": "tag5",
+          "size": "SIZE6"
+        },
+        {
+          "tag": "tag5",
+          "size": "SIZE6"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT1",
+      "blocks": [
+        {
+          "tag": "tag5",
+          "size": "SIZE12"
+        }
+      ]
+    }
+  ]
+}
