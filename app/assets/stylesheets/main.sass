@@ -1,0 +1,54 @@
+$new-block-height: 150px
+$new-block-size: 6
+
+=border
+  border: 1px solid grey
+
+=flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+=desktop-media
+  @media (min-width: 992px)
+    @content
+
+=tablet-media
+  @media (max-width: 992px)
+    @content
+
+=mobile-media
+  @media (max-width: 768px)
+    @content
+
+.border
+  +border
+
+.navbar
+  margin-bottom: 0
+
+footer, nav
+  background-color: #333
+  *, a
+    color: white
+
+.app
+  +flex
+  min-height: 100vh
+  flex-direction: column
+
+.content
+  flex: 1 0 auto
+  .news-row
+    +desktop-media
+      @for $i from 1 through $new-block-size
+        &.height-#{$i} .news-col
+          min-height: $i * $new-block-height
+    .news-col
+      +border
+      padding: 10px 20px
+      margin: 10px -5px
+      &.featured
+        border-top: 5px solid grey
