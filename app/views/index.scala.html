@@ -2,18 +2,24 @@
 
 @main("barracuda.news") {
 
+    <section class="content">
     @for(row <- layout.rows) {
-        <div class="row news-row @row.height.cssClass">
-        @for(block <- row.blocks) {
-            <div class="col-xs-12 col-sm-12 @block.size.cssClass">
-                <div class="news-col @if(block.featured) {featured}">
-                    @for(caption <- block.caption) {
-                        <h4>@caption</h4>
-                    }
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <div class="content-row">
+            <div class="container">
+                <div class="row news-row @row.height.cssClass">
+                @for(block <- row.blocks) {
+                    <div class="col-xs-12 col-sm-12 @block.size.cssClass">
+                        <div class="news-col @if(block.featured) {featured}">
+                            @for(caption <- block.caption) {
+                                <h4>@caption</h4>
+                            }
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </div>
+                    </div>
+                }
                 </div>
             </div>
-        }
         </div>
     }
+    </section>
 }
