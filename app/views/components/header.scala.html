@@ -1,0 +1,40 @@
+@()
+
+<header>
+
+    <div class="corporate">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 logo">
+                    <a href="@routes.GuiController.index">
+                        <img src="@routes.Assets.versioned("/images/logo.png")" alt="barracuda.news" title="barracude.news"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-left categories">
+                    <li class="color1"><a href="@routes.GuiController.index">Новости</a></li>
+                    <li class="color2"><a href="@routes.GuiController.stories">Stories</a></li>
+                    <li class="color3"><a href="@routes.GuiController.tracking">Tracking</a></li>
+                    <li class="color4"><a href="@routes.GuiController.media">Media</a></li>
+                    <li class="color5"><a href="@routes.GuiController.fish">Fish production</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right tools">
+                    <li><a href="@routes.GuiController.index">Eng</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

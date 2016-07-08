@@ -1,0 +1,24 @@
+=border
+  border: 1px solid grey
+
+=flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+=desktop-media
+  @media (min-width: 992px)
+    @content
+
+=tablet-media
+  @media (max-width: 992px)
+    @content
+
+=mobile-media
+  @media (max-width: 768px)
+    @content
+
+.border
+  +border

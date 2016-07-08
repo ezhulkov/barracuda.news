@@ -1,0 +1,66 @@
+@import "lib/compass-mixins/lib/compass"
+@import "include/var"
+@import "include/tools"
+
+$color1: #1E1E1E
+$color2: #262626
+$color3: #444
+$color4: #777
+$linkColors: (#f6976a, #f26522, #48c4eb, #ee7b0e, #9d34a6)
+$textColor: #ddd
+$activeLink: #f26522
+
+header
+  .corporate
+    +background-image(linear-gradient($color1, $color2 25%, $color2 75%, $color1))
+    border-bottom: 1px solid $color1
+    .container
+      height: 140px
+      border-left: 1px solid $color3
+      border-right: 1px solid $color3
+    .logo
+      text-align: center
+      img
+        margin-top: 30px
+  .navbar
+    +background-image(linear-gradient($color2, $color2))
+    +border-radius(0)
+    border-bottom: none
+    border-top: 2px solid $color4
+    .container
+      margin-top: -2px
+      padding: 0
+      border-left: 1px solid $color3
+      border-right: 1px solid $color3
+    .navbar-collapse
+      padding: 0
+    .nav.categories
+      li
+        cursor: pointer
+        position: relative
+        padding-left: 10px
+        padding-right: 10px
+        border-right: 1px solid $color3
+        font-weight: 500
+        a
+          color: $textColor
+          text-transform: uppercase
+          z-index: 2
+        a:hover, a:active
+          background-color: inherit
+          text-decoration: none
+        @for $i from 1 through length($linkColors)
+          &.color#{$i}:after
+            background: nth($linkColors, $i)
+        &:after
+          position: absolute
+          width: 100%
+          height: 2px
+          left: 0
+          top: 0
+          content: ''
+          transition: all 0.2s
+        &:hover:after
+          height: 100%
+        &.active a
+          color: $activeLink

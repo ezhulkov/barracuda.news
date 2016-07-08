@@ -22,8 +22,10 @@ class GuiController @Inject()(
   lazy val sampleNews    = Json.parse(sampleNewsStr).as[Seq[PeaceOfNews]].flatMap(n => n.tags.map(t => t -> n)).toMap
   lazy val mainLayout    = Json.parse(mainLayoutStr).as[Layout]
 
-  def index = LoggingAction.async { implicit request =>
-    Future(Ok(views.html.index(mainLayout,sampleNews)))
-  }
+  def index = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
+  def stories = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
+  def media = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
+  def tracking = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
+  def fish = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
 
 }
