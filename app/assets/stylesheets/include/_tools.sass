@@ -1,3 +1,13 @@
+$new-block-height: 150px
+$new-block-size: 6
+$textColor: #ddd
+$activeLink: #f26522
+$blackColor1: #1E1E1E
+$blackColor2: #262626
+$blackColor3: #444
+$blackColor4: #777
+$whiteColor: #eee
+
 =border
   border: 1px solid grey
 
@@ -19,6 +29,26 @@
 =mobile-media
   @media (max-width: 768px)
     @content
+
+=gt-mobile-media
+  @media (min-width: 768px)
+    @content
+
+=active-link($default: $textColor, $hover:$activeLink, $bgcolor: initial)
+  color: $default
+  transition: color 0.2s ease-in-out
+  &:hover
+    color: $hover !important
+    background-color: $bgcolor
+    text-decoration: none
+
+=fa
+  display: inline-block
+  font: normal normal normal 14px/1 FontAwesome
+  font-size: inherit
+  text-rendering: auto
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
 
 .border
   +border

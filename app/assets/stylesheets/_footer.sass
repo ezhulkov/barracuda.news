@@ -1,5 +1,14 @@
 @import "lib/compass-mixins/lib/compass"
-@import "include/var"
 @import "include/tools"
 
 footer
+  & *
+    color: #ccc
+  +background-image(linear-gradient($blackColor1, $blackColor1))
+  .links
+    min-height: 50px
+  .copyright
+    & > div
+      border-top: 1px solid $blackColor3
+      padding-top: 10px
+      padding-bottom: 10px

@@ -1,40 +1,50 @@
 @import "lib/compass-mixins/lib/compass"
-@import "include/var"
 @import "include/tools"
 
-$color1: #1E1E1E
-$color2: #262626
-$color3: #444
-$color4: #777
 $linkColors: (#f6976a, #f26522, #48c4eb, #ee7b0e, #9d34a6)
-$textColor: #ddd
-$activeLink: #f26522
 
 header
   .corporate
-    +background-image(linear-gradient($color1, $color2 25%, $color2 75%, $color1))
-    border-bottom: 1px solid $color1
+    +background-image(linear-gradient($blackColor1, $blackColor2 25%, $blackColor2 75%, $blackColor1))
+    border-bottom: 1px solid $blackColor1
     .container
       height: 140px
-      border-left: 1px solid $color3
-      border-right: 1px solid $color3
+      +desktop-media
+        border-left: 1px solid $blackColor3
+        border-right: 1px solid $blackColor3
     .logo
+      position: relative
       text-align: center
       img
         margin-top: 30px
-    .tool-wrapper
+    .tool
+      +active-link($default: $textColor, $bgcolor: $blackColor3)
+      color: $textColor
       position: absolute
       top: 50px
-      .tool
-        cursor: pointer
-        font-size: 16px
-        width: 60px
-        line-height: 50px
-        border: none
-        text-align: center
-        vertical-align: middle
-        background-color: #777
-      .tool:after
+      cursor: pointer
+      font-size: 16px
+      width: 60px
+      line-height: 50px
+      border: none
+      text-align: center
+      vertical-align: middle
+      background-color: $blackColor3
+      &.info
+        left: -8px
+        &:after
+          left: 0
+          border-color: #101010 #101010 transparent transparent !important
+        &:before
+          content: "\f129"
+      &.search
+        right: -8px
+        &:after
+          right: 0
+          border-color: #101010 transparent transparent #101010 !important
+        &:before
+          content: "\f002"
+      &:after
         border-style: solid
         border-width: 2px 3px
         content: ""
@@ -42,51 +52,48 @@ header
         position: absolute
         top: 100%
         width: 0
-      &.info
-        left: -8px
-        .tool:after
-          left: 0
-          border-color: #101010 #101010 transparent transparent !important
-        .tool:before
-          content: "\f129"
-      &.search
-        right: -8px
-        .tool:after
-          right: 0
-          border-color: #101010 transparent transparent #101010 !important
-        .tool:before
-          content: "\f002"
   .navbar
-    +background-image(linear-gradient($color2, $color2))
+    +background-image(linear-gradient($blackColor2, $blackColor2))
     +border-radius(0)
     border-bottom: none
-    border-top: 2px solid $color4
+    border-top: 2px solid $blackColor4
     .container
       margin-top: -2px
       padding: 0
-      border-left: 1px solid $color3
-      border-right: 1px solid $color3
+      +desktop-media
+        border-left: 1px solid $blackColor3
+        border-right: 1px solid $blackColor3
     .navbar-collapse
       padding: 0
+    .nav.lang
+      margin-right: 0
+      a
+        +active-link($default: $textColor)
+        text-transform: uppercase
+        &:after
+          +fa
+          margin-left: 5px
+          content: "\f107"
     .nav.categories
       li
+        +tablet-media
+          &:first-child
+            border-left: 1px solid $blackColor3
         cursor: pointer
         position: relative
         padding-left: 10px
         padding-right: 10px
-        border-right: 1px solid $color3
+        border-right: 1px solid $blackColor3
         font-weight: 500
         a
-          color: $textColor
+          +active-link($default: $textColor, $hover: white)
           text-transform: uppercase
           z-index: 2
-        a:hover, a:active
-          background-color: inherit
-          text-decoration: none
         @for $i from 1 through length($linkColors)
           &.color#{$i}:after
             background: nth($linkColors, $i)
         &:after
+          cursor: pointer
           position: absolute
           width: 100%
           height: 2px
@@ -98,3 +105,7 @@ header
           height: 100%
         &.active a
           color: $activeLink
+    .icon-bar
+      +border-radius(0)
+      background-color: white
+      width: 25px

@@ -1,5 +1,4 @@
 @import "lib/compass-mixins/lib/compass"
-@import "include/var"
 @import "include/tools"
 
 body
@@ -14,6 +13,10 @@ body
   flex-direction: column
 
 .content
+  +desktop-media
+    .content-row .container
+      padding-right: 5px
+      padding-left: 5px
   flex: 1 0 auto
   .news-row
     +desktop-media
