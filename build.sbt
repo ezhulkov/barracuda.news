@@ -20,9 +20,10 @@ libraryDependencies ++= Seq(
   "com.github.nscala-time" %% "nscala-time" % "2.12.0",
   "org.webjars" % "webjars-play_2.11" % "2.5.0-2",
   "org.webjars.bower" % "compass-mixins" % "0.12.10",
-  "org.webjars" % "jquery" % "2.2.4",
   "org.webjars.bower" % "angular" % "1.5.7",
-  "org.webjars" % "bootstrap" % "3.3.6"
+  "org.webjars" % "jquery" % "2.2.4",
+  "org.webjars" % "bootstrap" % "3.3.6",
+  "org.webjars" % "font-awesome" % "4.6.3"
 )
 
 lazy val root = (project in file("."))
