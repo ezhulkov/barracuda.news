@@ -51,14 +51,14 @@ $new-block-size: 6
         +fa
         font-size: 16px
 
-  .type-photo
-    .item.first-item
+  .type-photo, .type-video
+    .item
       +flex(1 1 auto)
       +display-flex()
       +flex-direction(column)
       +justify-content(flex-end)
       +align-items(stretch)
-      min-height: $new-block-height
+      min-height: 2 * $new-block-height
       background-size: cover
       background-position: 50% 50%
       h2
@@ -66,5 +66,17 @@ $new-block-size: 6
       .add-info
         border-top: 1px solid white
         color: white
-        .type:before
-          content: "\f03e"
+  .type-photo .type:before
+    content: "\f03e"
+  .type-video
+    .type:before
+      content: "\f16a"
+    .playback
+      +fa
+      +active-link(white)
+      content: "\f16a"
+      position: absolute
+      top: 50%
+      left: 50%
+      font-size: 70px
+      transform: translate(-50%, -50%)

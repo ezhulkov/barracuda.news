@@ -43,11 +43,16 @@ object NewsModel {
   sealed case class Layout(rows: Seq[NewsRow])
   sealed case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
   sealed case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
-  sealed case class NewsMedia(url: String, text: Option[String])
+  sealed case class NewsMedia(source: String, text: Option[String])
   sealed case class PeaceOfNews(text: String, dateMillis: Long, tags: Iterable[String], caption: Option[String] = None, media: Option[Seq[NewsMedia]]) {
     def date = DateTime.now()
     def dateFormatted = date.toString("yyyy/MM/dd")
-    def firstMediaUrl = media.flatMap(m => m.headOption).map(t => t.url).orNull
+    def firstSource = media.flatMap(m => m.headOption).map(t => t.source).orNull
+    def backgroundImage(newsType: NewsType) = newsType match {
+      case NewsType.PHOTO => s"background-image: url('$firstSource')"
+      case NewsType.VIDEO => s"background-image: url('http://img.youtube.com/vi/$firstSource/0.jpg')"
+      case _ => ""
+    }
   }
 
 }
