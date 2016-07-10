@@ -44,14 +44,15 @@ header
           border-color: #101010 transparent transparent #101010 !important
         &:before
           content: "\f002"
-      &:after
-        border-style: solid
-        border-width: 2px 3px
-        content: ""
-        height: 0
-        position: absolute
-        top: 100%
-        width: 0
+      +desktop-media
+        &:after
+          border-style: solid
+          border-width: 2px 3px
+          content: ""
+          height: 0
+          position: absolute
+          top: 100%
+          width: 0
   .navbar
     +background-image(linear-gradient($blackColor2, $blackColor2))
     +border-radius(0)

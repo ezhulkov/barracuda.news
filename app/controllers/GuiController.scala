@@ -19,7 +19,7 @@ class GuiController @Inject()(
 
   lazy val sampleNewsStr = env.resourceAsStream("layouts/news.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException("no sample news"))
   lazy val mainLayoutStr = env.resourceAsStream("layouts/main.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException("no main layout"))
-  lazy val sampleNews    = Json.parse(sampleNewsStr).as[Seq[PeaceOfNews]].flatMap(n => n.tags.map(t => t -> n)).toMap
+  lazy val sampleNews    = Json.parse(sampleNewsStr).as[Seq[PeaceOfNews]].groupBy(t=>t.tags.head)
   lazy val mainLayout    = Json.parse(mainLayoutStr).as[Layout]
 
   def index = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }

@@ -4,10 +4,11 @@
       "height": "HEIGHT4",
       "blocks": [
         {
+          "newsType": "PHOTO",
           "tag": "tag1",
           "size": "SIZE12",
           "featured": true,
-          "caption": "barracuda.news"
+          "caption": "Melges 32 European Championship"
         }
       ]
     },
@@ -15,17 +16,20 @@
       "height": "HEIGHT2",
       "blocks": [
         {
+          "newsType": "TEXT",
           "tag": "tag2",
           "size": "SIZE4",
           "featured": true
         },
         {
-          "caption": "garda lake photos",
+          "newsType": "PHOTO",
+          "caption": "Personal stories",
           "featured": true,
           "tag": "tag3",
           "size": "SIZE4"
         },
         {
+          "newsType": "TEXT",
           "tag": "tag4",
           "size": "SIZE4"
         }
@@ -35,10 +39,12 @@
       "height": "HEIGHT1",
       "blocks": [
         {
+          "newsType": "TEXT",
           "tag": "tag5",
           "size": "SIZE4"
         },
         {
+          "newsType": "TEXT",
           "tag": "tag6",
           "size": "SIZE8"
         }
@@ -48,10 +54,12 @@
       "height": "HEIGHT2",
       "blocks": [
         {
+          "newsType": "PHOTO",
           "tag": "tag5",
           "size": "SIZE6"
         },
         {
+          "newsType": "TEXT",
           "tag": "tag5",
           "size": "SIZE6"
         }
@@ -61,6 +69,7 @@
       "height": "HEIGHT1",
       "blocks": [
         {
+          "newsType": "TEXT",
           "tag": "tag5",
           "size": "SIZE12"
         }

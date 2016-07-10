@@ -1,0 +1,14 @@
+@import models.NewsModel._
+
+@(item: PeaceOfNews, newsType: NewsType.NewsTypeValue, first: Boolean = false)
+
+<div class="item @if(first) {first-item}"
+    @if(newsType == NewsType.PHOTO) {
+        style="background-image: url('@item.firstMediaUrl')"}
+>
+    <h2>@item.caption</h2>
+    <div class="add-info">
+        <span class="type">&nbsp;</span>
+        <span class="date">@item.dateFormatted</span>
+    </div>
+</div>

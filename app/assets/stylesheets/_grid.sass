@@ -1,0 +1,70 @@
+@import "lib/compass-mixins/lib/compass"
+@import "include/tools"
+
+$new-block-height: 150px
+$new-block-size: 6
+
+.app
+  +display-flex()
+  min-height: 100vh
+  flex-direction: column
+
+.content
+  +desktop-media
+    .content-row .container
+      padding-right: 5px
+      padding-left: 5px
+  flex: 1 0 auto
+  .topic-row
+    +desktop-media
+      @for $i from 1 through $new-block-size
+        &.height-#{$i} .topic-col
+          min-height: $i * $new-block-height
+    .topic-col
+      +display-flex()
+      +flex-direction(column)
+      background-color: white
+      margin: 10px -5px
+      h1
+        +active-link(inherit)
+        font-size: 24px
+        margin: 0
+        padding: 10px 20px
+      &.featured
+        border-top: 5px solid $activeLink
+      .items
+        +flex(1 1 auto)
+        +display-flex()
+        +flex-direction(column)
+    .item
+      h2
+        font-size: 20px
+        padding: 0 20px
+    .add-info
+      font-size: 12px
+      border-top: 1px solid white
+      margin: 0 20px
+      padding: 5px 0
+      .type
+        margin-right: 10px
+      .type:before
+        +fa
+        font-size: 16px
+
+  .type-photo
+    .item.first-item
+      +flex(1 1 auto)
+      +display-flex()
+      +flex-direction(column)
+      +justify-content(flex-end)
+      +align-items(stretch)
+      min-height: $new-block-height
+      background-size: cover
+      background-position: 50% 50%
+      h2
+        +active-link(white)
+      .add-info
+        border-top: 1px solid white
+        color: white
+        .type:before
+          content: "\f03e"

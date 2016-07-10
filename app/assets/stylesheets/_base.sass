@@ -3,30 +3,4 @@
 
 body
   font-family: 'Open Sans', sans-serif
-
-*
-  +box-sizing(border-box)
-
-.app
-  +flex
-  min-height: 100vh
-  flex-direction: column
-
-.content
-  +desktop-media
-    .content-row .container
-      padding-right: 5px
-      padding-left: 5px
-  flex: 1 0 auto
-  .news-row
-    +desktop-media
-      @for $i from 1 through $new-block-size
-        &.height-#{$i} .news-col
-          min-height: $i * $new-block-height
-    .news-col
-      +border
-      background-color: white
-      padding: 10px 20px
-      margin: 10px -5px
-      &.featured
-        border-top: 5px solid grey
+  background-color: #eee

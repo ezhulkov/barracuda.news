@@ -2,6 +2,7 @@ package models
 
 import com.github.nscala_time.time.Imports._
 import models.NewsModel.BlockSize.BlockSize
+import models.NewsModel.NewsType.NewsType
 import models.NewsModel.RowHeight.RowHeight
 import scala.language.implicitConversions
 
@@ -30,11 +31,23 @@ object NewsModel {
     implicit def convert(value: Value): RowHeightValue = value.asInstanceOf[RowHeightValue]
   }
 
+  object NewsType extends Enumeration {
+    type NewsType = Value
+    val TEXT  = NewsTypeValue("TEXT", "text")
+    val PHOTO = NewsTypeValue("PHOTO", "photo")
+    val VIDEO = NewsTypeValue("VIDEO", "video")
+    sealed case class NewsTypeValue(code: String, cssClass: String) extends super.Val(code)
+    implicit def convert(value: Value): NewsTypeValue = value.asInstanceOf[NewsTypeValue]
+  }
+
   sealed case class Layout(rows: Seq[NewsRow])
   sealed case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
-  sealed case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None)
-  sealed case class PeaceOfNews(text: String, dateMillis: Long, tags: Iterable[String], caption: Option[String] = None) {
-    def date: DateTime = DateTime.now()
+  sealed case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
+  sealed case class NewsMedia(url: String, text: Option[String])
+  sealed case class PeaceOfNews(text: String, dateMillis: Long, tags: Iterable[String], caption: Option[String] = None, media: Option[Seq[NewsMedia]]) {
+    def date = DateTime.now()
+    def dateFormatted = date.toString("yyyy/MM/dd")
+    def firstMediaUrl = media.flatMap(m => m.headOption).map(t => t.url).orNull
   }
 
 }

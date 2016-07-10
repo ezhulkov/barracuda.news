@@ -1,5 +1,3 @@
-$new-block-height: 150px
-$new-block-size: 6
 $textColor: #ddd
 $activeLink: #f26522
 $blackColor1: #1E1E1E
@@ -10,13 +8,6 @@ $whiteColor: #eee
 
 =border
   border: 1px solid grey
-
-=flex
-  display: -webkit-box
-  display: -moz-box
-  display: -ms-flexbox
-  display: -webkit-flex
-  display: flex
 
 =desktop-media
   @media (min-width: 992px)
@@ -35,6 +26,7 @@ $whiteColor: #eee
     @content
 
 =active-link($default: $textColor, $hover:$activeLink, $bgcolor: initial)
+  cursor: pointer
   color: $default
   transition: color 0.2s ease-in-out
   &:hover
