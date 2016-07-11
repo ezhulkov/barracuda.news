@@ -54,6 +54,14 @@
     "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
+      "tag2"
+    ]
+  },
+  {
+    "caption": "Morbi eu quam lorem. Curabitur.",
+    "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "dateMillis": 123456,
+    "tags": [
       "tag4"
     ]
   },

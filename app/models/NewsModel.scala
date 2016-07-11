@@ -46,7 +46,7 @@ object NewsModel {
   sealed case class NewsMedia(source: String, text: Option[String])
   sealed case class PeaceOfNews(text: String, dateMillis: Long, tags: Iterable[String], caption: Option[String] = None, media: Option[Seq[NewsMedia]]) {
     def date = DateTime.now()
-    def dateFormatted = date.toString("yyyy/MM/dd")
+    def dateFormatted = date.toString("yyyy/MM/dd HH:mm:SS")
     def firstSource = media.flatMap(m => m.headOption).map(t => t.source).orNull
     def backgroundImage(newsType: NewsType) = newsType match {
       case NewsType.PHOTO => s"background-image: url('$firstSource')"
