@@ -90,6 +90,9 @@ header
           +active-link($default: $textColor, $hover: white)
           text-transform: uppercase
           z-index: 2
+        a:active, a:hover
+          background-color: transparent
+          outline: none
         @for $i from 1 through length($linkColors)
           &.color#{$i}:after
             background: nth($linkColors, $i)
@@ -105,6 +108,7 @@ header
         &:hover:after
           height: 100%
         &.active a
+
           color: $activeLink
     .icon-bar
       +border-radius(0)

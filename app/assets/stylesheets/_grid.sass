@@ -6,8 +6,12 @@ $new-block-size: 6
 
 .app
   +display-flex()
+  +display-flex()
+  +flex-direction(column)
+  +flex-wrap(nowrap)
+  +justify-content(flex-start)
+  +align-content(stretch)
   min-height: 100vh
-  flex-direction: column
 
 .content
   +desktop-media
