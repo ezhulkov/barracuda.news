@@ -3,7 +3,57 @@
 <footer>
     <div class="container">
         <div class="row links">
-
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 logo hidden-xs">
+                <a href="@routes.GuiController.index">
+                    <img src="@routes.Assets.versioned("/images/logo200px.png")" alt="barracuda.news" title="barracude.news"/>
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 about">
+                <h4>Information:</h4>
+                <ul>
+                    <li><a href="@routes.GuiController.about">About</a></li>
+                    <li><a href="@routes.GuiController.adv">Advertisement</a></li>
+                    <li><a href="@routes.GuiController.contacts">Contacts</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 social">
+                <h4>Follow us:</h4>
+                <ul>
+                    <li>
+                        <a href="https://www.facebook.com/barracudacommunication/">
+                            <i class="fa fa-facebook-square fa-1x" aria-hidden="true"></i> &nbsp;facebook.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/BarracudaNews">
+                            <i class="fa fa-twitter-square fa-1x" aria-hidden="true"></i> &nbsp;twitter.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/barracuda_communication">
+                            <i class="fa fa-instagram fa-1x" aria-hidden="true"></i> &nbsp;instagram.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/channel/UCfXWE_CMpjH2sb896P6xjhg">
+                            <i class="fa fa-youtube-square fa-1x" aria-hidden="true"></i> &nbsp;youtube.com
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 subscribe">
+                <h4>Newsletter:</h4>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input class="form-control" type="email" placeholder="Enter your email" title="Enter your email">
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="submit" class="btn btn-md" value="Subscribe">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="row copyright">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">

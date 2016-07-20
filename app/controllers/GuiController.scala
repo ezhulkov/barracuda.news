@@ -27,5 +27,8 @@ class GuiController @Inject()(
   def media = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
   def tracking = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
   def fish = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
+  def about = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
+  def contacts = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
+  def adv = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
 
 }
