@@ -1,6 +1,139 @@
 @import "lib/compass-mixins/lib/compass"
-@import "include/tools"
+@import "lib/compass-mixins/lib/compass/typography/vertical_rhythm"
 
-body
-  font-family: 'Open Sans', sans-serif
-  background-color: #eee
+$base-font-size: 18px
+$base-line-height: 30px
+$rhythm-unit: "rem"
+//$rem-with-px-fallback: false
+$base-font-family: 'Open Sans', sans-serif
+$base-font-weight: 400
+$base-font-color: #303033
+
+$tiny-font-size: 10px
+$tiny-font-leading: 0.75
+$small-font-size: 14px
+$small-font-leading: 0.75
+$base-font-size: 18px
+$base-font-leading: 1
+$medium-font-size: 24px
+$medium-font-leading: 1.25
+$large-font-size: 32px
+$large-font-leading: 1.25
+$xlarge-font-size: 43px
+$xlarge-font-leading: 1.5
+
+=typeSize($size)
+  @if $size == "tiny"
+    +adjust-font-size-to($tiny-font-size)
+    +adjust-leading-to($tiny-font-leading)
+  @if $size == "small"
+    +adjust-font-size-to($small-font-size)
+    +adjust-leading-to($small-font-leading)
+  @if $size == "base"
+    +adjust-font-size-to($base-font-size)
+    +adjust-leading-to($base-font-leading)
+  @if $size == "medium"
+    +adjust-font-size-to($medium-font-size)
+    +adjust-leading-to($medium-font-leading)
+  @if $size == "large"
+    +adjust-font-size-to($large-font-size)
+    +adjust-leading-to($large-font-leading)
+  @if $size == "xlarge"
+    +adjust-font-size-to($xlarge-font-size)
+    +adjust-leading-to($xlarge-font-leading)
+
+=typeWeight($weight)
+  @if $weight == "us"
+    font-weight: 900
+  @if $weight == "st"
+    font-weight: 700
+  @if $weight == "rg"
+    font-weight: 400
+  @if $weight == "lt"
+    font-weight: 300
+  @if $weight == "ul"
+    font-weight: 200
+
+=t-ultrastrong
+  +typeWeight(us)
+
+=t-strong
+  +typeWeight(st)
+
+=t-regular
+  +typeWeight(rg)
+
+=t-light
+  +typeWeight(lt)
+
+=t-ultralight
+  +typeWeight(ul)
+
+.t-ultrastrong
+  +typeWeight(us)
+
+.t-strong
+  +typeWeight(st)
+
+.t-regular
+  +typeWeight(rg)
+
+.t-light
+  +typeWeight(lt)
+
+.t-ultralight
+  +typeWeight(ul)
+
+=t-tiny
+  +typeSize(tiny)
+
+=t-small
+  +typeSize(small)
+
+=t-base
+  +typeSize(base)
+
+=t-medium
+  +typeSize(medium)
+
+=t-large
+  +typeSize(large)
+
+=t-xlarge
+  +typeSize(xlarge)
+
+.t-tiny
+  +typeSize(tiny)
+
+.t-small
+  +typeSize(small)
+
+.t-base
+  +typeSize(base)
+
+.t-medium
+  +typeSize(medium)
+
+.t-large
+  +typeSize(large)
+
+.t-xlarge
+  +typeSize(xlarge)
+
+h1
+  +t-xlarge
+  margin: 0
+
+h2
+  +t-large
+  margin: 0
+
+h3
+  +t-medium
+  margin: 0
+
+h4
+  +t-base
+  margin: 0
+
++establish-baseline
