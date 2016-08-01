@@ -2,11 +2,11 @@
 @import "lib/compass-mixins/lib/compass"
 @import "lib/compass-mixins/lib/compass/typography/vertical_rhythm"
 
-$base-font-size: 18px
-$base-line-height: 30px
-$rhythm-unit: "rem"
-//$rem-with-px-fallback: false
-$base-font-family: 'Open Sans', sans-serif
+$base-font-size: 18px !global
+$base-line-height: 30px !global
+$rhythm-unit: "rem" !global
+$rem-with-px-fallback: true
+$base-font-family: 'Open Sans', sans-serif !global
 $base-font-weight: 400
 $base-font-color: #303033
 
@@ -26,22 +26,22 @@ $xlarge-font-leading: 1.5
 =type-size($size)
   @if $size == "tiny"
     +adjust-font-size-to($tiny-font-size)
-    +adjust-leading-to($tiny-font-leading)
+  //+adjust-leading-to($tiny-font-leading)
   @if $size == "small"
     +adjust-font-size-to($small-font-size)
-    +adjust-leading-to($small-font-leading)
+  //+adjust-leading-to($small-font-leading)
   @if $size == "base"
     +adjust-font-size-to($base-font-size)
-    +adjust-leading-to($base-font-leading)
+  //+adjust-leading-to($base-font-leading)
   @if $size == "medium"
     +adjust-font-size-to($medium-font-size)
-    +adjust-leading-to($medium-font-leading)
+  //+adjust-leading-to($medium-font-leading)
   @if $size == "large"
     +adjust-font-size-to($large-font-size)
-    +adjust-leading-to($large-font-leading)
+  //+adjust-leading-to($large-font-leading)
   @if $size == "xlarge"
     +adjust-font-size-to($xlarge-font-size)
-    +adjust-leading-to($xlarge-font-leading)
+//+adjust-leading-to($xlarge-font-leading)
 
 =type-weight($weight)
   @if $weight == "us"
@@ -121,25 +121,26 @@ $xlarge-font-leading: 1.5
 .t-xlarge
   +type-size(xlarge)
 
-h1
-  +t-xlarge
+h1, h2, h3, h4
+  +margin-trailer()
+  background-color: rgba(orange, 0.5)
   margin: 0
 
+h1
+  +t-xlarge
 
 h2
   +t-large
-  margin: 0
 
 h3
   +t-medium
-  margin: 0
 
 h4
   +t-base
-  margin: 0
 
 +establish-baseline
 
 body
+  +debug-vertical-alignment()
   background-color: #eee
   font-family: $base-font-family

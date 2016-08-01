@@ -5,38 +5,43 @@
 @main("barracuda.news") {
 
     <section class="content">
-    @for(row <- layout.rows) {
-        <div class="content-row">
-            <div class="container">
-                <div class="row topic-row @row.height.cssClass">
-                @for(block <- row.blocks) {
-                    @if(block.tag) {
-                        <div class="col-xs-12 col-sm-12 @block.size.cssClass">
-                            <div class="topic-col @if(block.featured) {featured} type-@block.newsType.cssClass size-@block.size.size">
-                                @for(caption <- block.caption) {
-                                    <h1>@caption</h1>
-                                }
-                                <div class="items">
-                                @{
-                                    val newsToDisplay = block.newsType match {
-                                        case NewsType.TEXT => news.getOrElse(block.tag, Nil)
-                                        case _ => news.getOrElse(block.tag, Nil).headOption.toSeq
-                                    }
-                                    newsToDisplay match {
-                                        case head :: tail =>
-                                            List(peaceOfNews(head, block.newsType, first = true)) ++ tail.map(t => peaceOfNews(t, block.newsType))
-                                        case _ =>
-                                            <p>Empty topic</p>
-                                    }
-                                }
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-                </div>
-            </div>
-        </div>
-    }
+        <h1>H1</h1>
+        <h2>H2</h2>
+        <h3>H3</h3>
+
+    @*@for(row <- layout.rows) {*@
+        @*<div class="content-row">*@
+            @*<div class="container">*@
+                @*<div class="row topic-row @row.height.cssClass">*@
+                @*@for(block <- row.blocks) {*@
+                    @*@if(block.tag) {*@
+                        @*<div class="col-xs-12 col-sm-12 @block.size.cssClass">*@
+                            @*<div class="topic-col @if(block.featured) {featured} type-@block.newsType.cssClass size-@block.size.size">*@
+                                @*@for(caption <- block.caption) {*@
+                                    @*<h1>@caption</h1>*@
+                                @*}*@
+                                @*<div class="items">*@
+                                @*@{*@
+                                    @*val newsToDisplay = block.newsType match {*@
+                                        @*case NewsType.TEXT => news.getOrElse(block.tag, Nil)*@
+                                        @*case _ => news.getOrElse(block.tag, Nil).headOption.toSeq*@
+                                    @*}*@
+                                    @*newsToDisplay match {*@
+                                        @*case head :: tail =>*@
+                                            @*List(peaceOfNews(head, block.newsType, first = true)) ++ tail.map(t => peaceOfNews(t, block.newsType))*@
+                                        @*case _ =>*@
+                                            @*<p>Empty topic</p>*@
+                                    @*}*@
+                                @*}*@
+                                @*</div>*@
+                            @*</div>*@
+                        @*</div>*@
+                    @*}*@
+                @*}*@
+                @*</div>*@
+            @*</div>*@
+        @*</div>*@
+    @*}*@
+
     </section>
 }
