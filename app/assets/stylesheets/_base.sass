@@ -1,3 +1,4 @@
+@import "include/tools"
 @import "lib/compass-mixins/lib/compass"
 @import "lib/compass-mixins/lib/compass/typography/vertical_rhythm"
 
@@ -22,7 +23,7 @@ $large-font-leading: 1.25
 $xlarge-font-size: 43px
 $xlarge-font-leading: 1.5
 
-=typeSize($size)
+=type-size($size)
   @if $size == "tiny"
     +adjust-font-size-to($tiny-font-size)
     +adjust-leading-to($tiny-font-leading)
@@ -42,7 +43,7 @@ $xlarge-font-leading: 1.5
     +adjust-font-size-to($xlarge-font-size)
     +adjust-leading-to($xlarge-font-leading)
 
-=typeWeight($weight)
+=type-weight($weight)
   @if $weight == "us"
     font-weight: 900
   @if $weight == "st"
@@ -55,74 +56,75 @@ $xlarge-font-leading: 1.5
     font-weight: 200
 
 =t-ultrastrong
-  +typeWeight(us)
+  +type-weight(us)
 
 =t-strong
-  +typeWeight(st)
+  +type-weight(st)
 
 =t-regular
-  +typeWeight(rg)
+  +type-weight(rg)
 
 =t-light
-  +typeWeight(lt)
+  +type-weight(lt)
 
 =t-ultralight
-  +typeWeight(ul)
+  +type-weight(ul)
 
 .t-ultrastrong
-  +typeWeight(us)
+  +type-weight(us)
 
 .t-strong
-  +typeWeight(st)
+  +type-weight(st)
 
 .t-regular
-  +typeWeight(rg)
+  +type-weight(rg)
 
 .t-light
-  +typeWeight(lt)
+  +type-weight(lt)
 
 .t-ultralight
-  +typeWeight(ul)
+  +type-weight(ul)
 
 =t-tiny
-  +typeSize(tiny)
+  +type-size(tiny)
 
 =t-small
-  +typeSize(small)
+  +type-size(small)
 
 =t-base
-  +typeSize(base)
+  +type-size(base)
 
 =t-medium
-  +typeSize(medium)
+  +type-size(medium)
 
 =t-large
-  +typeSize(large)
+  +type-size(large)
 
 =t-xlarge
-  +typeSize(xlarge)
+  +type-size(xlarge)
 
 .t-tiny
-  +typeSize(tiny)
+  +type-size(tiny)
 
 .t-small
-  +typeSize(small)
+  +type-size(small)
 
 .t-base
-  +typeSize(base)
+  +type-size(base)
 
 .t-medium
-  +typeSize(medium)
+  +type-size(medium)
 
 .t-large
-  +typeSize(large)
+  +type-size(large)
 
 .t-xlarge
-  +typeSize(xlarge)
+  +type-size(xlarge)
 
 h1
   +t-xlarge
   margin: 0
+
 
 h2
   +t-large
@@ -137,3 +139,7 @@ h4
   margin: 0
 
 +establish-baseline
+
+body
+  background-color: #eee
+  font-family: $base-font-family

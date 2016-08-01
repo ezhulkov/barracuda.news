@@ -1,5 +1,5 @@
 @import "lib/compass-mixins/lib/compass"
-@import "include/tools"
+@import "base"
 
 $linkColors: (#f6976a, #f26522, #48c4eb, #ee7b0e, #9d34a6)
 
@@ -77,6 +77,7 @@ header
           content: "\f107"
     .nav.categories
       li
+        +t-regular
         +tablet-media
           &:first-child
             border-left: 1px solid $blackColor3
@@ -85,7 +86,7 @@ header
         padding-left: 10px
         padding-right: 10px
         border-right: 1px solid $blackColor3
-        font-weight: 500
+
         a
           +active-link($default: $textColor, $hover: white)
           text-transform: uppercase
