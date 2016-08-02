@@ -1,0 +1,118 @@
+@import 'tools'
+@import 'compass'
+@import "compass/reset"
+@import 'compass/typography'
+
+$base-font-size: 16px !global
+$base-line-height: 24px !global
+$rhythm-unit: "rem" !global
+$rem-with-px-fallback: true !global
+$base-font-family: 'Open Sans', sans-serif !global
+$base-font-weight: 400 !global
+$base-font-color: #303033 !global
+
+$font-size-types: ("tiny", "small", "base", "medium", "large", "xlarge")
+$font-size-coeff: (0.563, 0.75, 1, 1.333, 1.777, 2.369)
+$font-weight-types: ("ultrastrong", "strong", "regular", "light", "ultralight")
+$font-weight: (900, 700, 400, 300, 200)
+
+=type-size($size)
+  $idx: index($font-size-types, $size)
+  $coeff: nth($font-size-coeff, $idx)
+  +adjust-font-size-to($base-font-size * $coeff)
+
+=type-weight($weight)
+  $idx: index($font-weight-types, $weight)
+  font-weight: nth($font-weight, $idx)
+
+=t-ultrastrong
+  +type-weight(ultrastrong)
+
+=t-strong
+  +type-weight(strong)
+
+=t-regular
+  +type-weight(regular)
+
+=t-light
+  +type-weight(light)
+
+=t-ultralight
+  +type-weight(ultralight)
+
+.t-ultrastrong
+  +t-ultrastrong
+
+.t-strong
+  +t-strong
+
+.t-regular
+  +t-regular
+
+.t-light
+  +t-light
+
+.t-ultralight
+  +t-ultralight
+
+=t-tiny
+  +type-size(tiny)
+
+=t-small
+  +type-size(small)
+
+=t-base
+  +type-size(base)
+
+=t-medium
+  +type-size(medium)
+
+=t-large
+  +type-size(large)
+
+=t-xlarge
+  +type-size(xlarge)
+
+.t-tiny
+  +t-tiny
+
+.t-small
+  +t-small
+
+.t-base
+  +t-base
+
+.t-medium
+  +t-medium
+
+.t-large
+  +t-large
+
+.t-xlarge
+  +t-xlarge
+
+#{headings(4)}
+  background-color: rgba(orange, 0.5)
+  +margin-leader(2)
+
+p
+  background-color: rgba(green, 0.5)
+
+h1
+  +t-xlarge
+
+h2
+  +t-large
+
+h3
+  +t-medium
+
+h4
+  +t-base
+
++establish-baseline
+
+body
+  +debug-vertical-alignment()
+  background-color: #eee
+  font-family: $base-font-family
