@@ -88,12 +88,13 @@ $font-weight: (900, 700, 400, 300, 200)
 .t-large
   +t-large
 
+
 .t-xlarge
   +t-xlarge
 
 #{headings(4)}
   background-color: rgba(orange, 0.5)
-  +margin-leader(2)
+  +margin-leader(1)
 
 p
   background-color: rgba(green, 0.5)
@@ -103,6 +104,8 @@ h1
 
 h2
   +t-large
+  +leading-border(1px,1)
+  +trailing-border(1px,1)
 
 h3
   +t-medium

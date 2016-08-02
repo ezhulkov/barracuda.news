@@ -118,8 +118,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 h1, h2, h3, h4 {
   background-color: rgba(255, 165, 0, 0.5);
-  margin-top: 48px;
-  margin-top: 3rem;
+  margin-top: 24px;
+  margin-top: 1.5rem;
 }
 
 p {
@@ -138,6 +138,16 @@ h2 {
   font-size: 1.777rem;
   line-height: 48px;
   line-height: 3rem;
+  border-top-width: 1px;
+  border-top-width: 0.0625rem;
+  border-top-style: solid;
+  padding-top: 23px;
+  padding-top: 1.4375rem;
+  border-bottom-width: 1px;
+  border-bottom-width: 0.0625rem;
+  border-bottom-style: solid;
+  padding-bottom: 23px;
+  padding-bottom: 1.4375rem;
 }
 
 h3 {
