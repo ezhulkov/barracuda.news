@@ -1,0 +1,23 @@
+$textColor: #ddd;
+$blackTextColor: #333;
+$activeLink: #f26522;
+$blackColor1: #1E1E1E;
+$blackColor2: #262626;
+$blackColor3: #444;
+$blackColor4: #777;
+$whiteColor: #eee;
+$bgColor: #eee !global;
+
+$susy: (
+        columns: 12,
+        gutters: 1/4,
+        math: fluid,
+        output: float,
+        gutter-position: split,
+        debug: (
+                image: show,
+                color: rgba(grey, 0.25),
+                output: overlay,
+                toggle: top right,
+        ),
+);

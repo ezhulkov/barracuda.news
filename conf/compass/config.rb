@@ -1,4 +1,6 @@
 require 'compass/import-once/activate'
+require 'susy'
+require 'breakpoint'
 
 http_path = "/"
 css_dir = "../../public/stylesheets"

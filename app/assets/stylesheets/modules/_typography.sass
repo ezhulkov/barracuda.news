@@ -1,7 +1,5 @@
-@import "tools"
-@import "compass"
-@import "compass/reset"
-@import "compass/typography"
+@import "vars"
+@import "compass/typography/vertical_rhythm"
 
 $base-font-size: 16px !global
 $base-line-height: 24px !global
@@ -87,7 +85,6 @@ $font-weight: (900, 700, 400, 300, 200)
 .t-large
   +t-large
 
-
 .t-xlarge
   +t-xlarge
 
@@ -103,13 +100,16 @@ h1
 
 h2
   +t-large
-  +leading-border(1px,1)
-  +trailing-border(1px,1)
+  +leading-border(1px, 1)
+  +trailing-border(1px, 1)
 
 h3
   +t-medium
 
 h4
   +t-base
+
+main
+  +rhythm-margins(1)
 
 +establish-baseline

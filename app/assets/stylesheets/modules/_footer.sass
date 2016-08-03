@@ -1,54 +1,53 @@
-//@import "lib/compass-mixins/lib/compass"
-//@import "typography"
-//
-//footer
-//  & *
-//    color: $textColor
-//  +background-image(linear-gradient($blackColor1, $blackColor1))
-//  .links
-//    & > div
-//      padding-top: 20px
-//      padding-bottom: 20px
-//    +mobile-media
-//      & > div
-//        padding-top: 0
-//        padding-bottom: 0
-//      & > div.about
-//        padding-top: 10px
-//    .logo
-//      padding-top: 30px
-//      padding-bottom: 20px
-//      text-align: center
-//    .about
-//      ul
-//        +no-bullets
-//        padding: 0
-//        li
-//          border-bottom: 1px solid $blackColor3
-//          a
-//            +active-link
-//    .social
-//      ul
-//        +no-bullets
-//        padding: 0
-//        li
-//          border-bottom: 1px solid $blackColor3
-//          a
-//            +active-link
-//    .subscribe
-//      input
-//        +border-radius(0)
-//        height: 30px
-//        width: 100%
-//        margin-bottom: 5px
-//      input[type='submit']
-//        border: 1px solid $activeLink
-//        +active-link(white, $textColor, $activeLink, $blackColor1)
-//
-//  .copyright
-//    & > div
-//      border-top: 1px solid $blackColor3
-//      padding-top: 10px
-//      padding-bottom: 10px
-//      +mobile-media
-//        text-align: center
+@import "compass"
+
+footer
+  & *
+    color: $textColor
+  +background-image(linear-gradient($blackColor1, $blackColor1))
+  .links
+    & > div
+      padding-top: 20px
+      padding-bottom: 20px
+    +mobile-media
+      & > div
+        padding-top: 0
+        padding-bottom: 0
+      & > div.about
+        padding-top: 10px
+    .logo
+      padding-top: 30px
+      padding-bottom: 20px
+      text-align: center
+    .about
+      ul
+        +no-bullets
+        padding: 0
+        li
+          border-bottom: 1px solid $blackColor3
+          a
+            +active-link
+    .social
+      ul
+        +no-bullets
+        padding: 0
+        li
+          border-bottom: 1px solid $blackColor3
+          a
+            +active-link
+    .subscribe
+      input
+        +border-radius(0)
+        height: 30px
+        width: 100%
+        margin-bottom: 5px
+      input[type='submit']
+        border: 1px solid $activeLink
+        +active-link(white, $textColor, $activeLink, $blackColor1)
+
+  .copyright
+    & > div
+      border-top: 1px solid $blackColor3
+      padding-top: 10px
+      padding-bottom: 10px
+      +mobile-media
+        text-align: center

@@ -1,0 +1,41 @@
+@import "vars"
+@import "compass"
+
+=border
+  border: 1px solid grey
+
+=desktop-media
+  @media (min-width: 992px)
+    @content
+
+=tablet-media
+  @media (max-width: 992px)
+    @content
+
+=mobile-media
+  @media (max-width: 768px)
+    @content
+
+=gt-mobile-media
+  @media (min-width: 768px)
+    @content
+
+=active-link($default: $textColor, $hover:$activeLink, $bgColor: initial, $hoverBgColor: initial)
+  &, *
+    cursor: pointer
+    color: $default
+    background-color: $bgColor
+    transition: all 0.2s ease-in-out
+  &:hover
+    &, *
+      color: $hover !important
+      background-color: $hoverBgColor
+      text-decoration: none
+
+=fa
+  display: inline-block
+  font: normal normal normal 14px/1 FontAwesome
+  font-size: inherit
+  text-rendering: auto
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
