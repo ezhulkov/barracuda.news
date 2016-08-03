@@ -1,5 +1,6 @@
 
 GET        /                    controllers.GuiController.index
+GET        /article             controllers.GuiController.article
 GET        /stories             controllers.GuiController.stories
 GET        /media               controllers.GuiController.media
 GET        /fish                controllers.GuiController.fish

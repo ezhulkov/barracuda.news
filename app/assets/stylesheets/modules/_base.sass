@@ -1,6 +1,10 @@
 @import "vars"
+@import "compass"
 @import "compass/reset"
 
 body
   background-color: $bgColor
   font-family: 'Open Sans', sans-serif
+
+*, *:after, *:before
+  +box-sizing(border-box)

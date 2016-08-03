@@ -3,7 +3,7 @@
 @(item: PeaceOfNews, newsType: NewsType.NewsTypeValue, first: Boolean = false)
 
 <div class="item @if(first) {first-item}" style="@item.backgroundImage(newsType)">
-    <h2>@item.caption</h2>
+    <a href="@routes.GuiController.article">@item.caption</a>
     @if(newsType == NewsType.VIDEO) {
         <i class="fa fa-youtube-play playback" aria-hidden="true"></i>
     }

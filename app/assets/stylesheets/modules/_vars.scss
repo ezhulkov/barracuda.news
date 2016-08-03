@@ -8,6 +8,11 @@ $blackColor4: #777;
 $whiteColor: #eee;
 $bgColor: #eee !global;
 
+$tabletWidth: 60em;
+$mobileWidth: 30em;
+
+$breakpoint-default-media: screen;
+
 $susy: (
         columns: 12,
         gutters: 1/4,
@@ -15,9 +20,9 @@ $susy: (
         output: float,
         gutter-position: split,
         debug: (
-                image: show,
+                image: hide,
                 color: rgba(grey, 0.25),
-                output: overlay,
+                output: background,
                 toggle: top right,
         ),
 );

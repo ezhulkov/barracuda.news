@@ -4,6 +4,10 @@ $ ->
   $(window).resize () ->
     fitTopicHeight()
 
+$(window).load ->
+  $("article img").keepTheRhythm({
+    baseLine: 24
+  })
 
 fitTopicHeight = () ->
   $('.topic-col').each (index, topic) ->

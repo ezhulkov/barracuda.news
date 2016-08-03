@@ -1,23 +1,25 @@
 @import "vars"
 @import "compass"
+@import "breakpoint"
 
-=border
-  border: 1px solid grey
+=border($width: 1px, $color: grey)
+  +box-sizing(border-box)
+  border: $width solid $color !important
 
 =desktop-media
-  @media (min-width: 992px)
+  +breakpoint($tabletWidth)
     @content
 
 =tablet-media
-  @media (max-width: 992px)
+  +breakpoint(max-width $tabletWidth)
     @content
 
 =mobile-media
-  @media (max-width: 768px)
+  +breakpoint(max-width $mobileWidth)
     @content
 
 =gt-mobile-media
-  @media (min-width: 768px)
+  +breakpoint($mobileWidth)
     @content
 
 =active-link($default: $textColor, $hover:$activeLink, $bgColor: initial, $hoverBgColor: initial)
@@ -26,6 +28,7 @@
     color: $default
     background-color: $bgColor
     transition: all 0.2s ease-in-out
+    text-decoration: none
   &:hover
     &, *
       color: $hover !important

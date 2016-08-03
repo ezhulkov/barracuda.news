@@ -1,27 +1,29 @@
 @import "mixins"
 @import "compass"
+@import "susy"
+@import "compass/typography/vertical_rhythm"
 
 $linkColors: (#f6976a, #f26522, #48c4eb, #ee7b0e, #9d34a6)
+$border-width: 2px
 
 header
   .corporate
     +background-image(linear-gradient($blackColor1, $blackColor2 25%, $blackColor2 75%, $blackColor1))
-    border-bottom: 1px solid $blackColor1
+    height: rhythm(5)
     .container
-      height: 140px
-      +desktop-media
-        border-left: 1px solid $blackColor3
-        border-right: 1px solid $blackColor3
-    .logo
-      position: relative
+      line-height: rhythm(5)
       text-align: center
+      position: relative
+      border-left: 1px solid $blackColor3
+      border-right: 1px solid $blackColor3
       img
-        margin-top: 30px
+        vertical-align: middle
     .tool
       +active-link($default: $textColor, $bgColor: $blackColor3, $hoverBgColor: $blackColor3)
       color: $textColor
       position: absolute
-      top: 50px
+      top: 50%
+      margin-top: -25px
       cursor: pointer
       font-size: 16px
       width: 60px
@@ -53,22 +55,30 @@ header
           position: absolute
           top: 100%
           width: 0
-  .navbar
+  .menu
     +background-image(linear-gradient($blackColor2, $blackColor2))
-    +border-radius(0)
-    margin: 0
-    border-bottom: none
-    border-top: 2px solid $blackColor4
+    border-top: $border-width solid $blackColor4
+    height: rhythm(2)
     .container
-      margin-top: -2px
-      padding: 0
-      +desktop-media
-        border-left: 1px solid $blackColor3
-        border-right: 1px solid $blackColor3
-    .navbar-collapse
-      padding: 0
-    .nav.lang
-      margin-right: 0
+      margin-top: -$border-width
+      border-left: 1px solid $blackColor3
+      border-right: 1px solid $blackColor3
+    ul
+      +no-bullets
+      height: rhythm(2)
+      li
+        +pad(25px, 25px)
+        +float-left
+        display: block
+        position: relative
+        cursor: pointer
+        a
+          +rhythm-padding(0.5)
+          display: block
+          font-size: 14px
+          position: relative
+    ul.lang
+      +float-right
       a
         +active-link($default: $textColor)
         text-transform: uppercase
@@ -76,18 +86,10 @@ header
           +fa
           margin-left: 5px
           content: "\f107"
-    .nav.categories
+    ul.categories
+      +float-left
       li
-        +t-regular
-        +tablet-media
-          &:first-child
-            border-left: 1px solid $blackColor3
-        cursor: pointer
-        position: relative
-        padding-left: 10px
-        padding-right: 10px
         border-right: 1px solid $blackColor3
-
         a
           +active-link($default: $textColor, $hover: white)
           text-transform: uppercase
@@ -110,9 +112,4 @@ header
         &:hover:after
           height: 100%
         &.active a
-
           color: $activeLink
-    .icon-bar
-      +border-radius(0)
-      background-color: white
-      width: 25px
