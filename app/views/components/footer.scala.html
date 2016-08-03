@@ -1,14 +1,14 @@
 @()
 
 <footer>
-    <div class="links">
+    <section class="links">
         <section class="container">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 logo hidden-xs">
+            <div class="logo">
                 <a href="@routes.GuiController.index">
                     <img src="@routes.Assets.versioned("/images/logo200px.png")" alt="barracuda.news" title="barracude.news"/>
                 </a>
             </div>
-            <div class="hidden col-xs-12 col-sm-4 col-md-3 col-lg-3 about">
+            <div class="about">
                 <h4>Information:</h4>
                 <ul>
                     <li><a href="@routes.GuiController.about">About</a></li>
@@ -16,7 +16,7 @@
                     <li><a href="@routes.GuiController.contacts">Contacts</a></li>
                 </ul>
             </div>
-            <div class="hidden col-xs-12 col-sm-4 col-md-3 col-lg-3 social">
+            <div class="social">
                 <h4>Follow us:</h4>
                 <ul>
                     <li>
@@ -41,7 +41,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="hidden col-xs-12 col-sm-4 col-md-3 col-lg-3 subscribe">
+            <div class="subscribe">
                 <h4>Newsletter:</h4>
                 <form class="form-horizontal">
                     <div class="form-group">
@@ -55,12 +55,12 @@
                 </form>
             </div>
         </section>
-    </div>
-    <div class="copyright">
+    </section>
+    <section class="copyright">
         <section class="container">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <span>
                     &copy; <script>document.write(new Date().getFullYear())</script> &mdash; Barracuda News. All rights reserved.
-            </div>
+            </span>
         </section>
-    </div>
+    </section>
 </footer>

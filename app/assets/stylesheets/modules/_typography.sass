@@ -9,7 +9,7 @@ $base-font-weight: 400 !global
 $base-font-color: #303033 !global
 
 $font-size-types: ("tiny", "small", "base", "medium", "large", "xlarge")
-$font-size-coeff: (0.563, 0.75, 1, 1.333, 1.777, 2.369)
+$font-size-coeff: (0.694, 0.833, 1, 1.2, 1.44, 1.728)
 $font-weight-types: ("ultrastrong", "strong", "regular", "light", "ultralight")
 $font-weight: (900, 700, 400, 300, 200)
 
@@ -90,24 +90,28 @@ $font-weight: (900, 700, 400, 300, 200)
 
 article
   +rhythm-padding(1)
-  #{headings(4)}
-    background-color: rgba(orange, 0.25)
   p
     +hyphenation
-  h1
-    +t-xlarge
-  h2
-    +t-large
-  h3
-    +t-medium
-  h4
-    +t-base
   img, iframe
     +margin-trailer(1)
     display: block
     margin: auto
+  #{headers(2,4)}
+    +margin-leader(1)
+
+h1
+  +t-xlarge
+
+h2
+  +t-large
+
+h3
+  +t-medium
+
+h4
+  +t-base
 
 +establish-baseline
 
 body
-  +debug-vertical-alignment()
+  //+debug-vertical-alignment()

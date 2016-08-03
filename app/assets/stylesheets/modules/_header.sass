@@ -82,19 +82,20 @@ header
         position: relative
         cursor: pointer
         a
+          +t-small
           +rhythm-padding(($menu-lines - 1)/2)
           display: block
-          font-size: 14px
           position: relative
     ul.lang
       +float-right
-      a
-        +active-link($default: $textColor)
-        text-transform: uppercase
-        &:after
-          +fa
-          margin-left: 5px
-          content: "\f107"
+      li
+        a
+          +active-link($default: $textColor)
+          text-transform: uppercase
+          &:after
+            +fa
+            margin-left: 5px
+            content: "\f107"
     ul.categories
       +float-left
       li
