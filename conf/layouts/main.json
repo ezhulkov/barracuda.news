@@ -42,10 +42,11 @@
       ]
     },
     {
-      "height": "HEIGHT2",
+      "height": "HEIGHT3",
       "blocks": [
         {
           "newsType": "PHOTO",
+          "caption": "Photo Gallery",
           "tag": "gallery",
           "size": "SIZE12"
         }
