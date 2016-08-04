@@ -6,6 +6,8 @@ $blackColor2: #262626;
 $blackColor3: #444;
 $blackColor4: #777;
 $whiteColor: #eee;
+$blueColor: blue;
+$darkBlueColor: darkblue;
 $bgColor: #eee !global;
 
 $xDesktopWidth: 80em;
@@ -20,10 +22,4 @@ $susy: (
         math: fluid,
         output: float,
         gutter-position: split,
-        debug: (
-                image: hide,
-                color: rgba(grey, 0.25),
-                output: background,
-                toggle: top right,
-        ),
 );

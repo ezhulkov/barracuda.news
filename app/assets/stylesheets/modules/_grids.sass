@@ -1,9 +1,11 @@
 @import "mixins"
 @import "compass"
 @import "susy"
+@import "typography"
 
 $row-heights: (6, 12, 18, 24)
 $col-spans: (4, 6, 8, 12)
+$featured-width: 5px
 
 .news-grid
   +padding-leader(1)
@@ -16,83 +18,81 @@ $col-spans: (4, 6, 8, 12)
       margin-right: -10px
       @for $i from 1 through length($row-heights)
         &.height#{$i}
-          min-height: rhythm(nth($row-heights, $i))
+          height: rhythm(nth($row-heights, $i))
           .topic-col
-            min-height: rhythm(nth($row-heights, $i))
+            height: rhythm(nth($row-heights, $i))
   .topic-col
-    +border($color: red, $width: 4px)
     +margin-trailer(1)
+    +padding-trailer(1)
+    +pad(gutter() * 2)
+    +display-flex()
+    +flex-direction(column)
+    position: relative
+    overflow: hidden
     min-height: rhythm(3)
+    background-color: rgba(white, 1)
     +desktop-media
       @for $i from 1 through length($col-spans)
         &.span#{nth($col-spans, $i)}
           +span(nth($col-spans, $i))
-
-//.topic-row
-  .topic-col
-    +display-flex()
-    +flex-direction(column)
-    background-color: white
-    margin: 0 -5px
-    h1
-      +active-link(inherit)
-      font-size: 24px
-      margin: 0
-      padding: 10px 20px
-    &.featured
-      border-top: 5px solid $activeLink
+    h2
+      +active-link($color: $blackTextColor)
     .items
       +flex(1 1 auto)
       +display-flex()
       +flex-direction(column)
-  .item
-    h2
-      font-size: 20px
-      padding: 0 20px
-  .add-info
-    +display-flex()
-    font-size: 10px
-    border-top: 1px solid $blackColor4
-    margin: 0 20px
-    padding: 5px 0
-    .type
-      margin-right: 5px
-    .type:before
-      +fa
-      font-size: 14px
-
-  .type-photo, .type-video
     .item
-      +flex(1 1 auto)
-      +display-flex()
-      +flex-direction(column)
-      +justify-content(flex-end)
-      +align-items(stretch)
-      background-size: cover
-      background-position: 50% 50%
-      h2
-        +active-link(white)
+      h4
+        +active-link($color: $blackTextColor)
       .add-info
-        border-top: 1px solid white
-        color: white
-  .type-photo .type:before
-    content: "\f030"
-  .type-text
-    .type:before
-      content: "\f044"
-    h2
-      +active-link($blackTextColor)
-      font-size: 16px
-      font-weight: bold
-  .type-video
-    .type:before
-      content: "\f16a"
-    .playback
-      +fa
-      +active-link(white)
-      content: "\f16a"
-      position: absolute
-      top: 50%
-      left: 50%
-      font-size: 70px
-      transform: translate(-50%, -50%)
+        +display-flex()
+        +t-tiny
+        border-top: 1px solid $blackColor4
+        margin-top: -1px
+        .type
+          margin-right: $featured-width
+        .type:before
+          +fa
+          +t-tiny
+    &.featured
+      border-top: $featured-width solid $activeLink
+      h2
+        margin-top: - $featured-width
+    &.featured.no-caption
+      .items
+        margin-top: - $featured-width
+    &.no-caption
+      +padding-leader(1)
+    &.type-text
+      .type:before
+        content: "\f044"
+    &.type-photo, &.type-video
+      padding: 0
+      h4
+        +active-link($color: white)
+      .item
+        +flex(1 1 auto)
+        +display-flex()
+        +flex-direction(column)
+        +justify-content(flex-end)
+        +align-items(stretch)
+        background-size: cover
+        background-position: 50% 50%
+        .add-info
+          border-top: 1px solid white
+          color: white
+    &.type-photo
+      .type:before
+        content: "\f030"
+    &.type-video
+      .type:before
+        content: "\f16a"
+      .playback
+        +fa
+        +active-link(white)
+        content: "\f16a"
+        position: absolute
+        top: 50%
+        left: 50%
+        font-size: 70px
+        transform: translate(-50%, -50%)

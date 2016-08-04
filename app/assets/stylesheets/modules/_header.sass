@@ -21,7 +21,7 @@ header
       img
         vertical-align: middle
     .tool
-      +active-link($default: $textColor, $bgColor: $blackColor3, $hoverBgColor: $blackColor3)
+      +active-link($color: $textColor, $bgColor: $blackColor3, $hoverBgColor: $blackColor3)
       color: $textColor
       position: absolute
       top: 50%
@@ -85,7 +85,7 @@ header
       +float-right
       li
         a
-          +active-link($default: $textColor)
+          +active-link($color: $textColor)
           text-transform: uppercase
           &:after
             +fa
@@ -96,7 +96,7 @@ header
       li
         border-right: 1px solid $blackColor3
         a
-          +active-link($default: $textColor, $hover: white)
+          +active-link($color: $textColor, $hover: white)
           text-transform: uppercase
           z-index: 2
         a:active, a:hover

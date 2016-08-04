@@ -30,10 +30,10 @@
   +breakpoint(max-width $tabletWidth - 1)
     @content
 
-=active-link($default: $textColor, $hover:$activeLink, $bgColor: initial, $hoverBgColor: initial)
+=active-link($color: $textColor, $hover:$activeLink, $bgColor: initial, $hoverBgColor: initial)
   &, *
     cursor: pointer
-    color: $default
+    color: $color
     background-color: $bgColor
     transition: all 0.2s ease-in-out
     text-decoration: none

@@ -4,7 +4,8 @@
     "text": "Ut <em>enim</em> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
-      "tag1"
+      "main_news",
+      "sub_news"
     ],
     "media": [
       {
@@ -17,7 +18,8 @@
     "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
-      "tag1"
+      "main_news",
+      "sub_news"
     ]
   },
   {
@@ -25,15 +27,18 @@
     "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
-      "tag2"
+      "main_news",
+      "sub_news"
     ]
   },
   {
-    "caption": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+    "caption": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit",
     "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
-      "tag2"
+      "main_news",
+      "tracking",
+      "sub_news"
     ]
   },
   {
@@ -41,7 +46,8 @@
     "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
-      "tag3"
+      "stories",
+      "sub_news"
     ],
     "media": [
       {
@@ -54,7 +60,8 @@
     "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
-      "tag2"
+      "tracking",
+      "sub_news"
     ]
   },
   {
@@ -62,7 +69,8 @@
     "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
-      "tag4"
+      "tracking",
+      "sub_news"
     ]
   },
   {
@@ -70,7 +78,8 @@
     "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
-      "tag5"
+      "tracking",
+      "sub_news"
     ],
     "media": [
       {
@@ -83,7 +92,7 @@
     "text": "Ut <b>enim</b> ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "dateMillis": 123456,
     "tags": [
-      "tag6"
+      "video"
     ],
     "media": [
       {
