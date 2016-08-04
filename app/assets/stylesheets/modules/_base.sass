@@ -1,10 +1,31 @@
-@import "vars"
+@import "mixins"
+@import "susy"
 @import "compass"
 @import "compass/reset"
 
 body
   background-color: $bgColor
   font-family: 'Open Sans', sans-serif
+
+section.container
+  +container(95%)
+  +tablet-media
+    +container($tabletWidth - 2)
+  +desktop-media
+    +container(95%)
+  +xdesktop-media
+    +container($xDesktopWidth - 2)
+
+main
+  +display-flex()
+  +flex-direction(column)
+  +flex-wrap(nowrap)
+  +justify-content(flex-start)
+  +align-content(stretch)
+  min-height: 100vh
+
+html, body
+  height: 100%
 
 *, *:after, *:before
   +box-sizing(border-box)

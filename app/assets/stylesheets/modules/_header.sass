@@ -58,6 +58,8 @@ header
           top: 100%
           width: 0
   .menu
+    +mobile-media
+      display: none
     +background-image(linear-gradient($blackColor2, $blackColor2))
     border-top: $delimiter-width solid $blackColor4
     height: rhythm($menu-lines)
@@ -65,13 +67,6 @@ header
       margin-top: -$delimiter-width
       border-left: 1px solid $blackColor3
       border-right: 1px solid $blackColor3
-    .mobile-menu
-      display: none
-    +tablet-media
-      .mobile-menu
-        display: block
-      .main-menu
-        display: none
     ul
       +no-bullets
       height: rhythm($menu-lines)

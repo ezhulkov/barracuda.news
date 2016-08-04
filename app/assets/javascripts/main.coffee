@@ -10,11 +10,11 @@ $(window).load ->
   })
 
 fitTopicHeight = () ->
-  $('.topic-col').each (index, topic) ->
-    if(window.innerWidth >= 992)
-      $(topic).css('height', $(topic).closest('.topic-row').height() - 20)
-    else
-      $(topic).css('height', 'initial')
+#  $('.topic-col').each (index, topic) ->
+#    if(window.innerWidth >= 960)
+#      $(topic).css('height', $(topic).closest('.topic-row').height())
+#    else
+#      $(topic).css('height', 'initial')
 
 
 app = angular.module "barracudaApp", []

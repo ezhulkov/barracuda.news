@@ -6,20 +6,28 @@
   +box-sizing(border-box)
   border: $width solid $color !important
 
+=xdesktop-media
+  +breakpoint($xDesktopWidth)
+    @content
+
 =desktop-media
-  +breakpoint($tabletWidth)
+  +breakpoint($desktopWidth)
     @content
 
 =tablet-media
-  +breakpoint(max-width $tabletWidth)
+  +breakpoint($tabletWidth)
     @content
 
 =mobile-media
-  +breakpoint(max-width $mobileWidth)
+  +breakpoint(max-width $tabletWidth - 1)
     @content
 
-=gt-mobile-media
-  +breakpoint($mobileWidth)
+=lt-desktop-media
+  +breakpoint(max-width $desktopWidth - 1)
+    @content
+
+=lt-tablet-media
+  +breakpoint(max-width $tabletWidth - 1)
     @content
 
 =active-link($default: $textColor, $hover:$activeLink, $bgColor: initial, $hoverBgColor: initial)

@@ -18,7 +18,7 @@
       ]
     },
     {
-      "height": "HEIGHT2",
+      "height": "HEIGHT3",
       "blocks": [
         {
           "newsType": "TEXT",
@@ -42,6 +42,16 @@
     },
     {
       "height": "HEIGHT2",
+      "blocks": [
+        {
+          "newsType": "TEXT",
+          "tag": "tag5",
+          "size": "SIZE12"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT1",
       "blocks": [
         {
           "newsType": "TEXT",

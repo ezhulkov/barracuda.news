@@ -2,33 +2,33 @@
 @import "compass"
 @import "susy"
 
-$new-block-height: 150px
-$new-block-size: 6
+$row-heights: (6, 12, 18, 24)
+$col-spans: (4, 6, 8, 12)
 
-section.container
-  +container(80em)
-  +mobile-media
-    +pad(rhythm(1/2), rhythm(1/2))
+.news-grid
+  +padding-leader(1)
+  +flex(1 0 auto)
+  .topic-row
+    margin-left: gutter()
+    margin-right: gutter()
+    +desktop-media
+      margin-left: -10px
+      margin-right: -10px
+      @for $i from 1 through length($row-heights)
+        &.height#{$i}
+          min-height: rhythm(nth($row-heights, $i))
+          .topic-col
+            min-height: rhythm(nth($row-heights, $i))
+  .topic-col
+    +border($color: red, $width: 4px)
+    +margin-trailer(1)
+    min-height: rhythm(3)
+    +desktop-media
+      @for $i from 1 through length($col-spans)
+        &.span#{nth($col-spans, $i)}
+          +span(nth($col-spans, $i))
 
-main
-  +display-flex()
-  +flex-direction(column)
-  +flex-wrap(nowrap)
-  +justify-content(flex-start)
-  +align-content(stretch)
-  min-height: 100vh
-
-.content
-  //+desktop-media
-    .content-row .container
-      padding-right: 5px
-      padding-left: 5px
-  flex: 1 0 auto
 //.topic-row
-  +desktop-media
-    @for $i from 1 through $new-block-size
-      &.height-#{$i} .topic-col
-        min-height: $i * $new-block-height
   .topic-col
     +display-flex()
     +flex-direction(column)
@@ -68,7 +68,6 @@ main
       +flex-direction(column)
       +justify-content(flex-end)
       +align-items(stretch)
-      min-height: 2 * $new-block-height - 50
       background-size: cover
       background-position: 50% 50%
       h2

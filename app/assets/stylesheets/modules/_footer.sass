@@ -6,32 +6,30 @@
 footer
   +background-image(linear-gradient($blackColor1, $blackColor1))
   .links
+    .container
+      +rhythm-margins(1/2, 1)
     h4
       +t-strong
       +padding-leader(1/2)
-      +gt-mobile-media
-        +padding-trailer(1/2)
       color: $textColor
     a
       +t-small
-    .container
-      +rhythm-margins(1/2, 1)
     .logo
       +rhythm-padding(0.5)
       text-align: center
-    +desktop-media
-      .logo, .about, .social, .subscribe
-        +span(3)
+    +mobile-media
+      .logo
+        display: none
+        .about, .social, .subscribe
+          +span(12)
     +tablet-media
       .logo
         +span(12)
       .about, .social, .subscribe
         +span(4)
-    +mobile-media
-      .logo
-        display: none
-      .about, .social, .subscribe
-        +span(12)
+    +desktop-media
+      .logo, .about, .social, .subscribe
+        +span(3)
     .about, .social
       ul
         +no-bullets
@@ -43,12 +41,10 @@ footer
     .subscribe
       input
         +border-radius(0)
-        +margin-trailer(1/4)
+        +margin-leader(1/4)
         +t-small
-        height: rhythm(4/3)
+        height: 30px
         width: 100%
-        padding-left: rhythm(1/2)
-        padding-right: rhythm(1/2)
       input[type='submit']
         +active-link(white, $textColor, $activeLink, $blackColor1)
         border: 1px solid $activeLink
@@ -59,10 +55,10 @@ footer
       +t-small
       border-top: 1px solid $blackColor3
       color: $textColor
-      +desktop-media
-        +span(6)
-      +tablet-media
-        +span(8)
       +mobile-media
         +span(12)
         text-align: center
+      +tablet-media
+        +span(8)
+      +desktop-media
+        +span(6)
