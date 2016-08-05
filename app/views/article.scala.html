@@ -1,25 +1,46 @@
 @main("barracuda.news") {
 
     <article>
+        <span class="close" ng-click="closeArticle()"></span>
         <section class="container">
 
-            <h1>This is heading This is heading This is heading This is heading This is heading This is heading 1</h1>
-            <p>This paragraph contains a lot of lines in the source code, but the browser ignores it. This paragraph contains a lot of lines in the source code, but the browser ignores it. This paragraph contains a lot of lines in the source code, but the browser ignores it.</p>
-            <p>This paragraph contains a lot of lines in the source code, but the browser ignores it.</p>
-            <p>This paragraph contains a lot of lines in the source code, but the browser ignores it. This paragraph contains a lot of lines in the source code, but the browser ignores it. This paragraph contains a lot of lines in the source code, but the browser ignores it.</p>
-            <h2>This is heading 2</h2>
-            <p>This paragraph contains a lot of spaces in the source code, but the browser ignores it. This paragraph contains a lot of lines in the source code, but the browser ignores it.</p>
-            <p>This paragraph contains a lot of spaces in the source code, but the browser ignores it. This paragraph contains a lot of lines in the source code, but the browser ignores it.</p>
-            <img src="https://placekitten.com/640/320" alt="kitten">
-            <p>This paragraph contains a lot of spaces in the source code, but the browser ignores it.</p>
-            <h3>This is heading 3</h3>
-            <p>The number of lines in a paragraph depends on the size of the browser window. If you resize the browser window, the number of lines in this paragraph will change.</p>
-            <p>The number of lines in a paragraph depends on the size of the browser window. If you resize the browser window, the number of lines in this paragraph will change.</p>
-            <p>The number of lines in a paragraph depends on the size of the browser window. If you resize the browser window, the number of lines in this paragraph will change.</p>
-            <h3>This is heading 3</h3>
-            <p>The number of lines in a paragraph depends on the size of the browser window. If you resize the browser window, the number of lines in this paragraph will change.</p>
-            <p>The number of lines in a paragraph depends on the size of the browser window. If you resize the browser window, the number of lines in this paragraph will change.</p>
-            <p>The number of lines in a paragraph depends on the size of the browser window. If you resize the browser window, the number of lines in this paragraph will change.</p>
+            <div class="article-header">
+                <h1>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat</h1>
+                <div class="article-info">
+                    <span class="source"><a href="http://news360.com">news360.com</a></span>
+                    <span class="date">2016/08/05 20:58:02</span>
+                </div>
+            </div>
+            <div class="article-body">
+                <p>Mei ea facete perpetua constituto, quo reque augue labitur ne. Est cu utinam vituperata complectitur, aliquid antiopam sit no. Te eum deseruisse omittantur, nostro integre invenire ne mei. Has tale laudem quaestio ad, vitae albucius officiis te per, doming deleniti intellegebat sea ad. Vis ne praesent scribentur omittantur. Per no facilisis dignissim, sea ad nulla tamquam. Fierent detraxit mel no.</p>
+                <p>Nam facilisis dignissim voluptaria eu, dicunt consectetuer cum cu. Vel no alienum conceptam. Ut wisi singulis duo, error officiis ut mel, eos ea esse dolor mediocritatem. An lucilius legendos vix, harum soluta quaestio his ad. Ei vim elit eleifend antiopam.</p>
+                <p>Eu pri simul feugiat meliore, ea quo nostrud deleniti dissentias. Saperet evertitur te vis. Sed id deserunt elaboraret conclusionemque. Ius ne delenit utroque delicatissimi. Ei duo mediocrem consectetuer, his eu mutat homero sanctus. Viderer mentitum iracundia mea et, alii fugit per te, has reque tollit lucilius an.</p>
+                <h2>This is heading 2</h2>
+                <p>Nam facilisis dignissim voluptaria eu, dicunt consectetuer cum cu. Vel no alienum conceptam. Ut wisi singulis duo, error officiis ut mel, eos ea esse dolor mediocritatem. An lucilius legendos vix, harum soluta quaestio his ad. Ei vim elit eleifend antiopam. Eu pri simul feugiat meliore, ea quo nostrud deleniti dissentias. Saperet evertitur te vis. Sed id deserunt elaboraret conclusionemque. Ius ne delenit utroque delicatissimi. Ei duo mediocrem consectetuer, his eu mutat homero sanctus. Viderer mentitum iracundia mea et, alii fugit per te, has reque tollit lucilius an.</p>
+                <img src="https://placekitten.com/640/320" alt="kitten">
+                <p>Nam facilisis dignissim voluptaria eu, dicunt consectetuer cum cu. Vel no alienum conceptam. Ut wisi singulis duo, error officiis ut mel, eos ea esse dolor mediocritatem. An lucilius legendos vix, harum soluta quaestio his ad. Ei vim elit eleifend antiopam.</p>
+                <h3>This is heading 3</h3>
+                <p>The number of lines in a paragraph depends on the size of the browser window. If you resize the browser window, the number of lines in this paragraph will change.</p>
+                <p>The number of lines in a paragraph depends on the size of the browser window. If you resize the browser window, the number of lines in this paragraph will change. The number of lines in a paragraph depends on the size of the browser window. If you resize the browser window, the number of lines in this paragraph will change.</p>
+                <h3>Interview</h3>
+                <p class="q">
+                    За последние полгода, после того как вы ушли из «Сноба», вы дали несколько интервью, в которых говорили, что достигли карьерного тупика и журналистикой больше заниматься не собираетесь. В чем этот тупик заключался?
+                </p>
+                <p class="a">
+                    Это было абсолютно практическое соображение. Я привыкла прогрессировать — я думаю, что для многих людей это нормальная ситуация. А тут я просто увидела потолок. Учитывая то, чем я занималась раньше, продолжать имело бы смысл, например, делая авторский проект на телевидении или работая в каком-то крупном государственном новостном агентстве. Но я не могла этого делать в силу идеологических причин — да меня туда никто бы и не позвал в силу моей относительной неблагонадежности. Помните, как в «Маленьком принце»? Так он распрощался со своей блестящей карьерой художника.
+                </p>
+                <blockquote class="source-quote">
+                    <a href="http://news360.com" target="_blank">
+                        <p>This is heading This is heading This is heading This is heading This is heading</p>
+                        <cite class="source">news360.com</cite>
+                    </a>
+                </blockquote>
+            </div>
+            <div class="adv">
+                <div class="banner">
+                    <img src="http://placehold.it/300x600">
+                </div>
+            </div>
 
         </section>
     </article>

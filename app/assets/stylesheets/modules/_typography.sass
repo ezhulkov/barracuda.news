@@ -11,8 +11,8 @@ $base-font-color: #303033 !global
 
 $font-size-types: ("tiny", "small", "base", "medium", "large", "xlarge")
 $font-size-coeff: (0.694, 0.833, 1, 1.2, 1.44, 1.728)
-$font-weight-types: ("ultrastrong", "strong", "regular", "light", "ultralight")
-$font-weight: (900, 700, 400, 300, 200)
+$font-weight-types: ("ultrastrong", "strong", "regular", "light")
+$font-weight: (800, 700, 400, 300)
 
 =type-size($size)
   $idx: index($font-size-types, $size)
@@ -35,9 +35,6 @@ $font-weight: (900, 700, 400, 300, 200)
 =t-light
   +type-weight(light)
 
-=t-ultralight
-  +type-weight(ultralight)
-
 .t-ultrastrong
   +t-ultrastrong
 
@@ -49,9 +46,6 @@ $font-weight: (900, 700, 400, 300, 200)
 
 .t-light
   +t-light
-
-.t-ultralight
-  +t-ultralight
 
 =t-tiny
   +type-size(tiny)
@@ -88,18 +82,6 @@ $font-weight: (900, 700, 400, 300, 200)
 
 .t-xlarge
   +t-xlarge
-
-article
-  +rhythm-padding(1)
-  p
-    +hyphenation
-  img, iframe
-    +margin-trailer(1)
-    display: block
-    max-width: 100%
-    margin: auto
-  #{headers(2,4)}
-    +margin-leader(1)
 
 h1
   +t-xlarge

@@ -1,0 +1,111 @@
+@import "compass"
+@import "susy"
+@import "mixins"
+
+article
+  +padding-leader(1)
+  +padding-trailer(3)
+  +rhythm-margins(1)
+  background-color: rgba(white, 0.9)
+  position: relative
+  .article-header
+    +span(12)
+    +padding-trailer(1)
+    +desktop-media
+      +span(8)
+      +post(4)
+    +xdesktop-media
+      +span(7)
+      +pre(1)
+      +post(4)
+    .article-info
+      +t-small
+      color: $blackColor4
+      border-bottom: 1px solid $blackColor4
+      margin-bottom: -1px
+      +desktop-media
+        border-bottom: none
+        margin-bottom: 0
+      & > span
+        margin-right: rhythm(1)
+  .source, .date
+    +t-small
+  .source
+    +active-link($blackColor4)
+  .source:before, .date:before
+    +fa
+    margin-right: 5px
+  .source:before
+    content: "\f061"
+  .date:before
+    content: "\f017"
+  .article-body
+    +span(12)
+    +desktop-media
+      +span(8)
+    +xdesktop-media
+      +span(7)
+      +pre(1)
+  .adv
+    display: none
+    +desktop-media
+      +span(4)
+      display: block
+      min-height: 600px
+      img
+        margin: 0
+  .close
+    display: none
+    +desktop-media
+      cursor: pointer
+      display: block
+      position: absolute
+      right: rhythm(1/2)
+      top: rhythm(1/2)
+      width: 32px
+      height: 32px
+      &:before, &:after
+        position: absolute
+        left: 15px
+        content: ' '
+        height: 33px
+        width: 2px
+        background-color: $blackTextColor
+        transition: all 0.2s ease-in-out
+      &:hover:before, &:hover:after
+        background-color: $activeLink
+      &:before
+        transform: rotate(45deg)
+      &:after
+        transform: rotate(-45deg)
+  .source-quote
+    +rhythm-margins(1)
+    padding: rhythm(1)
+    background-color: lightgray
+    border-left: 5px solid $activeLink
+    a
+      +active-link($blackTextColor)
+    p
+      +padding-trailer(1/2)
+      +margin-trailer(1/2)
+      border-bottom: 1px solid $blackColor4
+    cite
+      margin-top: -1px
+    &:hover p
+      border-bottom: 1px solid $activeLink
+  p
+    +hyphenation
+    +padding-trailer(1)
+    &.q:before, &.a:before
+      content: "—"
+    &.q
+      +t-strong
+  cite
+    display: block
+  img, iframe
+    +padding-trailer(1)
+    display: block
+    max-width: 100%
+    margin: auto
+  #{headers(2,4)}
+    +margin-trailer(1)
