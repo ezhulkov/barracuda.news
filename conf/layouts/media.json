@@ -1,0 +1,72 @@
+{
+  "rows": [
+    {
+      "height": "HEIGHT3",
+      "blocks": [
+        {
+          "newsType": "PHOTO",
+          "caption": "Photo Gallery",
+          "tag": "gallery",
+          "size": "SIZE12"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT3",
+      "blocks": [
+        {
+          "newsType": "PHOTO",
+          "caption": "Photo Gallery",
+          "tag": "gallery",
+          "size": "SIZE12"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "newsType": "TEXT",
+          "tag": "sub_news",
+          "size": "SIZE4",
+          "featured": true
+        },
+        {
+          "newsType": "PHOTO",
+          "caption": "Personal stories",
+          "featured": true,
+          "tag": "stories",
+          "size": "SIZE4"
+        },
+        {
+          "newsType": "VIDEO",
+          "tag": "video",
+          "size": "SIZE4"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "newsType": "TEXT",
+          "tag": "sub_news",
+          "size": "SIZE4",
+          "featured": true
+        },
+        {
+          "newsType": "PHOTO",
+          "caption": "Personal stories",
+          "featured": true,
+          "tag": "stories",
+          "size": "SIZE4"
+        },
+        {
+          "newsType": "VIDEO",
+          "tag": "video",
+          "size": "SIZE4"
+        }
+      ]
+    }
+  ]
+}

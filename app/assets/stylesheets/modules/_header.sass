@@ -4,7 +4,7 @@
 @import "compass/typography/vertical_rhythm"
 
 $linkColors: (#f6976a, #f26522, #48c4eb, #ee7b0e, #9d34a6)
-$delimiter-width: 2px
+$delimiter-width: 2px !global
 $corporate-lines: 5
 $menu-lines: 2
 
@@ -20,43 +20,6 @@ header
       border-right: 1px solid $blackColor3
       img
         vertical-align: middle
-    .tool
-      +active-link($color: $textColor, $bgColor: $blackColor3, $hoverBgColor: $blackColor3)
-      color: $textColor
-      position: absolute
-      top: 50%
-      margin-top: -25px
-      cursor: pointer
-      font-size: 16px
-      width: 60px
-      line-height: 50px
-      border: none
-      text-align: center
-      vertical-align: middle
-      background-color: $blackColor3
-      &.info
-        left: -8px
-        &:after
-          left: 0
-          border-color: #101010 #101010 transparent transparent !important
-        &:before
-          content: "\f129"
-      &.search
-        right: -8px
-        &:after
-          right: 0
-          border-color: #101010 transparent transparent #101010 !important
-        &:before
-          content: "\f002"
-      +desktop-media
-        &:after
-          border-style: solid
-          border-width: 2px 3px
-          content: ""
-          height: 0
-          position: absolute
-          top: 100%
-          width: 0
   .menu
     +mobile-media
       display: none
@@ -71,26 +34,32 @@ header
       +no-bullets
       height: rhythm($menu-lines)
       li
-        +pad(25px, 25px)
         +float-left
         display: block
         position: relative
         cursor: pointer
-        a
-          +t-small
-          +rhythm-padding(($menu-lines - 1)/2)
-          display: block
-          position: relative
-    ul.lang
+      a
+        +t-small
+        +rhythm-padding(($menu-lines - 1)/2)
+        text-transform: uppercase
+        display: block
+        position: relative
+    ul.categories li
+      +pad(25px, 25px)
+    ul.tools
       +float-right
+      margin-right: 25px
       li
+        +pad(15px, 0)
         a
           +active-link($color: $textColor)
-          text-transform: uppercase
-          &:after
-            +fa
-            margin-left: 5px
-            content: "\f107"
+        a:after
+          +fa
+      li.lang a:after
+        margin-left: 5px
+        content: "\f107"
+      li.search a:after
+        content: "\f002"
     ul.categories
       +float-left
       li

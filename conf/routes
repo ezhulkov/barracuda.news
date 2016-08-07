@@ -1,10 +1,7 @@
 
 GET        /                    controllers.GuiController.index
+GET        /topic/:name         controllers.GuiController.topic(name:String)
 GET        /article             controllers.GuiController.article
-GET        /stories             controllers.GuiController.stories
-GET        /media               controllers.GuiController.media
-GET        /fish                controllers.GuiController.fish
-GET        /tracking            controllers.GuiController.tracking
 GET        /about               controllers.GuiController.about
 GET        /adv                 controllers.GuiController.adv
 GET        /contacts            controllers.GuiController.contacts

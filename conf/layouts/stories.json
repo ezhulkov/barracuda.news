@@ -1,0 +1,51 @@
+{
+  "rows": [
+    {
+      "height": "HEIGHT3",
+      "blocks": [
+        {
+          "newsType": "PHOTO",
+          "caption": "Story of the day",
+          "tag": "gallery",
+          "size": "SIZE12",
+          "featured": true
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "newsType": "PHOTO",
+          "tag": "stories",
+          "size": "SIZE4"
+        },
+        {
+          "newsType": "PHOTO",
+          "tag": "stories",
+          "size": "SIZE4"
+        },
+        {
+          "newsType": "PHOTO",
+          "tag": "stories",
+          "size": "SIZE4"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "newsType": "PHOTO",
+          "tag": "stories",
+          "size": "SIZE8"
+        },
+        {
+          "newsType": "PHOTO",
+          "tag": "stories",
+          "size": "SIZE4"
+        }
+      ]
+    }
+  ]
+}

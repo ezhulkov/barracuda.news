@@ -1,0 +1,32 @@
+{
+  "rows": [
+    {
+      "height": "HEIGHT3",
+      "blocks": [
+        {
+          "newsType": "TEXT",
+          "tag": "tracking",
+          "size": "SIZE6",
+          "caption": "Tracking"
+        },
+        {
+          "newsType": "TEXT",
+          "tag": "tracking",
+          "size": "SIZE6",
+          "caption": "Tracking"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "newsType": "TEXT",
+          "tag": "sub_news",
+          "size": "SIZE12",
+          "featured": true
+        }
+      ]
+    }
+  ]
+}

@@ -17,19 +17,24 @@ class GuiController @Inject()(
   import models.Implicits.JsonImplicits._
   import scala.concurrent.ExecutionContext.Implicits.global
 
-  lazy val sampleNewsStr = env.resourceAsStream("layouts/news.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException("no sample news"))
-  lazy val mainLayoutStr = env.resourceAsStream("layouts/main.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException("no main layout"))
-  lazy val sampleNews    = Json.parse(sampleNewsStr).as[Seq[PeaceOfNews]].flatMap(t => t.tags.map(tag => tag -> t)).groupBy { case (t, n) => t }.map { case (t, v) => t -> v.map(k => k._2) }
-  lazy val mainLayout    = Json.parse(mainLayoutStr).as[Layout]
+  private val sampleNews    = Json.parse(layoutContentStr("news")).as[Seq[PeaceOfNews]].flatMap(t => t.tags.map(tag => tag -> t)).groupBy { case (t, n) => t }.map { case (t, v) => t -> v.map(k => k._2) }
+  private val layouts       = Map(
+    parsedLayout("main"),
+    parsedLayout("stories"),
+    parsedLayout("tracking"),
+    parsedLayout("media"),
+    parsedLayout("fish")
+  )
 
-  def index = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
+  def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
+  def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
+
+  def index = LoggingAction.async { implicit request => Future(Ok(views.html.index(layouts.get("main"), sampleNews))) }
   def article = LoggingAction.async { implicit request => Future(Ok(views.html.article())) }
-  def stories = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
-  def media = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
-  def tracking = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
-  def fish = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
-  def about = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
-  def contacts = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
-  def adv = LoggingAction.async { implicit request => Future(Ok(views.html.index(mainLayout, sampleNews))) }
+  def topic(name: String) = LoggingAction.async { implicit request => Future(Ok(views.html.topic(layouts.get(name), sampleNews))) }
+
+  def about = LoggingAction.async { implicit request => Future(Ok(views.html.about())) }
+  def contacts = LoggingAction.async { implicit request => Future(Ok(views.html.contacts())) }
+  def adv = LoggingAction.async { implicit request => Future(Ok(views.html.adv())) }
 
 }

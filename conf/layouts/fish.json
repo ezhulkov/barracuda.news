@@ -1,0 +1,49 @@
+{
+  "rows": [
+    {
+      "height": "HEIGHT3",
+      "blocks": [
+        {
+          "newsType": "TEXT",
+          "tag": "main_news",
+          "size": "SIZE6"
+        },
+        {
+          "newsType": "TEXT",
+          "tag": "tracking",
+          "size": "SIZE6"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT3",
+      "blocks": [
+        {
+          "newsType": "TEXT",
+          "tag": "main_news",
+          "size": "SIZE4"
+        },
+        {
+          "newsType": "TEXT",
+          "tag": "tracking",
+          "size": "SIZE4"
+        },
+        {
+          "newsType": "TEXT",
+          "tag": "tracking",
+          "size": "SIZE4"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "newsType": "TEXT",
+          "tag": "main_news",
+          "size": "SIZE12"
+        }
+      ]
+    }
+  ]
+}
