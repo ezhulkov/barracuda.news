@@ -9,5 +9,8 @@ $(window).load ->
 
 app = angular.module "barracudaApp", []
 app.controller "MainController", ($timeout, $window, $scope, $http) ->
+  $scope.searchOn = false
   $scope.closeArticle = ->
     window.location = "/"
+  $scope.toggleSearch = ->
+    $scope.searchOn = !$scope.searchOn

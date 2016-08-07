@@ -2,6 +2,7 @@
 @import "compass"
 @import "susy"
 @import "compass/typography/vertical_rhythm"
+@import compass/layout/stretching
 
 $linkColors: (#f6976a, #f26522, #48c4eb, #ee7b0e, #9d34a6)
 $delimiter-width: 2px !global
@@ -38,7 +39,8 @@ header
         display: block
         position: relative
         cursor: pointer
-      a
+      a, div
+        +t-strong
         +t-small
         +rhythm-padding(($menu-lines - 1)/2)
         text-transform: uppercase
@@ -51,14 +53,14 @@ header
       margin-right: 25px
       li
         +pad(15px, 0)
-        a
-          +active-link($color: $textColor)
-        a:after
+        +active-link($color: $textColor)
+        text-transform: uppercase
+        div:after
           +fa
-      li.lang a:after
+      li.lang > div:after
         margin-left: 5px
         content: "\f107"
-      li.search a:after
+      li.search > div:after
         content: "\f002"
     ul.categories
       +float-left
@@ -87,3 +89,23 @@ header
           height: 100%
         &.active a
           color: $activeLink
+
+body
+  .search-overlay
+    +stretch()
+    +transition(opacity 0.1s ease-in)
+    +opacity(0)
+    background-color: rgba(black, 0.9)
+    z-index: 10
+    visibility: hidden
+    overflow: auto
+    pointer-events: auto
+  &.search-active
+    overflow: hidden
+    main
+      +filter(blur(3px))
+    .search-overlay
+      +opacity(1)
+      visibility: visible
+
+

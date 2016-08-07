@@ -118,7 +118,10 @@ main {
   justify-content: flex-start;
   -webkit-align-content: stretch;
   align-content: stretch;
+  position: relative;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html, body {
@@ -144,6 +147,34 @@ html, body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid grey !important;
+}
+
+.close {
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  right: 0.75em;
+  top: 0.75em;
+  width: 32px;
+  height: 32px;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: " ";
+  height: 33px;
+  width: 2px;
+  background-color: #eee;
+  transition: all 0.2s ease-in-out;
+}
+.close:hover:before, .close:hover:after {
+  background-color: #f26522;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
 }
 
 .btn {
@@ -343,7 +374,8 @@ header .menu ul li {
   position: relative;
   cursor: pointer;
 }
-header .menu ul a {
+header .menu ul a, header .menu ul div {
+  font-weight: 700;
   font-size: 13px;
   font-size: 0.833rem;
   line-height: 24px;
@@ -370,20 +402,21 @@ header .menu ul.tools li {
   padding-left: 15px;
   padding-left: 0.9375rem;
   padding-right: 0%;
+  text-transform: uppercase;
 }
-header .menu ul.tools li a, header .menu ul.tools li a * {
+header .menu ul.tools li, header .menu ul.tools li * {
   cursor: pointer;
   color: #ddd;
   background-color: initial;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
-header .menu ul.tools li a:hover, header .menu ul.tools li a:hover * {
+header .menu ul.tools li:hover, header .menu ul.tools li:hover * {
   color: #f26522 !important;
   background-color: initial;
   text-decoration: none;
 }
-header .menu ul.tools li a:after {
+header .menu ul.tools li div:after {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -391,11 +424,11 @@ header .menu ul.tools li a:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-header .menu ul.tools li.lang a:after {
+header .menu ul.tools li.lang > div:after {
   margin-left: 5px;
   content: "";
 }
-header .menu ul.tools li.search a:after {
+header .menu ul.tools li.search > div:after {
   content: "";
 }
 header .menu ul.categories {
@@ -454,6 +487,37 @@ header .menu ul.categories li:hover:after {
 }
 header .menu ul.categories li.active a {
   color: #f26522;
+}
+
+body .search-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -moz-transition: opacity 0.1s ease-in;
+  -o-transition: opacity 0.1s ease-in;
+  -webkit-transition: opacity 0.1s ease-in;
+  transition: opacity 0.1s ease-in;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+  visibility: hidden;
+  overflow: auto;
+  pointer-events: auto;
+}
+body.search-active {
+  overflow: hidden;
+}
+body.search-active main {
+  -webkit-filter: blur(3px);
+  filter: blur(3px);
+}
+body.search-active .search-overlay {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+  visibility: visible;
 }
 
 footer {
@@ -987,31 +1051,10 @@ article .close {
 }
 @media screen and (min-width: 60em) {
   article .close {
-    cursor: pointer;
     display: block;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.75rem;
-    width: 32px;
-    height: 32px;
   }
   article .close:before, article .close:after {
-    position: absolute;
-    left: 15px;
-    content: " ";
-    height: 33px;
-    width: 2px;
     background-color: #333;
-    transition: all 0.2s ease-in-out;
-  }
-  article .close:hover:before, article .close:hover:after {
-    background-color: #f26522;
-  }
-  article .close:before {
-    transform: rotate(45deg);
-  }
-  article .close:after {
-    transform: rotate(-45deg);
   }
 }
 article .source-quote {
