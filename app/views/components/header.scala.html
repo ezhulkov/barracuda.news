@@ -9,18 +9,21 @@
             </a>
         </section>
     </section>
-    <section class="menu">
+    <section class="menu" ng-class="{'menu-active': menuOn}">
         <section class="container">
+            <div class="menu-button" ng-click="toggleMenu()">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </div>
+            <ul class="tools">
+                <li class="search" ng-click="toggleSearch()"><div></div></li>
+                <li class="lang" ng-click="toggleLang()"><div>Eng</div></li>
+            </ul>
             <ul class="categories">
                 <li class="color1"><a href="@routes.GuiController.index">News</a></li>
                 <li class="color2"><a href="@routes.GuiController.topic("stories")">Stories</a></li>
                 <li class="color3"><a href="@routes.GuiController.topic("tracking")">Tracking</a></li>
                 <li class="color4"><a href="@routes.GuiController.topic("media")">Media</a></li>
                 <li class="color5"><a href="@routes.GuiController.topic("fish")">Fish production</a></li>
-            </ul>
-            <ul class="tools">
-                <li class="search" ng-click="toggleSearch()"><div></div></li>
-                <li class="lang" ng-click="toggleLang()"><div>Eng</div></li>
             </ul>
         </section>
     </section>

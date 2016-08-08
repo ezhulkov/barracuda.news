@@ -22,6 +22,7 @@ app.filter "rawHtml", ($sce) ->
 
 app.controller "MainController", ($timeout, $window, $scope, $http) ->
   $scope.searchOn = false
+  $scope.menuOn = false
   $scope.searchString = undefined
   $scope.items = []
   $scope.search = ->
@@ -35,3 +36,5 @@ app.controller "MainController", ($timeout, $window, $scope, $http) ->
     window.location = "/"
   $scope.toggleSearch = ->
     $scope.searchOn = !$scope.searchOn
+  $scope.toggleMenu = ->
+    $scope.menuOn = !$scope.menuOn
