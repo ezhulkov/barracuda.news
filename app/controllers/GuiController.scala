@@ -17,8 +17,8 @@ class GuiController @Inject()(
   import models.Implicits.JsonImplicits._
   import scala.concurrent.ExecutionContext.Implicits.global
 
-  private val sampleNews    = Json.parse(layoutContentStr("news")).as[Seq[PeaceOfNews]].flatMap(t => t.tags.map(tag => tag -> t)).groupBy { case (t, n) => t }.map { case (t, v) => t -> v.map(k => k._2) }
-  private val layouts       = Map(
+  private val sampleNews = Json.parse(layoutContentStr("news")).as[Seq[PeaceOfNews]].flatMap(t => t.tags.map(tag => tag -> t)).groupBy { case (t, n) => t }.map { case (t, v) => t -> v.map(k => k._2) }
+  private val layouts    = Map(
     parsedLayout("main"),
     parsedLayout("stories"),
     parsedLayout("tracking"),
@@ -32,6 +32,8 @@ class GuiController @Inject()(
   def index = LoggingAction.async { implicit request => Future(Ok(views.html.index(layouts.get("main"), sampleNews))) }
   def article = LoggingAction.async { implicit request => Future(Ok(views.html.article())) }
   def topic(name: String) = LoggingAction.async { implicit request => Future(Ok(views.html.topic(layouts.get(name), sampleNews))) }
+
+  def search(q: String) = Action.async { implicit request => Future(Ok(Json.toJson(sampleNews.flatMap(t => t._2).filter(t => t.searchMatch(q)).take(5))).as(JSON)) }
 
   def about = LoggingAction.async { implicit request => Future(Ok(views.html.about())) }
   def contacts = LoggingAction.async { implicit request => Future(Ok(views.html.contacts())) }

@@ -1,9 +1,10 @@
 
-GET        /                    controllers.GuiController.index
-GET        /topic/:name         controllers.GuiController.topic(name:String)
-GET        /article             controllers.GuiController.article
-GET        /about               controllers.GuiController.about
-GET        /adv                 controllers.GuiController.adv
-GET        /contacts            controllers.GuiController.contacts
+GET         /                    controllers.GuiController.index
+GET         /topic/:name         controllers.GuiController.topic(name:String)
+GET         /article             controllers.GuiController.article
+GET         /about               controllers.GuiController.about
+GET         /adv                 controllers.GuiController.adv
+GET         /contacts            controllers.GuiController.contacts
+POST        /search              controllers.GuiController.search(q:String)
 
-GET        /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)

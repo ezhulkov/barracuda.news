@@ -17,8 +17,9 @@ header
       line-height: rhythm($corporate-lines)
       text-align: center
       position: relative
-      border-left: 1px solid $blackColor3
-      border-right: 1px solid $blackColor3
+      +tablet-media
+        border-left: 1px solid $blackColor3
+        border-right: 1px solid $blackColor3
       img
         vertical-align: middle
   .menu
@@ -95,11 +96,43 @@ body
     +stretch()
     +transition(opacity 0.1s ease-in)
     +opacity(0)
-    background-color: rgba(black, 0.9)
+    background-color: rgba(black, 0.8)
     z-index: 10
     visibility: hidden
     overflow: auto
     pointer-events: auto
+    .search-input, .result
+      +span(12)
+      +desktop-media
+        +span(10)
+        +push(1)
+      +xdesktop-media
+        +span(8)
+        +push(2)
+    .search-input
+      +margin-leader(3)
+      input[type="text"]
+        &:after
+          +fa
+          content: "\f002"
+        +t-large
+        width: 100%
+        outline: none
+        color: white
+        position: relative
+        border: none
+        background-color: transparent
+        border-bottom: 1px solid $whiteColor
+    .result
+      +margin-leader(1)
+      color: $whiteColor
+      li
+        border-bottom: 1px solid $whiteColor
+        margin-bottom: -1px
+      h2
+        line-height: rhythm(3/2)
+        a
+          +active-link()
   &.search-active
     overflow: hidden
     main

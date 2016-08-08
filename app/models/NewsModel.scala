@@ -45,6 +45,10 @@ object NewsModel {
   sealed case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
   sealed case class NewsMedia(source: String, text: Option[String])
   sealed case class PeaceOfNews(text: String, dateMillis: Long, tags: Iterable[String], caption: Option[String] = None, media: Option[Seq[NewsMedia]]) {
+    def searchMatch(q: String) = {
+      val lCQ = q.toLowerCase
+      text.toLowerCase.contains(lCQ) || caption.getOrElse("").contains(lCQ)
+    }
     def date = DateTime.now()
     def dateFormatted = date.toString("yyyy/MM/dd HH:mm:SS")
     def firstSource = media.flatMap(m => m.headOption).map(t => t.source).orNull
