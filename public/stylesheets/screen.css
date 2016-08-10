@@ -1251,4 +1251,53 @@ article h2, article h3, article h4 {
   margin-bottom: 1.5rem;
 }
 
+main.admin-area {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+main.admin-area:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+main.admin-area > * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid grey !important;
+}
+main.admin-area header, main.admin-area footer {
+  height: 3rem;
+}
+main.admin-area section {
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+}
+main.admin-area section aside {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid grey !important;
+  width: 75px;
+}
+main.admin-area section .content {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid grey !important;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
 /*# sourceMappingURL=screen.css.map */

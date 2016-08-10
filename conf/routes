@@ -7,4 +7,7 @@ GET         /adv                 controllers.GuiController.adv
 GET         /contacts            controllers.GuiController.contacts
 POST        /search              controllers.GuiController.search(q:String)
 
+GET         /admin               controllers.AdminController.index
+GET         /admin/layout        controllers.AdminController.layout
+
 GET         /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)

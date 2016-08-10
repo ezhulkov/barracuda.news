@@ -1,9 +1,9 @@
-@import components._
-@import models.NewsModel._
+@import models.NewsModel.PeaceOfNews
+@import models.NewsModel.Layout
 
 @(layout: Option[Layout], news: Map[String, Seq[PeaceOfNews]])
 
-@main("barracuda.news") {
+@space.front("barracuda.news") {
 
     <section class="news-grid">
         <section class="container">

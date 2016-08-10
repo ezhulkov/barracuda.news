@@ -1,0 +1,13 @@
+@(title: String)(content: Html)
+
+@space.main(title) {
+
+    <main>
+        @components.header()
+        @content
+        @components.footer()
+    </main>
+    @components.search()
+
+
+}
