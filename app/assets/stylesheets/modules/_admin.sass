@@ -1,24 +1,96 @@
 @import "compass"
 @import "susy"
 @import "mixins"
+@import "compass/typography/vertical_rhythm"
 
-+with-layout(12 static inside)
+$menu-width: 180px
+$submenu-width: 140px
+$pad: 20px
+
++with-layout(12 fluid inside)
   main.admin-area
+    //+debug-vertical-alignment()
     +container(100%)
-    +display-flex()
-    +flex-direction(column)
-    & > *
-      +border()
-    header, footer
+    position: relative
+    display: block
+    & > header
+      background-color: $blackColor2
       height: rhythm(2)
-    section
-      +flex(1 1 auto)
-      +display-flex()
-      +flex-direction(row)
-      +align-items(stretch)
-      aside
-        +border()
-        width: 75px
-      .content
-        +border()
-        +flex(1 1 auto)
+      line-height: rhythm(2)
+      color: $whiteColor
+      padding-left: $pad
+      position: fixed
+      width: 100%
+      top: 0
+    & > aside.main-menu
+      background-color: $blackColor2
+      position: fixed
+      top: rhythm(2)
+      bottom: 0
+      left: 0
+      width: $menu-width
+      li
+        a
+          +rhythm-padding(1/2)
+          +active-link()
+          width: 100%
+          display: block
+          padding-left: $pad
+        a:before
+          +fa
+          padding-right: 10px
+      li.active, li:hover
+        background-color: $blackColor1
+        a
+          color: $activeLink
+      #news a:before
+        content: "\f1ea"
+      #layouts a:before
+        content: "\f00a"
+    & > aside.sub-menu
+      background-color: white
+      border-left: 1px solid $blackColor2
+      position: fixed
+      top: rhythm(2)
+      right: 0
+      bottom: 0
+      width: $submenu-width
+      ul
+        +padding-leader(1)
+        a
+          +active-link($color: $darkBlueColor)
+          padding-left: $pad
+          color: $activeLink
+          width: 100%
+          display: block
+    & > section
+      +padding-leader(3)
+      +padding-trailer(3)
+      padding-left: $pad
+      padding-right: $pad
+      margin-left: $menu-width
+    &.submenu-on > section
+      padding-right: $submenu-width + $pad
+    section.news-section
+      .pagination
+        +margin-leader(1)
+        li
+          +t-large
+          +active-link($blackTextColor)
+          +float-left
+          padding-right: 10px
+        li.active a
+          color: $activeLink
+      .item
+        +trailing-border(1px, $lines: 1/2)
+        +margin-trailer(1/2)
+        h2
+          +active-link($blackTextColor)
+        .tags
+          overflow: auto
+          li
+            +t-small
+            +float-left
+            padding-right: 5px
+        .date
+          +t-small

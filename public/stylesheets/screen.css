@@ -1308,52 +1308,196 @@ article h2, article h3, article h4 {
 }
 
 main.admin-area {
-  width: 100%;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
+  position: relative;
+  display: block;
 }
 main.admin-area:after {
   content: " ";
   display: block;
   clear: both;
 }
-main.admin-area > * {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid grey !important;
-}
-main.admin-area header, main.admin-area footer {
+main.admin-area > header {
+  background-color: #262626;
   height: 3rem;
+  line-height: 3rem;
+  color: #eee;
+  padding-left: 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
-main.admin-area section {
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: stretch;
-  align-items: stretch;
+main.admin-area > aside.main-menu {
+  background-color: #262626;
+  position: fixed;
+  top: 3rem;
+  bottom: 0;
+  left: 0;
+  width: 180px;
 }
-main.admin-area section aside {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid grey !important;
-  width: 75px;
+main.admin-area > aside.main-menu li a {
+  padding-top: 12px;
+  padding-top: 0.75rem;
+  padding-bottom: 12px;
+  padding-bottom: 0.75rem;
+  width: 100%;
+  display: block;
+  padding-left: 20px;
 }
-main.admin-area section .content {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid grey !important;
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
+main.admin-area > aside.main-menu li a, main.admin-area > aside.main-menu li a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #ddd;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area > aside.main-menu li a:hover, main.admin-area > aside.main-menu li a:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area > aside.main-menu li a:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-right: 10px;
+}
+main.admin-area > aside.main-menu li.active, main.admin-area > aside.main-menu li:hover {
+  background-color: #1E1E1E;
+}
+main.admin-area > aside.main-menu li.active a, main.admin-area > aside.main-menu li:hover a {
+  color: #f26522;
+}
+main.admin-area > aside.main-menu #news a:before {
+  content: "";
+}
+main.admin-area > aside.main-menu #layouts a:before {
+  content: "";
+}
+main.admin-area > aside.sub-menu {
+  background-color: white;
+  border-left: 1px solid #262626;
+  position: fixed;
+  top: 3rem;
+  right: 0;
+  bottom: 0;
+  width: 140px;
+}
+main.admin-area > aside.sub-menu ul {
+  padding-top: 24px;
+  padding-top: 1.5rem;
+}
+main.admin-area > aside.sub-menu ul a {
+  padding-left: 20px;
+  color: #f26522;
+  width: 100%;
+  display: block;
+}
+main.admin-area > aside.sub-menu ul a, main.admin-area > aside.sub-menu ul a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: darkblue;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area > aside.sub-menu ul a:hover, main.admin-area > aside.sub-menu ul a:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area > section {
+  padding-top: 72px;
+  padding-top: 4.5rem;
+  padding-bottom: 72px;
+  padding-bottom: 4.5rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 180px;
+}
+main.admin-area.submenu-on > section {
+  padding-right: 160px;
+}
+main.admin-area section.news-section .pagination {
+  margin-top: 24px;
+  margin-top: 1.5rem;
+}
+main.admin-area section.news-section .pagination li {
+  font-size: 23px;
+  font-size: 1.44rem;
+  line-height: 48px;
+  line-height: 3rem;
+  float: left;
+  padding-right: 10px;
+}
+main.admin-area section.news-section .pagination li, main.admin-area section.news-section .pagination li * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #333;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area section.news-section .pagination li:hover, main.admin-area section.news-section .pagination li:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area section.news-section .pagination li.active a {
+  color: #f26522;
+}
+main.admin-area section.news-section .item {
+  border-bottom-width: 1px;
+  border-bottom-width: 0.0625rem;
+  border-bottom-style: solid;
+  padding-bottom: 11px;
+  padding-bottom: 0.6875rem;
+  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
+}
+main.admin-area section.news-section .item h2, main.admin-area section.news-section .item h2 * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #333;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area section.news-section .item h2:hover, main.admin-area section.news-section .item h2:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area section.news-section .item .tags {
+  overflow: auto;
+}
+main.admin-area section.news-section .item .tags li {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  float: left;
+  padding-right: 5px;
+}
+main.admin-area section.news-section .item .date {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
 }
 
 /*# sourceMappingURL=screen.css.map */

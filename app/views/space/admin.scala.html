@@ -1,23 +1,29 @@
-@(content: Html)
+@(sectionClass: String = "", subMenu: Option[Html])(content: Html)
 
 @space.main("Admin area") {
 
-    <main class="admin-area">
+    <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
         <header>
-
+            <h2>Admin space</h2>
         </header>
-        <section>
-            <aside>
-                menu
-            </aside>
-            <div class="content">
-            @content
-            </div>
+        <aside class="main-menu">
+            <ul>
+                <li id="news">
+                    <a href="@routes.AdminController.index">News</a>
+                </li>
+                <li id="layouts">
+                    <a href="@routes.AdminController.layout">Layouts</a>
+                </li>
+            </ul>
+        </aside>
+        @subMenu.map { menu =>
+        <aside class="sub-menu">
+            @menu
+        </aside>
+        }.orNull
+        <section class="@sectionClass">
+        @content
         </section>
-        <footer>
-
-        </footer>
     </main>
-
 
 }

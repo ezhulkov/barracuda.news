@@ -1,9 +1,35 @@
-@import models.NewsModel.PeaceOfNews
+@(news: String)
 
-@(news: Map[String, Seq[PeaceOfNews]])
+@sidebar = {
+    <ul>
+        <li>
+            <a href="#">Add item</a>
+        </li>
+        <li>
+            <a href="#">Search</a>
+        </li>
+    </ul>
+}
 
-@space.admin {
+@space.admin("news-section", Some(sidebar)) {
 
-    ADMIN AREA
+    <div ng-controller="AdminController as adminCtrl">
+
+        <ul class="news">
+            <li class="item" ng-repeat="item in newsPage">
+                <h2><a href="@routes.AdminController.article">{{item.caption}}</a></h2>
+                <ul class="tags">
+                    <li ng-repeat="tag in item.tags">{{tag}}</li>
+                </ul>
+                <div class="date">2016/08/11 19:43:14</div>
+            </li>
+            <div paging page="page" page-size="pageSize" total="total" paging-action="showPage(page)" ng-hide="news.length <= pageSize"></div>
+        </ul>
+
+        <script>
+            var news = @Html(news);
+        </script>
+
+    </div>
 
 }
