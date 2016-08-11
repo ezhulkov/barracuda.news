@@ -32,10 +32,10 @@
 
 =active-link($color: $textColor, $hover:$activeLink, $bgColor: initial, $hoverBgColor: initial)
   &, *
+    +transition(all 0.2s ease-in-out)
     cursor: pointer
     color: $color
     background-color: $bgColor
-    transition: all 0.2s ease-in-out
     text-decoration: none
   &:hover
     &, *

@@ -173,15 +173,24 @@ html, body {
   height: 33px;
   width: 2px;
   background-color: #eee;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 .close:hover:before, .close:hover:after {
   background-color: #f26522;
 }
 .close:before {
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 .close:after {
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 
@@ -213,20 +222,28 @@ html, body {
   padding: 0 15px;
 }
 .btn-border:before, .btn-border:after {
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
   content: "";
   position: absolute;
   z-index: 5;
-  box-sizing: content-box;
   border-style: solid;
   border-color: transparent;
-  transition: all 0.3s;
 }
 .btn-border:before {
+  -moz-transition-delay: 0.05s;
+  -o-transition-delay: 0.05s;
+  -webkit-transition-delay: 0.05s;
+  transition-delay: 0.05s;
   width: 0;
   height: 100%;
   top: -1px;
   right: -1px;
-  transition-delay: 0.05s;
   border-width: 1px;
 }
 .btn-border:after {
@@ -374,10 +391,13 @@ header .menu .menu-button {
   display: block;
 }
 header .menu .menu-button, header .menu .menu-button * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: #ddd;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 header .menu .menu-button:hover, header .menu .menu-button:hover * {
@@ -399,10 +419,13 @@ header .menu ul li {
   cursor: pointer;
 }
 header .menu ul li, header .menu ul li * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: #ddd;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 header .menu ul li:hover, header .menu ul li:hover * {
@@ -489,10 +512,13 @@ header .menu.menu-active ul.categories li {
     z-index: 2;
   }
   header .menu ul.categories li a, header .menu ul.categories li a * {
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
     color: #ddd;
     background-color: initial;
-    transition: all 0.2s ease-in-out;
     text-decoration: none;
   }
   header .menu ul.categories li a:hover, header .menu ul.categories li a:hover * {
@@ -520,6 +546,10 @@ header .menu.menu-active ul.categories li {
     background: #9d34a6;
   }
   header .menu ul.categories li:after {
+    -moz-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    -webkit-transition: all 0.1s;
+    transition: all 0.1s;
     cursor: pointer;
     position: absolute;
     width: 100%;
@@ -527,7 +557,6 @@ header .menu.menu-active ul.categories li {
     left: 0;
     top: 0;
     content: "";
-    transition: all 0.1s;
   }
   header .menu ul.categories li:hover:after {
     height: 100%;
@@ -627,10 +656,13 @@ body .search-overlay .result h2 {
   line-height: 2.25rem;
 }
 body .search-overlay .result h2 a, body .search-overlay .result h2 a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: #ddd;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 body .search-overlay .result h2 a:hover, body .search-overlay .result h2 a:hover * {
@@ -729,10 +761,13 @@ footer .links .about ul li, footer .links .social ul li {
   border-bottom: 1px solid #444;
 }
 footer .links .about ul li a, footer .links .about ul li a *, footer .links .social ul li a, footer .links .social ul li a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: #ddd;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 footer .links .about ul li a:hover, footer .links .about ul li a:hover *, footer .links .social ul li a:hover, footer .links .social ul li a:hover * {
@@ -763,10 +798,13 @@ footer .links .subscribe input[type='submit'] {
   border: 1px solid #f26522;
 }
 footer .links .subscribe input[type='submit'], footer .links .subscribe input[type='submit'] * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: white;
   background-color: #f26522;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 footer .links .subscribe input[type='submit']:hover, footer .links .subscribe input[type='submit']:hover * {
@@ -899,10 +937,13 @@ footer .copyright span {
   }
 }
 .news-grid .topic-col h2, .news-grid .topic-col h2 * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: #333;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 .news-grid .topic-col h2:hover, .news-grid .topic-col h2:hover * {
@@ -919,10 +960,13 @@ footer .copyright span {
   flex-direction: column;
 }
 .news-grid .topic-col .item h4, .news-grid .topic-col .item h4 * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: #333;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 .news-grid .topic-col .item h4:hover, .news-grid .topic-col .item h4:hover * {
@@ -982,10 +1026,13 @@ footer .copyright span {
   margin-right: 20px;
 }
 .news-grid .topic-col.type-photo h4, .news-grid .topic-col.type-photo h4 *, .news-grid .topic-col.type-video h4, .news-grid .topic-col.type-video h4 * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: white;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 .news-grid .topic-col.type-photo h4:hover, .news-grid .topic-col.type-photo h4:hover *, .news-grid .topic-col.type-video h4:hover, .news-grid .topic-col.type-video h4:hover * {
@@ -1036,10 +1083,13 @@ footer .copyright span {
   transform: translate(-50%, -50%);
 }
 .news-grid .topic-col.type-video .playback, .news-grid .topic-col.type-video .playback * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: white;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 .news-grid .topic-col.type-video .playback:hover, .news-grid .topic-col.type-video .playback:hover * {
@@ -1112,10 +1162,13 @@ article .source, article .date {
   line-height: 1.5rem;
 }
 article .source, article .source * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: #777;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 article .source:hover, article .source:hover * {
@@ -1196,10 +1249,13 @@ article .source-quote {
   border-left: 5px solid #f26522;
 }
 article .source-quote a, article .source-quote a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
   color: #333;
   background-color: initial;
-  transition: all 0.2s ease-in-out;
   text-decoration: none;
 }
 article .source-quote a:hover, article .source-quote a:hover * {

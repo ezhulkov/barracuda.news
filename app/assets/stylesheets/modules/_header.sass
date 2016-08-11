@@ -101,6 +101,7 @@ header
             &.color#{$i}:after
               background: nth($linkColors, $i)
           &:after
+            +transition(all 0.1s)
             cursor: pointer
             position: absolute
             width: 100%
@@ -108,7 +109,6 @@ header
             left: 0
             top: 0
             content: ''
-            transition: all 0.1s
           &:hover:after
             height: 100%
           &.active a

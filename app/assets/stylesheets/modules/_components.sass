@@ -25,13 +25,13 @@
     height: 33px
     width: 2px
     background-color: $whiteColor
-    transition: all 0.2s ease-in-out
+    +transition(all 0.2s ease-in-out)
   &:hover:before, &:hover:after
     background-color: $activeLink
   &:before
-    transform: rotate(45deg)
+    +transform(rotate(45deg))
   &:after
-    transform: rotate(-45deg)
+    +transform(rotate(-45deg))
 
 .btn
   text-transform: uppercase
@@ -56,19 +56,19 @@
   border-color: $blackColor3
   padding: 0 15px
   &:before, &:after
+    +transition(all 0.3s)
+    +box-sizing(content-box)
     content: ""
     position: absolute
     z-index: 5
-    box-sizing: content-box
     border-style: solid
     border-color: transparent
-    transition: all 0.3s
   &:before
+    +transition-delay(0.05s)
     width: 0
     height: 100%
     top: -1px
     right: -1px
-    transition-delay: 0.05s
     border-width: 1px
   &:after
     width: 100%
