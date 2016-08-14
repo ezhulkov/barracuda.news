@@ -11,7 +11,7 @@
     </ul>
 }
 
-@space.admin("news-section", Some(sidebar)) {
+@space.admin("news-section", routes.AdminController.indexPost(), Some(sidebar)) {
 
     <div ng-controller="AdminController as adminCtrl">
 
@@ -27,7 +27,7 @@
         </ul>
 
         <script>
-            var news = @Html(news);
+                var news = @Html(news);
         </script>
 
     </div>

@@ -7,7 +7,6 @@ import play.api.Environment
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.Future
-import scala.io.Source
 
 @Singleton
 class GuiController @Inject()(
@@ -16,6 +15,7 @@ class GuiController @Inject()(
 
   import models.Implicits.JsonImplicits._
   import scala.concurrent.ExecutionContext.Implicits.global
+  import scala.io.Source
 
   private val sampleNews = Json.parse(layoutContentStr("news")).as[Seq[PeaceOfNews]].flatMap(t => t.tags.map(tag => tag -> t)).groupBy { case (t, n) => t }.map { case (t, v) => t -> v.map(k => k._2) }
   private val layouts    = Map(

@@ -44,7 +44,7 @@ object NewsModel {
   sealed case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
   sealed case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
   sealed case class NewsMedia(source: String, text: Option[String])
-  sealed case class PeaceOfNews(text: String, dateMillis: Long, tags: Iterable[String], caption: Option[String] = None, media: Option[Seq[NewsMedia]]) {
+  sealed case class PeaceOfNews(caption: Option[String] = None, text: String, dateMillis: Long, tags: Iterable[String], media: Option[Seq[NewsMedia]]) {
     def searchMatch(q: String) = {
       val lCQ = q.toLowerCase
       text.toLowerCase.contains(lCQ) || caption.getOrElse("").contains(lCQ)

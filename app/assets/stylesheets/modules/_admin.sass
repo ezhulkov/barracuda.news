@@ -1,6 +1,7 @@
 @import "compass"
 @import "susy"
 @import "mixins"
+@import "typography"
 @import "compass/typography/vertical_rhythm"
 
 $menu-width: 180px
@@ -9,7 +10,7 @@ $pad: 20px
 
 +with-layout(12 fluid inside)
   main.admin-area
-    //+debug-vertical-alignment()
+    +debug-vertical-alignment()
     +container(100%)
     position: relative
     display: block
@@ -47,29 +48,39 @@ $pad: 20px
         content: "\f1ea"
       #layouts a:before
         content: "\f00a"
-    & > aside.sub-menu
-      background-color: white
-      border-left: 1px solid $blackColor2
-      position: fixed
-      top: rhythm(2)
-      right: 0
-      bottom: 0
-      width: $submenu-width
-      ul
-        +padding-leader(1)
-        a
+    & > form
+      aside.sub-menu
+        background-color: white
+        border-left: 1px solid $blackColor2
+        position: fixed
+        top: rhythm(2)
+        right: 0
+        bottom: 0
+        width: $submenu-width
+        ul
+          +padding-leader(1)
+          a
+            +active-link($color: $darkBlueColor)
+            padding-left: $pad
+            width: 100%
+            display: block
+        input
+          +t-base
           +active-link($color: $darkBlueColor)
-          padding-left: $pad
-          color: $activeLink
+          padding: 0 0 0 $pad
+          background: none
+          border: none
+          cursor: pointer
           width: 100%
           display: block
-    & > section
-      +padding-leader(3)
-      +padding-trailer(3)
-      padding-left: $pad
-      padding-right: $pad
-      margin-left: $menu-width
-    &.submenu-on > section
+          text-align: left
+      section.main-section
+        +padding-leader(3)
+        +padding-trailer(3)
+        padding-left: $pad
+        padding-right: $pad
+        margin-left: $menu-width
+    &.submenu-on .main-section
       padding-right: $submenu-width + $pad
     section.news-section
       .pagination

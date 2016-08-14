@@ -1,6 +1,9 @@
 $ ->
   $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active')
 
+@activateMenu = (id) ->
+  $(id).addClass('active')
+
 $(window).load ->
   $(".article-body img").keepTheRhythm({
     baseLine: 24,
@@ -43,7 +46,7 @@ app.controller "AdminController", ($timeout, $window, $scope, $http) ->
   $scope.news = $window.news
   $scope.total = $scope.news.length
   $scope.page = 1
-  $scope.pageSize = 4
+  $scope.pageSize = 10
   $scope.newsPage = $scope.news.slice(0, $scope.pageSize)
   $scope.showPage = (p) ->
     from = (p - 1) * $scope.pageSize

@@ -1,7 +1,14 @@
+@(articleForm: Form[views.formdata.ArticleFormData])(implicit messages: Messages)
+
+@import helper._
+
 @sidebar = {
     <ul>
         <li>
-            <a href="#">Save</a>
+            <input type="submit" value="Save">
+        </li>
+        <li>
+            <input type="reset" value="Cancel">
         </li>
         <li>
             <a href="#">Delete</a>
@@ -9,8 +16,10 @@
     </ul>
 }
 
-@space.admin("news-section", Some(sidebar)) {
+@space.admin("news-section", routes.AdminController.articlePost(), Some(sidebar), activeMenu = Some("#news")) {
 
-    ARTICLE
+    <fieldset>
+    @inputText(articleForm("caption"))
+    </fieldset>
 
 }

@@ -1,29 +1,40 @@
-@(sectionClass: String = "", subMenu: Option[Html])(content: Html)
+@import helper._
 
-@space.main("Admin area") {
+@(sectionClass: String = "", action: play.api.mvc.Call, subMenu: Option[Html], activeMenu: Option[String] = None)(content: Html)
 
-    <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
-        <header>
-            <h2>Admin space</h2>
-        </header>
-        <aside class="main-menu">
-            <ul>
-                <li id="news">
-                    <a href="@routes.AdminController.index">News</a>
-                </li>
-                <li id="layouts">
-                    <a href="@routes.AdminController.layout">Layouts</a>
-                </li>
-            </ul>
-        </aside>
-        @subMenu.map { menu =>
-        <aside class="sub-menu">
-            @menu
-        </aside>
-        }.orNull
-        <section class="@sectionClass">
-        @content
-        </section>
-    </main>
+    @space.main("Admin area") {
 
-}
+        <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
+            <header>
+                <h2>Admin space</h2>
+            </header>
+            <aside class="main-menu">
+                <ul>
+                    <li id="news">
+                        <a href="@routes.AdminController.index">News</a>
+                    </li>
+                    <li id="layouts">
+                        <a href="@routes.AdminController.layout">Layouts</a>
+                    </li>
+                </ul>
+            </aside>
+            @form(action = action, args = 'class -> "main-form") {
+                @subMenu.map { menu =>
+                <aside class="sub-menu">
+                    @menu
+                </aside>
+                }.orNull
+                <section class="main-section @sectionClass">
+                @content
+                </section>
+            }
+            @activeMenu.map { active =>
+            <script type="application/javascript">
+                document.addEventListener("DOMContentLoaded", function (event) {
+                    activateMenu("#news");
+                });
+            </script>
+            }.orNull
+        </main>
+
+    }
