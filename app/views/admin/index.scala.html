@@ -13,8 +13,7 @@
 
 @space.admin("news-section", routes.AdminController.indexPost(), Some(sidebar)) {
 
-    <div ng-controller="AdminController as adminCtrl">
-
+    <div ng-controller="NewsController as newsCtrl">
         <ul class="news">
             <li class="item" ng-repeat="item in newsPage">
                 <h2><a href="@routes.AdminController.article">{{item.caption}}</a></h2>
@@ -25,11 +24,9 @@
             </li>
             <div paging page="page" page-size="pageSize" total="total" paging-action="showPage(page)" ng-hide="news.length <= pageSize"></div>
         </ul>
-
-        <script>
+        <script type="application/javascript">
                 var news = @Html(news);
         </script>
-
     </div>
 
 }

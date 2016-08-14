@@ -8,100 +8,149 @@ $menu-width: 180px
 $submenu-width: 140px
 $pad: 20px
 
-+with-layout(12 fluid inside)
-  main.admin-area
-    +debug-vertical-alignment()
-    +container(100%)
-    position: relative
-    display: block
-    & > header
-      background-color: $blackColor2
-      height: rhythm(2)
-      line-height: rhythm(2)
-      color: $whiteColor
-      padding-left: $pad
-      position: fixed
-      width: 100%
-      top: 0
-    & > aside.main-menu
-      background-color: $blackColor2
+main.admin-area
+  //+debug-vertical-alignment()
+  +container(100%)
+  position: relative
+  display: block
+  & > header
+    background-color: $blackColor2
+    height: rhythm(2)
+    line-height: rhythm(2)
+    color: $whiteColor
+    padding-left: $pad
+    position: fixed
+    width: 100%
+    top: 0
+  & > aside.main-menu
+    background-color: $blackColor2
+    position: fixed
+    top: rhythm(2)
+    bottom: 0
+    left: 0
+    width: $menu-width
+    li
+      a
+        +rhythm-padding(1/2)
+        +active-link()
+        width: 100%
+        display: block
+        padding-left: $pad
+      a:before
+        +fa
+        padding-right: 10px
+    li.active, li:hover
+      background-color: $blackColor1
+      a
+        color: $activeLink
+    #news a:before
+      content: "\f1ea"
+    #layouts a:before
+      content: "\f00a"
+  & > form
+    aside.sub-menu
+      background-color: white
+      border-left: 1px solid $blackColor2
       position: fixed
       top: rhythm(2)
+      right: 0
       bottom: 0
-      left: 0
-      width: $menu-width
-      li
+      width: $submenu-width
+      ul
+        +padding-leader(1)
         a
-          +rhythm-padding(1/2)
-          +active-link()
-          width: 100%
-          display: block
-          padding-left: $pad
-        a:before
-          +fa
-          padding-right: 10px
-      li.active, li:hover
-        background-color: $blackColor1
-        a
-          color: $activeLink
-      #news a:before
-        content: "\f1ea"
-      #layouts a:before
-        content: "\f00a"
-    & > form
-      aside.sub-menu
-        background-color: white
-        border-left: 1px solid $blackColor2
-        position: fixed
-        top: rhythm(2)
-        right: 0
-        bottom: 0
-        width: $submenu-width
-        ul
-          +padding-leader(1)
-          a
-            +active-link($color: $darkBlueColor)
-            padding-left: $pad
-            width: 100%
-            display: block
-        input
-          +t-base
           +active-link($color: $darkBlueColor)
-          padding: 0 0 0 $pad
-          background: none
-          border: none
-          cursor: pointer
+          padding-left: $pad
           width: 100%
           display: block
-          text-align: left
-      section.main-section
+      input
+        +t-base
+        +active-link($color: $darkBlueColor)
+        padding: 0 0 0 $pad
+        background: none
+        border: none
+        cursor: pointer
+        width: 100%
+        display: block
+        text-align: left
+        outline: none
+    section.main-section
+      +with-layout(12 fluid inside)
+        +container(100%)
         +padding-leader(3)
         +padding-trailer(3)
         padding-left: $pad
         padding-right: $pad
         margin-left: $menu-width
-    &.submenu-on .main-section
-      padding-right: $submenu-width + $pad
-    section.news-section
-      .pagination
-        +margin-leader(1)
-        li
-          +t-large
-          +active-link($blackTextColor)
-          +float-left
-          padding-right: 10px
-        li.active a
-          color: $activeLink
-      .item
-        +trailing-border(1px, $lines: 1/2)
-        +margin-trailer(1/2)
-        h2
-          +active-link($blackTextColor)
-        .tags
+        dl
+          +span(12)
+          +margin-trailer(1)
+          overflow: auto
+          dt
+            +t-small
+            height: rhythm(1)
+          dd.info
+            display: none
+          dd.error
+            +t-small
+            color: red
+          dd
+            input, textarea
+              +t-base
+              width: 100%
+              border: 1px solid lightgray
+              color: $blackTextColor
+              padding-left: $pad/2
+              +ellipsis()
+            input
+              height: rhythm(1)
+            textarea
+              +rhythm-padding(0)
+              height: rhythm(30)
+        dl.tags
+          +span(6)
+        dl.date
+          +span(6)
+        dl.caption
+          input
+            +t-large
+            height: rhythm(2)
+        .breadcrumbs
+          +span(12)
+          +margin-trailer(1)
+          width: 100%
           overflow: auto
           li
             +t-small
-            +float-left
+            float: left
             padding-right: 5px
-        .date
+            a
+              +active-link($color: $darkBlueColor)
+              &:after
+                padding-left: 5px
+                content: '>'
+  &.submenu-on .main-section
+    margin-right: $submenu-width
+  section.news-section
+    .pagination
+      +margin-leader(1)
+      li
+        +t-large
+        +active-link($blackTextColor)
+        +float-left
+        padding-right: 10px
+      li.active a
+        color: $activeLink
+    .item
+      +trailing-border(1px, $lines: 1/2)
+      +margin-trailer(1/2)
+      h2
+        +active-link($blackTextColor)
+      .tags
+        overflow: auto
+        li
           +t-small
+          +float-left
+          padding-right: 5px
+      .date
+        +t-small

@@ -1,8 +1,13 @@
 @import helper._
 
-@(sectionClass: String = "", action: play.api.mvc.Call, subMenu: Option[Html], activeMenu: Option[String] = None)(content: Html)
+@(sectionClass: String = "",
+        action: play.api.mvc.Call,
+        subMenu: Option[Html],
+        activeMenu: Option[String] = None,
+        cssFiles: Html = Html(""),
+        jsFiles: Html = Html(""))(content: Html)
 
-    @space.main("Admin area") {
+    @space.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
 
         <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
             <header>

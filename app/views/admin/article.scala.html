@@ -16,10 +16,32 @@
     </ul>
 }
 
-@space.admin("news-section", routes.AdminController.articlePost(), Some(sidebar), activeMenu = Some("#news")) {
+@jsFiles = {
+    <script src="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/alloy-editor-all-min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
+}
 
-    <fieldset>
-    @inputText(articleForm("caption"))
-    </fieldset>
+@cssFiles = {
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
+}
+
+@space.admin("news-section", routes.AdminController.articlePost(), Some(sidebar), activeMenu = Some("#news"), jsFiles = jsFiles, cssFiles = cssFiles) {
+
+    <div ng-controller="ArticleController as articleCtrl">
+        <ul class="breadcrumbs">
+            <li><a href="@routes.AdminController.index">News</a></li>
+            <li>@articleForm("caption").value</li>
+        </ul>
+        <fieldset class="hidden">
+            @inputText(articleForm("caption"), args = '_label -> "Caption", '_class -> "caption")
+            @inputText(articleForm("tags"), args = '_label -> "Tags", '_class -> "tags")
+            @inputText(articleForm("publishDate"), args = '_label -> "Publish date", '_help -> "", '_class -> "date")
+            @textarea(articleForm("text"), args = '_label -> "Text", '_id -> "article-text")
+        </fieldset>
+        <alloy-editor id="article_editor" ng-model="articleModel.content"></alloy-editor>
+        <script type="application/javascript">
+        </script>
+    </div>
+
 
 }

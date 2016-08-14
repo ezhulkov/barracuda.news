@@ -10,7 +10,7 @@ $(window).load ->
     spacing: "margin"
   })
 
-app = angular.module "barracudaApp", ["bw.paging"]
+app = angular.module 'barracudaApp', ['bw.paging','alloyeditor']
 app.directive "autoFocus", ($timeout) ->
   return link: (scope, element, attrs) ->
     attrs.$observe("autoFocus", (newValue) ->
@@ -42,7 +42,7 @@ app.controller "MainController", ($timeout, $window, $scope, $http) ->
   $scope.toggleMenu = ->
     $scope.menuOn = !$scope.menuOn
 
-app.controller "AdminController", ($timeout, $window, $scope, $http) ->
+app.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.news = $window.news
   $scope.total = $scope.news.length
   $scope.page = 1
@@ -52,3 +52,8 @@ app.controller "AdminController", ($timeout, $window, $scope, $http) ->
     from = (p - 1) * $scope.pageSize
     $scope.newsPage = $scope.news.slice(from, from + $scope.pageSize);
     return false
+
+app.controller "ArticleController", ($timeout, $window, $scope, $http) ->
+  $scope.articleModel = {
+    "content": "<h1>AlloyEditor</h1><p>Yes, you can edit this content. <strong>Right here and right now</strong>.</p>"
+  }
