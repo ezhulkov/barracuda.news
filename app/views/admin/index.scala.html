@@ -1,3 +1,5 @@
+@import play.api.libs.json.JsValue
+
 @(news: String)
 
 @sidebar = {
@@ -11,12 +13,12 @@
     </ul>
 }
 
-@space.admin("news-section", routes.AdminController.indexPost(), Some(sidebar)) {
+@space.admin("news-section", Some(sidebar)) {
 
     <div ng-controller="NewsController as newsCtrl">
         <ul class="news">
             <li class="item" ng-repeat="item in newsPage">
-                <h2><a href="@routes.AdminController.article">{{item.caption}}</a></h2>
+                <h2><a href="/admin/article/{{item.id}}">{{item.caption}}</a></h2>
                 <ul class="tags">
                     <li ng-repeat="tag in item.tags">{{tag}}</li>
                 </ul>
@@ -25,7 +27,7 @@
             <div paging page="page" page-size="pageSize" total="total" paging-action="showPage(page)" ng-hide="news.length <= pageSize"></div>
         </ul>
         <script type="application/javascript">
-                var news = @Html(news);
+            var newsList=@Html(news)
         </script>
     </div>
 

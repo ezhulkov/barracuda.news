@@ -1,7 +1,4 @@
-@import helper._
-
 @(sectionClass: String = "",
-        action: play.api.mvc.Call,
         subMenu: Option[Html],
         activeMenu: Option[String] = None,
         cssFiles: Html = Html(""),
@@ -10,9 +7,11 @@
     @space.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
 
         <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
+
             <header>
                 <h2>Admin space</h2>
             </header>
+
             <aside class="main-menu">
                 <ul>
                     <li id="news">
@@ -23,16 +22,17 @@
                     </li>
                 </ul>
             </aside>
-            @form(action = action, args = 'class -> "main-form") {
-                @subMenu.map { menu =>
-                <aside class="sub-menu">
-                    @menu
-                </aside>
-                }.orNull
-                <section class="main-section @sectionClass">
-                @content
-                </section>
-            }
+
+            @subMenu.map { menu =>
+            <aside class="sub-menu">
+                @menu
+            </aside>
+            }.orNull
+
+            <section class="main-section @sectionClass">
+            @content
+            </section>
+
             @activeMenu.map { active =>
             <script type="application/javascript">
                 document.addEventListener("DOMContentLoaded", function (event) {
@@ -40,6 +40,7 @@
                 });
             </script>
             }.orNull
+
         </main>
 
     }

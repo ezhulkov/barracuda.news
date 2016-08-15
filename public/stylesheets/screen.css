@@ -1295,6 +1295,12 @@ article p.q {
 article cite {
   display: block;
 }
+article strong {
+  font-weight: 700;
+}
+article em {
+  font-style: italic;
+}
 article img, article iframe {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
@@ -1308,6 +1314,17 @@ article h2, article h3, article h4 {
 }
 
 main.admin-area {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjEuMCIgeDI9IjAuNSIgeTI9IjAuMCI+PHN0b3Agb2Zmc2V0PSI1JSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjUiLz48c3RvcCBvZmZzZXQ9IjUlIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAuMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(5%, rgba(0, 0, 0, 0.5)), color-stop(5%, rgba(0, 0, 0, 0)));
+  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  -moz-background-size: 100% 1.5rem;
+  -o-background-size: 100% 1.5rem;
+  -webkit-background-size: 100% 1.5rem;
+  background-size: 100% 1.5rem;
+  background-position: left top;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -1328,6 +1345,7 @@ main.admin-area > header {
   position: fixed;
   width: 100%;
   top: 0;
+  z-index: 100;
 }
 main.admin-area > aside.main-menu {
   background-color: #262626;
@@ -1382,7 +1400,7 @@ main.admin-area > aside.main-menu #news a:before {
 main.admin-area > aside.main-menu #layouts a:before {
   content: "";
 }
-main.admin-area > form aside.sub-menu {
+main.admin-area aside.sub-menu {
   background-color: white;
   border-left: 1px solid #262626;
   position: fixed;
@@ -1391,16 +1409,16 @@ main.admin-area > form aside.sub-menu {
   bottom: 0;
   width: 140px;
 }
-main.admin-area > form aside.sub-menu ul {
+main.admin-area aside.sub-menu ul {
   padding-top: 24px;
   padding-top: 1.5rem;
 }
-main.admin-area > form aside.sub-menu ul a {
+main.admin-area aside.sub-menu ul a {
   padding-left: 20px;
   width: 100%;
   display: block;
 }
-main.admin-area > form aside.sub-menu ul a, main.admin-area > form aside.sub-menu ul a * {
+main.admin-area aside.sub-menu ul a, main.admin-area aside.sub-menu ul a * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1410,12 +1428,12 @@ main.admin-area > form aside.sub-menu ul a, main.admin-area > form aside.sub-men
   background-color: initial;
   text-decoration: none;
 }
-main.admin-area > form aside.sub-menu ul a:hover, main.admin-area > form aside.sub-menu ul a:hover * {
+main.admin-area aside.sub-menu ul a:hover, main.admin-area aside.sub-menu ul a:hover * {
   color: #f26522 !important;
   background-color: initial;
   text-decoration: none;
 }
-main.admin-area > form aside.sub-menu input {
+main.admin-area aside.sub-menu input {
   font-size: 16px;
   font-size: 1rem;
   line-height: 24px;
@@ -1429,7 +1447,7 @@ main.admin-area > form aside.sub-menu input {
   text-align: left;
   outline: none;
 }
-main.admin-area > form aside.sub-menu input, main.admin-area > form aside.sub-menu input * {
+main.admin-area aside.sub-menu input, main.admin-area aside.sub-menu input * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1439,12 +1457,15 @@ main.admin-area > form aside.sub-menu input, main.admin-area > form aside.sub-me
   background-color: initial;
   text-decoration: none;
 }
-main.admin-area > form aside.sub-menu input:hover, main.admin-area > form aside.sub-menu input:hover * {
+main.admin-area aside.sub-menu input:hover, main.admin-area aside.sub-menu input:hover * {
   color: #f26522 !important;
   background-color: initial;
   text-decoration: none;
 }
-main.admin-area > form section.main-section {
+main.admin-area.submenu-on .main-section {
+  margin-right: 140px;
+}
+main.admin-area section.main-section {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -1456,41 +1477,61 @@ main.admin-area > form section.main-section {
   padding-right: 20px;
   margin-left: 180px;
 }
-main.admin-area > form section.main-section:after {
+main.admin-area section.main-section:after {
   content: " ";
   display: block;
   clear: both;
 }
-main.admin-area > form section.main-section dl {
+main.admin-area section.main-section .breadcrumbs {
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
+  overflow: auto;
+}
+main.admin-area section.main-section .breadcrumbs li {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  float: left;
+  padding-right: 5px;
+}
+main.admin-area section.main-section .breadcrumbs li a, main.admin-area section.main-section .breadcrumbs li a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: darkblue;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area section.main-section .breadcrumbs li a:hover, main.admin-area section.main-section .breadcrumbs li a:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area section.main-section .breadcrumbs li a:after {
+  padding-left: 5px;
+  content: ">";
+}
+main.admin-area section.main-section dl {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
   float: left;
-  padding-left: 0.83333%;
-  padding-right: 0.83333%;
   margin-bottom: 24px;
   margin-bottom: 1.5rem;
   overflow: auto;
 }
-main.admin-area > form section.main-section dl dt {
+main.admin-area section.main-section dl dt {
   font-size: 13px;
   font-size: 0.833rem;
   line-height: 24px;
   line-height: 1.5rem;
   height: 1.5rem;
 }
-main.admin-area > form section.main-section dl dd.info {
-  display: none;
-}
-main.admin-area > form section.main-section dl dd.error {
-  font-size: 13px;
-  font-size: 0.833rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  color: red;
-}
-main.admin-area > form section.main-section dl dd input, main.admin-area > form section.main-section dl dd textarea {
+main.admin-area section.main-section dl dd input, main.admin-area section.main-section dl dd textarea {
   font-size: 16px;
   font-size: 1rem;
   line-height: 24px;
@@ -1505,83 +1546,15 @@ main.admin-area > form section.main-section dl dd input, main.admin-area > form 
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
-main.admin-area > form section.main-section dl dd input {
+main.admin-area section.main-section dl dd input {
   height: 1.5rem;
 }
-main.admin-area > form section.main-section dl dd textarea {
+main.admin-area section.main-section dl dd textarea {
   padding-top: 0px;
   padding-top: 0rem;
   padding-bottom: 0px;
   padding-bottom: 0rem;
   height: 45rem;
-}
-main.admin-area > form section.main-section dl.tags {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 50%;
-  float: left;
-  padding-left: 0.83333%;
-  padding-right: 0.83333%;
-}
-main.admin-area > form section.main-section dl.date {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 50%;
-  float: left;
-  padding-left: 0.83333%;
-  padding-right: 0.83333%;
-}
-main.admin-area > form section.main-section dl.caption input {
-  font-size: 23px;
-  font-size: 1.44rem;
-  line-height: 48px;
-  line-height: 3rem;
-  height: 3rem;
-}
-main.admin-area > form section.main-section .breadcrumbs {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-  float: left;
-  padding-left: 0.83333%;
-  padding-right: 0.83333%;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
-  width: 100%;
-  overflow: auto;
-}
-main.admin-area > form section.main-section .breadcrumbs li {
-  font-size: 13px;
-  font-size: 0.833rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  float: left;
-  padding-right: 5px;
-}
-main.admin-area > form section.main-section .breadcrumbs li a, main.admin-area > form section.main-section .breadcrumbs li a * {
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  color: darkblue;
-  background-color: initial;
-  text-decoration: none;
-}
-main.admin-area > form section.main-section .breadcrumbs li a:hover, main.admin-area > form section.main-section .breadcrumbs li a:hover * {
-  color: #f26522 !important;
-  background-color: initial;
-  text-decoration: none;
-}
-main.admin-area > form section.main-section .breadcrumbs li a:after {
-  padding-left: 5px;
-  content: ">";
-}
-main.admin-area.submenu-on .main-section {
-  margin-right: 140px;
 }
 main.admin-area section.news-section .pagination {
   margin-top: 24px;
@@ -1653,6 +1626,58 @@ main.admin-area section.news-section .item .date {
   font-size: 0.833rem;
   line-height: 24px;
   line-height: 1.5rem;
+}
+main.admin-area section.article-section dl.tags {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+  padding-right: 0.41667%;
+}
+main.admin-area section.article-section dl.publish {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+  padding-left: 0.41667%;
+}
+main.admin-area section.article-section dl.caption input {
+  font-size: 23px;
+  font-size: 1.44rem;
+  line-height: 48px;
+  line-height: 3rem;
+  height: 3rem;
+}
+main.admin-area section.article-section article.edit {
+  margin-top: 0px;
+  margin-top: 0rem;
+  margin-bottom: 0px;
+  margin-bottom: 0rem;
+  padding-top: 24px;
+  padding-top: 1.5rem;
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
+}
+@media screen and (min-width: 80em) {
+  main.admin-area section.article-section article.edit .article-body {
+    width: 65%;
+    float: left;
+    margin-left: 0.83333%;
+    margin-right: 0.83333%;
+    margin-left: 0.83333%;
+  }
+}
+main.admin-area section.article-section article.edit .alloy-editor {
+  width: 100%;
+  min-height: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ae-button {
+  margin-left: 13px;
 }
 
 /*# sourceMappingURL=screen.css.map */

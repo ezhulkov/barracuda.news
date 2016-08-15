@@ -11,24 +11,28 @@ import play.api.libs.json._
   */
 object Implicits {
 
-  object JsonImplicits {
-    implicit val sizeEnumFormat     = new Format[BlockSize] {
-      def reads(json: JsValue) = JsSuccess(BlockSize.withName(json.as[String]))
-      def writes(ob: BlockSize) = JsString(ob.toString)
-    }
-    implicit val heightEnumFormat   = new Format[RowHeight] {
-      def reads(json: JsValue) = JsSuccess(RowHeight.withName(json.as[String]))
-      def writes(ob: RowHeight) = JsString(ob.toString)
-    }
-    implicit val newsTypeEnumFormat = new Format[NewsType] {
-      def reads(json: JsValue) = JsSuccess(NewsType.withName(json.as[String]))
-      def writes(ob: NewsType) = JsString(ob.toString)
-    }
-    implicit val mediaFormat        = Json.format[NewsMedia]
-    implicit val peaceOfNewsFormat  = Json.format[PeaceOfNews]
-    implicit val newsFormat         = Json.format[NewsBlock]
-    implicit val rowFormat          = Json.format[NewsRow]
-    implicit val layoutFormat       = Json.format[Layout]
+  implicit val sizeEnumFormat                               = new Format[BlockSize] {
+    def reads(json: JsValue) = JsSuccess(BlockSize.withName(json.as[String]))
+    def writes(ob: BlockSize) = JsString(ob.toString)
   }
+  implicit val heightEnumFormat                             = new Format[RowHeight] {
+    def reads(json: JsValue) = JsSuccess(RowHeight.withName(json.as[String]))
+    def writes(ob: RowHeight) = JsString(ob.toString)
+  }
+  implicit val newsTypeEnumFormat                           = new Format[NewsType] {
+    def reads(json: JsValue) = JsSuccess(NewsType.withName(json.as[String]))
+    def writes(ob: NewsType) = JsString(ob.toString)
+  }
+  implicit val mediaFormat                                  = Json.format[NewsMedia]
+  implicit val peaceOfNewsFormat                            = Json.format[Article]
+  implicit val newsFormat                                   = Json.format[NewsBlock]
+  implicit val rowFormat                                    = Json.format[NewsRow]
+  implicit val layoutFormat                                 = Json.format[Layout]
+  implicit val articleTransform : (Article) => JsObject     = (article) =>
+    Json.toJson(article).as[JsObject] ++ JsObject(List(
+      "created_time" -> JsString(article.createdFormatted),
+      "publish_time" -> JsString(article.publishFormatted)
+    )) - "created" - "publish"
+  implicit val articlesTransform: (Seq[Article]) => JsArray = (articles) => JsArray(articles.map(articleTransform))
 
 }

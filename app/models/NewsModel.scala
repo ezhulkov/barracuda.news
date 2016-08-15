@@ -11,6 +11,8 @@ import scala.language.implicitConversions
   */
 object NewsModel {
 
+  val dateFormat = "yyyy/MM/dd HH:mm:SS"
+
   object BlockSize extends Enumeration {
     type BlockSize = Value
     val SIZE4  = BlockSizeValue("SIZE4", 4, "span4")
@@ -44,19 +46,34 @@ object NewsModel {
   sealed case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
   sealed case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
   sealed case class NewsMedia(source: String, text: Option[String])
-  sealed case class PeaceOfNews(caption: Option[String] = None, text: String, dateMillis: Long, tags: Iterable[String], media: Option[Seq[NewsMedia]]) {
-    def searchMatch(q: String) = {
-      val lCQ = q.toLowerCase
-      text.toLowerCase.contains(lCQ) || caption.getOrElse("").contains(lCQ)
-    }
-    def date = DateTime.now()
-    def dateFormatted = date.toString("yyyy/MM/dd HH:mm:SS")
-    def firstSource = media.flatMap(m => m.headOption).map(t => t.source).orNull
+
+  sealed case class Article(
+    id: Option[Long],
+    caption: String,
+    text: String,
+    origin: Option[String],
+    created: DateTime,
+    publish: DateTime,
+    tags: Option[Seq[String]],
+    media: Option[Seq[NewsMedia]]
+  ) {
+
+    var createdFormatted = created.toString(dateFormat)
+    var publishFormatted = publish.toString(dateFormat)
+    var firstSource      = media.flatMap(m => m.headOption).map(t => t.source).orNull
+    var tagsSeq          = tags.getOrElse(Nil)
+    var hrUrl            = s"${id.getOrElse("")}"
+
     def backgroundImage(newsType: NewsType) = newsType match {
       case NewsType.PHOTO => s"background-image: url('$firstSource')"
       case NewsType.VIDEO => s"background-image: url('http://img.youtube.com/vi/$firstSource/0.jpg')"
       case _ => ""
     }
+    def searchMatch(q: String) = {
+      val lCQ = q.toLowerCase
+      text.toLowerCase.contains(lCQ) || caption.contains(lCQ)
+    }
+
   }
 
 }

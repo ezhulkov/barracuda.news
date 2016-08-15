@@ -9,7 +9,7 @@ $submenu-width: 140px
 $pad: 20px
 
 main.admin-area
-  //+debug-vertical-alignment()
+  +debug-vertical-alignment()
   +container(100%)
   position: relative
   display: block
@@ -22,6 +22,7 @@ main.admin-area
     position: fixed
     width: 100%
     top: 0
+    z-index: 100
   & > aside.main-menu
     background-color: $blackColor2
     position: fixed
@@ -47,90 +48,74 @@ main.admin-area
       content: "\f1ea"
     #layouts a:before
       content: "\f00a"
-  & > form
-    aside.sub-menu
-      background-color: white
-      border-left: 1px solid $blackColor2
-      position: fixed
-      top: rhythm(2)
-      right: 0
-      bottom: 0
-      width: $submenu-width
-      ul
-        +padding-leader(1)
-        a
-          +active-link($color: $darkBlueColor)
-          padding-left: $pad
-          width: 100%
-          display: block
-      input
-        +t-base
+  aside.sub-menu
+    background-color: white
+    border-left: 1px solid $blackColor2
+    position: fixed
+    top: rhythm(2)
+    right: 0
+    bottom: 0
+    width: $submenu-width
+    ul
+      +padding-leader(1)
+      a
         +active-link($color: $darkBlueColor)
-        padding: 0 0 0 $pad
-        background: none
-        border: none
-        cursor: pointer
+        padding-left: $pad
         width: 100%
         display: block
-        text-align: left
-        outline: none
-    section.main-section
-      +with-layout(12 fluid inside)
-        +container(100%)
-        +padding-leader(3)
-        +padding-trailer(3)
-        padding-left: $pad
-        padding-right: $pad
-        margin-left: $menu-width
-        dl
-          +span(12)
-          +margin-trailer(1)
-          overflow: auto
-          dt
-            +t-small
-            height: rhythm(1)
-          dd.info
-            display: none
-          dd.error
-            +t-small
-            color: red
-          dd
-            input, textarea
-              +t-base
-              width: 100%
-              border: 1px solid lightgray
-              color: $blackTextColor
-              padding-left: $pad/2
-              +ellipsis()
-            input
-              height: rhythm(1)
-            textarea
-              +rhythm-padding(0)
-              height: rhythm(30)
-        dl.tags
-          +span(6)
-        dl.date
-          +span(6)
-        dl.caption
-          input
-            +t-large
-            height: rhythm(2)
-        .breadcrumbs
-          +span(12)
-          +margin-trailer(1)
-          width: 100%
-          overflow: auto
-          li
-            +t-small
-            float: left
-            padding-right: 5px
-            a
-              +active-link($color: $darkBlueColor)
-              &:after
-                padding-left: 5px
-                content: '>'
+    input
+      +t-base
+      +active-link($color: $darkBlueColor)
+      padding: 0 0 0 $pad
+      background: none
+      border: none
+      cursor: pointer
+      width: 100%
+      display: block
+      text-align: left
+      outline: none
   &.submenu-on .main-section
     margin-right: $submenu-width
+  section.main-section
+    +with-layout(12 fluid inside)
+      +container(100%)
+      +padding-leader(3)
+      +padding-trailer(3)
+      padding-left: $pad
+      padding-right: $pad
+      margin-left: $menu-width
+      .breadcrumbs
+        +margin-trailer(1)
+        overflow: auto
+        li
+          +t-small
+          float: left
+          padding-right: 5px
+          a
+            +active-link($color: $darkBlueColor)
+            &:after
+              padding-left: 5px
+              content: '>'
+      dl
+        +span(12 no-gutter)
+        +margin-trailer(1)
+        overflow: auto
+        dt
+          +t-small
+          height: rhythm(1)
+        dd
+          input, textarea
+            +t-base
+            width: 100%
+            border: 1px solid lightgray
+            color: $blackTextColor
+            padding-left: $pad/2
+            +ellipsis()
+          input
+            height: rhythm(1)
+          textarea
+            +rhythm-padding(0)
+            height: rhythm(30)
   section.news-section
     .pagination
       +margin-leader(1)
@@ -154,3 +139,30 @@ main.admin-area
           padding-right: 5px
       .date
         +t-small
+  section.article-section
+    +with-layout(12 fluid inside)
+      dl.tags
+        +span(6 no-gutter)
+        padding-right: gutter()/2
+      dl.publish
+        +span(6 no-gutter)
+        padding-left: gutter()/2
+      dl.caption
+        input
+          +t-large
+          height: rhythm(2)
+    article.edit
+      +rhythm-margins(0)
+      +rhythm-padding(1)
+      .article-body
+        +xdesktop-media
+          +span(8)
+          +pre(0)
+      .alloy-editor
+        width: 100%
+        min-height: 50px
+        padding-left: $pad/2
+        padding-right: $pad/2
+
+.ae-button
+  margin-left: 13px

@@ -4,13 +4,17 @@ $ ->
 @activateMenu = (id) ->
   $(id).addClass('active')
 
-$(window).load ->
-  $(".article-body img").keepTheRhythm({
+@keepTheRhythm = (selector) ->
+  sel = selector || ".article-body img"
+  $(sel).keepTheRhythm({
     baseLine: 24,
     spacing: "margin"
   })
 
-app = angular.module 'barracudaApp', ['bw.paging','alloyeditor']
+$(window).load ->
+  keepTheRhythm()
+
+app = angular.module 'barracudaApp', ['bw.paging', 'alloyeditor']
 app.directive "autoFocus", ($timeout) ->
   return link: (scope, element, attrs) ->
     attrs.$observe("autoFocus", (newValue) ->
@@ -43,17 +47,18 @@ app.controller "MainController", ($timeout, $window, $scope, $http) ->
     $scope.menuOn = !$scope.menuOn
 
 app.controller "NewsController", ($timeout, $window, $scope, $http) ->
-  $scope.news = $window.news
-  $scope.total = $scope.news.length
+  $scope.newsList = $window.newsList
+  $scope.total = $scope.newsList.length
   $scope.page = 1
   $scope.pageSize = 10
-  $scope.newsPage = $scope.news.slice(0, $scope.pageSize)
+  $scope.newsPage = $scope.newsList.slice(0, $scope.pageSize)
   $scope.showPage = (p) ->
     from = (p - 1) * $scope.pageSize
-    $scope.newsPage = $scope.news.slice(from, from + $scope.pageSize);
+    $scope.newsPage = $scope.newsList.slice(from, from + $scope.pageSize);
     return false
 
 app.controller "ArticleController", ($timeout, $window, $scope, $http) ->
-  $scope.articleModel = {
-    "content": "<h1>AlloyEditor</h1><p>Yes, you can edit this content. <strong>Right here and right now</strong>.</p>"
-  }
+  $scope.articleModel = angular.copy($window.articleModel)
+  $scope.reset = ->
+    console.log("resest")
+    $scope.articleModel = angular.copy($window.articleModel)

@@ -1,47 +1,67 @@
-@(articleForm: Form[views.formdata.ArticleFormData])(implicit messages: Messages)
+@(article: String)
 
-@import helper._
-
-@sidebar = {
-    <ul>
-        <li>
-            <input type="submit" value="Save">
-        </li>
-        <li>
-            <input type="reset" value="Cancel">
-        </li>
-        <li>
-            <a href="#">Delete</a>
-        </li>
-    </ul>
-}
-
-@jsFiles = {
-    <script src="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/alloy-editor-all-min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
-}
-
-@cssFiles = {
-    <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
-}
-
-@space.admin("news-section", routes.AdminController.articlePost(), Some(sidebar), activeMenu = Some("#news"), jsFiles = jsFiles, cssFiles = cssFiles) {
-
-    <div ng-controller="ArticleController as articleCtrl">
-        <ul class="breadcrumbs">
-            <li><a href="@routes.AdminController.index">News</a></li>
-            <li>@articleForm("caption").value</li>
+    @sidebar = {
+        <ul>
+            <li>
+                <a href="#" ng-click="show()">Show</a>
+            </li>
+            <li>
+                <a href="#" ng-click="save()">Save</a>
+            </li>
+            <li>
+                <a href="#" ng-click="reset()">Reset</a>
+            </li>
+            <li>
+                <a href="#" ng-click="delete()">Delete</a>
+            </li>
         </ul>
-        <fieldset class="hidden">
-            @inputText(articleForm("caption"), args = '_label -> "Caption", '_class -> "caption")
-            @inputText(articleForm("tags"), args = '_label -> "Tags", '_class -> "tags")
-            @inputText(articleForm("publishDate"), args = '_label -> "Publish date", '_help -> "", '_class -> "date")
-            @textarea(articleForm("text"), args = '_label -> "Text", '_id -> "article-text")
-        </fieldset>
-        <alloy-editor id="article_editor" ng-model="articleModel.content"></alloy-editor>
+    }
+
+    @cssFiles = {
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
+    }
+
+    @space.admin("article-section", Some(sidebar), activeMenu = Some("#news"), cssFiles = cssFiles) {
+
+        <div ng-controller="ArticleController as articleCtrl" ng-cloak>
+            <ul class="breadcrumbs">
+                <li><a href="@routes.AdminController.index">News</a></li>
+                <li>{{articleModel.caption}}</li>
+            </ul>
+            <fieldset>
+                <dl class="caption">
+                    <dt><label for="caption">Caption:</label></dt>
+                    <dd><input id="caption" type="text" name="caption" ng-model="articleModel.caption"></dd>
+                </dl>
+                <dl class="tags">
+                    <dt><label for="tags">Tags:</label></dt>
+                    <dd><input type="text" name="tags" ng-model="articleModel.tags"></dd>
+                </dl>
+                <dl class="publish">
+                    <dt><label for="publish">Publish date:</label></dt>
+                    <dd><input type="text" name="publish" ng-model="articleModel.publish_time"></dd>
+                </dl>
+                <dl class="origin">
+                    <dt><label for="origin">Origin URL:</label></dt>
+                    <dd><input type="url" name="origin" ng-model="articleModel.origin"></dd>
+                </dl>
+            </fieldset>
+            <article class="edit">
+                <section class="container">
+                    <div class="article-body">
+                        <alloy-editor id="article_editor" ng-model="articleModel.text"></alloy-editor>
+                    </div>
+                    <div class="adv">
+                        <div class="banner">
+                            <img src="http://placehold.it/300x600">
+                        </div>
+                    </div>
+                </section>
+            </article>
+
+        </div>
         <script type="application/javascript">
+            var articleModel = @Html(article)
         </script>
-    </div>
 
-
-}
+    }

@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject._
 import controllers.actions.LoggingAction
-import models.NewsModel.{Layout, PeaceOfNews}
+import models.NewsModel.{Article, Layout}
 import play.api.Environment
 import play.api.libs.json.Json
 import play.api.mvc._
@@ -13,11 +13,11 @@ class GuiController @Inject()(
   env: Environment
 ) extends Controller {
 
-  import models.Implicits.JsonImplicits._
+  import models.Implicits._
   import scala.concurrent.ExecutionContext.Implicits.global
   import scala.io.Source
 
-  private val sampleNews = Json.parse(layoutContentStr("news")).as[Seq[PeaceOfNews]].flatMap(t => t.tags.map(tag => tag -> t)).groupBy { case (t, n) => t }.map { case (t, v) => t -> v.map(k => k._2) }
+  private val sampleNews = Json.parse(layoutContentStr("news")).as[Seq[Article]].flatMap(t => t.tagsSeq.map(tag => tag -> t)).groupBy { case (t, n) => t }.map { case (t, v) => t -> v.map(k => k._2) }
   private val layouts    = Map(
     parsedLayout("main"),
     parsedLayout("stories"),

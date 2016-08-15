@@ -1,7 +1,7 @@
 @import components._
 @import models.NewsModel._
 
-@(layoutOpt: Option[Layout], news: Map[String, Seq[PeaceOfNews]])
+@(layoutOpt: Option[Layout], news: Map[String, Seq[Article]])
 
 @{
     layoutOpt match {
@@ -10,11 +10,11 @@
     }
 }
 
-@listGrid(news: Map[String, Seq[PeaceOfNews]]) = {
+@listGrid(news: Map[String, Seq[Article]]) = {
     LIST NEWS
 }
 
-@layoutGrid(layout: Layout, news: Map[String, Seq[PeaceOfNews]]) = {
+@layoutGrid(layout: Layout, news: Map[String, Seq[Article]]) = {
 @for(row <- layout.rows) {
     <div class="topic-row @row.height.cssClass">
     @for(block <- row.blocks) {
