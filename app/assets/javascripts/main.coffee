@@ -16,7 +16,7 @@ $(window).load ->
 
 Array::filter = (func) -> x for x in @ when func(x)
 
-app = angular.module 'barracudaApp', ['bw.paging', 'alloyeditor', 'ngTagsInput']
+app = angular.module 'barracudaApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker']
 app.directive "autoFocus", ($timeout) ->
   return link: (scope, element, attrs) ->
     attrs.$observe("autoFocus", (newValue) ->
@@ -60,8 +60,10 @@ app.controller "NewsController", ($timeout, $window, $scope, $http) ->
     return false
 
 app.controller "ArticleController", ($timeout, $window, $scope, $http) ->
+  moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")
   $scope.articleModel = angular.copy($window.articleModel)
   $scope.tags = angular.copy($window.tags)
+  $scope.date = "2014-04-25T01:32:21.196Z"
   $scope.loadTags = (query) ->
     if(query.length == 0)
       return $scope.tags

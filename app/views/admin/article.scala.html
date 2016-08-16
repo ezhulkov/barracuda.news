@@ -20,6 +20,7 @@
 @cssFiles = {
     <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
     <link rel="stylesheet" href="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.css")">
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.css")">
 }
 
 @space.admin("article-section", Some(sidebar), activeMenu = Some("#news"), cssFiles = cssFiles, controller = Some("ArticleController")) {
@@ -44,7 +45,7 @@
             </dl>
             <dl class="publish">
                 <dt><label for="publish">Publish date:</label></dt>
-                <dd><input type="text" name="publish" ng-model="articleModel.publish_time"></dd>
+                <dd><input type="text" date-time view="hours" timezone="Europe/Moscow" format="YYYY/MM/D HH:mm" name="publish" ng-model="articleModel.publish_time"></dd>
             </dl>
             <dl class="origin">
                 <dt><label for="origin">Original URL:</label></dt>

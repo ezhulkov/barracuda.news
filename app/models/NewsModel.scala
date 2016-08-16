@@ -58,8 +58,8 @@ object NewsModel {
     media: Option[Seq[NewsMedia]]
   ) {
 
-    var createdFormatted = created.toString(dateFormat)
-    var publishFormatted = publish.toString(dateFormat)
+    var createdFormatted = created.toString()
+    var publishFormatted = publish.toString()
     var firstSource      = media.flatMap(m => m.headOption).map(t => t.source).orNull
     var tagsSeq          = tags.getOrElse(Nil)
     var hrUrl            = s"${id.getOrElse("")}"
