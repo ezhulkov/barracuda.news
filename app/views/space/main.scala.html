@@ -22,20 +22,13 @@
 
     </head>
 
-    <body ng-app="barracudaApp" ng-controller="MainController as mainCtrl" ng-class="{'search-active': searchOn}">
+    <body>
 
         @content
 
         <script src="@routes.Assets.versioned("lib/jquery/jquery.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("lib/angular/angular.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/alloy-editor-all-min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/jquery.keeptherhythm.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("lib/moment/min/moment.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("lib/moment-timezone/builds/moment-timezone.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/paging.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
         @jsFiles
         <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
 

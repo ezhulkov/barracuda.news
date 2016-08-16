@@ -1,13 +1,14 @@
 @(title: String)(content: Html)
 
-@space.main(title) {
+    @space.main(title) {
 
-    <main>
-        @components.header()
-        @content
-        @components.footer()
-    </main>
-    @components.search()
+        <div ng-app="frontendApp" ng-controller="FrontendController as frontendCtrl" ng-class="{'search-active': searchOn}">
+            <main>
+                @components.header()
+                @content
+                @components.footer()
+            </main>
+            @components.search()
+        </div>
 
-
-}
+    }

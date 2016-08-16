@@ -16,8 +16,10 @@ $(window).load ->
 
 Array::filter = (func) -> x for x in @ when func(x)
 
-app = angular.module 'barracudaApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker']
-app.directive "autoFocus", ($timeout) ->
+frontendApp = angular.module 'frontendApp', []
+adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker']
+
+frontendApp.directive "autoFocus", ($timeout) ->
   return link: (scope, element, attrs) ->
     attrs.$observe("autoFocus", (newValue) ->
       if (newValue == "true")
@@ -25,11 +27,11 @@ app.directive "autoFocus", ($timeout) ->
           element[0].focus()
         )
     )
-app.filter "rawHtml", ($sce) ->
+frontendApp.filter "rawHtml", ($sce) ->
   (text) ->
     return $sce.trustAsHtml(text)
 
-app.controller "MainController", ($timeout, $window, $scope, $http) ->
+frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) ->
   $scope.searchOn = false
   $scope.menuOn = false
   $scope.searchString = undefined
@@ -48,7 +50,7 @@ app.controller "MainController", ($timeout, $window, $scope, $http) ->
   $scope.toggleMenu = ->
     $scope.menuOn = !$scope.menuOn
 
-app.controller "NewsController", ($timeout, $window, $scope, $http) ->
+adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList
   $scope.total = $scope.newsList.length
   $scope.page = 1
@@ -59,11 +61,49 @@ app.controller "NewsController", ($timeout, $window, $scope, $http) ->
     $scope.newsPage = $scope.newsList.slice(from, from + $scope.pageSize);
     return false
 
-app.controller "ArticleController", ($timeout, $window, $scope, $http) ->
+adminApp.controller "ArticleController", ($timeout, $window, $scope, $http) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")
   $scope.articleModel = angular.copy($window.articleModel)
   $scope.tags = angular.copy($window.tags)
-  $scope.date = "2014-04-25T01:32:21.196Z"
+  $scope.alloyConfig = {
+    toolbars: {
+      add: {
+        buttons: ['image', 'link']
+      },
+      styles: {
+        selections: [{
+          name: 'link',
+          buttons: ['linkEdit'],
+          test: AlloyEditor.SelectionTest.link
+        }, {
+          name: 'text',
+          buttons2: ['styles', 'bold', 'italic', 'underline', 'link'],
+          buttons: [{
+            name: 'styles',
+            cfg: {
+              styles: [
+                {
+                  name: 'Heading 1',
+                  style: {element: 'h2'}
+                },
+                {
+                  name: 'Normal text',
+                  style: {element: 'p'}
+                }
+              ]
+            }
+          }, 'bold', 'italic', 'underline', 'link'],
+          test: AlloyEditor.SelectionTest.text
+        }, {
+          name: 'table',
+          buttons: ['tableRow', 'tableColumn', 'tableCell', 'tableRemove'],
+          getArrowBoxClasses: AlloyEditor.SelectionGetArrowBoxClasses.table,
+          setPosition: AlloyEditor.SelectionSetPosition.table,
+          test: AlloyEditor.SelectionTest.table
+        }]
+      }
+    }
+  }
   $scope.loadTags = (query) ->
     if(query.length == 0)
       return $scope.tags
