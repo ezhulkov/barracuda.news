@@ -1276,7 +1276,13 @@ article .source-quote cite {
 article .source-quote:hover p {
   border-bottom: 1px solid #f26522;
 }
-article p {
+article bn-question:before, article bn-answer:before {
+  content: "—";
+}
+article bn-question {
+  font-weight: 700;
+}
+article p, article bn-question, article bn-answer {
   word-break: break-all;
   word-break: break-word;
   -moz-hyphens: auto;
@@ -1285,12 +1291,6 @@ article p {
   hyphens: auto;
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
-}
-article p.q:before, article p.a:before {
-  content: "—";
-}
-article p.q {
-  font-weight: 700;
 }
 article cite {
   display: block;

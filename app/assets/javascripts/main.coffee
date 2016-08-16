@@ -16,6 +16,14 @@ $(window).load ->
 
 Array::filter = (func) -> x for x in @ when func(x)
 
+@questionParagraph = document.registerElement("bn-question2", {
+  prototype: Object.create(HTMLButtonElement.prototype),
+  extends: 'div'
+})
+@answerParagraph = document.registerElement("bn-answer", {
+  prototype: Object.create(HTMLButtonElement.prototype),
+  extends: 'div'
+})
 frontendApp = angular.module 'frontendApp', []
 adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker']
 
@@ -83,12 +91,20 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http) ->
             cfg: {
               styles: [
                 {
-                  name: 'Heading 1',
+                  name: 'Heading',
                   style: {element: 'h2'}
                 },
                 {
-                  name: 'Normal text',
-                  style: {element: 'p'}
+                  name: 'Heading small',
+                  style: {element: 'h3'}
+                },
+                {
+                  name: 'Interview question',
+                  style: {element: 'bn-question'}
+                },
+                {
+                  name: 'Interview answer',
+                  style: {element: 'bn-answer'}
                 }
               ]
             }

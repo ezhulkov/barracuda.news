@@ -75,13 +75,13 @@ article
       margin-top: -1px
     &:hover p
       border-bottom: 1px solid $activeLink
-  p
+  bn-question:before, bn-answer:before
+    content: "—"
+  bn-question
+    +t-strong
+  p, bn-question, bn-answer
     +hyphenation
     +padding-trailer(1)
-    &.q:before, &.a:before
-      content: "—"
-    &.q
-      +t-strong
   cite
     display: block
   strong
