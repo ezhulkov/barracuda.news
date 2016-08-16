@@ -21,6 +21,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "webjars-play_2.11" % "2.5.0-2",
   "org.webjars.bower" % "angular" % "1.5.7",
   "org.webjars.bower" % "alloyeditor" % "1.2.3",
+  "org.webjars.bower" % "ng-tags-input" % "3.1.1",
   "org.webjars" % "jquery" % "2.2.4",
   "org.webjars" % "font-awesome" % "4.6.3"
 )

@@ -1,67 +1,73 @@
-@(article: String)
+@(article: String, tags: String)
 
-    @sidebar = {
-        <ul>
-            <li>
-                <a href="#" ng-click="show()">Show</a>
-            </li>
-            <li>
-                <a href="#" ng-click="save()">Save</a>
-            </li>
-            <li>
-                <a href="#" ng-click="reset()">Reset</a>
-            </li>
-            <li>
-                <a href="#" ng-click="delete()">Delete</a>
-            </li>
+@sidebar = {
+    <ul>
+        <li>
+            <a href="#" ng-click="show()">Show</a>
+        </li>
+        <li>
+            <a href="#" ng-click="save()">Save</a>
+        </li>
+        <li>
+            <a href="#" ng-click="reset()">Reset</a>
+        </li>
+        <li>
+            <a href="#" ng-click="delete()">Delete</a>
+        </li>
+    </ul>
+}
+
+@cssFiles = {
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.css")">
+}
+
+@space.admin("article-section", Some(sidebar), activeMenu = Some("#news"), cssFiles = cssFiles, controller = Some("ArticleController")) {
+
+    <div>
+        <ul class="breadcrumbs">
+            <li><a href="@routes.AdminController.index">News</a></li>
+            <li>{{articleModel.caption}}</li>
         </ul>
-    }
-
-    @cssFiles = {
-        <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
-    }
-
-    @space.admin("article-section", Some(sidebar), activeMenu = Some("#news"), cssFiles = cssFiles) {
-
-        <div ng-controller="ArticleController as articleCtrl" ng-cloak>
-            <ul class="breadcrumbs">
-                <li><a href="@routes.AdminController.index">News</a></li>
-                <li>{{articleModel.caption}}</li>
-            </ul>
-            <fieldset>
-                <dl class="caption">
-                    <dt><label for="caption">Caption:</label></dt>
-                    <dd><input id="caption" type="text" name="caption" ng-model="articleModel.caption"></dd>
-                </dl>
-                <dl class="tags">
-                    <dt><label for="tags">Tags:</label></dt>
-                    <dd><input type="text" name="tags" ng-model="articleModel.tags"></dd>
-                </dl>
-                <dl class="publish">
-                    <dt><label for="publish">Publish date:</label></dt>
-                    <dd><input type="text" name="publish" ng-model="articleModel.publish_time"></dd>
-                </dl>
-                <dl class="origin">
-                    <dt><label for="origin">Origin URL:</label></dt>
-                    <dd><input type="url" name="origin" ng-model="articleModel.origin"></dd>
-                </dl>
-            </fieldset>
-            <article class="edit">
-                <section class="container">
-                    <div class="article-body">
-                        <alloy-editor id="article_editor" ng-model="articleModel.text"></alloy-editor>
+        <fieldset>
+            <dl class="caption">
+                <dt><label for="caption">Caption:</label></dt>
+                <dd><input id="caption" type="text" name="caption" ng-model="articleModel.caption"></dd>
+            </dl>
+            <dl class="tags">
+                <dt><label for="tags">Tags:</label></dt>
+                <dd>
+                    <tags-input class="tags-input" ng-model="articleModel.tags" placeholder="Add tags" add-on-paste="true">
+                        <auto-complete min-length="0" load-on-focus="true" load-on-empty="true" source="loadTags($query)"></auto-complete>
+                    </tags-input>
+                </dd>
+            </dl>
+            <dl class="publish">
+                <dt><label for="publish">Publish date:</label></dt>
+                <dd><input type="text" name="publish" ng-model="articleModel.publish_time"></dd>
+            </dl>
+            <dl class="origin">
+                <dt><label for="origin">Original URL:</label></dt>
+                <dd><input type="url" name="origin" ng-model="articleModel.origin"></dd>
+            </dl>
+        </fieldset>
+        <article class="edit">
+            <section class="container">
+                <div class="article-body">
+                    <alloy-editor id="article_editor" ng-model="articleModel.text"></alloy-editor>
+                </div>
+                <div class="adv">
+                    <div class="banner">
+                        <img src="http://placehold.it/300x600">
                     </div>
-                    <div class="adv">
-                        <div class="banner">
-                            <img src="http://placehold.it/300x600">
-                        </div>
-                    </div>
-                </section>
-            </article>
+                </div>
+            </section>
+        </article>
 
-        </div>
-        <script type="application/javascript">
+    </div>
+    <script type="application/javascript">
             var articleModel = @Html(article)
-        </script>
+            var tags = @Html(tags)
+    </script>
 
-    }
+}

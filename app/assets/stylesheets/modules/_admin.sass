@@ -3,13 +3,14 @@
 @import "mixins"
 @import "typography"
 @import "compass/typography/vertical_rhythm"
+@import "compass/css3"
 
 $menu-width: 180px
 $submenu-width: 140px
 $pad: 20px
 
 main.admin-area
-  +debug-vertical-alignment()
+  //+debug-vertical-alignment()
   +container(100%)
   position: relative
   display: block
@@ -99,7 +100,6 @@ main.admin-area
       dl
         +span(12 no-gutter)
         +margin-trailer(1)
-        overflow: auto
         dt
           +t-small
           height: rhythm(1)
@@ -144,6 +144,38 @@ main.admin-area
       dl.tags
         +span(6 no-gutter)
         padding-right: gutter()/2
+        .host
+          margin: 0
+        span, a
+          +t-small
+        input
+          width: 80px !important
+        a
+          color: white
+        li.tag-item
+          color: white
+          background: blue
+          -webkit-font-smoothing: subpixel-antialiased
+        ti-tag-item
+          display: block
+          margin-top: -3px
+          -webkit-font-smoothing: subpixel-antialiased
+          line-height: 18px
+          height: 18px
+        li.tag-item, input
+          +t-small
+          +border-radius(0)
+          padding: 1px 5px
+          margin: 0 2px
+          height: 20px
+          font-family: 'Open Sans', sans-serif
+        .autocomplete
+          margin: 0
+          padding: 0
+          li
+            padding: 2px 5px
+          em
+            +t-small
       dl.publish
         +span(6 no-gutter)
         padding-left: gutter()/2

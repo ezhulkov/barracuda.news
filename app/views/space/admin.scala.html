@@ -1,46 +1,47 @@
 @(sectionClass: String = "",
         subMenu: Option[Html],
         activeMenu: Option[String] = None,
+        controller: Option[String] = None,
         cssFiles: Html = Html(""),
         jsFiles: Html = Html(""))(content: Html)
 
-    @space.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
+@space.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
 
-        <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
+    <main class="admin-area @subMenu.map(t => "submenu-on").orNull" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}' ng-cloak")).orNull>
 
-            <header>
-                <h2>Admin space</h2>
-            </header>
+        <header>
+            <h2>Admin space</h2>
+        </header>
 
-            <aside class="main-menu">
-                <ul>
-                    <li id="news">
-                        <a href="@routes.AdminController.index">News</a>
-                    </li>
-                    <li id="layouts">
-                        <a href="@routes.AdminController.layout">Layouts</a>
-                    </li>
-                </ul>
-            </aside>
+        <aside class="main-menu">
+            <ul>
+                <li id="news">
+                    <a href="@routes.AdminController.index">News</a>
+                </li>
+                <li id="layouts">
+                    <a href="@routes.AdminController.layout">Layouts</a>
+                </li>
+            </ul>
+        </aside>
 
-            @subMenu.map { menu =>
-            <aside class="sub-menu">
-                @menu
-            </aside>
-            }.orNull
+        @subMenu.map { menu =>
+        <aside class="sub-menu">
+            @menu
+        </aside>
+        }.orNull
 
-            <section class="main-section @sectionClass">
-            @content
-            </section>
+        <section class="main-section @sectionClass">
+        @content
+        </section>
 
-            @activeMenu.map { active =>
-            <script type="application/javascript">
+        @activeMenu.map { active =>
+        <script type="application/javascript">
                 document.addEventListener("DOMContentLoaded", function (event) {
                     activateMenu("#news");
                 });
             </script>
-            }.orNull
+        }.orNull
 
-        </main>
+    </main>
 
-    }
+}

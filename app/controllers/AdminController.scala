@@ -5,7 +5,7 @@ import controllers.actions.LoggingAction
 import models.NewsModel.{Article, Layout}
 import play.api.Environment
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsArray, JsString, Json}
 import play.api.mvc._
 import scala.concurrent.Future
 
@@ -19,7 +19,8 @@ class AdminController @Inject()(
   import scala.concurrent.ExecutionContext.Implicits.global
   import scala.io.Source
 
-  private val sampleNews = Json.parse(layoutContentStr("news")).as[Seq[Article]]
+  val sampleNews = Json.parse(layoutContentStr("news")).as[Seq[Article]]
+  val tags       = JsArray(sampleNews.flatMap(t => t.tags.getOrElse(Nil)).distinct.map(t => JsString(t)))
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
@@ -30,7 +31,7 @@ class AdminController @Inject()(
   }
   def article(id: Long) = LoggingAction.async { implicit request => Future {
     sampleNews.find(t => t.id.contains(id))
-      .map(article => Ok(views.html.admin.article(Json.stringify(article))))
+      .map(article => Ok(views.html.admin.article(Json.stringify(article), Json.stringify(tags))))
       .getOrElse(NotFound("Article not found"))
   }
   }

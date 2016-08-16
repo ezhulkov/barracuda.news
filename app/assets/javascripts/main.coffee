@@ -14,7 +14,9 @@ $ ->
 $(window).load ->
   keepTheRhythm()
 
-app = angular.module 'barracudaApp', ['bw.paging', 'alloyeditor']
+Array::filter = (func) -> x for x in @ when func(x)
+
+app = angular.module 'barracudaApp', ['bw.paging', 'alloyeditor', 'ngTagsInput']
 app.directive "autoFocus", ($timeout) ->
   return link: (scope, element, attrs) ->
     attrs.$observe("autoFocus", (newValue) ->
@@ -59,6 +61,10 @@ app.controller "NewsController", ($timeout, $window, $scope, $http) ->
 
 app.controller "ArticleController", ($timeout, $window, $scope, $http) ->
   $scope.articleModel = angular.copy($window.articleModel)
+  $scope.tags = angular.copy($window.tags)
+  $scope.loadTags = (query) ->
+    if(query.length == 0)
+      return $scope.tags
+    return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
   $scope.reset = ->
-    console.log("resest")
     $scope.articleModel = angular.copy($window.articleModel)

@@ -1314,17 +1314,6 @@ article h2, article h3, article h4 {
 }
 
 main.admin-area {
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjEuMCIgeDI9IjAuNSIgeTI9IjAuMCI+PHN0b3Agb2Zmc2V0PSI1JSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjUiLz48c3RvcCBvZmZzZXQ9IjUlIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAuMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(5%, rgba(0, 0, 0, 0.5)), color-stop(5%, rgba(0, 0, 0, 0)));
-  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
-  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
-  -moz-background-size: 100% 1.5rem;
-  -o-background-size: 100% 1.5rem;
-  -webkit-background-size: 100% 1.5rem;
-  background-size: 100% 1.5rem;
-  background-position: left top;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -1522,7 +1511,6 @@ main.admin-area section.main-section dl {
   float: left;
   margin-bottom: 24px;
   margin-bottom: 1.5rem;
-  overflow: auto;
 }
 main.admin-area section.main-section dl dt {
   font-size: 13px;
@@ -1634,6 +1622,59 @@ main.admin-area section.article-section dl.tags {
   width: 50%;
   float: left;
   padding-right: 0.41667%;
+}
+main.admin-area section.article-section dl.tags .host {
+  margin: 0;
+}
+main.admin-area section.article-section dl.tags span, main.admin-area section.article-section dl.tags a {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+}
+main.admin-area section.article-section dl.tags input {
+  width: 80px !important;
+}
+main.admin-area section.article-section dl.tags a {
+  color: white;
+}
+main.admin-area section.article-section dl.tags li.tag-item {
+  color: white;
+  background: blue;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+main.admin-area section.article-section dl.tags ti-tag-item {
+  display: block;
+  margin-top: -3px;
+  -webkit-font-smoothing: subpixel-antialiased;
+  line-height: 18px;
+  height: 18px;
+}
+main.admin-area section.article-section dl.tags li.tag-item, main.admin-area section.article-section dl.tags input {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  padding: 1px 5px;
+  margin: 0 2px;
+  height: 20px;
+  font-family: "Open Sans", sans-serif;
+}
+main.admin-area section.article-section dl.tags .autocomplete {
+  margin: 0;
+  padding: 0;
+}
+main.admin-area section.article-section dl.tags .autocomplete li {
+  padding: 2px 5px;
+}
+main.admin-area section.article-section dl.tags .autocomplete em {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
 }
 main.admin-area section.article-section dl.publish {
   -moz-box-sizing: border-box;
