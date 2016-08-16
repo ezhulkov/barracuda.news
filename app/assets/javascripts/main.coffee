@@ -122,6 +122,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http) ->
   $scope.tags = angular.copy($window.tags)
   $scope.alloyConfig = $window.alloyConfig
   $scope.loading = false
+  $scope.result = {}
   $scope.loadTags = (query) ->
     if(query.length == 0)
       return $scope.tags
@@ -136,4 +137,8 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http) ->
     .error ->
       $scope.loading = false
     .success (data) ->
+      $scope.result = data
       $scope.loading = false
+      $timeout ->
+        $scope.result = {}
+      , 1000

@@ -36,7 +36,7 @@ class AdminController @Inject()(
   }
   }
   def articlePost = LoggingAction.async { implicit request => Future {
-    Redirect(routes.AdminController.article(1)).flashing(("result", "123"))
+    Ok(Json.obj("result"->"Article saved!")).as(JSON)
   }
   }
   def articleDelete(id: Long) = LoggingAction.async { implicit request => Future {
