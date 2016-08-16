@@ -114,60 +114,73 @@ header
           &.active a
             color: $activeLink
 
-body
-  .search-overlay
-    +stretch()
-    +transition(opacity 0.1s ease-in)
-    +opacity(0)
-    background-color: rgba(black, 0.8)
-    z-index: 10
-    visibility: hidden
-    overflow: auto
-    pointer-events: auto
-    .search-input, .result
-      +span(12)
-      +desktop-media
-        +span(10)
-        +push(1)
-      +xdesktop-media
-        +span(8)
-        +push(2)
-    .search-input
-      +margin-leader(3)
-      position: relative
-      &:after
-        +fa
-        +t-large
-        color: $whiteColor
-        content: "\f002"
-        position: absolute
-        top: 0
-        right: 0
-      input[type="text"]
-        +t-large
-        width: 100%
-        outline: none
-        color: white
-        position: relative
-        border: none
-        background-color: transparent
-        border-bottom: 1px solid $whiteColor
-    .result
-      +margin-leader(1)
+=overlay
+  +stretch()
+  +transition(opacity 0.1s ease-in)
+  +opacity(0)
+  background-color: rgba(black, 0.8)
+  z-index: 10
+  visibility: hidden
+  overflow: auto
+  pointer-events: auto
+
+=overlay-active($name)
+  main
+    +filter(blur(3px))
+  .#{$name}
+    +opacity(1)
+    visibility: visible
+
+.loading-overlay
+  +overlay
+  background-color: rgba(255, 255, 255, 0.1)
+  & > div
+    position: absolute
+    top: 50%
+    left: 50%
+    color: $blackTextColor
+    transform: translate(-50%, -50%)
+.search-overlay
+  +overlay
+  .search-input, .result
+    +span(12)
+    +desktop-media
+      +span(10)
+      +push(1)
+    +xdesktop-media
+      +span(8)
+      +push(2)
+  .search-input
+    +margin-leader(3)
+    position: relative
+    &:after
+      +fa
+      +t-large
       color: $whiteColor
-      li
-        border-bottom: 1px solid $whiteColor
-        margin-bottom: -1px
-      h2
-        line-height: rhythm(3/2)
-        a
-          +active-link()
+      content: "\f002"
+      position: absolute
+      top: 0
+      right: 0
+    input[type="text"]
+      +t-large
+      width: 100%
+      outline: none
+      color: white
+      position: relative
+      border: none
+      background-color: transparent
+      border-bottom: 1px solid $whiteColor
+  .result
+    +margin-leader(1)
+    color: $whiteColor
+    li
+      border-bottom: 1px solid $whiteColor
+      margin-bottom: -1px
+    h2
+      line-height: rhythm(3/2)
+      a
+        +active-link()
+
+.app-wrapper
   &.search-active
-    overflow: hidden
-    main
-      +filter(blur(3px))
-    .search-overlay
-      +opacity(1)
-      visibility: visible
-
-
+    +overlay-active("search-overlay")

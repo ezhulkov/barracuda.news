@@ -4,26 +4,73 @@ $ ->
 @activateMenu = (id) ->
   $(id).addClass('active')
 
-@keepTheRhythm = (selector) ->
-  sel = selector || ".article-body img"
-  $(sel).keepTheRhythm({
+$(window).load ->
+  $(".article-body img").keepTheRhythm({
     baseLine: 24,
     spacing: "margin"
   })
 
-$(window).load ->
-  keepTheRhythm()
-
 Array::filter = (func) -> x for x in @ when func(x)
 
-@questionParagraph = document.registerElement("bn-question2", {
-  prototype: Object.create(HTMLButtonElement.prototype),
-  extends: 'div'
-})
-@answerParagraph = document.registerElement("bn-answer", {
-  prototype: Object.create(HTMLButtonElement.prototype),
-  extends: 'div'
-})
+if (typeof AlloyEditor != 'undefined')
+  @alloyConfig = {
+    toolbars: {
+      add: {
+        buttons: ['image', 'link']
+      },
+      styles: {
+        selections: [{
+          name: 'link',
+          buttons: ['linkEdit'],
+          test: AlloyEditor.SelectionTest.link
+        }, {
+          name: 'text',
+          buttons2: ['styles', 'bold', 'italic', 'underline', 'link'],
+          buttons: [{
+            name: 'styles',
+            cfg: {
+              styles: [
+                {
+                  name: 'Heading',
+                  style: {element: 'h2'}
+                },
+                {
+                  name: 'Heading small',
+                  style: {element: 'h3'}
+                },
+                {
+                  name: 'Interview question',
+                  style: {
+                    element: 'p',
+                    attributes: {
+                      class: 'q'
+                    }
+                  }
+                },
+                {
+                  name: 'Interview answer',
+                  style: {
+                    element: 'p',
+                    attributes: {
+                      class: 'a'
+                    }
+                  }
+                }
+              ]
+            }
+          }, 'bold', 'italic', 'underline', 'link'],
+          test: AlloyEditor.SelectionTest.text
+        }, {
+          name: 'table',
+          buttons: ['tableRow', 'tableColumn', 'tableCell', 'tableRemove'],
+          getArrowBoxClasses: AlloyEditor.SelectionGetArrowBoxClasses.table,
+          setPosition: AlloyEditor.SelectionSetPosition.table,
+          test: AlloyEditor.SelectionTest.table
+        }]
+      }
+    }
+  }
+
 frontendApp = angular.module 'frontendApp', []
 adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker']
 
@@ -73,56 +120,20 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")
   $scope.articleModel = angular.copy($window.articleModel)
   $scope.tags = angular.copy($window.tags)
-  $scope.alloyConfig = {
-    toolbars: {
-      add: {
-        buttons: ['image', 'link']
-      },
-      styles: {
-        selections: [{
-          name: 'link',
-          buttons: ['linkEdit'],
-          test: AlloyEditor.SelectionTest.link
-        }, {
-          name: 'text',
-          buttons2: ['styles', 'bold', 'italic', 'underline', 'link'],
-          buttons: [{
-            name: 'styles',
-            cfg: {
-              styles: [
-                {
-                  name: 'Heading',
-                  style: {element: 'h2'}
-                },
-                {
-                  name: 'Heading small',
-                  style: {element: 'h3'}
-                },
-                {
-                  name: 'Interview question',
-                  style: {element: 'bn-question'}
-                },
-                {
-                  name: 'Interview answer',
-                  style: {element: 'bn-answer'}
-                }
-              ]
-            }
-          }, 'bold', 'italic', 'underline', 'link'],
-          test: AlloyEditor.SelectionTest.text
-        }, {
-          name: 'table',
-          buttons: ['tableRow', 'tableColumn', 'tableCell', 'tableRemove'],
-          getArrowBoxClasses: AlloyEditor.SelectionGetArrowBoxClasses.table,
-          setPosition: AlloyEditor.SelectionSetPosition.table,
-          test: AlloyEditor.SelectionTest.table
-        }]
-      }
-    }
-  }
+  $scope.alloyConfig = $window.alloyConfig
+  $scope.loading = false
   $scope.loadTags = (query) ->
     if(query.length == 0)
       return $scope.tags
     return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
   $scope.reset = ->
     $scope.articleModel = angular.copy($window.articleModel)
+  $scope.save = ->
+    $scope.loading = true
+    article = angular.copy($scope.articleModel)
+    article.tags = article.tags.map (i) -> i.text
+    $http.post("/admin/article", article)
+    .error ->
+      $scope.loading = false
+    .success (data) ->
+      $scope.loading = false

@@ -23,7 +23,7 @@ main.admin-area
     position: fixed
     width: 100%
     top: 0
-    z-index: 100
+    z-index: 9
   & > aside.main-menu
     background-color: $blackColor2
     position: fixed
@@ -191,6 +191,7 @@ main.admin-area
           +span(8)
           +pre(0)
       .alloy-editor
+        +border(1px, $color: lightblue)
         width: 100%
         min-height: 50px
         padding-left: $pad/2
