@@ -1,11 +1,11 @@
 
-GET           /                         controllers.GuiController.index
-GET           /topic/:name              controllers.GuiController.topic(name:String)
-GET           /article                  controllers.GuiController.article
-GET           /about                    controllers.GuiController.about
-GET           /adv                      controllers.GuiController.adv
-GET           /contacts                 controllers.GuiController.contacts
-POST          /search                   controllers.GuiController.search(q:String)
+GET           /                         controllers.FrontendController.index
+GET           /topic/:name              controllers.FrontendController.topic(name:String)
+GET           /article                  controllers.FrontendController.article
+GET           /about                    controllers.FrontendController.about
+GET           /adv                      controllers.FrontendController.adv
+GET           /contacts                 controllers.FrontendController.contacts
+POST          /search                   controllers.FrontendController.search(q:String)
 
 GET           /admin                    controllers.AdminController.index
 GET           /admin/layout             controllers.AdminController.layout

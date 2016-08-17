@@ -4,14 +4,16 @@ import javax.inject._
 import controllers.actions.LoggingAction
 import models.NewsModel.{Article, Layout}
 import play.api.Environment
+import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.Future
 
 @Singleton
-class GuiController @Inject()(
-  env: Environment
-) extends Controller {
+class FrontendController @Inject()(
+  env: Environment,
+  val messagesApi: MessagesApi
+) extends Controller with I18nSupport {
 
   import models.Implicits._
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -33,7 +35,7 @@ class GuiController @Inject()(
   def article = LoggingAction.async { implicit request => Future(Ok(views.html.article())) }
   def topic(name: String) = LoggingAction.async { implicit request => Future(Ok(views.html.topic(layouts.get(name), sampleNews))) }
 
-  def search(q: String) = Action.async { implicit request => Future(Ok(Json.toJson(sampleNews.flatMap(t => t._2).filter(t => t.searchMatch(q)).take(5))).as(JSON)) }
+  def search(q: String) = Action.async { implicit request => Future(Ok(Json.toJson(sampleNews.flatMap(t => t._2.flatMap(n => n.translations.getOrElse(Nil))).filter(t => t.searchMatch(q)).take(5))).as(JSON)) }
 
   def about = LoggingAction.async { implicit request => Future(Ok(views.html.about())) }
   def contacts = LoggingAction.async { implicit request => Future(Ok(views.html.contacts())) }

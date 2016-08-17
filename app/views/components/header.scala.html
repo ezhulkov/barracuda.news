@@ -4,7 +4,7 @@
 
     <section class="corporate">
         <section class="container">
-            <a href="@routes.GuiController.index">
+            <a href="@routes.FrontendController.index">
                 <img src="@routes.Assets.versioned("/images/logo.png")" alt="barracuda.news" title="barracude.news"/>
             </a>
         </section>
@@ -19,11 +19,11 @@
                 <li class="lang" ng-click="toggleLang()"><div>Eng</div></li>
             </ul>
             <ul class="categories">
-                <li class="color1"><a href="@routes.GuiController.index">News</a></li>
-                <li class="color2"><a href="@routes.GuiController.topic("stories")">Stories</a></li>
-                <li class="color3"><a href="@routes.GuiController.topic("tracking")">Tracking</a></li>
-                <li class="color4"><a href="@routes.GuiController.topic("media")">Media</a></li>
-                <li class="color5"><a href="@routes.GuiController.topic("fish")">Fish production</a></li>
+                <li class="color1"><a href="@routes.FrontendController.index">News</a></li>
+                <li class="color2"><a href="@routes.FrontendController.topic("stories")">Stories</a></li>
+                <li class="color3"><a href="@routes.FrontendController.topic("tracking")">Tracking</a></li>
+                <li class="color4"><a href="@routes.FrontendController.topic("media")">Media</a></li>
+                <li class="color5"><a href="@routes.FrontendController.topic("fish")">Fish production</a></li>
             </ul>
         </section>
     </section>

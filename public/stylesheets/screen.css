@@ -124,7 +124,7 @@ main {
   -moz-osx-font-smoothing: grayscale;
 }
 
-input {
+input[type='button'], input[type='text'] {
   -moz-appearance: none;
   -webkit-appearance: none;
   -moz-border-radius: 0;
@@ -1429,10 +1429,8 @@ main.admin-area aside.sub-menu ul {
   padding-top: 24px;
   padding-top: 1.5rem;
 }
-main.admin-area aside.sub-menu ul a {
-  padding-left: 20px;
-  width: 100%;
-  display: block;
+main.admin-area aside.sub-menu ul li {
+  padding-left: 30px;
 }
 main.admin-area aside.sub-menu ul a, main.admin-area aside.sub-menu ul a * {
   -moz-transition: all 0.2s ease-in-out;
@@ -1449,34 +1447,11 @@ main.admin-area aside.sub-menu ul a:hover, main.admin-area aside.sub-menu ul a:h
   background-color: initial;
   text-decoration: none;
 }
-main.admin-area aside.sub-menu input {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  padding: 0 0 0 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  display: block;
-  text-align: left;
-  outline: none;
+main.admin-area aside.sub-menu ul.langs li {
+  padding-left: 10px;
 }
-main.admin-area aside.sub-menu input, main.admin-area aside.sub-menu input * {
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  color: darkblue;
-  background-color: initial;
-  text-decoration: none;
-}
-main.admin-area aside.sub-menu input:hover, main.admin-area aside.sub-menu input:hover * {
-  color: #f26522 !important;
-  background-color: initial;
-  text-decoration: none;
+main.admin-area aside.sub-menu ul.langs li input {
+  margin-right: 5px;
 }
 main.admin-area.submenu-on .main-section {
   margin-right: 140px;
@@ -1657,9 +1632,8 @@ main.admin-area section.article-section dl.tags {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 50%;
+  width: 100%;
   float: left;
-  padding-right: 0.41667%;
 }
 main.admin-area section.article-section dl.tags .host {
   margin: 0;
@@ -1720,7 +1694,19 @@ main.admin-area section.article-section dl.publish {
   box-sizing: border-box;
   width: 50%;
   float: left;
+  padding-right: 0.41667%;
+}
+main.admin-area section.article-section dl.origin {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
   padding-left: 0.41667%;
+}
+main.admin-area section.article-section dl.caption {
+  padding-top: 24px;
+  padding-top: 1.5rem;
 }
 main.admin-area section.article-section dl.caption input {
   font-size: 23px;
@@ -1728,6 +1714,10 @@ main.admin-area section.article-section dl.caption input {
   line-height: 48px;
   line-height: 3rem;
   height: 3rem;
+}
+main.admin-area section.article-section .lang-label {
+  border-bottom: 1px solid #333;
+  margin-bottom: -1px;
 }
 main.admin-area section.article-section article.edit {
   margin-top: 0px;

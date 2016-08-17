@@ -1,15 +1,17 @@
-@(article: String, tags: String)
+@(article: String, tags: String, langs: String)
 
     @sidebar = {
+        <ul class="langs">
+            <li ng-repeat="l in langs">
+                <input type="radio" name="lang" id="{{l.value}}" ng-value="l" ng-model="$parent.selectedLang" ng-change="changeLang()"/><label for="{{l.value}}">{{l.label}}</label>
+            </li>
+        </ul>
         <ul>
             <li>
                 <a href="#" ng-click="show()">Show</a>
             </li>
             <li>
                 <a href="#" ng-click="save()">Save</a>
-            </li>
-            <li>
-                <a href="#" ng-click="reset()">Reset</a>
             </li>
             <li>
                 <a href="#" ng-click="delete()">Delete</a>
@@ -22,17 +24,13 @@
         <div>
             <ul class="breadcrumbs">
                 <li><a href="@routes.AdminController.index">News</a></li>
-                <li>{{articleModel.caption}}</li>
+                <li>{{translation.caption}}</li>
             </ul>
             <fieldset>
-                <dl class="caption">
-                    <dt><label for="caption">Caption:</label></dt>
-                    <dd><input id="caption" type="text" name="caption" ng-model="articleModel.caption"></dd>
-                </dl>
                 <dl class="tags">
                     <dt><label for="tags">Tags:</label></dt>
                     <dd>
-                        <tags-input class="tags-input" ng-model="articleModel.tags" placeholder="Add tags" add-on-paste="true">
+                        <tags-input id="tags" class="tags-input" ng-model="articleModel.tags" placeholder="Add tags" add-on-paste="true">
                             <auto-complete min-length="0" load-on-focus="true" load-on-empty="true" source="loadTags($query)"></auto-complete>
                         </tags-input>
                     </dd>
@@ -46,23 +44,34 @@
                     <dd><input type="url" name="origin" ng-model="articleModel.origin"></dd>
                 </dl>
             </fieldset>
-            <article class="edit">
-                <section class="container">
-                    <div class="article-body">
-                        <alloy-editor id="article_editor" ng-model="articleModel.text" config="alloyConfig"></alloy-editor>
-                    </div>
-                    <div class="adv">
-                        <div class="banner">
-                            <img src="http://placehold.it/300x600">
-                        </div>
-                    </div>
-                </section>
-            </article>
+            <fieldset>
+                <div class="lang-label">{{selectedLang.label}}:</div>
+                <dl class="caption">
+                    <dd><input id="caption" type="text" name="caption" ng-model="translation.caption" placeholder="Caption"></dd>
+                </dl>
+                <dl>
+                    <dd>
+                        <article class="edit">
+                            <section class="container">
+                                <div class="article-body">
+                                    <alloy-editor id="article_editor" ng-model="translation.text" config="alloyConfig"></alloy-editor>
+                                </div>
+                                <div class="adv">
+                                    <div class="banner">
+                                        <img src="http://placehold.it/300x600">
+                                    </div>
+                                </div>
+                            </section>
+                        </article>
+                    </dd>
+                </dl>
+            </fieldset>
 
         </div>
         <script type="application/javascript">
             var articleModel = @Html(article)
             var tags = @Html(tags)
+            var langs = @Html(langs)
         </script>
 
     }

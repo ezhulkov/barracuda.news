@@ -59,22 +59,15 @@ main.admin-area
     width: $submenu-width
     ul
       +padding-leader(1)
+      li
+        padding-left: 30px
       a
         +active-link($color: $darkBlueColor)
-        padding-left: $pad
-        width: 100%
-        display: block
-    input
-      +t-base
-      +active-link($color: $darkBlueColor)
-      padding: 0 0 0 $pad
-      background: none
-      border: none
-      cursor: pointer
-      width: 100%
-      display: block
-      text-align: left
-      outline: none
+    ul.langs
+      li
+        padding-left: 10px
+        input
+          margin-right: 5px
   &.submenu-on .main-section
     margin-right: $submenu-width
   section.main-section
@@ -152,8 +145,7 @@ main.admin-area
   section.article-section
     +with-layout(12 fluid inside)
       dl.tags
-        +span(6 no-gutter)
-        padding-right: gutter()/2
+        +span(12 no-gutter)
         .host
           margin: 0
         span, a
@@ -188,11 +180,19 @@ main.admin-area
             +t-small
       dl.publish
         +span(6 no-gutter)
+        padding-right: gutter()/2
+      dl.origin
+        +span(6 no-gutter)
         padding-left: gutter()/2
       dl.caption
+        +padding-leader(1)
         input
           +t-large
           height: rhythm(2)
+      .lang-label
+        border-bottom: 1px solid $blackTextColor
+        margin-bottom: -1px
+
     article.edit
       +rhythm-margins(0)
       +rhythm-padding(1)

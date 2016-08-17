@@ -31,7 +31,7 @@
                     }
                     newsToDisplay.take(row.height.maxNews) match {
                         case head :: tail =>
-                            List(peaceOfNews(head, block.newsType, first = true)) ++ tail.map(t => peaceOfNews(t, block.newsType))
+                            List(article(head, block.newsType, first = true)) ++ tail.map(t => article(t, block.newsType))
                         case _ =>
                             <p>Empty topic</p>
                     }

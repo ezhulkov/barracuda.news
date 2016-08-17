@@ -118,17 +118,22 @@ adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
 
 adminApp.controller "ArticleController", ($timeout, $window, $scope, $http) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")
+  $scope.result = {}
+  $scope.langs = angular.copy($window.langs)
+  $scope.selectedLang = $scope.langs[0]
   $scope.articleModel = angular.copy($window.articleModel)
   $scope.tags = angular.copy($window.tags)
   $scope.alloyConfig = $window.alloyConfig
   $scope.loading = false
-  $scope.result = {}
+  $scope.findTranslation = () ->
+    (t for t in $scope.articleModel.translations when t.lang is $scope.selectedLang.value)[0]
+  $scope.translation = $scope.findTranslation()
+  $scope.changeLang = ->
+    $scope.translation = $scope.findTranslation()
   $scope.loadTags = (query) ->
     if(query.length == 0)
       return $scope.tags
     return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
-  $scope.reset = ->
-    $scope.articleModel = angular.copy($window.articleModel)
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
