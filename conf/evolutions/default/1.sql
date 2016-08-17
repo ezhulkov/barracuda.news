@@ -41,10 +41,14 @@ INSERT INTO tag (text, root) VALUES ('main', TRUE);
 INSERT INTO tag (text, root) VALUES ('stories', TRUE);
 INSERT INTO tag (text, root) VALUES ('tracking', TRUE);
 INSERT INTO tag (text, root) VALUES ('fish', TRUE);
+INSERT INTO tag (text, root) VALUES ('main_news', FALSE);
+INSERT INTO tag (text, root) VALUES ('sub_news', FALSE);
+INSERT INTO tag (text, root) VALUES ('video', FALSE);
+INSERT INTO tag (text, root) VALUES ('gallery', FALSE);
 
 # --- !Downs
 DROP TABLE news_media;
 DROP TABLE translation;
 DROP TABLE article_tag;
-DROP TABLE tag;
 DROP TABLE article;
+DROP TABLE tag;

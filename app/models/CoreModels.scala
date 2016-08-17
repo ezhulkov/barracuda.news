@@ -45,9 +45,10 @@ object CoreModels {
 
   object Language extends Enumeration {
     type Language = Value
-    val ENGLISH = LanguageValue("en", "English")
-    val RUSSIAN = LanguageValue("ru", "Русский")
-    sealed case class LanguageValue(code: String, name: String) extends super.Val(code)
+    val ENGLISH = LanguageValue("en", "English", "Рус")
+    val RUSSIAN = LanguageValue("ru", "Русский", "Eng")
+    val DEFAULT = ENGLISH
+    sealed case class LanguageValue(code: String, name: String, label: String) extends super.Val(code)
     implicit def convert(value: Value): LanguageValue = value.asInstanceOf[LanguageValue]
   }
 

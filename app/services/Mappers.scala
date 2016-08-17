@@ -21,6 +21,10 @@ object Mappers {
       where(sqls.eq(defaultAlias.root, true)).apply().toSet
     }
 
+    def allTags(text: Seq[String])(implicit session: DBSession = autoSession): Set[Tag] = {
+      where(sqls.in(defaultAlias.text, text)).apply().toSet
+    }
+
     def create(text: String): Long = createWithNamedValues(
       column.text -> text,
       column.root -> false
