@@ -137,13 +137,16 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http) ->
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
-    article.tags = article.tags.map (i) -> i.text
     $http.post("/admin/article", article)
-    .error ->
+    .error (data, status) ->
+      $scope.result = data
       $scope.loading = false
+      $timeout ->
+        $scope.result = {}
+      , 2000
     .success (data) ->
       $scope.result = data
       $scope.loading = false
       $timeout ->
         $scope.result = {}
-      , 1000
+      , 2000

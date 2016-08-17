@@ -1,7 +1,7 @@
-@import models.NewsModel.Article
-@import models.NewsModel.Layout
+@import models.CoreModels.Article
+@import models.CoreModels.Layout
 
-@(layout: Option[Layout], news: Map[String, Seq[Article]])
+@(layout: Option[Layout], news: Set[Article])
 
 @space.front("barracuda.news") {
 

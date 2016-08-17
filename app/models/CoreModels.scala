@@ -1,16 +1,16 @@
 package models
 
 import com.github.nscala_time.time.Imports._
-import models.NewsModel.BlockSize.BlockSize
-import models.NewsModel.Language.Language
-import models.NewsModel.NewsType.NewsType
-import models.NewsModel.RowHeight.RowHeight
+import models.CoreModels.BlockSize.BlockSize
+import models.CoreModels.Language.Language
+import models.CoreModels.NewsType.NewsType
+import models.CoreModels.RowHeight.RowHeight
 import scala.language.implicitConversions
 
 /**
   * Created by ezhulkov on 04.07.16.
   */
-object NewsModel {
+object CoreModels {
 
   val dateFormat = "yyyy/MM/dd HH:mm:SS"
 
@@ -51,34 +51,32 @@ object NewsModel {
     implicit def convert(value: Value): LanguageValue = value.asInstanceOf[LanguageValue]
   }
 
+  sealed case class Tag(id: Option[Long], text: String, root: Option[Boolean] = None)
   sealed case class Layout(rows: Seq[NewsRow])
   sealed case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
   sealed case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
-  sealed case class NewsMedia(source: String, text: Option[String])
-  sealed case class Translation(lang: Language, caption: String, text: String, media: Option[Seq[NewsMedia]]) {
-    var firstSource = media.flatMap(m => m.headOption).map(t => t.source).orNull
+  sealed case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
+  case class Article(
+    id: Long,
+    url: Option[String],
+    origin: Option[String],
+    publish: DateTime,
+    tags: Seq[Tag] = Nil,
+    translations: Seq[Translation] = Nil
+  ) {
+    def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
+  }
+  sealed case class Translation(id: Long, articleId: Long, lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
+    var firstUrl = media.headOption.map(t => t.url).orNull
     def backgroundImage(newsType: NewsType) = newsType match {
-      case NewsType.PHOTO => s"background-image: url('$firstSource')"
-      case NewsType.VIDEO => s"background-image: url('http://img.youtube.com/vi/$firstSource/0.jpg')"
+      case NewsType.PHOTO => s"background-image: url('$firstUrl')"
+      case NewsType.VIDEO => s"background-image: url('http://img.youtube.com/vi/$firstUrl/0.jpg')"
       case _ => ""
     }
     def searchMatch(q: String) = {
       val lCQ = q.toLowerCase
       text.toLowerCase.contains(lCQ) || caption.contains(lCQ)
     }
-  }
-
-  sealed case class Article(
-    id: Option[Long],
-    origin: Option[String],
-    publish: DateTime,
-    tags: Option[Seq[String]],
-    translations: Option[Seq[Translation]]
-  ) {
-
-    var tagsSeq = tags.getOrElse(Nil)
-    var hrUrl   = s"${id.getOrElse("")}"
-
   }
 
   object Article {

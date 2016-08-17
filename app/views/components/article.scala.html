@@ -1,8 +1,7 @@
-@import models.NewsModel.{Article, NewsType}
+@import models.CoreModels.Article
+@import models.CoreModels.NewsType
 
 @(item: Article, newsType: NewsType.NewsTypeValue, first: Boolean = false)
-
-
 @*<div class="item @if(first) {first-item}" style="@item.backgroundImage(newsType)">*@
 @*<h4><a href="@routes.FrontendController.article">@item.caption</a></h4>*@
 @*@if(newsType == NewsType.VIDEO) {*@

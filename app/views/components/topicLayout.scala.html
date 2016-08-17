@@ -1,7 +1,7 @@
 @import components._
-@import models.NewsModel._
+@import models.CoreModels._
 
-@(layoutOpt: Option[Layout], news: Map[String, Seq[Article]])
+@(layoutOpt: Option[Layout], news: Set[Article])
 
 @{
     layoutOpt match {
@@ -10,11 +10,11 @@
     }
 }
 
-@listGrid(news: Map[String, Seq[Article]]) = {
+@listGrid(news: Set[Article]) = {
     LIST NEWS
 }
 
-@layoutGrid(layout: Layout, news: Map[String, Seq[Article]]) = {
+@layoutGrid(layout: Layout, news: Set[Article]) = {
 @for(row <- layout.rows) {
     <div class="topic-row @row.height.cssClass">
     @for(block <- row.blocks) {
@@ -26,8 +26,8 @@
                 <div class="items">
                 @{
                     val newsToDisplay = block.newsType match {
-                        case NewsType.TEXT => news.getOrElse(block.tag, Nil)
-                        case _ => news.getOrElse(block.tag, Nil).headOption.toSeq
+                        case NewsType.TEXT => news.filter(t => t.hasTag(block.tag))
+                        case _ => news.find(t => t.hasTag(block.tag)).toSeq
                     }
                     newsToDisplay.take(row.height.maxNews) match {
                         case head :: tail =>
