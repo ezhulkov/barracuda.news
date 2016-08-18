@@ -130,10 +130,9 @@ main.admin-area
       li.active a
         color: $activeLink
     .item
+      +active-link($blackTextColor)
       +trailing-border(1px, $lines: 1/2)
       +margin-trailer(1/2)
-      h2
-        +active-link($blackTextColor)
       .tags
         overflow: auto
         li

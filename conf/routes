@@ -9,8 +9,10 @@ POST          /search                   controllers.FrontendController.search(q:
 
 GET           /admin                    controllers.AdminController.index
 GET           /admin/layout             controllers.AdminController.layout
+GET           /admin/article            controllers.AdminController.articleNew
 GET           /admin/article/:id        controllers.AdminController.article(id:Long)
 DELETE        /admin/article/:id        controllers.AdminController.articleDelete(id:Long)
-POST          /admin/article            controllers.AdminController.articlePost
+PUT           /admin/article            controllers.AdminController.articleSave
+POST          /admin/article            controllers.AdminController.articleCreate
 
 GET           /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)

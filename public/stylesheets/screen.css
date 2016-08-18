@@ -1602,7 +1602,7 @@ main.admin-area section.news-section .item {
   margin-bottom: 12px;
   margin-bottom: 0.75rem;
 }
-main.admin-area section.news-section .item h2, main.admin-area section.news-section .item h2 * {
+main.admin-area section.news-section .item, main.admin-area section.news-section .item * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1612,7 +1612,7 @@ main.admin-area section.news-section .item h2, main.admin-area section.news-sect
   background-color: initial;
   text-decoration: none;
 }
-main.admin-area section.news-section .item h2:hover, main.admin-area section.news-section .item h2:hover * {
+main.admin-area section.news-section .item:hover, main.admin-area section.news-section .item:hover * {
   color: #f26522 !important;
   background-color: initial;
   text-decoration: none;

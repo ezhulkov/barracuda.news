@@ -61,13 +61,14 @@ object CoreModels {
     id: Option[Long],
     url: Option[String],
     origin: Option[String],
+    coverMedia: Option[String],
     publish: DateTime,
     tags: Seq[Tag] = Nil,
     translations: Seq[Translation] = Nil
   ) {
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
   }
-  sealed case class Translation(id: Long, articleId: Long, lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
+  sealed case class Translation(id: Option[Long], articleId: Option[Long], lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
     var firstUrl = media.headOption.map(t => t.url).orNull
     def backgroundImage(newsType: NewsType) = newsType match {
       case NewsType.PHOTO => s"background-image: url('$firstUrl')"
@@ -80,7 +81,12 @@ object CoreModels {
     }
   }
 
+  object Translation {
+    val NEW_TRANSLATION = Language.values.map(l => Translation(None, None, l, s"Article caption [${l.name}]", s"Article body [${l.name}}]", Nil)).toSeq
+  }
+
   object Article {
+    val NEW_ARTICLE = Article(None, None, None, None, DateTime.now(), Nil, Translation.NEW_TRANSLATION)
     def publishFormat(article: Article) = article.publish.toString()
     def publishParse(date: Option[String]): Option[DateTime] = date.map(t => DateTime.parse(t))
   }

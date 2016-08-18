@@ -11,7 +11,7 @@ import scala.util.Try
   */
 object Mappers {
 
-  implicit val langBinder: TypeBinder[Language] = Binders.string.xmap[Language](t => Language.withName(t), t => t.toString)
+  implicit val langBinder: Binders[Language] = Binders.string.xmap[Language](t => Language.withName(t), t => t.toString)
 
   object Tag extends SkinnyCRUDMapper[Tag] {
 
@@ -49,23 +49,34 @@ object Mappers {
       'origin -> article.origin.orNull,
       'publish -> article.publish
     )
-    def findByUrl(url: String)(implicit session: DBSession = autoSession): Option[Article] = {
-      where(sqls.eq(defaultAlias.url, url)).apply().headOption
-    }
-    def update(article: Article): Try[Long] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
-    def create(article: Article): Try[Long] = Try(createWithAttributes(updateAttributes(article): _*))
+    def findByUrl(url: String)(implicit session: DBSession): Option[Article] = where(sqls.eq(defaultAlias.url, url)).apply().headOption
+    def update(article: Article)(implicit s: DBSession): Try[Long] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
+    def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(updateAttributes(article): _*))
 
   }
 
   object Translation extends SkinnyCRUDMapper[Translation] {
+
+    override lazy val defaultAlias = createAlias("tr")
+    override def extract(rs: WrappedResultSet, rn: ResultName[Translation]): Translation = autoConstruct(rs, rn, "media")
 
     lazy val mediaRef = hasMany[NewsMedia](
       many = NewsMedia -> NewsMedia.defaultAlias,
       on = (t, m) => sqls.eq(t.id, m.translationId),
       merge = (t, m) => t.copy(media = m))
 
-    override lazy val defaultAlias = createAlias("tr")
-    override def extract(rs: WrappedResultSet, rn: ResultName[Translation]): Translation = autoConstruct(rs, rn, "media")
+    def findByLang(articleId: Long, lang: Language)(implicit session: DBSession): Option[Translation] =
+      where(sqls.eq(defaultAlias.articleId, articleId) and sqls.eq(defaultAlias.lang, lang)).apply().headOption
+    def create(articleId: Long, lang: Language, translation: Translation)(implicit session: DBSession): Try[Long] = Try(Translation.createWithAttributes(
+      'articleId -> articleId,
+      'lang -> lang.toString,
+      'caption -> translation.caption,
+      'text -> translation.text
+    ))
+    def save(translation: Translation, translationId: Long)(implicit session: DBSession): Try[Long] = Try(Translation.updateById(translationId).withAttributes(
+      'caption -> translation.caption,
+      'text -> translation.text
+    ))
 
   }
 

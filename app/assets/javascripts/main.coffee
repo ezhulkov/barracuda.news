@@ -74,6 +74,17 @@ if (typeof AlloyEditor != 'undefined')
 frontendApp = angular.module 'frontendApp', []
 adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker']
 
+adminApp.service "fileUpload", ($http) ->
+  this.uploadFileToUrl = (file, uploadUrl, success, error) ->
+    fd = new FormData();
+    fd.append('file', file);
+    $http.post(uploadUrl, fd, {
+      transformRequest: angular.identity,
+      headers: {'Content-Type': undefined}
+    })
+    .success(success)
+    .error(error)
+
 frontendApp.directive "autoFocus", ($timeout) ->
   return link: (scope, element, attrs) ->
     attrs.$observe("autoFocus", (newValue) ->
@@ -115,8 +126,22 @@ adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
     from = (p - 1) * $scope.pageSize
     $scope.newsPage = $scope.newsList.slice(from, from + $scope.pageSize);
     return false
+  $scope.addArticle = () ->
+    $http.post("/admin/article")
+    .error (data, status) ->
+      $scope.result = data
+      $scope.loading = false
+      $timeout ->
+        $scope.result = {}
+      , 2000
+    .success (data) ->
+      $scope.result = data
+      $scope.loading = false
+      $timeout ->
+        $scope.result = {}
+      , 2000
 
-adminApp.controller "ArticleController", ($timeout, $window, $scope, $http) ->
+adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, fileUpload) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")
   $scope.result = {}
   $scope.langs = angular.copy($window.langs)
@@ -137,7 +162,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http) ->
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
-    $http.post("/admin/article", article)
+    $http.put("/admin/article", article)
     .error (data, status) ->
       $scope.result = data
       $scope.loading = false
