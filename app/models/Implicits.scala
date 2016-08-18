@@ -39,12 +39,12 @@ object Implicits {
   implicit val layoutFormat                                      = Json.format[Layout]
   implicit val articleWritesTransform: (Article) => JsObject     = (article) =>
     Json.toJson(article).as[JsObject] ++ JsObject(List(
-      "publish_time" -> JsString(Article.publishFormat(article)),
-      "publish_time_formatted" -> JsString(Article.publishFormat(article, "YYYY/MM/D HH:mm")),
+      "publish_time" -> JsString(article.publish.toString),
+      "publish_time_formatted" -> JsString(article.publishFormatted),
       "caption" -> JsString(article.translations.map(t => t.caption).mkString("; "))
     )) - "publish"
   implicit val articleReadsTransform : (JsValue) => Try[Article] = { (json) =>
-    val publishDate = Article.publishParse((json \\ "publish_time").headOption.map(_.as[String])).getOrElse(DateTime.now()).getMillis
+    val publishDate = (json \\ "publish_time").headOption.map(_.as[String]).map(t => DateTime.parse(t)).getOrElse(DateTime.now()).getMillis
     val transformedJson = json.as[JsObject] + ("publish", JsNumber(publishDate))
     Try(transformedJson.as[Article])
   }

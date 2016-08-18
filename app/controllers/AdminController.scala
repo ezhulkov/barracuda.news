@@ -29,7 +29,7 @@ class AdminController @Inject()(
 
   def layout = LoggingAction.async { implicit request => Future(Ok(views.html.admin.layouts())) }
   def index = LoggingAction.async(implicit request => Future(
-    Ok(views.html.admin.index(Json.stringify(articleService.allArticles(false).toSeq.sortBy(-_.publish.getMillis))))
+    Ok(views.html.admin.index(Json.stringify(articleService.allArticles(false).sortBy(-_.publish.getMillis))))
   ))
   def articleNew = getArticle(None)
   def article(id: Long) = getArticle(Some(id))

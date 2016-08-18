@@ -36,6 +36,7 @@ object Mappers {
     override lazy val defaultAlias = createAlias("a")
     override def extract(rs: WrappedResultSet, rn: ResultName[Article]): Article = autoConstruct(rs, rn, "tags", "translations")
 
+    lazy val ordering = Seq(sqls"${defaultAlias.publish} desc")
     lazy val tagsRef  = hasManyThrough[Tag](
       through = ArticleTag,
       many = Tag,
@@ -53,10 +54,14 @@ object Mappers {
     )
     def findAll(onlyPublished: Boolean): Seq[Article] = {
       val query = joins(Mappers.Article.tagsRef, Mappers.Article.transRef)
-      if (onlyPublished) query.findAllBy(sqls.le(defaultAlias.publish, DateTime.now()))
-      else query.findAll()
+      val now = DateTime.now()
+      if (onlyPublished) query.findAllBy(sqls.le(defaultAlias.publish, now), ordering)
+      else query.findAll(ordering)
     }
-    def findByUrl(url: String)(implicit session: DBSession): Option[Article] = where(sqls.eq(defaultAlias.url, url)).apply().headOption
+
+    def findById(id: Long): Option[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findById(id)
+    def findByUrl(url: String): Option[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findBy(sqls.eq(defaultAlias.url, url))
+    def findAllTagged(tag: String): Seq[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findAllBy(sqls.eq(Tag.defaultAlias.text, tag), ordering)
     def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
     def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(updateAttributes(article): _*))
 

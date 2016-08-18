@@ -167,6 +167,8 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, file
     $timeout ->
       $scope.result = {}
     , 1000
+  $scope.show = ->
+    $window.open("https://barracuda.news/article/" + $scope.articleModel.id, "_blank")
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)

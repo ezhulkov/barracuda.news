@@ -66,15 +66,15 @@ object CoreModels {
     tags: Seq[Tag] = Nil,
     translations: Seq[Translation] = Nil
   ) {
+    val publishFormatted = publish.toString("YYYY/MM/D HH:mm")
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
+    def backgroundStyle(newsType: NewsType) = coverMedia.flatMap(cover => newsType match {
+      case NewsType.PHOTO => Some(s"""style="background-image: url('$cover')"""")
+      case NewsType.VIDEO => Some(s"""style="background-image: url('http://img.youtube.com/vi/$cover/0.jpg')"""")
+      case _ => None
+    })
   }
   sealed case class Translation(id: Option[Long], articleId: Option[Long], lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
-    var firstUrl = media.headOption.map(t => t.url).orNull
-    def backgroundImage(newsType: NewsType) = newsType match {
-      case NewsType.PHOTO => s"background-image: url('$firstUrl')"
-      case NewsType.VIDEO => s"background-image: url('http://img.youtube.com/vi/$firstUrl/0.jpg')"
-      case _ => ""
-    }
     def searchMatch(q: String) = {
       val lCQ = q.toLowerCase
       text.toLowerCase.contains(lCQ) || caption.contains(lCQ)
@@ -87,8 +87,6 @@ object CoreModels {
 
   object Article {
     def newArticle = Article(None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
-    def publishFormat(article: Article, format: String = "yyyy-MM-dd HH:mm:ss.SSSZZ") = article.publish.toString(format)
-    def publishParse(date: Option[String]): Option[DateTime] = date.map(t => DateTime.parse(t))
   }
 
 }

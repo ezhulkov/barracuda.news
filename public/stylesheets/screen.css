@@ -1187,7 +1187,7 @@ article .source, article .date {
   line-height: 24px;
   line-height: 1.5rem;
 }
-article .source, article .source * {
+article .source a, article .source a * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1197,7 +1197,7 @@ article .source, article .source * {
   background-color: initial;
   text-decoration: none;
 }
-article .source:hover, article .source:hover * {
+article .source a:hover, article .source a:hover * {
   color: #f26522 !important;
   background-color: initial;
   text-decoration: none;

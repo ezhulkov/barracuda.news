@@ -1,14 +1,15 @@
-@import models.CoreModels.{Article, NewsType}
+@import models.CoreModels.Article
+@import models.CoreModels.NewsType
 
 @(item: Article, newsType: NewsType.NewsTypeValue, first: Boolean = false)
 
-    @*<div class="item @if(first) {first-item}" style="@item.backgroundImage(newsType)">*@
-@*<h4><a href="@routes.FrontendController.article">@item.caption</a></h4>*@
-@* @if(newsType == NewsType.VIDEO) {*@
-@*<i class="fa fa-youtube-play playback" aria-hidden="true"></i>*@
-@*}*@
-@*<div class="add-info">*@
-@*<span class="type"></span>*@
-@*<span class="date">@item.publishFormatted</span>*@
-@*</div>*@
-@*</div>*@
+<div class="item @if(first) {first-item}" @Html(item.backgroundStyle(newsType).getOrElse(""))>
+    <h4><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">@item.translations(0).caption</a></h4>
+    @if(newsType == NewsType.VIDEO) {
+        <i class="fa fa-youtube-play playback" aria-hidden="true"></i>
+    }
+    <div class="add-info">
+        <span class="type"></span>
+        <span class="date">@item.publishFormatted</span>
+    </div>
+</div>

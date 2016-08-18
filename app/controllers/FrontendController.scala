@@ -28,7 +28,12 @@ class FrontendController @Inject()(
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
   def index = LoggingAction.async { implicit request => Future(Ok(views.html.index(layouts.get(MAIN_LAYOUT), articleService.allArticles()))) }
-  def article = LoggingAction.async { implicit request => Future(Ok(views.html.article())) }
+  def article(url: String) = LoggingAction.async(implicit request => Future(
+    articleService.findArticle(url) match {
+      case Some(article) => Ok(views.html.article(article))
+      case None => NotFound("Article not found")
+    }
+  ))
   def topic(name: String) = LoggingAction.async { implicit request => Future(Ok(views.html.topic(layouts.get(name), articleService.allTagged(name)))) }
 
   def search(q: String) = Action.async { implicit request => Future(Ok(Json.toJson(articleService.search(q))).as(JSON)) }

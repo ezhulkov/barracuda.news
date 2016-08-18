@@ -15,7 +15,7 @@ import scala.util.{Failure, Success, Try}
 trait ArticleService {
 
   def allArticles(onlyPublished: Boolean = true): Seq[Article]
-  def allTagged(tag: String, onlyPublished: Boolean = true): Seq[Article]
+  def allTagged(tag: String): Seq[Article]
   def findArticle(id: Long): Option[Article]
   def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article]
   def deleteArticle(id: Long)
@@ -23,7 +23,7 @@ trait ArticleService {
   def allTags: Set[Tag]
   def allTags(text: Set[String]): Set[Tag]
   def allRootTags: Set[Tag]
-  def search(q: String): Set[Article]
+  def search(q: String): Seq[Article]
 
 }
 
@@ -34,7 +34,7 @@ class ArticleServiceImpl @Inject()(
 
   override def allTags: Set[Tag] = Mappers.Tag.findAll().toSet
   override def allArticles(onlyPublished: Boolean = true): Seq[Article] = Mappers.Article.findAll(onlyPublished)
-  override def findArticle(id: Long): Option[Article] = Mappers.Article.joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findById(id)
+  override def findArticle(id: Long): Option[Article] = Mappers.Article.findById(id)
   override def deleteArticle(id: Long): Unit = Mappers.Article.deleteById(id)
   override def allRootTags: Set[Tag] = Mappers.Tag.findAllRoot()
   override def allTags(text: Set[String]): Set[Tag] = Mappers.Tag.allTags(text.toSeq)
@@ -45,9 +45,9 @@ class ArticleServiceImpl @Inject()(
       articleId
     }
   }
-  override def allTagged(tag: String, onlyPublished: Boolean = true): Seq[Article] = ???
-  override def search(q: String): Set[Article] = ???
-  override def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article] = ???
+  override def allTagged(tag: String): Seq[Article] = Mappers.Article.findAllTagged(tag: String)
+  override def search(q: String): Seq[Article] = Nil
+  override def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article] = Mappers.Article.findByUrl(url)
 
   private def trySaveArticle(article: Article)(implicit s: DBSession): Try[Long] = {
     article.id match {

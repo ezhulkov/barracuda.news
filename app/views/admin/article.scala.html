@@ -7,14 +7,17 @@
             </li>
         </ul>
         <ul>
-            <li>
-                <a href="#" ng-click="show()">Show</a>
+            <li ng-hide="articleModel.id">
+                <a href="#" ng-click="save()">Create</a>
             </li>
-            <li>
+            <li ng-show="articleModel.id">
                 <a href="#" ng-click="save()">Save</a>
             </li>
-            <li>
+            <li ng-show="articleModel.id">
                 <a href="#" ng-click="delete()">Delete</a>
+            </li>
+            <li ng-show="articleModel.id">
+                <a href="#" ng-click="show()">Show</a>
             </li>
         </ul>
     }
@@ -41,7 +44,7 @@
                 </dl>
                 <dl class="origin">
                     <dt><label for="origin">Original url (optional):</label></dt>
-                    <dd><input type="url" name="origin" ng-model="articleModel.origin"></dd>
+                    <dd><input type="text" name="origin" ng-model="articleModel.origin"></dd>
                 </dl>
                 <dl class="cover">
                     <dt><label for="cover">Cover media (optional):</label></dt>
