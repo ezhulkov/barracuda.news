@@ -58,7 +58,7 @@ object CoreModels {
   sealed case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
   sealed case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   case class Article(
-    id: Long,
+    id: Option[Long],
     url: Option[String],
     origin: Option[String],
     publish: DateTime,

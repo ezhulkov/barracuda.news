@@ -4,6 +4,7 @@ import models.CoreModels.Language.Language
 import models.CoreModels._
 import scalikejdbc.{DBSession, WrappedResultSet, autoConstruct, _}
 import skinny.orm.{SkinnyCRUDMapper, SkinnyJoinTable}
+import scala.util.Try
 
 /**
   * Created by ezhulkov on 17.08.16.
@@ -25,10 +26,7 @@ object Mappers {
       where(sqls.in(defaultAlias.text, text)).apply().toSet
     }
 
-    def create(text: String): Long = createWithNamedValues(
-      column.text -> text,
-      column.root -> false
-    )
+    def create(text: String): Try[Long] = Try(createWithNamedValues(column.text -> text, column.root -> false))
 
   }
 
@@ -46,9 +44,16 @@ object Mappers {
       on = (a, t) => sqls.eq(a.id, t.articleId),
       merge = (a, t) => a.copy(translations = t))
 
+    def updateAttributes(article: Article) = Seq(
+      'url -> article.url.orNull,
+      'origin -> article.origin.orNull,
+      'publish -> article.publish
+    )
     def findByUrl(url: String)(implicit session: DBSession = autoSession): Option[Article] = {
       where(sqls.eq(defaultAlias.url, url)).apply().headOption
     }
+    def update(article: Article): Try[Long] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
+    def create(article: Article): Try[Long] = Try(createWithAttributes(updateAttributes(article): _*))
 
   }
 
@@ -74,6 +79,8 @@ object Mappers {
   sealed case class ArticleTag(articleId: Long, tagId: Long)
   object ArticleTag extends SkinnyJoinTable[ArticleTag] {
     override def defaultAlias = createAlias("at")
+    def create(articleId: Long, tagId: Long): Try[Any] = Try(ArticleTag.createWithAttributes('articleId -> articleId, 'tagId -> tagId))
+    def deleteForArticle(articleId: Long) = ArticleTag.deleteBy(sqls.eq(ArticleTag.column.articleId, articleId))
   }
 
 }
