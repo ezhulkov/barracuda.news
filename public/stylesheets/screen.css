@@ -366,6 +366,7 @@ header .corporate .container {
   position: relative;
 }
 header .corporate .container img {
+  max-width: 90%;
   vertical-align: middle;
 }
 header .menu {
