@@ -87,7 +87,7 @@ object CoreModels {
 
   object Article {
     def newArticle = Article(None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
-    def publishFormat(article: Article) = article.publish.toString()
+    def publishFormat(article: Article, format: String = "yyyy-MM-dd HH:mm:ss.SSSZZ") = article.publish.toString(format)
     def publishParse(date: Option[String]): Option[DateTime] = date.map(t => DateTime.parse(t))
   }
 

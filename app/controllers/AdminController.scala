@@ -29,7 +29,7 @@ class AdminController @Inject()(
 
   def layout = LoggingAction.async { implicit request => Future(Ok(views.html.admin.layouts())) }
   def index = LoggingAction.async(implicit request => Future(
-    Ok(views.html.admin.index(Json.stringify(articleService.allArticles.toSeq.sortBy(-_.publish.getMillis))))
+    Ok(views.html.admin.index(Json.stringify(articleService.allArticles(false).toSeq.sortBy(-_.publish.getMillis))))
   ))
   def articleNew = getArticle(None)
   def article(id: Long) = getArticle(Some(id))
@@ -46,7 +46,7 @@ class AdminController @Inject()(
   def articleSave = LoggingAction.async(implicit request => Future {
     request.body.asJson.map(json => articleReadsTransform(json)).getOrElse(Failure(new RuntimeException("Empty Request")))
       .flatMap(article => articleService.saveArticle(article))
-      .map(result => Ok(Json.obj("result" -> "Article saved!")).as(JSON))
+      .map(result => Ok(Json.obj("result" -> "Article saved!", "article_id" -> result)).as(JSON))
       .recover {
         case th: Throwable => InternalServerError(Json.obj("result" -> s"Error: ${th.getMessage}")).as(JSON)
       }.get

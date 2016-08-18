@@ -38,7 +38,6 @@ CREATE TABLE news_media (
   text           TEXT
 );
 
-INSERT INTO tag (text, root) VALUES ('main', TRUE);
 INSERT INTO tag (text, root) VALUES ('stories', TRUE);
 INSERT INTO tag (text, root) VALUES ('tracking', TRUE);
 INSERT INTO tag (text, root) VALUES ('fish', TRUE);

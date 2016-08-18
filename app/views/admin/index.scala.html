@@ -13,11 +13,11 @@
         <ul class="news">
             <li class="item" ng-repeat="item in newsPage">
                 <a href="/admin/article/{{item.id}}">
-                    <h2>{{item.caption}}</h2>
+                    <h3>{{item.caption}}</h3>
                     <ul class="tags">
                         <li ng-repeat="tag in item.tags">{{tag.text}}</li>
                     </ul>
-                    <div class="date">2016/08/11 19:43:14</div>
+                    <div class="date">{{item.publish_time_formatted}}</div>
                 </a>
             </li>
             <div paging page="page" page-size="pageSize" total="total" paging-action="showPage(page)" ng-hide="news.length <= pageSize"></div>

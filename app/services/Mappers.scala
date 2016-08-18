@@ -2,6 +2,7 @@ package services
 
 import models.CoreModels.Language.Language
 import models.CoreModels._
+import org.joda.time.DateTime
 import scalikejdbc.{DBSession, WrappedResultSet, autoConstruct, _}
 import skinny.orm.{SkinnyCRUDMapper, SkinnyJoinTable}
 import scala.util.Try
@@ -50,6 +51,11 @@ object Mappers {
       'coverMedia -> article.coverMedia.orNull,
       'publish -> article.publish
     )
+    def findAll(onlyPublished: Boolean): Seq[Article] = {
+      val query = joins(Mappers.Article.tagsRef, Mappers.Article.transRef)
+      if (onlyPublished) query.findAllBy(sqls.le(defaultAlias.publish, DateTime.now()))
+      else query.findAll()
+    }
     def findByUrl(url: String)(implicit session: DBSession): Option[Article] = where(sqls.eq(defaultAlias.url, url)).apply().headOption
     def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
     def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(updateAttributes(article): _*))

@@ -21,13 +21,13 @@ class FrontendController @Inject()(
   import scala.concurrent.ExecutionContext.Implicits.global
   import scala.io.Source
 
-  private val MAIN_TAG = "main"
-  private val layouts  = articleService.allRootTags.map(t => parsedLayout(t.text)).toMap
+  private val MAIN_LAYOUT = "main"
+  private val layouts     = (articleService.allRootTags.map(t => parsedLayout(t.text)) + parsedLayout(MAIN_LAYOUT)).toMap
 
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
-  def index = LoggingAction.async { implicit request => Future(Ok(views.html.index(layouts.get(MAIN_TAG), articleService.allArticles))) }
+  def index = LoggingAction.async { implicit request => Future(Ok(views.html.index(layouts.get(MAIN_LAYOUT), articleService.allArticles()))) }
   def article = LoggingAction.async { implicit request => Future(Ok(views.html.article())) }
   def topic(name: String) = LoggingAction.async { implicit request => Future(Ok(views.html.topic(layouts.get(name), articleService.allTagged(name)))) }
 

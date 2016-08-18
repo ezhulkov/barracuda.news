@@ -159,19 +159,19 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, file
     if(query.length == 0)
       return $scope.tags
     return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
+  $scope.processResponse = (data) ->
+    $scope.result = data
+    if(data.article_id != undefined)
+      $scope.articleModel.id = data.article_id
+    $scope.loading = false
+    $timeout ->
+      $scope.result = {}
+    , 1000
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
     $http.post("/admin/article", article)
     .error (data, status) ->
-      $scope.result = data
-      $scope.loading = false
-      $timeout ->
-        $scope.result = {}
-      , 2000
+      $scope.processResponse(data)
     .success (data) ->
-      $scope.result = data
-      $scope.loading = false
-      $timeout ->
-        $scope.result = {}
-      , 2000
+      $scope.processResponse(data)

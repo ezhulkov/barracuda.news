@@ -14,8 +14,8 @@ import scala.util.{Failure, Success, Try}
 @ImplementedBy(classOf[ArticleServiceImpl])
 trait ArticleService {
 
-  def allArticles: Set[Article]
-  def allTagged(tag: String): Set[Article]
+  def allArticles(onlyPublished: Boolean = true): Seq[Article]
+  def allTagged(tag: String, onlyPublished: Boolean = true): Seq[Article]
   def findArticle(id: Long): Option[Article]
   def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article]
   def deleteArticle(id: Long)
@@ -33,12 +33,11 @@ class ArticleServiceImpl @Inject()(
 ) extends ArticleService {
 
   override def allTags: Set[Tag] = Mappers.Tag.findAll().toSet
-  override def allArticles: Set[Article] = Mappers.Article.joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findAll().toSet
+  override def allArticles(onlyPublished: Boolean = true): Seq[Article] = Mappers.Article.findAll(onlyPublished)
   override def findArticle(id: Long): Option[Article] = Mappers.Article.joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findById(id)
   override def deleteArticle(id: Long): Unit = Mappers.Article.deleteById(id)
   override def allRootTags: Set[Tag] = Mappers.Tag.findAllRoot()
   override def allTags(text: Set[String]): Set[Tag] = Mappers.Tag.allTags(text.toSeq)
-
   override def saveArticle(article: Article): Try[Long] = DB.autoCommit { implicit session =>
     trySaveArticle(article).map { articleId =>
       saveTags(article, articleId)
@@ -46,7 +45,7 @@ class ArticleServiceImpl @Inject()(
       articleId
     }
   }
-  override def allTagged(tag: String): Set[Article] = ???
+  override def allTagged(tag: String, onlyPublished: Boolean = true): Seq[Article] = ???
   override def search(q: String): Set[Article] = ???
   override def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article] = ???
 
