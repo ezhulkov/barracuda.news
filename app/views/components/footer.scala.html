@@ -1,4 +1,4 @@
-@()
+@()(implicit messages: Messages)
 
 <footer>
     <section class="links">
@@ -9,15 +9,15 @@
                 </a>
             </div>
             <div class="about">
-                <h4>Information:</h4>
+                <h4>@messages("title.information"):</h4>
                 <ul>
-                    <li><a href="@routes.FrontendController.about">About</a></li>
-                    <li><a href="@routes.FrontendController.adv">Advertisement</a></li>
-                    <li><a href="@routes.FrontendController.contacts">Contacts</a></li>
+                    <li><a href="@routes.FrontendController.about">@messages("title.about")</a></li>
+                    <li><a href="@routes.FrontendController.adv">@messages("title.advertisement")</a></li>
+                    <li><a href="@routes.FrontendController.contacts">@messages("title.contacts")</a></li>
                 </ul>
             </div>
             <div class="social">
-                <h4>Follow us:</h4>
+                <h4>@messages("title.follow"):</h4>
                 <ul>
                     <li>
                         <a href="https://www.facebook.com/barracudacommunication/">
@@ -42,14 +42,14 @@
                 </ul>
             </div>
             <div class="subscribe">
-                <h4>Newsletter:</h4>
+                <h4>@messages("title.newsletter"):</h4>
                 <form class="form-horizontal">
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input class="form-control" type="email" placeholder="Enter your email" title="Enter your email">
+                            <input class="form-control" type="email" placeholder="@messages("title.enterEmail")" title="@messages("title.enterEmail")">
                         </div>
                         <div class="col-sm-12">
-                            <input type="submit" class="btn btn-md" value="Subscribe">
+                            <input type="submit" class="btn btn-md" value="@messages("title.subscribe")">
                         </div>
                     </div>
                 </form>

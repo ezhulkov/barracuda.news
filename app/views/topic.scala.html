@@ -1,14 +1,14 @@
 @import components._
 @import models.CoreModels._
 
-@(layout: Option[Layout], news: Seq[Article])
+@(layout: Option[Layout], news: Seq[Article])(implicit messages: Messages, langs: String)
 
 @space.front("barracuda.news") {
 
     <section class="news-grid">
         <section class="container">
 
-        @components.topicLayout(layout, news)
+        @topicLayout(layout, news)
 
         </section>
     </section>

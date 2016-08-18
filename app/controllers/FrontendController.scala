@@ -2,10 +2,10 @@ package controllers
 
 import javax.inject._
 import controllers.actions.LoggingAction
-import models.CoreModels.Layout
+import models.CoreModels.{Language, Layout}
 import play.api.Environment
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.libs.json.Json
+import play.api.libs.json.{JsArray, Json}
 import play.api.mvc._
 import services.ArticleService
 import scala.concurrent.Future
@@ -22,8 +22,9 @@ class FrontendController @Inject()(
   import scala.concurrent.ExecutionContext.Implicits.global
   import scala.io.Source
 
-  private val MAIN_LAYOUT = "main"
-  private val layouts     = (articleService.allRootTags.map(t => parsedLayout(t.text)) + parsedLayout(MAIN_LAYOUT)).toMap
+  val MAIN_LAYOUT = "main"
+  val layouts     = (articleService.allRootTags.map(t => parsedLayout(t.text)) + parsedLayout(MAIN_LAYOUT)).toMap
+  implicit val langs = Json.stringify(JsArray(Language.values.toSeq.sortBy(t => t != Language.DEFAULT).map(l => Json.obj("code" -> l.code, "name" -> l.name, "label" -> l.label))))
 
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]

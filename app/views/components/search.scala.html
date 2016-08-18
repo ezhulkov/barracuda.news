@@ -1,8 +1,10 @@
+@()(implicit messages: Messages)
+
 <div class="search-overlay">
     <span class="close" ng-click="toggleSearch()"></span>
     <section class="container">
         <div class="search-input">
-            <input type="text" placeholder="Search" ng-model="searchString" ng-change="search()" auto-focus="{{ searchOn }}"/>
+            <input type="text" placeholder="@messages("title.search")" ng-model="searchString" ng-change="search()" auto-focus="{{ searchOn }}"/>
         </div>
         <ul class="result">
             <li ng-repeat="item in items">

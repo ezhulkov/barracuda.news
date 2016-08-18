@@ -41,7 +41,7 @@ header
       height: rhythm($menu-lines)
       li
         +float-left
-        +active-link($color: $textColor)
+        //+active-link($color: $textColor)
         text-transform: uppercase
         display: block
         position: relative
@@ -56,13 +56,41 @@ header
       +float-right
       li
         +pad(15px, 0)
-      li.lang > div:after
-        +fa
-        margin-left: 5px
-        content: "\f107"
-      li.search > div:after
-        +fa
-        content: "\f002"
+      li.lang
+        width: 65px
+        position: relative
+        & > div
+          +active-link($color: $textColor)
+          &:after
+            +fa
+            margin-left: 5px
+            content: "\f107"
+        &:hover
+          ul
+            +opacity(1)
+            visibility: visible
+        ul
+          +background-image(linear-gradient($blackColor2, $blackColor2))
+          +transition(all 0.2s)
+          +opacity(0)
+          visibility: hidden
+          border-top: 2px solid $activeLink
+          position: absolute
+          z-index: 10
+          left: -10px
+          width: 100px
+          height: initial
+          padding: 5px 0
+          li
+            +active-link($textColor)
+            padding: 2px 10px
+            width: 100%
+            text-align: center
+      li.search > div
+        +active-link($color: $textColor)
+        &:after
+          +fa
+          content: "\f002"
     ul.categories
       display: none
     &.menu-active
@@ -141,6 +169,7 @@ header
     left: 50%
     color: $blackTextColor
     transform: translate(-50%, -50%)
+
 .search-overlay
   +overlay
   .search-input, .result

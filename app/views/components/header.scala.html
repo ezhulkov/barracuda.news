@@ -1,4 +1,4 @@
-@()
+@()(implicit messages: Messages)
 
 <header>
 
@@ -19,14 +19,19 @@
             </div>
             <ul class="tools">
                 <li class="search" ng-click="toggleSearch()"><div></div></li>
-                <li class="lang" ng-click="toggleLang()"><div>Eng</div></li>
+                <li class="lang">
+                    <div>{{selectedLang.label}}</div>
+                    <ul>
+                        <li ng-repeat="l in langs" ng-click="setLang(l)">{{l.label}}</li>
+                    </ul>
+                </li>
             </ul>
             <ul class="categories">
-                <li class="color1"><a href="@routes.FrontendController.index">News</a></li>
-                <li class="color2"><a href="@routes.FrontendController.topic("stories")">Stories</a></li>
-                <li class="color3"><a href="@routes.FrontendController.topic("tracking")">Tracking</a></li>
-                <li class="color4"><a href="@routes.FrontendController.topic("media")">Media</a></li>
-                <li class="color5"><a href="@routes.FrontendController.topic("fish")">Fish production</a></li>
+                <li class="color1"><a href="@routes.FrontendController.index">@messages("title.news")</a></li>
+                <li class="color2"><a href="@routes.FrontendController.topic("stories")">@messages("title.stories")</a></li>
+                <li class="color3"><a href="@routes.FrontendController.topic("tracking")">@messages("title.tracking")</a></li>
+                <li class="color4"><a href="@routes.FrontendController.topic("media")">@messages("title.media")</a></li>
+                <li class="color5"><a href="@routes.FrontendController.topic("fish")">@messages("title.fish")</a></li>
             </ul>
         </section>
     </section>

@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String)(content: Html)(implicit messages: Messages, langs: String)
 
 @jsFiles = {
 
@@ -32,5 +32,9 @@
         </main>
         @components.search()
     </div>
+
+    <script type="application/javascript">
+        var langs = @Html(langs)
+    </script>
 
 }
