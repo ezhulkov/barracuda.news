@@ -1254,6 +1254,11 @@ article .adv {
   article .adv img {
     margin: 0;
   }
+  article .adv #swiffycontainer {
+    width: 300px;
+    height: 500px;
+    border: 1px solid #333;
+  }
 }
 article .close {
   display: none;
