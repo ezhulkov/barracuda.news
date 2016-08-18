@@ -1,6 +1,6 @@
 package services
 
-import javax.inject.{Inject, Singleton}
+import javax.inject.Singleton
 import com.google.inject.ImplementedBy
 import models.CoreModels.Language.Language
 import models.CoreModels.{Article, Language, Tag}
@@ -28,9 +28,7 @@ trait ArticleService {
 }
 
 @Singleton
-class ArticleServiceImpl @Inject()(
-
-) extends ArticleService {
+class ArticleServiceImpl extends ArticleService {
 
   override def allTags: Set[Tag] = Mappers.Tag.findAll().toSet
   override def allArticles(onlyPublished: Boolean = true): Seq[Article] = Mappers.Article.findAll(onlyPublished)

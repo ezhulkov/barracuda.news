@@ -17,6 +17,7 @@ object Mappers {
 
   object Tag extends SkinnyCRUDMapper[Tag] {
 
+    override def connectionPoolName = 'default
     override lazy val defaultAlias = createAlias("t")
     override def extract(rs: WrappedResultSet, rn: ResultName[Tag]): Tag = autoConstruct(rs, rn)
 
@@ -34,6 +35,7 @@ object Mappers {
 
   object Article extends SkinnyCRUDMapper[Article] {
 
+    override def connectionPoolName = 'default
     override lazy val defaultAlias = createAlias("a")
     override def extract(rs: WrappedResultSet, rn: ResultName[Article]): Article = autoConstruct(rs, rn, "tags", "translations")
 
@@ -70,6 +72,7 @@ object Mappers {
 
   object Translation extends SkinnyCRUDMapper[Translation] {
 
+    override def connectionPoolName = 'default
     override lazy val defaultAlias = createAlias("tr")
     override def extract(rs: WrappedResultSet, rn: ResultName[Translation]): Translation = autoConstruct(rs, rn, "media")
 
@@ -95,6 +98,7 @@ object Mappers {
 
   object NewsMedia extends SkinnyCRUDMapper[NewsMedia] {
 
+    override def connectionPoolName = 'default
     override lazy val defaultAlias = createAlias("m")
     override def extract(rs: WrappedResultSet, rn: ResultName[NewsMedia]): NewsMedia = autoConstruct(rs, rn)
 
@@ -102,9 +106,12 @@ object Mappers {
 
   sealed case class ArticleTag(articleId: Long, tagId: Long)
   object ArticleTag extends SkinnyJoinTable[ArticleTag] {
+
+    override def connectionPoolName = 'default
     override def defaultAlias = createAlias("at")
     def create(articleId: Long, tagId: Long): Try[Any] = Try(ArticleTag.createWithAttributes('articleId -> articleId, 'tagId -> tagId))
     def deleteForArticle(articleId: Long) = ArticleTag.deleteBy(sqls.eq(ArticleTag.column.articleId, articleId))
+
   }
 
 }
