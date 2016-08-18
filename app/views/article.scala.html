@@ -22,7 +22,7 @@
                 @article.origin.map { t =>
                     <blockquote class="source-quote">
                         <a href="@t" target="_blank">
-                            <p>This is heading This is heading This is heading This is heading This is heading</p>
+                            <p>@article.translations.headOption.map(t => t.caption).orNull</p>
                             <cite class="source">@t</cite>
                         </a>
                     </blockquote>

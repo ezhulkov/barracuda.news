@@ -5,6 +5,8 @@ import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.Language.Language
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
+import org.apache.commons.lang3.StringUtils
+import services.Utils
 import scala.language.implicitConversions
 
 /**
@@ -66,7 +68,9 @@ object CoreModels {
     tags: Seq[Tag] = Nil,
     translations: Seq[Translation] = Nil
   ) {
-    val publishFormatted = publish.toString("YYYY/MM/D HH:mm")
+    val publishFormatted      = publish.toString("YYYY/MM/D HH:mm")
+    val publishShortFormatted = publish.toString("YYYY-MM-D-")
+    def generateUrl = publishShortFormatted + translations.find(t => t.lang == Language.DEFAULT && StringUtils.isNotEmpty(t.caption)).map(t => Utils.transliterate(t.caption)).getOrElse(id.toString)
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
     def backgroundStyle(newsType: NewsType) = coverMedia.flatMap(cover => newsType match {
       case NewsType.PHOTO => Some(s"""style="background-image: url('$cover')"""")

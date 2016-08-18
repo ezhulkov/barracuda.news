@@ -9,6 +9,7 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import services.ArticleService
 import scala.concurrent.Future
+import scala.util.Try
 
 @Singleton
 class FrontendController @Inject()(
@@ -29,7 +30,7 @@ class FrontendController @Inject()(
 
   def index = LoggingAction.async { implicit request => Future(Ok(views.html.index(layouts.get(MAIN_LAYOUT), articleService.allArticles()))) }
   def article(url: String) = LoggingAction.async(implicit request => Future(
-    articleService.findArticle(url) match {
+    articleService.findArticle(url).orElse(articleService.findArticle(Try(url.toLong).getOrElse(-1L))) match {
       case Some(article) => Ok(views.html.article(article))
       case None => NotFound("Article not found")
     }

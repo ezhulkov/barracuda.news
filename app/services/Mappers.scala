@@ -2,6 +2,7 @@ package services
 
 import models.CoreModels.Language.Language
 import models.CoreModels._
+import org.apache.commons.lang3.StringUtils
 import org.joda.time.DateTime
 import scalikejdbc.{DBSession, WrappedResultSet, autoConstruct, _}
 import skinny.orm.{SkinnyCRUDMapper, SkinnyJoinTable}
@@ -47,7 +48,7 @@ object Mappers {
       merge = (a, t) => a.copy(translations = t))
 
     def updateAttributes(article: Article) = Seq(
-      'url -> article.url.orNull,
+      'url -> article.generateUrl,
       'origin -> article.origin.orNull,
       'coverMedia -> article.coverMedia.orNull,
       'publish -> article.publish
