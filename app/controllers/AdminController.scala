@@ -36,7 +36,7 @@ class AdminController @Inject()(
   def getArticle(idOpt: Option[Long]) = LoggingAction.async(implicit request => Future {
     val articleOpt = idOpt match {
       case Some(id) => articleService.findArticle(id)
-      case None => Some(Article.NEW_ARTICLE)
+      case None => Some(Article.newArticle)
     }
     articleOpt match {
       case Some(article) => Ok(views.html.admin.article(Json.stringify(article), Json.stringify(tags), Json.stringify(langs)))
@@ -51,13 +51,9 @@ class AdminController @Inject()(
         case th: Throwable => InternalServerError(Json.obj("result" -> s"Error: ${th.getMessage}")).as(JSON)
       }.get
   })
-  def articleCreate = LoggingAction.async(implicit request => Future {
-    Ok(Json.obj("article_id" -> 1)).as(JSON)
-  })
-  def articleDelete(id: Long) = LoggingAction.async {
-    implicit request => Future {
-      Ok("")
-    }
+  def articleDelete(id: Long) = LoggingAction.async { implicit request => Future {
+    Ok("")
+  }
   }
 
 }

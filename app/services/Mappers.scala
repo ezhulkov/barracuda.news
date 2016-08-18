@@ -47,10 +47,11 @@ object Mappers {
     def updateAttributes(article: Article) = Seq(
       'url -> article.url.orNull,
       'origin -> article.origin.orNull,
+      'coverMedia -> article.coverMedia.orNull,
       'publish -> article.publish
     )
     def findByUrl(url: String)(implicit session: DBSession): Option[Article] = where(sqls.eq(defaultAlias.url, url)).apply().headOption
-    def update(article: Article)(implicit s: DBSession): Try[Long] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
+    def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
     def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(updateAttributes(article): _*))
 
   }
@@ -73,7 +74,7 @@ object Mappers {
       'caption -> translation.caption,
       'text -> translation.text
     ))
-    def save(translation: Translation, translationId: Long)(implicit session: DBSession): Try[Long] = Try(Translation.updateById(translationId).withAttributes(
+    def update(translation: Translation, translationId: Long)(implicit session: DBSession): Try[Int] = Try(Translation.updateById(translationId).withAttributes(
       'caption -> translation.caption,
       'text -> translation.text
     ))

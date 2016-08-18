@@ -1698,7 +1698,7 @@ main.admin-area section.article-section dl.publish {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 50%;
+  width: 16.66667%;
   float: left;
   padding-right: 0.41667%;
 }
@@ -1706,7 +1706,16 @@ main.admin-area section.article-section dl.origin {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 50%;
+  width: 41.66667%;
+  float: left;
+  padding-left: 0.41667%;
+  padding-right: 0.41667%;
+}
+main.admin-area section.article-section dl.cover {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 41.66667%;
   float: left;
   padding-left: 0.41667%;
 }

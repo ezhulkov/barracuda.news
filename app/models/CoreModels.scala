@@ -82,11 +82,11 @@ object CoreModels {
   }
 
   object Translation {
-    val NEW_TRANSLATION = Language.values.map(l => Translation(None, None, l, s"Article caption [${l.name}]", s"Article body [${l.name}}]", Nil)).toSeq
+    def newTranslations = Language.values.map(l => Translation(None, None, l, s"Article caption [${l.name}]", s"Article body [${l.name}}]", Nil)).toSeq
   }
 
   object Article {
-    val NEW_ARTICLE = Article(None, None, None, None, DateTime.now(), Nil, Translation.NEW_TRANSLATION)
+    def newArticle = Article(None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
     def publishFormat(article: Article) = article.publish.toString()
     def publishParse(date: Option[String]): Option[DateTime] = date.map(t => DateTime.parse(t))
   }

@@ -162,7 +162,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, file
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
-    $http.put("/admin/article", article)
+    $http.post("/admin/article", article)
     .error (data, status) ->
       $scope.result = data
       $scope.loading = false

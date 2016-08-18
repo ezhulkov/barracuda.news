@@ -3,7 +3,7 @@ package services
 import javax.inject.{Inject, Singleton}
 import com.google.inject.ImplementedBy
 import models.CoreModels.Language.Language
-import models.CoreModels.{Article, Language, Tag, Translation}
+import models.CoreModels.{Article, Language, Tag}
 import play.api.Logger
 import scalikejdbc.{DB, DBSession}
 import scala.util.{Failure, Success, Try}
@@ -52,20 +52,21 @@ class ArticleServiceImpl @Inject()(
 
   private def trySaveArticle(article: Article)(implicit s: DBSession): Try[Long] = {
     article.id match {
-      case Some(id) => Mappers.Article.update(article)
+      case Some(id) =>
+        Mappers.Article.update(article)
+        Success(id)
       case None => Mappers.Article.create(article)
     }
   }
-  private def saveTranslations(article: Article, articleId: Long)(implicit s: DBSession): Set[Translation] = {
+  private def saveTranslations(article: Article, articleId: Long)(implicit s: DBSession) = {
     article.translations.map { translation =>
       Mappers.Translation.findByLang(articleId, translation.lang) match {
-        case Some(a) => Mappers.Translation.save(translation, a.id.get)
+        case Some(a) => Mappers.Translation.update(translation, a.id.get)
         case None => Mappers.Translation.create(articleId, translation.lang, translation)
       }
     }
-    Set.empty
   }
-  private def saveTags(article: Article, articleId: Long)(implicit s: DBSession): Set[Any] = {
+  private def saveTags(article: Article, articleId: Long)(implicit s: DBSession) = {
     val existingTags = Mappers.Tag.allTags(article.tags.map(t => t.text))
     val newTags = article.tags.filterNot(t => existingTags.exists(m => m.text == t.text))
     val createdTags = newTags.map(t => Mappers.Tag.create(t.text))
