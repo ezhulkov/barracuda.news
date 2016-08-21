@@ -101,8 +101,6 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
   $scope.searchOn = false
   $scope.menuOn = false
   $scope.searchString = undefined
-  $scope.langs = angular.copy($window.langs)
-  $scope.selectedLang = $scope.langs[0]
   $scope.items = []
   $scope.search = ->
     if($scope.searchString != undefined && $scope.searchString.length >= 2)
@@ -117,8 +115,6 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
     $scope.searchOn = !$scope.searchOn
   $scope.toggleMenu = ->
     $scope.menuOn = !$scope.menuOn
-  $scope.setLang = (lang) ->
-    $scope.selectedLang = lang
 
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList

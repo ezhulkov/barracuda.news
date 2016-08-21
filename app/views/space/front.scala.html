@@ -1,4 +1,6 @@
-@(title: String)(content: Html)(implicit messages: Messages, langs: String)
+@import controllers.refiners.LangInfo
+
+@(title: String)(content: Html)(implicit messages: Messages, langInfo: LangInfo)
 
 @jsFiles = {
 
@@ -22,7 +24,7 @@
 
 }
 
-@space.main(title, jsFiles = jsFiles) {
+@space.main(title, jsFiles = jsFiles, cssFiles = Html("")) {
 
     <div class="app-wrapper" ng-app="frontendApp" ng-controller="FrontendController as frontendCtrl" ng-class="{'search-active': searchOn}">
         <main>
@@ -32,9 +34,5 @@
         </main>
         @components.search()
     </div>
-
-    <script type="application/javascript">
-        var langs = @Html(langs)
-    </script>
 
 }

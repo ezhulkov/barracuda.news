@@ -1,15 +1,17 @@
-@()(implicit messages: Messages, langs: String)
+@import controllers.refiners.LangInfo
 
-@space.front("barracuda.news") {
+@()(implicit messages: Messages, langInfo: LangInfo)
 
-    <section class="misc">
-        <section class="container">
+    @space.front("barracuda.news") {
 
-            <div class="article-body">
-                <h1>Advertisement</h1>
-            </div>
+        <section class="misc">
+            <section class="container">
 
+                <div class="article-body">
+                    <h1>Advertisement</h1>
+                </div>
+
+            </section>
         </section>
-    </section>
 
-}
+    }

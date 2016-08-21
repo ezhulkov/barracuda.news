@@ -1,69 +1,69 @@
 @(sectionClass: String = "", subMenu: Option[Html], activeMenu: Option[String] = None, controller: Option[String] = None)(content: Html)
 
-    @cssFiles = {
-        <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
-        <link rel="stylesheet" href="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.css")">
-        <link rel="stylesheet" href="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.css")">
-    }
+@cssFiles = {
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.css")">
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.css")">
+}
 
-    @jsFiles = {
-        <script src="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/alloy-editor-all-min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("lib/moment/min/moment.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("lib/moment-timezone/builds/moment-timezone.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/paging.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
-    }
+@jsFiles = {
+    <script src="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/alloy-editor-all-min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("lib/moment/min/moment.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("lib/moment-timezone/builds/moment-timezone.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/paging.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
+}
 
-    @space.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
+@space.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
 
-        <div class="app-wrapper" ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}' ng-cloak")).orNull ng-class="{'loading-active': loading}">
+    <div class="app-wrapper" ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}' ng-cloak")).orNull ng-class="{'loading-active': loading}">
 
-            <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
+        <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
 
-                <header>
-                    <h2>Admin space</h2>
-                </header>
+            <header>
+                <h2>Admin space</h2>
+            </header>
 
-                <aside class="main-menu">
-                    <ul>
-                        <li id="news">
-                            <a href="@routes.AdminController.index">News</a>
-                        </li>
-                        <li id="layouts">
-                            <a href="@routes.AdminController.layout">Layouts</a>
-                        </li>
-                    </ul>
-                </aside>
+            <aside class="main-menu">
+                <ul>
+                    <li id="news">
+                        <a href="@routes.AdminController.index">News</a>
+                    </li>
+                    <li id="layouts">
+                        <a href="@routes.AdminController.layout">Layouts</a>
+                    </li>
+                </ul>
+            </aside>
 
-                @subMenu.map { menu =>
-                <aside class="sub-menu">
-                    @menu
-                </aside>
-                }.orNull
+            @subMenu.map { menu =>
+            <aside class="sub-menu">
+                @menu
+            </aside>
+            }.orNull
 
-                <section class="main-section @sectionClass">
-                    <div class="flash" ng-show="result.result">{{result.result}}</div>
-                @content
-                </section>
+            <section class="main-section @sectionClass">
+                <div class="flash" ng-show="result.result">{{result.result}}</div>
+            @content
+            </section>
 
-                @activeMenu.map { active =>
-                <script type="application/javascript">
-                    document.addEventListener("DOMContentLoaded", function (event) {
-                        activateMenu("#news");
-                    });
-                </script>
-                }.orNull
+            @activeMenu.map { active =>
+            <script type="application/javascript">
+                document.addEventListener("DOMContentLoaded", function (event) {
+                    activateMenu("#news");
+                });
+            </script>
+            }.orNull
 
-            </main>
+        </main>
 
-            <div class="loading-overlay">
-                <div>
-                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-                </div>
+        <div class="loading-overlay">
+            <div>
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
             </div>
-
         </div>
 
-    }
+    </div>
+
+}

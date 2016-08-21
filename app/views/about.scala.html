@@ -1,4 +1,6 @@
-@()(implicit messages: Messages, langs: String)
+@import controllers.refiners.LangInfo
+
+@()(implicit messages: Messages, langInfo: LangInfo)
 
 @space.front("barracuda.news") {
 

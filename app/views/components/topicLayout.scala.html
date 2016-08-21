@@ -2,44 +2,44 @@
 @import models.CoreModels._
 @(layoutOpt: Option[Layout], news: Seq[Article])
 
-    @{
-        layoutOpt match {
-            case Some(layout) => layoutGrid(layout, news)
-            case _ => listGrid(news)
-        }
+@{
+    layoutOpt match {
+        case Some(layout) => layoutGrid(layout, news)
+        case _ => listGrid(news)
     }
+}
 
-    @listGrid(news: Seq[Article]) = {
-        LIST NEWS
-    }
+@listGrid(news: Seq[Article]) = {
+    LIST NEWS
+}
 
-    @layoutGrid(layout: Layout, news: Seq[Article]) = {
-    @for(row <- layout.rows) {
-        <div class="topic-row @row.height.cssClass">
-        @for(block <- row.blocks) {
-            @if(block.tag) {
-                <div class="topic-col @block.size.cssClass @if(block.featured) {featured} type-@block.newsType.cssClass @if(block.caption.isEmpty) {no-caption}">
-                    @for(caption <- block.caption) {
-                        <h2>@caption</h2>
+@layoutGrid(layout: Layout, news: Seq[Article]) = {
+@for(row <- layout.rows) {
+    <div class="topic-row @row.height.cssClass">
+    @for(block <- row.blocks) {
+        @if(block.tag) {
+            <div class="topic-col @block.size.cssClass @if(block.featured) {featured} type-@block.newsType.cssClass @if(block.caption.isEmpty) {no-caption}">
+                @for(caption <- block.caption) {
+                    <h2>@caption</h2>
+                }
+                <div class="items">
+                @{
+                    val newsToDisplay = block.newsType match {
+                        case NewsType.TEXT => news.filter(t => t.hasTag(block.tag))
+                        case _ => news.find(t => t.hasTag(block.tag)).toSeq
                     }
-                    <div class="items">
-                    @{
-                        val newsToDisplay = block.newsType match {
-                            case NewsType.TEXT => news.filter(t => t.hasTag(block.tag))
-                            case _ => news.find(t => t.hasTag(block.tag)).toSeq
-                        }
-                        newsToDisplay.toSeq.take(row.height.maxNews) match {
-                            case head :: tail =>
-                                List(article(head, block.newsType, first = true)) ++ tail.map(t => article(t, block.newsType))
-                            case _ =>
-                                <p>Empty topic</p>
-                        }
+                    newsToDisplay.toSeq.take(row.height.maxNews) match {
+                        case head :: tail =>
+                            List(article(head, block.newsType, first = true)) ++ tail.map(t => article(t, block.newsType))
+                        case _ =>
+                            <p>Empty topic</p>
                     }
-                    </div>
+                }
                 </div>
-            }
+            </div>
         }
-        </div>
     }
-    }
+    </div>
+}
+}
 

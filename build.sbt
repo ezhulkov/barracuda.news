@@ -13,6 +13,7 @@ dependencyOverrides ++= Set(
   "org.webjars.bower" % "moment-timezone" % "0.4.1"
 )
 
+
 libraryDependencies ++= Seq(
   evolutions,
   jdbc,
@@ -30,6 +31,7 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "angular-datepicker" % "2.0.3",
   "org.webjars.bower" % "moment" % "2.10.6",
   "org.webjars.bower" % "moment-timezone" % "0.4.1",
+  "org.webjars.bower" % "jquery-cookie" % "1.4.1",
   "org.webjars" % "jquery" % "2.2.4",
   "org.webjars" % "font-awesome" % "4.6.3"
 )
