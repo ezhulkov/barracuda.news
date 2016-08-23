@@ -6,7 +6,7 @@
         {
           "newsType": "PHOTO",
           "caption": "Photo Gallery",
-          "tag": "gallery",
+          "tag": "gallery_1",
           "size": "SIZE12"
         }
       ]
@@ -17,7 +17,7 @@
         {
           "newsType": "PHOTO",
           "caption": "Photo Gallery",
-          "tag": "gallery",
+          "tag": "gallery_2",
           "size": "SIZE12"
         }
       ]
@@ -26,21 +26,19 @@
       "height": "HEIGHT2",
       "blocks": [
         {
-          "newsType": "TEXT",
-          "tag": "sub_news",
-          "size": "SIZE4",
-          "featured": true
+          "newsType": "PHOTO",
+          "tag": "gallery_3",
+          "size": "SIZE4"
         },
         {
           "newsType": "PHOTO",
           "caption": "Personal stories",
-          "featured": true,
-          "tag": "stories",
+          "tag": "gallery_4",
           "size": "SIZE4"
         },
         {
-          "newsType": "VIDEO",
-          "tag": "video",
+          "newsType": "PHOTO",
+          "tag": "gallery_5",
           "size": "SIZE4"
         }
       ]
@@ -49,21 +47,19 @@
       "height": "HEIGHT2",
       "blocks": [
         {
-          "newsType": "TEXT",
-          "tag": "sub_news",
-          "size": "SIZE4",
-          "featured": true
+          "newsType": "PHOTO",
+          "tag": "gallery_6",
+          "size": "SIZE4"
         },
         {
           "newsType": "PHOTO",
           "caption": "Personal stories",
-          "featured": true,
-          "tag": "stories",
+          "tag": "gallery_7",
           "size": "SIZE4"
         },
         {
-          "newsType": "VIDEO",
-          "tag": "video",
+          "newsType": "PHOTO",
+          "tag": "gallery_8",
           "size": "SIZE4"
         }
       ]

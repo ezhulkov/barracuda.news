@@ -1,5 +1,5 @@
-@import models.CoreModels.Article
 @import controllers.refiners.LangInfo
+@import models.CoreModels.Article
 
 @(article: Article)(implicit messages: Messages, langInfo: LangInfo)
 
@@ -17,6 +17,11 @@
                     </span>
                     <span class="date">@article.publishFormatted</span>
                 </div>
+                @article.coverMedia.map { t =>
+                    <div class="cover-image">
+                        <img src="@t" alt="">
+                    </div>
+                }
             </div>
             <div class="article-body">
                 @Html(article.translations.headOption.map(t => t.text).orNull)

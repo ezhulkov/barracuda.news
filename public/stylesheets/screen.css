@@ -1199,7 +1199,7 @@ article {
   margin-top: 1.5rem;
   margin-bottom: 24px;
   margin-bottom: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.4);
   position: relative;
 }
 article .article-header {
@@ -1221,13 +1221,17 @@ article .article-header {
 }
 @media screen and (min-width: 80em) {
   article .article-header {
-    width: 56.66667%;
+    width: 81.66667%;
     float: left;
     margin-left: 0.83333%;
     margin-right: 0.83333%;
     margin-left: 9.16667%;
-    margin-right: 34.16667%;
+    margin-right: 9.16667%;
   }
+}
+article .article-header .cover-image {
+  padding-top: 24px;
+  padding-top: 1.5rem;
 }
 article .article-header .article-info {
   font-size: 13px;

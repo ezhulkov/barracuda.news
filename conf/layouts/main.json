@@ -6,15 +6,9 @@
         {
           "newsType": "TEXT",
           "tag": "main_news",
-          "size": "SIZE8",
+          "size": "SIZE12",
           "caption": "Main News",
           "featured": true
-        },
-        {
-          "newsType": "TEXT",
-          "tag": "tracking",
-          "size": "SIZE4",
-          "caption": "Tracking"
         }
       ]
     },

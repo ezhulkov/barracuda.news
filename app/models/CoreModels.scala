@@ -28,10 +28,10 @@ object CoreModels {
 
   object RowHeight extends Enumeration {
     type RowHeight = Value
-    val HEIGHT1 = RowHeightValue("HEIGHT1", 1, "height1", 2)
-    val HEIGHT2 = RowHeightValue("HEIGHT2", 2, "height2", 4)
-    val HEIGHT3 = RowHeightValue("HEIGHT3", 3, "height3", 6)
-    val HEIGHT4 = RowHeightValue("HEIGHT4", 4, "height4", 8)
+    val HEIGHT1 = RowHeightValue("HEIGHT1", 1, "height1", 3)
+    val HEIGHT2 = RowHeightValue("HEIGHT2", 2, "height2", 5)
+    val HEIGHT3 = RowHeightValue("HEIGHT3", 3, "height3", 7)
+    val HEIGHT4 = RowHeightValue("HEIGHT4", 4, "height4", 9)
     sealed case class RowHeightValue(code: String, height: Int, cssClass: String, maxNews: Int) extends super.Val(code)
     implicit def convert(value: Value): RowHeightValue = value.asInstanceOf[RowHeightValue]
   }
@@ -68,8 +68,8 @@ object CoreModels {
     tags: Seq[Tag] = Nil,
     translations: Seq[Translation] = Nil
   ) {
-    val publishFormatted      = publish.toString("YYYY/MM/D HH:mm")
-    val publishShortFormatted = publish.toString("YYYY-MM-D-")
+    val publishFormatted      = publish.toString("YYYY/MM/dd HH:mm")
+    val publishShortFormatted = publish.toString("YYYY-MM-dd-")
     def generateUrl = publishShortFormatted + translations.find(t => t.lang == Language.DEFAULT && StringUtils.isNotEmpty(t.caption)).map(t => Utils.transliterate(t.caption)).getOrElse(id.toString)
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
     def backgroundStyle(newsType: NewsType) = coverMedia.flatMap(cover => newsType match {
@@ -86,7 +86,7 @@ object CoreModels {
   }
 
   object Translation {
-    def newTranslations = Language.values.map(l => Translation(None, None, l, s"Article caption [${l.name}]", s"Article body [${l.name}}]", Nil)).toSeq
+    def newTranslations = Language.values.map(l => Translation(None, None, l, s"Article caption [${l.name}]", s"Article body [${l.name}]", Nil)).toSeq
   }
 
   object Article {

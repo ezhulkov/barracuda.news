@@ -2,11 +2,11 @@ package controllers.refiners
 
 import models.CoreModels.Language
 import models.CoreModels.Language.Language
-import play.api.Logger
+import org.apache.commons.lang3._
+import play.api.i18n.Lang
 import play.api.mvc._
 import scala.concurrent.Future
-import org.apache.commons.lang3._
-import scala.util.{Failure, Try}
+import scala.util.Try
 
 /**
   * Created by ezhulkov on 21.08.16.
@@ -30,6 +30,5 @@ object LangAction extends ActionBuilder[LangRequest] with ActionRefiner[Request,
   private def getClientLang(request: Request[_]): Option[Language] = request.cookies.get("lang").map(_.value).flatMap(tryParseLang)
   private def getResourceLang(request: Request[_]): Option[Language] = request.path.split("\\/").find(StringUtils.isNotEmpty).flatMap(tryParseLang)
   private def tryParseLang(lang: String): Option[Language] = Try(Language.withName(lang)).toOption
-
 
 }

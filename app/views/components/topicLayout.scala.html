@@ -1,6 +1,7 @@
 @import components._
 @import models.CoreModels._
-@(layoutOpt: Option[Layout], news: Seq[Article])
+
+@(layoutOpt: Option[Layout], news: Seq[Article], rootTag:Option[String]=None)
 
 @{
     layoutOpt match {
@@ -32,7 +33,7 @@
                         case head :: tail =>
                             List(article(head, block.newsType, first = true)) ++ tail.map(t => article(t, block.newsType))
                         case _ =>
-                            <p>Empty topic</p>
+                            Html(s"""<p>Empty topic</p><p>Topic tags: ${rootTag.getOrElse("")} ${block.tag}</p>""")
                     }
                 }
                 </div>

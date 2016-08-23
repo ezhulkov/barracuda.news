@@ -5,7 +5,7 @@ $ ->
   $(id).addClass('active')
 
 $(window).load ->
-  $(".article-body img").keepTheRhythm({
+  $(".article-body img,.article-header img").keepTheRhythm({
     baseLine: 24,
     spacing: "margin"
   })

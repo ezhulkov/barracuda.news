@@ -4,44 +4,14 @@
       "height": "HEIGHT3",
       "blocks": [
         {
-          "newsType": "TEXT",
-          "tag": "main_news",
+          "newsType": "VIDEO",
+          "tag": "fish_1",
           "size": "SIZE6"
         },
         {
-          "newsType": "TEXT",
-          "tag": "tracking",
+          "newsType": "VIDEO",
+          "tag": "fish_1",
           "size": "SIZE6"
-        }
-      ]
-    },
-    {
-      "height": "HEIGHT3",
-      "blocks": [
-        {
-          "newsType": "TEXT",
-          "tag": "main_news",
-          "size": "SIZE4"
-        },
-        {
-          "newsType": "TEXT",
-          "tag": "tracking",
-          "size": "SIZE4"
-        },
-        {
-          "newsType": "TEXT",
-          "tag": "tracking",
-          "size": "SIZE4"
-        }
-      ]
-    },
-    {
-      "height": "HEIGHT2",
-      "blocks": [
-        {
-          "newsType": "TEXT",
-          "tag": "main_news",
-          "size": "SIZE12"
         }
       ]
     }

@@ -1,10 +1,10 @@
 
 #Frontend
 
-GET           /                         controllers.FrontendController.index(lang:String ?= models.CoreModels.Language.DEFAULT.code)
-GET           /*lang/                   controllers.FrontendController.index(lang:String)
+GET           /                         controllers.FrontendController.index()
 GET           /topic/:name              controllers.FrontendController.topic(name:String)
 GET           /article/:url             controllers.FrontendController.article(url:String)
+GET           /tracking                 controllers.FrontendController.tracking
 GET           /about                    controllers.FrontendController.about
 GET           /adv                      controllers.FrontendController.adv
 GET           /contacts                 controllers.FrontendController.contacts

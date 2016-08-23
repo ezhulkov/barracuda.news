@@ -6,7 +6,7 @@
         {
           "newsType": "PHOTO",
           "caption": "Story of the day",
-          "tag": "gallery",
+          "tag": "story_1",
           "size": "SIZE12",
           "featured": true
         }
@@ -17,17 +17,17 @@
       "blocks": [
         {
           "newsType": "PHOTO",
-          "tag": "stories",
+          "tag": "story_2",
           "size": "SIZE4"
         },
         {
           "newsType": "PHOTO",
-          "tag": "stories",
+          "tag": "story_3",
           "size": "SIZE4"
         },
         {
           "newsType": "PHOTO",
-          "tag": "stories",
+          "tag": "story_4",
           "size": "SIZE4"
         }
       ]
@@ -37,12 +37,12 @@
       "blocks": [
         {
           "newsType": "PHOTO",
-          "tag": "stories",
+          "tag": "story_5",
           "size": "SIZE8"
         },
         {
           "newsType": "PHOTO",
-          "tag": "stories",
+          "tag": "story_6",
           "size": "SIZE4"
         }
       ]

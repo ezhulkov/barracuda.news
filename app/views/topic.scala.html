@@ -1,17 +1,17 @@
 @import components._
-@import models.CoreModels._
 @import controllers.refiners.LangInfo
+@import models.CoreModels._
 
-@(layout: Option[Layout], news: Seq[Article])(implicit messages: Messages, langInfo: LangInfo)
+@(layout: Option[Layout], news: Seq[Article], rootTag: Option[String] = None)(implicit messages: Messages, langInfo: LangInfo)
 
-@space.front("barracuda.news") {
+    @space.front("barracuda.news") {
 
-    <section class="news-grid">
-        <section class="container">
+        <section class="news-grid">
+            <section class="container">
 
-        @topicLayout(layout, news)
+            @topicLayout(layout, news, rootTag)
 
+            </section>
         </section>
-    </section>
 
-}
+    }
