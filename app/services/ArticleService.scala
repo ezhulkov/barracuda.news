@@ -43,7 +43,10 @@ class ArticleServiceImpl extends ArticleService {
       articleId
     }
   }
-  override def allTagged(tag: String): Seq[Article] = Mappers.Article.findAllTagged(tag: String)
+  override def allTagged(tag: String): Seq[Article] = {
+    val tagged = Mappers.Article.findAllTagged(tag: String)
+    Mappers.Article.findAllByIdsSeq(tagged.map(t => t.id.getOrElse(0L)))
+  }
   override def search(q: String): Seq[Article] = Nil
   override def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article] = Mappers.Article.findByUrl(url)
 

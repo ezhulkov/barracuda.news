@@ -2,7 +2,6 @@ package services
 
 import models.CoreModels.Language.Language
 import models.CoreModels._
-import org.apache.commons.lang3.StringUtils
 import org.joda.time.DateTime
 import scalikejdbc.{DBSession, WrappedResultSet, autoConstruct, _}
 import skinny.orm.{SkinnyCRUDMapper, SkinnyJoinTable}
@@ -65,6 +64,7 @@ object Mappers {
     def findById(id: Long): Option[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findById(id)
     def findByUrl(url: String): Option[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findBy(sqls.eq(defaultAlias.url, url))
     def findAllTagged(tag: String): Seq[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findAllBy(sqls.eq(Tag.defaultAlias.text, tag), ordering)
+    def findAllByIdsSeq(ids: Seq[Long]): Seq[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findAllByIds(ids: _*)
     def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
     def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(updateAttributes(article): _*))
 
