@@ -1,0 +1,18 @@
+TODO:
+
+- auth
+- caption on photo/video layout
+- youtube article + youtube widget
+- image resize
+- lang support
+- search
+- admin search
+- tracking API
+- news list for topic
+- upload cover media
+- social buttons
+- og tags
+- robots.txt
+- sitemap.xml
+- rss.xml
+

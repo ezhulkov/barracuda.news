@@ -46,6 +46,16 @@
           "size": "SIZE4"
         }
       ]
+    },
+    {
+      "height": "HEIGHT3",
+      "blocks": [
+        {
+          "newsType": "TEXT",
+          "tag": "story_text",
+          "size": "SIZE12"
+        }
+      ]
     }
   ]
 }

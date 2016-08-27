@@ -2,6 +2,7 @@ package controllers
 
 import javax.inject._
 import controllers.refiners.LangAction
+import models.Account
 import models.CoreModels.Layout
 import play.api.Environment
 import play.api.i18n.{I18nSupport, Lang, MessagesApi}
