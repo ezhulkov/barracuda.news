@@ -877,10 +877,10 @@ footer .links .subscribe input {
   font-size: 0.833rem;
   line-height: 24px;
   line-height: 1.5rem;
-  height: 30px;
+  height: 2.25rem;
   width: 100%;
 }
-footer .links .subscribe input[type='email'] {
+footer .links .subscribe input[type='email'], footer .links .subscribe input[type='text'], footer .links .subscribe input[type='password'] {
   padding-left: 10px;
   padding-left: 0.625rem;
   padding-right: 10px;
@@ -1870,6 +1870,15 @@ main.admin-area section.article-section article.edit .alloy-editor {
 }
 
 main.login-area form {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFlMWUxZSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFlMWUxZSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #1e1e1e), color-stop(100%, #1e1e1e));
+  background-image: -moz-linear-gradient(#1e1e1e, #1e1e1e);
+  background-image: -webkit-linear-gradient(#1e1e1e, #1e1e1e);
+  background-image: linear-gradient(#1e1e1e, #1e1e1e);
   margin-top: 240px;
   margin-top: 15rem;
   margin-bottom: 240px;
@@ -1878,11 +1887,64 @@ main.login-area form {
   padding-top: 3rem;
   padding-bottom: 48px;
   padding-bottom: 3rem;
-  padding-left: 100px;
-  padding-right: 100px;
+  color: #eee;
+  max-width: 500px;
+  padding-left: 75px;
+  padding-right: 75px;
   margin-left: auto;
   margin-right: auto;
-  background-color: white;
+}
+main.login-area form:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+main.login-area form input {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  margin-top: 6px;
+  margin-top: 0.375rem;
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  height: 2.25rem;
+  padding-left: 10px;
+  padding-left: 0.625rem;
+  padding-right: 10px;
+  padding-right: 0.625rem;
+}
+main.login-area form input[type='submit'] {
+  border: 1px solid #f26522;
+}
+main.login-area form input[type='submit'], main.login-area form input[type='submit'] * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: white;
+  background-color: #f26522;
+  text-decoration: none;
+}
+main.login-area form input[type='submit']:hover, main.login-area form input[type='submit']:hover * {
+  color: #ddd !important;
+  background-color: #1E1E1E;
+  text-decoration: none;
+}
+main.login-area form #login, main.login-area form #password {
+  width: 48.33333%;
+  float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
+}
+main.login-area form #sumbit {
+  width: 98.33333%;
+  float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
+  text-transform: uppercase;
 }
 
 /*# sourceMappingURL=screen.css.map */

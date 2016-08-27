@@ -1,16 +1,34 @@
 @import "compass"
+@import "susy"
 @import "mixins"
 @import "typography"
 @import "compass/typography/vertical_rhythm"
 @import "compass/css3"
 
 main.login-area
-  //+debug-vertical-alignment()
   form
+    +container(100%)
+    +background-image(linear-gradient($blackColor1, $blackColor1))
     +rhythm-margins(10)
-    +rhythm-padding(2)
-    padding-left: 100px
-    padding-right: 100px
+    +padding-leader(2)
+    +padding-trailer(2)
+    color: $whiteColor
+    max-width: 500px
+    padding-left: 75px
+    padding-right: 75px
     margin-left: auto
     margin-right: auto
-    background-color: white
+    input
+      +border-radius(0)
+      +margin-leader(1/4)
+      +t-small
+      height: rhythm(3/2)
+      +pad(10px, 10px)
+    input[type='submit']
+      +active-link(white, $textColor, $activeLink, $blackColor1)
+      border: 1px solid $activeLink
+    #login, #password
+      +span(6)
+    #sumbit
+      +span(12)
+      text-transform: uppercase
