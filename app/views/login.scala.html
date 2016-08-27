@@ -1,0 +1,22 @@
+@(loginForm: Form[Option[Account]])(implicit flash: Flash, messages: Messages)
+
+@import helper._
+
+@space.main("Admin area") {
+
+    <div class="app-wrapper">
+        <main class="login-area">
+
+        @helper.form(controllers.routes.AuthController.authenticate()) {
+
+            @inputText(loginForm("login"), args = '_placeholder -> "Login", '_class -> "form-control")
+            @inputPassword(loginForm("password"))
+
+            <input type="submit" value="Login"/>
+
+        }
+
+        </main>
+    </div>
+
+}

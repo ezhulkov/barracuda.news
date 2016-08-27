@@ -1,4 +1,4 @@
-@(sectionClass: String = "", subMenu: Option[Html], activeMenu: Option[String] = None, controller: Option[String] = None)(content: Html)
+@(sectionClass: String = "", subMenu: Option[Html], activeMenu: Option[String] = None, controller: Option[String] = None)(content: Html)(implicit user: Account)
 
 @cssFiles = {
     <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
@@ -18,12 +18,16 @@
 
 @space.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
 
-    <div class="app-wrapper" ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}' ng-cloak")).orNull ng-class="{'loading-active': loading}">
+    <div class="app-wrapper" ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}'")).orNull ng-class="{'loading-active': loading}">
 
         <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
 
             <header>
                 <h2>Admin space</h2>
+                <ul class="auth">
+                    <li>@user.name</li>
+                    <li><a href="@routes.AuthController.logout()">logout</a></li>
+                </ul>
             </header>
 
             <aside class="main-menu">
@@ -43,9 +47,9 @@
             </aside>
             }.orNull
 
-            <section class="main-section @sectionClass">
+            <section class="main-section ng-cloak @sectionClass">
                 <div class="flash" ng-show="result.result">{{result.result}}</div>
-            @content
+                @content
             </section>
 
             @activeMenu.map { active =>

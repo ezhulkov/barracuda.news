@@ -1,11 +1,8 @@
 package models
 
-import java.util.Map.Entry
 import com.typesafe.config.{ConfigValue, ConfigValueType}
-import com.typesafe.config.impl.SimpleConfigObject
-import models.CoreModels.Language.LanguageValue
+import org.mindrot.jbcrypt.BCrypt
 import utils.Configuration
-import scala.concurrent.Future
 import scala.language.implicitConversions
 
 /**
@@ -30,6 +27,7 @@ object Account {
   }
 
   def findByName(name: String): Option[Account] = users.find(t => t.name == name)
+  def authenticate(login: String, password: String): Option[Account] = findByName(login).filter(a => BCrypt.checkpw(password, a.password))
 
 }
 

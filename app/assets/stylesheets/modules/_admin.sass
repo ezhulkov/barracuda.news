@@ -20,10 +20,20 @@ main.admin-area
     line-height: rhythm(2)
     color: $whiteColor
     padding-left: $pad
+    padding-right: $pad
     position: fixed
     width: 100%
     top: 0
     z-index: 9
+    h2
+      +float-left
+    .auth
+      +float-right
+      +inline-list
+      li
+        padding: 0 5px
+      a
+        +active-link
   & > aside.main-menu
     background-color: $blackColor2
     position: fixed

@@ -1434,10 +1434,41 @@ main.admin-area > header {
   line-height: 3rem;
   color: #eee;
   padding-left: 20px;
+  padding-right: 20px;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 9;
+}
+main.admin-area > header h2 {
+  float: left;
+}
+main.admin-area > header .auth {
+  float: right;
+  list-style-type: none;
+}
+main.admin-area > header .auth, main.admin-area > header .auth li {
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+main.admin-area > header .auth li {
+  padding: 0 5px;
+}
+main.admin-area > header .auth a, main.admin-area > header .auth a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #ddd;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area > header .auth a:hover, main.admin-area > header .auth a:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
 }
 main.admin-area > aside.main-menu {
   background-color: #262626;
@@ -1836,6 +1867,22 @@ main.admin-area section.article-section article.edit .alloy-editor {
 
 .ae-button {
   margin-left: 13px;
+}
+
+main.login-area form {
+  margin-top: 240px;
+  margin-top: 15rem;
+  margin-bottom: 240px;
+  margin-bottom: 15rem;
+  padding-top: 48px;
+  padding-top: 3rem;
+  padding-bottom: 48px;
+  padding-bottom: 3rem;
+  padding-left: 100px;
+  padding-right: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
 }
 
 /*# sourceMappingURL=screen.css.map */
