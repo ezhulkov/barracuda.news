@@ -12,6 +12,7 @@ POST          /search                   controllers.FrontendController.search(q:
 
 
 #Admin area
+GET           /admin/login                    controllers.AdminController.login
 GET           /admin                    controllers.AdminController.index
 GET           /admin/layout             controllers.AdminController.layout
 GET           /admin/article            controllers.AdminController.articleNew

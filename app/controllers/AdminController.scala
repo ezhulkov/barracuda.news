@@ -29,6 +29,9 @@ class AdminController @Inject()(
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
   def layout = LoggingAction.async { implicit request => Future(Ok(views.html.admin.layouts())) }
+  def login = LoggingAction.async(implicit request => Future(
+    Ok(views.html.admin.login()))
+  )
   def index = LoggingAction.async(implicit request => Future(
     Ok(views.html.admin.index(Json.stringify(articleService.allArticles(false).sortBy(-_.publish.getMillis))))
   ))
