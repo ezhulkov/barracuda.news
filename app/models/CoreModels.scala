@@ -1,5 +1,6 @@
 package models
 
+import java.util.UUID
 import com.github.nscala_time.time.Imports._
 import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.Language.Language
@@ -54,11 +55,11 @@ object CoreModels {
     implicit def convert(value: Value): LanguageValue = value.asInstanceOf[LanguageValue]
   }
 
-  sealed case class Tag(id: Option[Long], text: String, root: Option[Boolean] = None)
-  sealed case class Layout(rows: Seq[NewsRow])
-  sealed case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
-  sealed case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
-  sealed case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
+  case class Tag(id: Option[Long], text: String, root: Option[Boolean] = None)
+  case class Layout(rows: Seq[NewsRow])
+  case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
+  case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
+  case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   case class Article(
     id: Option[Long],
     url: Option[String],
@@ -78,12 +79,14 @@ object CoreModels {
       case _ => None
     })
   }
-  sealed case class Translation(id: Option[Long], articleId: Option[Long], lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
+  case class Translation(id: Option[Long], articleId: Option[Long], lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
     def searchMatch(q: String) = {
       val lCQ = q.toLowerCase
       text.toLowerCase.contains(lCQ) || caption.contains(lCQ)
     }
   }
+  case class TrackingEvent(id: UUID, name: String, eventStart: DateTime, eventEnd: DateTime, races: Option[Seq[TrackingRace]])
+  case class TrackingRace(id: UUID, name: String, start: DateTime, end: DateTime, localUrl: String)
 
   object Translation {
     def newTranslations = Language.values.map(l => Translation(None, None, l, s"Article caption [${l.name}]", s"Article body [${l.name}]", Nil)).toSeq
