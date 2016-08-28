@@ -9,7 +9,7 @@ main.login-area
   form
     +container(100%)
     +background-image(linear-gradient($blackColor1, $blackColor1))
-    +rhythm-margins(10)
+    +margin-leader(10)
     +padding-leader(2)
     +padding-trailer(2)
     color: $whiteColor
@@ -18,6 +18,10 @@ main.login-area
     padding-right: 75px
     margin-left: auto
     margin-right: auto
+    .logo
+      +span(12)
+      +padding-trailer(1)
+      text-align: center
     .error
       +t-small
       color: red

@@ -4,9 +4,10 @@ import models.{Account, Role}
 import scala.reflect.{ClassTag, classTag}
 import jp.t2v.lab.play2.auth._
 import play.api.Logger
-import play.api.mvc.{RequestHeader, Result}
+import play.api.mvc.{RequestHeader, Result, Results}
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.Results._
+import utils.Configuration
 
 /**
   * Created by ezhulkov on 27.08.16.
@@ -52,5 +53,8 @@ trait BnAuthConfig extends AuthConfig {
       case _ => false
     }
   }
+  override lazy val tokenAccessor: TokenAccessor = new CookieTokenAccessor(
+    cookieDomainOption = Configuration.getValue("auth.domain")
+  )
 
 }

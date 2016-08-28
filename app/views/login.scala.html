@@ -9,7 +9,10 @@
 
         @helper.form(controllers.routes.AuthController.authenticate()) {
 
-            <h3>Please, login</h3>
+            <a class="logo" href="http://bedynamiq.com/" target="_blanc">
+                <img src="@routes.Assets.versioned("images/logo-small.png")"/>
+            </a>
+
             @if(loginForm.hasGlobalErrors) {
                 @loginForm.globalError.map { e =>
                     <p class="error">

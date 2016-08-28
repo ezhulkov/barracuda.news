@@ -1923,8 +1923,6 @@ main.login-area form {
   background-image: linear-gradient(#1e1e1e, #1e1e1e);
   margin-top: 240px;
   margin-top: 15rem;
-  margin-bottom: 240px;
-  margin-bottom: 15rem;
   padding-top: 48px;
   padding-top: 3rem;
   padding-bottom: 48px;
@@ -1940,6 +1938,15 @@ main.login-area form:after {
   content: " ";
   display: block;
   clear: both;
+}
+main.login-area form .logo {
+  width: 98.33333%;
+  float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
+  text-align: center;
 }
 main.login-area form .error {
   font-size: 13px;
