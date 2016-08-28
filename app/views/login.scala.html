@@ -10,11 +10,19 @@
         @helper.form(controllers.routes.AuthController.authenticate()) {
 
             <h3>Please, login</h3>
+            @if(loginForm.hasGlobalErrors) {
+                @loginForm.globalError.map { e =>
+                    <p class="error">
+                        @e.message
+                    </p>
+                }
+                </p>
+            }
             <input type="text" name="login" id="login" placeholder="Login">
             <input type="password" name="password" id="password" placeholder="Password">
             <input type="submit" id="sumbit" value="Login">
 
-        }
+            }
 
         </main>
     </div>

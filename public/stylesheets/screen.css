@@ -1899,6 +1899,13 @@ main.login-area form:after {
   display: block;
   clear: both;
 }
+main.login-area form .error {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  color: red;
+}
 main.login-area form input {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
