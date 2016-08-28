@@ -93,8 +93,21 @@ header
           content: "\f002"
     ul.categories
       display: none
+      li.logo
+        img
+          vertical-align: middle
+        img.all
+          display: initial
+        img.tablet
+          display: none
+        +eq-tablet-media-only
+          img.tablet
+            display: initial
+          img.all
+            display: none
     &.menu-active
       ul.categories
+        +rhythm-padding(1/2)
         top: rhythm($menu-lines)
         left: 0
         right: 0
@@ -108,6 +121,9 @@ header
         li
           float: none
           text-align: center
+          a
+            +active-link()
+            +rhythm-padding(1/4)
     +tablet-media
       .menu-button
         display: none

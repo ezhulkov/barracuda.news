@@ -25,6 +25,12 @@
                 </li>
             </ul>
             <ul class="categories">
+                <li class="logo">
+                    <a href="@routes.FrontendController.index">
+                        <img class="all" src="@routes.Assets.versioned("/images/logo-small.png")" alt="barracuda.news" title="barracude.news"/>
+                        <img class="tablet" src="@routes.Assets.versioned("/images/logo-small2.png")" alt="barracuda.news" title="barracude.news"/>
+                    </a>
+                </li>
                 <li class="color1"><a href="@routes.FrontendController.index()">@messages("title.news")</a></li>
                 <li class="color2"><a href="@routes.FrontendController.topic("stories")">@messages("title.stories")</a></li>
                 <li class="color3"><a href="@routes.FrontendController.tracking()">@messages("title.tracking")</a></li>

@@ -30,6 +30,10 @@
   +breakpoint(max-width $tabletWidth - 1)
     @content
 
+=eq-tablet-media-only
+  +breakpoint((max-width $desktopWidth - 1) (min-width $tabletWidth))
+    @content
+
 =active-link($color: $textColor, $hover:$activeLink, $bgColor: initial, $hoverBgColor: initial)
   &, *
     +transition(all 0.2s ease-in-out)

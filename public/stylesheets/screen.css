@@ -540,7 +540,28 @@ header .menu ul.tools li.search > div:after {
 header .menu ul.categories {
   display: none;
 }
+header .menu ul.categories li.logo img {
+  vertical-align: middle;
+}
+header .menu ul.categories li.logo img.all {
+  display: initial;
+}
+header .menu ul.categories li.logo img.tablet {
+  display: none;
+}
+@media screen and (max-width: 59em) and (min-width: 48em) {
+  header .menu ul.categories li.logo img.tablet {
+    display: initial;
+  }
+  header .menu ul.categories li.logo img.all {
+    display: none;
+  }
+}
 header .menu.menu-active ul.categories {
+  padding-top: 12px;
+  padding-top: 0.75rem;
+  padding-bottom: 12px;
+  padding-bottom: 0.75rem;
   top: 3rem;
   left: 0;
   right: 0;
@@ -555,6 +576,27 @@ header .menu.menu-active ul.categories {
 header .menu.menu-active ul.categories li {
   float: none;
   text-align: center;
+}
+header .menu.menu-active ul.categories li a {
+  padding-top: 6px;
+  padding-top: 0.375rem;
+  padding-bottom: 6px;
+  padding-bottom: 0.375rem;
+}
+header .menu.menu-active ul.categories li a, header .menu.menu-active ul.categories li a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #ddd;
+  background-color: initial;
+  text-decoration: none;
+}
+header .menu.menu-active ul.categories li a:hover, header .menu.menu-active ul.categories li a:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
 }
 @media screen and (min-width: 48em) {
   header .menu .menu-button {
