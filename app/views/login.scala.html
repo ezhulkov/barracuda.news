@@ -9,7 +9,7 @@
 
         @helper.form(controllers.routes.AuthController.authenticate()) {
 
-            <a class="logo" href="http://bedynamiq.com/" target="_blanc">
+            <a class="logo" href="@routes.FrontendController.index()" target="_blanc">
                 <img src="@routes.Assets.versioned("images/logo-small.png")"/>
             </a>
 
@@ -21,11 +21,17 @@
                 }
                 </p>
             }
-            <input type="text" name="login" id="login" placeholder="Login">
-            <input type="password" name="password" id="password" placeholder="Password">
-            <input type="submit" id="sumbit" value="Login">
+            <div class="control-container login">
+                <input type="text" class="inp md" name="login" id="login" placeholder="Login">
+            </div>
+            <div class="control-container password">
+                <input type="password" class="inp md" name="password" id="password" placeholder="Password">
+            </div>
+            <div class="control-container submit">
+                <input type="submit" class="btn md" value="Login">
+            </div>
 
-            }
+        }
 
         </main>
     </div>

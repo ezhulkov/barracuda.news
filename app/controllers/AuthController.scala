@@ -1,6 +1,7 @@
 package controllers
 
 import javax.inject._
+import controllers.stack.{LoggingElement, TokenValidateElement}
 import jp.t2v.lab.play2.auth.LoginLogout
 import models.Account
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -10,7 +11,7 @@ import scala.concurrent.Future
 @Singleton
 class AuthController @Inject()(
   val messagesApi: MessagesApi
-) extends Controller with LoginLogout with BnAuthConfig with I18nSupport with LoggingActions {
+) extends Controller with LoginLogout with BnAuthConfig with I18nSupport with LoggingElement {
 
   import play.api.data.Forms._
   import play.api.data._

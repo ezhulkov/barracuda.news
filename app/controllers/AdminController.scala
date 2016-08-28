@@ -1,6 +1,7 @@
 package controllers
 
 import javax.inject._
+import controllers.stack.LoggingElement
 import jp.t2v.lab.play2.auth.AuthElement
 import models.CoreModels.{Article, Language, Layout}
 import play.api.Environment
@@ -15,7 +16,7 @@ class AdminController @Inject()(
   env: Environment,
   articleService: ArticleService,
   val messagesApi: MessagesApi
-) extends Controller with I18nSupport with AuthElement with BnAuthConfig with LoggingActions{
+) extends Controller with I18nSupport with AuthElement with BnAuthConfig with LoggingElement{
 
   import models.Implicits._
   import models.Role._

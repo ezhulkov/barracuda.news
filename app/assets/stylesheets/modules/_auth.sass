@@ -13,7 +13,7 @@ main.login-area
     +padding-leader(2)
     +padding-trailer(2)
     color: $whiteColor
-    max-width: 500px
+    width: 500px
     padding-left: 75px
     padding-right: 75px
     margin-left: auto
@@ -26,16 +26,9 @@ main.login-area
       +t-small
       color: red
     input
-      +border-radius(0)
-      +margin-leader(1/4)
-      +t-small
-      height: rhythm(3/2)
-      +pad(10px, 10px)
-    input[type='submit']
-      +active-link(white, $textColor, $activeLink, $blackColor1)
-      border: 1px solid $activeLink
-    #login, #password
+      margin-bottom: 5px
+    .login, .password
       +span(6)
-    #sumbit
+    .submit
       +span(12)
       text-transform: uppercase

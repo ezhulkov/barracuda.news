@@ -43,8 +43,12 @@
             </div>
             <div class="subscribe">
                 <h4>@messages("title.newsletter"):</h4>
-                <input class="form-control" type="email" placeholder="@messages("title.enterEmail")" title="@messages("title.enterEmail")">
-                <input type="submit" class="btn btn-md" value="@messages("title.subscribe")">
+                <div class="control-container">
+                    <input class="inp" type="email" placeholder="@messages("title.enterEmail")" title="@messages("title.enterEmail")">
+                </div>
+                <div class="control-container">
+                    <input class="btn" type="submit" class="btn btn-md" value="@messages("title.subscribe")">
+                </div>
             </div>
         </section>
     </section>

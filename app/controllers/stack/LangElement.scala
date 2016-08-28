@@ -1,4 +1,4 @@
-package controllers
+package controllers.stack
 
 import jp.t2v.lab.play2.stackc.{RequestAttributeKey, RequestWithAttributes, StackableController}
 import models.CoreModels.Language
@@ -11,7 +11,7 @@ import scala.util.Try
 /**
   * Created by ezhulkov on 28.08.16.
   */
-trait LangActions extends StackableController {
+trait LangElement extends StackableController {
   self: Controller =>
 
   implicit def resourceLang(implicit req: RequestWithAttributes[_]) = req.get(ResourceLang).get

@@ -1,6 +1,7 @@
 package controllers
 
 import javax.inject._
+import controllers.stack.{LangElement, LoggingElement}
 import models.CoreModels.{Language, Layout}
 import play.api.Environment
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -15,7 +16,7 @@ class FrontendController @Inject()(
   env: Environment,
   articleService: ArticleService,
   val messagesApi: MessagesApi
-) extends Controller with I18nSupport with LoggingActions with LangActions {
+) extends Controller with I18nSupport with LoggingElement with LangElement {
 
   import models.Implicits._
   import scala.concurrent.ExecutionContext.Implicits.global
