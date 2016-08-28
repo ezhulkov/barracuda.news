@@ -1,6 +1,6 @@
 <configuration>
 
-    <property name="PATTERN" value="[%date{ISO8601, UTC} UTC][%level][%X{ip}][%X{op}]- %msg%n"/>
+    <property name="PATTERN" value="%cyan(%date{ISO8601, UTC} UTC) %highlight(%-5level) %cyan(%logger) - %msg%n"/>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>/var/log/barracuda/barracuda-portal.log</file>

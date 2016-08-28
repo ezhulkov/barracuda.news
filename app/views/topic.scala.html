@@ -1,8 +1,8 @@
 @import components._
-@import controllers.refiners.LangInfo
+@import models.CoreModels.Language.LanguageValue
 @import models.CoreModels._
 
-@(layout: Option[Layout], news: Seq[Article], rootTag: Option[String] = None)(implicit messages: Messages, langInfo: LangInfo)
+@(layout: Option[Layout], news: Seq[Article], rootTag: Option[String] = None)(implicit messages: Messages, lang: Language.LanguageValue)
 
     @space.front("barracuda.news") {
 

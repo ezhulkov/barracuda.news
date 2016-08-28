@@ -15,7 +15,7 @@ class AdminController @Inject()(
   env: Environment,
   articleService: ArticleService,
   val messagesApi: MessagesApi
-) extends Controller with I18nSupport with AuthElement with BnAuthConfig {
+) extends Controller with I18nSupport with AuthElement with BnAuthConfig with LoggingActions{
 
   import models.Implicits._
   import models.Role._
@@ -46,7 +46,6 @@ class AdminController @Inject()(
   def articleDelete(id: Long) = StackAction(AuthorityKey -> Administrator) { implicit request =>
     Redirect(routes.AdminController.index())
   }
-
   def getArticle(idOpt: Option[Long]) = StackAction(AuthorityKey -> Administrator) { implicit request =>
     val articleOpt = idOpt match {
       case Some(id) => articleService.findArticle(id)

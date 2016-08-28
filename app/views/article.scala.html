@@ -1,7 +1,7 @@
-@import controllers.refiners.LangInfo
 @import models.CoreModels.Article
+@import models.CoreModels.Language.LanguageValue
 
-@(article: Article)(implicit messages: Messages, langInfo: LangInfo)
+@(article: Article)(implicit messages: Messages, lang: LanguageValue)
 
 @space.front("barracuda.news") {
 

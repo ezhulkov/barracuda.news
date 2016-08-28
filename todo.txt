@@ -1,13 +1,15 @@
 TODO:
 
-- auth
+- tracking API
+- slow news list in admin area
+- buttons style and rhythm height everywhere
+- use Kamon library for log tracing
+- lang support
 - caption on photo/video layout
 - youtube article + youtube widget
 - image resize
-- lang support
 - search
 - admin search
-- tracking API
 - news list for topic
 - upload cover media
 - social buttons
@@ -16,3 +18,4 @@ TODO:
 - sitemap.xml
 - rss.xml
 
++ auth

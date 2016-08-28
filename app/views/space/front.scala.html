@@ -1,6 +1,6 @@
-@import controllers.refiners.LangInfo
+@import models.CoreModels.Language.LanguageValue
 
-@(title: String)(content: Html)(implicit messages: Messages, langInfo: LangInfo)
+@(title: String)(content: Html)(implicit messages: Messages, lang: LanguageValue)
 
 @jsFiles = {
 

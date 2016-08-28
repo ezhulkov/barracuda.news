@@ -1,6 +1,6 @@
-@import controllers.refiners.LangInfo
+@import models.CoreModels.Language.LanguageValue
 
-@()(implicit messages: Messages, langInfo: LangInfo)
+@()(implicit messages: Messages, lang: LanguageValue)
 
 <header>
 
@@ -19,7 +19,7 @@
             <ul class="tools">
                 <li class="search" ng-click="toggleSearch()"><div></div></li>
                 <li class="lang hidden">
-                    <div>@langInfo.clientLang.label</div>
+                    <div>@lang.label</div>
                     <ul>
                     </ul>
                 </li>

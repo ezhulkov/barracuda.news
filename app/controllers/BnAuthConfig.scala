@@ -1,13 +1,13 @@
 package controllers
 
-import models.{Account, Role}
-import scala.reflect.{ClassTag, classTag}
 import jp.t2v.lab.play2.auth._
+import models.{Account, Role}
 import play.api.Logger
-import play.api.mvc.{RequestHeader, Result, Results}
-import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.Results._
+import play.api.mvc.{RequestHeader, Result}
 import utils.Configuration
+import scala.concurrent.{ExecutionContext, Future}
+import scala.reflect.{ClassTag, classTag}
 
 /**
   * Created by ezhulkov on 27.08.16.
