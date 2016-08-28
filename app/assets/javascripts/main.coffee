@@ -147,6 +147,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, file
   $scope.langs = angular.copy($window.langs)
   $scope.selectedLang = $scope.langs[0]
   $scope.articleModel = angular.copy($window.articleModel)
+  $scope.articleModel.publish_moment = moment($scope.articleModel.publish)
   $scope.tags = angular.copy($window.tags)
   $scope.alloyConfig = $window.alloyConfig
   $scope.loading = false
@@ -173,6 +174,8 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, file
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
+    article.publish = article.publish_moment.valueOf()
+    console.log(article)
     $http.post("/admin/article", article)
     .error (data, status) ->
       $scope.processResponse(data)

@@ -9,14 +9,14 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.{JsArray, JsString, Json}
 import play.api.mvc._
 import services.ArticleService
-import scala.util.Failure
+import scala.util.{Failure, Success}
 
 @Singleton
 class AdminController @Inject()(
   env: Environment,
   articleService: ArticleService,
   val messagesApi: MessagesApi
-) extends Controller with I18nSupport with AuthElement with BnAuthConfig with LoggingElement{
+) extends Controller with I18nSupport with AuthElement with BnAuthConfig with LoggingElement {
 
   import models.Implicits._
   import models.Role._
@@ -32,17 +32,18 @@ class AdminController @Inject()(
     Ok(views.html.admin.layouts())
   }
   def index = StackAction(AuthorityKey -> Administrator) { implicit request =>
-    Ok(views.html.admin.index(Json.stringify(articleService.allArticles(false).sortBy(-_.publish.getMillis))))
+    val articles = Json.toJson(articleService.allArticles(false).sortBy(-_.publish.getMillis))
+    Ok(views.html.admin.index(Json.stringify(articles)))
   }
   def articleNew = getArticle(None)
   def article(id: Long) = getArticle(Some(id))
   def articleSave = StackAction(AuthorityKey -> Administrator) { implicit request =>
-    request.body.asJson.map(json => articleReadsTransform(json)).getOrElse(Failure(new RuntimeException("Empty Request")))
-      .flatMap(article => articleService.saveArticle(article))
-      .map(result => Ok(Json.obj("result" -> "Article saved!", "article_id" -> result)).as(JSON))
-      .recover {
-        case th: Throwable => InternalServerError(Json.obj("result" -> s"Error: ${th.getMessage}")).as(JSON)
-      }.get
+    request.body.asJson.map(json => json.as[Article])
+      .map(article => articleService.saveArticle(article)) match {
+      case Some(Success(id)) => Ok(Json.obj("result" -> "Article saved!", "article_id" -> id)).as(JSON)
+      case Some(Failure(e)) => InternalServerError(Json.obj("result" -> s"Error: ${e.getMessage}")).as(JSON)
+      case None => BadRequest(Json.obj("result" -> s"Bad request")).as(JSON)
+    }
   }
   def articleDelete(id: Long) = StackAction(AuthorityKey -> Administrator) { implicit request =>
     Redirect(routes.AdminController.index())
@@ -52,7 +53,7 @@ class AdminController @Inject()(
       case Some(id) => articleService.findArticle(id)
       case None => Some(Article.newArticle)
     }
-    articleOpt match {
+    articleOpt.map(t => Json.toJson(t)) match {
       case Some(article) => Ok(views.html.admin.article(Json.stringify(article), Json.stringify(tags), Json.stringify(langs)))
       case None => NotFound("Article not found")
     }
