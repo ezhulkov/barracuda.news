@@ -1,0 +1,15 @@
+@()
+
+<script type="text/javascript" src="https://www.gstatic.com/swiffy/v7.3/runtime.js"></script>
+<script src="@routes.Assets.versioned("/banners/bd_300x500.js")" type="text/javascript"></script>
+<div id="swiffycontainer" class="banner">
+    @*<img src="http://placehold.it/300x600">*@
+</div>
+<script type="text/javascript">
+        window.onload = function () {
+            var flashvars = "link1=http%3A%2F%2Fbedynamiq.com&target=_blank;"
+            var stage = new swiffy.Stage(document.getElementById('swiffycontainer'), swiffyobject);
+            stage.setFlashVars(flashvars);
+            stage.start();
+        };
+</script>

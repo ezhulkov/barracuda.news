@@ -2,6 +2,7 @@ package models
 
 import java.util.UUID
 import com.github.nscala_time.time.Imports._
+import com.github.nscala_time.time.TypeImports
 import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.Language.Language
 import models.CoreModels.NewsType.NewsType
@@ -15,7 +16,9 @@ import scala.language.implicitConversions
   */
 object CoreModels {
 
-  val dateFormat = "yyyy/MM/dd HH:mm:SS"
+  val dateFormat      = "YYYY/MM/dd HH:mm"
+  val dateFormatShort = "YYYY/MM/dd"
+  val trackingBaseUrl = "http://sport2.interprocom.ru"
 
   object BlockSize extends Enumeration {
     type BlockSize = Value
@@ -69,7 +72,7 @@ object CoreModels {
     tags: Seq[Tag] = Nil,
     translations: Seq[Translation] = Nil
   ) {
-    val publishFormatted      = publish.toString("YYYY/MM/dd HH:mm")
+    val publishFormatted      = publish.toString(dateFormat)
     val publishShortFormatted = publish.toString("YYYY-MM-dd-")
     def generateUrl = publishShortFormatted + translations.find(t => t.lang == Language.DEFAULT && StringUtils.isNotEmpty(t.caption)).map(t => Utils.transliterate(t.caption)).getOrElse(id.toString)
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
@@ -85,13 +88,20 @@ object CoreModels {
       text.toLowerCase.contains(lCQ) || caption.contains(lCQ)
     }
   }
-  case class TrackingEvent(id: UUID, name: String, eventStart: DateTime, eventEnd: DateTime, races: Option[Seq[TrackingRace]])
-  case class TrackingRace(id: UUID, name: String, start: DateTime, end: DateTime, localUrl: String)
+  case class TrackingEvent(id: Option[UUID], name: Option[String], eventStart: Option[DateTime], eventEnd: Option[DateTime], imageUrl: Option[String], races: Option[Seq[TrackingRace]]) {
+    val baseUrl        = trackingBaseUrl
+    val startFormatted = eventStart.map(t => t.toString(dateFormatShort)).getOrElse("")
+    val endFormatted   = eventEnd.map(t => t.toString(dateFormatShort)).getOrElse("")
+  }
+  case class TrackingRace(id: Option[UUID], name: Option[String], start: Option[DateTime], end: Option[DateTime], localUrl: Option[String]) {
+    val baseUrl        = trackingBaseUrl
+    val startFormatted = start.map(t => t.toString(dateFormatShort)).getOrElse("")
+    val endFormatted   = end.map(t => t.toString(dateFormatShort)).getOrElse("")
+  }
 
   object Translation {
     def newTranslations = Language.values.map(l => Translation(None, None, l, s"Article caption [${l.name}]", s"Article body [${l.name}]", Nil)).toSeq
   }
-
   object Article {
     def newArticle = Article(None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
   }

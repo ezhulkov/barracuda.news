@@ -1,18 +1,29 @@
 @import models.CoreModels.Language.LanguageValue
+@import models.CoreModels.TrackingEvent
+@import models.Implicits._
 
-@()(implicit messages: Messages, lang: LanguageValue)
+@(tracking: Seq[TrackingEvent])(implicit messages: Messages, lang: LanguageValue)
 
 @space.front("barracuda.news") {
 
     <section class="misc">
         <section class="container">
 
-            <div class="article-body">
-                <h1>Tracking</h1>
+            <div class="content-body">
+                <h1>Barracuda tracking</h1>
+                @for(event <- tracking.sortBy(t => t.eventStart.orNull)) {
+                    <h2>@event.name</h2>
+                    <p>@event.startFormatted - @event.endFormatted</p>
+                    @*<img src="@event.baseUrl@event.imageUrl" alt="@event.name" title="@event.name">*@
+                    @for(race <- event.races.getOrElse(Nil).sortBy(t => t.start)) {
+                        <h5>@race.name</h5>
+                        <p>@race.startFormatted - @race.endFormatted</p>
+                    }
+                }
             </div>
-
-            <iframe width="100%" height="200px" src="http://sport2.interprocom.ru/embedded/?id=97f9775d-e35f-4b70-949a-a949d8931750" frameborder="0"></iframe>
-            <iframe width="100%" height="490px" src="http://sport2.interprocom.ru/embedded/?id=052a2f7a-98a4-4203-aa45-d94b47db012b" frameborder="0"></iframe>
+            <div class="adv">
+            @components.adv()
+            </div>
 
         </section>
     </section>

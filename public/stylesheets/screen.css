@@ -324,6 +324,7 @@ html {
   padding-left: 0.625rem;
   padding-right: 10px;
   padding-right: 0.625rem;
+  border: 1px solid gray;
 }
 
 .btn {
@@ -1209,6 +1210,50 @@ article {
   background-color: rgba(255, 255, 255, 0.4);
   position: relative;
 }
+article .article-body {
+  width: 98.33333%;
+  float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
+}
+@media screen and (min-width: 60em) {
+  article .article-body {
+    width: 65%;
+    float: left;
+    margin-left: 0.83333%;
+    margin-right: 0.83333%;
+  }
+}
+@media screen and (min-width: 80em) {
+  article .article-body {
+    width: 56.66667%;
+    float: left;
+    margin-left: 0.83333%;
+    margin-right: 0.83333%;
+    margin-left: 9.16667%;
+  }
+}
+article .adv {
+  display: none;
+}
+@media screen and (min-width: 60em) {
+  article .adv {
+    width: 31.66667%;
+    float: left;
+    margin-left: 0.83333%;
+    margin-right: 0.83333%;
+    display: block;
+    min-height: 600px;
+  }
+  article .adv img {
+    margin: 0;
+  }
+  article .adv #swiffycontainer {
+    width: 300px;
+    height: 500px;
+    border: 1px solid #333;
+  }
+}
 article .article-header {
   width: 98.33333%;
   float: left;
@@ -1294,50 +1339,6 @@ article .source:before {
 article .date:before {
   content: "";
 }
-article .article-body {
-  width: 98.33333%;
-  float: left;
-  margin-left: 0.83333%;
-  margin-right: 0.83333%;
-}
-@media screen and (min-width: 60em) {
-  article .article-body {
-    width: 65%;
-    float: left;
-    margin-left: 0.83333%;
-    margin-right: 0.83333%;
-  }
-}
-@media screen and (min-width: 80em) {
-  article .article-body {
-    width: 56.66667%;
-    float: left;
-    margin-left: 0.83333%;
-    margin-right: 0.83333%;
-    margin-left: 9.16667%;
-  }
-}
-article .adv {
-  display: none;
-}
-@media screen and (min-width: 60em) {
-  article .adv {
-    width: 31.66667%;
-    float: left;
-    margin-left: 0.83333%;
-    margin-right: 0.83333%;
-    display: block;
-    min-height: 600px;
-  }
-  article .adv img {
-    margin: 0;
-  }
-  article .adv #swiffycontainer {
-    width: 300px;
-    height: 500px;
-    border: 1px solid #333;
-  }
-}
 article .close {
   display: none;
 }
@@ -1421,6 +1422,63 @@ article img, article iframe {
 article h2, article h3, article h4 {
   margin-bottom: 24px;
   margin-bottom: 1.5rem;
+}
+
+.misc {
+  padding-top: 24px;
+  padding-top: 1.5rem;
+  padding-bottom: 48px;
+  padding-bottom: 3rem;
+  margin-top: 24px;
+  margin-top: 1.5rem;
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  position: relative;
+}
+.misc .content-body {
+  width: 98.33333%;
+  float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
+}
+@media screen and (min-width: 60em) {
+  .misc .content-body {
+    width: 65%;
+    float: left;
+    margin-left: 0.83333%;
+    margin-right: 0.83333%;
+  }
+}
+@media screen and (min-width: 80em) {
+  .misc .content-body {
+    width: 56.66667%;
+    float: left;
+    margin-left: 0.83333%;
+    margin-right: 0.83333%;
+    margin-left: 9.16667%;
+  }
+}
+.misc .adv {
+  display: none;
+}
+@media screen and (min-width: 60em) {
+  .misc .adv {
+    width: 31.66667%;
+    float: left;
+    margin-left: 0.83333%;
+    margin-right: 0.83333%;
+    display: block;
+    min-height: 600px;
+  }
+  .misc .adv img {
+    margin: 0;
+  }
+  .misc .adv #swiffycontainer {
+    width: 300px;
+    height: 500px;
+    border: 1px solid #333;
+  }
 }
 
 main.admin-area {

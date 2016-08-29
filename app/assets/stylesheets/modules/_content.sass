@@ -2,12 +2,42 @@
 @import "susy"
 @import "mixins"
 
-article
+=content
+  //+debug-vertical-alignment()
   +padding-leader(1)
   +padding-trailer(2)
   +rhythm-margins(1)
   background-color: rgba(white, 0.4)
   position: relative
+
+=content-spans($type)
+  .#{$type}-body
+    //+border
+    +span(12)
+    +desktop-media
+      +span(8)
+    +xdesktop-media
+      +span(7)
+      +pre(1)
+
+=adv
+  .adv
+    display: none
+    +desktop-media
+      +span(4)
+      display: block
+      min-height: 600px
+      img
+        margin: 0
+      #swiffycontainer
+        width: 300px
+        height: 500px
+        border: 1px solid $blackTextColor
+
+article
+  +content
+  +content-spans(article)
+  +adv
   .article-header
     +span(12)
     +padding-trailer(1)
@@ -41,25 +71,6 @@ article
     content: "\f061"
   .date:before
     content: "\f017"
-  .article-body
-    +span(12)
-    +desktop-media
-      +span(8)
-    +xdesktop-media
-      +span(7)
-      +pre(1)
-  .adv
-    display: none
-    +desktop-media
-      +span(4)
-      display: block
-      min-height: 600px
-      img
-        margin: 0
-      #swiffycontainer
-        width: 300px
-        height: 500px
-        border: 1px solid $blackTextColor
   .close
     display: none
     +desktop-media
@@ -103,3 +114,8 @@ article
     margin: auto
   #{headers(2,4)}
     +margin-trailer(1)
+
+.misc
+  +content
+  +content-spans(content)
+  +adv
