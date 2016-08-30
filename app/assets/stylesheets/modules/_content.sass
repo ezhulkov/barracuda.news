@@ -10,16 +10,6 @@
   background-color: rgba(white, 0.4)
   position: relative
 
-=content-spans($type)
-  .#{$type}-body
-    //+border
-    +span(12)
-    +desktop-media
-      +span(8)
-    +xdesktop-media
-      +span(7)
-      +pre(1)
-
 =adv
   .adv
     display: none
@@ -36,8 +26,14 @@
 
 article
   +content
-  +content-spans(article)
   +adv
+  .article-body
+    +span(12)
+    +desktop-media
+      +span(8)
+    +xdesktop-media
+      +span(7)
+      +pre(1)
   .article-header
     +span(12)
     +padding-trailer(1)
@@ -115,7 +111,11 @@ article
   #{headers(2,4)}
     +margin-trailer(1)
 
-.misc
-  +content
-  +content-spans(content)
-  +adv
+.content
+  +with-layout(12 fluid inside)
+    +content
+    +adv
+    .content-body
+      +span(12 no-gutter)
+      +desktop-media
+        +span(8 no-gutter)

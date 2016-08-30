@@ -1,0 +1,37 @@
+@import "compass"
+@import "susy"
+@import "mixins"
+
+.tracking
+  .adv
+    +padding-leader(2)
+  .event
+    +pad($pad-col, $pad-col)
+    +margin-trailer(1)
+    +padding-trailer(1)
+    background-color: white
+    &.featured
+      border-top: $featured-width solid $activeLink
+      h2
+        margin-top: - $featured-width
+  .races
+    +padding-leader(1)
+    .race
+      padding-left: $pad-col
+      +t-small
+    .replay
+      +btn($color: white, $hover: $blackTextColor, $bgColor: $activeLink, $hoverBgColor: transparent)
+      +float-right
+      +pad($pad-col, $pad-col)
+      width: auto
+      text-transform: lowercase
+      height: rhythm(9/10)
+      line-height: rhythm(9/10)
+  .show
+    +float-right
+    +t-small
+    +active-link($color: $blackTextColor)
+    line-height: rhythm(2)
+  .date
+    +t-small
+    font-style: italic

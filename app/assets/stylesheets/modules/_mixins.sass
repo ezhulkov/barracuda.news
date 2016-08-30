@@ -31,8 +31,23 @@
     @content
 
 =eq-tablet-media-only
-  +breakpoint((max-width $desktopWidth - 1) (min-width $tabletWidth))
+  +breakpoint((max-width $desktopWidth) (min-width $tabletWidth))
     @content
+
+=form-control
+  +t-small
+  +rhythm-padding(0)
+  height: rhythm(1)
+  line-height: rhythm(1)
+  width: 100%
+  &.md
+    +t-base
+    height: rhythm(3/2)
+    line-height: rhythm(3/2)
+  &.lg
+    +t-base
+    height: rhythm(2)
+    line-height: rhythm(2)
 
 =active-link($color: $textColor, $hover:$activeLink, $bgColor: initial, $hoverBgColor: initial)
   &, *
@@ -54,3 +69,10 @@
   text-rendering: auto
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+
+=btn($color: white, $hover:$textColor, $bgColor: $activeLink, $hoverBgColor: $blackColor1)
+  +form-control
+  +active-link($color, $hover, $bgColor, $hoverBgColor)
+  outline: none
+  text-transform: uppercase
+  border: 1px solid $activeLink

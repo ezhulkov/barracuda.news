@@ -2,7 +2,6 @@ package models
 
 import java.util.UUID
 import com.github.nscala_time.time.Imports._
-import com.github.nscala_time.time.TypeImports
 import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.Language.Language
 import models.CoreModels.NewsType.NewsType
@@ -89,14 +88,20 @@ object CoreModels {
     }
   }
   case class TrackingEvent(id: Option[UUID], name: Option[String], eventStart: Option[DateTime], eventEnd: Option[DateTime], imageUrl: Option[String], races: Option[Seq[TrackingRace]]) {
-    val baseUrl        = trackingBaseUrl
-    val startFormatted = eventStart.map(t => t.toString(dateFormatShort)).getOrElse("")
-    val endFormatted   = eventEnd.map(t => t.toString(dateFormatShort)).getOrElse("")
+    val interval       = new org.joda.time.Interval(eventStart.getOrElse(DateTime.now()), eventEnd.getOrElse(DateTime.now()))
+    val startTrimmed   = eventStart.map(t => t.withTimeAtStartOfDay)
+    val endTrimmed     = eventEnd.map(t => t.withTimeAtStartOfDay)
+    val startFormatted = startTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
+    val endFormatted   = endTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
+    def isActive = interval.containsNow()
   }
   case class TrackingRace(id: Option[UUID], name: Option[String], start: Option[DateTime], end: Option[DateTime], localUrl: Option[String]) {
-    val baseUrl        = trackingBaseUrl
-    val startFormatted = start.map(t => t.toString(dateFormatShort)).getOrElse("")
-    val endFormatted   = end.map(t => t.toString(dateFormatShort)).getOrElse("")
+    val interval       = new org.joda.time.Interval(start.getOrElse(DateTime.now()), end.getOrElse(DateTime.now()))
+    val startTrimmed   = start.map(t => t.withTimeAtStartOfDay)
+    val endTrimmed     = end.map(t => t.withTimeAtStartOfDay)
+    val startFormatted = startTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
+    val endFormatted   = endTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
+    def isActive = interval.containsNow()
   }
 
   object Translation {

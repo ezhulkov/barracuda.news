@@ -1,7 +1,6 @@
 TODO:
 
 
-- tracking API
 
 - slow news list in admin area
 - use Kamon library for log tracing
@@ -19,5 +18,6 @@ TODO:
 - sitemap.xml
 - rss.xml
 
++ tracking API
 + buttons style and rhythm height everywhere
 + auth

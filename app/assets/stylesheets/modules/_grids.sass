@@ -5,8 +5,6 @@
 
 $row-heights: (6, 12, 18, 24)
 $col-spans: (4, 6, 8, 12)
-$featured-width: 5px
-$pad-col: 20px
 
 .news-grid
   +padding-leader(1)
@@ -36,8 +34,6 @@ $pad-col: 20px
       @for $i from 1 through length($col-spans)
         &.span#{nth($col-spans, $i)}
           +span(nth($col-spans, $i))
-    h2
-      +active-link($color: $blackTextColor)
     .items
       +flex(1 1 auto)
       +display-flex()

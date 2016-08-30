@@ -38,28 +38,12 @@
   margin-bottom: 3px
 
 .form-control
-  +t-small
-  +rhythm-padding(0)
-  height: rhythm(1)
-  line-height: rhythm(1)
-  width: 100%
-  &.md
-    +t-base
-    height: rhythm(3/2)
-    line-height: rhythm(3/2)
-  &.lg
-    +t-base
-    height: rhythm(2)
-    line-height: rhythm(2)
+  +form-control
 
 .inp
-  @extend .form-control
+  +form-control
   +pad(10px,10px)
   border: 1px solid gray
 
 .btn
-  @extend .form-control
-  +active-link(white, $textColor, $activeLink, $blackColor1)
-  outline: none
-  text-transform: uppercase
-  border: 1px solid $activeLink
+  +btn

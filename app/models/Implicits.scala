@@ -35,13 +35,11 @@ object Implicits {
   implicit val trackingEventReads  = Json.reads[TrackingEvent]
   implicit val trackingRaceWrites  = JsonPimped.writes[TrackingRace](Json.writes[TrackingRace]) { case (json, obj) =>
     json.asInstanceOf[JsObject] +
-      ("url_base", JsString(obj.baseUrl)) +
       ("start_formatted", JsString(obj.startFormatted)) +
       ("end_formatted", JsString(obj.endFormatted))
   }
   implicit val trackingEventWrites = JsonPimped.writes[TrackingEvent](Json.writes[TrackingEvent]) { case (json, obj) =>
     json.asInstanceOf[JsObject] +
-      ("url_base", JsString(obj.baseUrl)) +
       ("start_formatted", JsString(obj.startFormatted)) +
       ("end_formatted", JsString(obj.endFormatted))
   }
