@@ -34,24 +34,17 @@
 
 @space.front("barracuda.news") {
 
-    <section class="content tracking">
-        <section class="container">
-
-            <div class="content-body">
-                <h1>Barracuda tracking</h1>
-                @{
-                    tracking.sortBy(t => t.startTrimmed.orNull) match {
-                        case head :: tail =>
-                            List(showEvent(head, first = true)) ++ tail.map(t => showEvent(t))
-                        case _ => Html(s"<p>Not tracking events</p>")
-                    }
+    <section class="tracking container">
+        <class class="content-body">
+            <h1>Barracuda tracking</h1>
+            @{
+                tracking.sortBy(t => t.startTrimmed.orNull) match {
+                    case head :: tail =>
+                        List(showEvent(head, first = true)) ++ tail.map(t => showEvent(t))
+                    case _ => Html(s"<p>Not tracking events</p>")
                 }
-            </div>
-            <div class="adv">
-            @components.adv()
-            </div>
-
-        </section>
+            }
+        </class>
     </section>
 
 }

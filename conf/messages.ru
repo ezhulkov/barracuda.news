@@ -12,6 +12,6 @@ title.follow=Мы в соцсетях
 title.newsletter=Почтовая рассылка
 title.enterEmail=Введите eMail
 title.subscribe=Подписаться
-tracking.archive=Показать архив
+tracking.archive=Показать событие
 tracking.replay=Повтор
 tracking.transmit=Онлайн

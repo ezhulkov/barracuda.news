@@ -2,120 +2,95 @@
 @import "susy"
 @import "mixins"
 
-=content
-  //+debug-vertical-alignment()
-  +padding-leader(1)
-  +padding-trailer(2)
-  +rhythm-margins(1)
-  background-color: rgba(white, 0.4)
-  position: relative
-
-=adv
-  .adv
-    display: none
-    +desktop-media
-      +span(4)
-      display: block
-      min-height: 600px
-      img
-        margin: 0
-      #swiffycontainer
-        width: 300px
-        height: 500px
-        border: 1px solid $blackTextColor
+.content-body
+  +content-body
 
 article
-  +content
-  +adv
-  .article-body
-    +span(12)
-    +desktop-media
-      +span(8)
-    +xdesktop-media
-      +span(7)
-      +pre(1)
-  .article-header
-    +span(12)
-    +padding-trailer(1)
-    +desktop-media
-      +span(8)
-      +post(4)
-    +xdesktop-media
-      +span(10)
-      +pre(1)
-      +post(1)
-    .cover-image
-      +padding-leader(1)
-    .article-info
-      +t-small
-      color: $blackColor4
-      border-bottom: 1px solid $blackColor4
-      margin-bottom: -1px
-      +desktop-media
-        border-bottom: none
-        margin-bottom: 0
-      & > span
-        margin-right: rhythm(1)
-  .source, .date
-    +t-small
-  .source a
-    +active-link($blackColor4)
-  .source:before, .date:before
-    +fa
-    margin-right: 5px
-  .source:before
-    content: "\f061"
-  .date:before
-    content: "\f017"
-  .close
-    display: none
-    +desktop-media
-      display: block
-      &:before, &:after
-        background-color: $blackTextColor
-  .source-quote
-    +margin-trailer(1)
-    padding: rhythm(1)
-    background-color: lightgray
-    border-left: 5px solid $activeLink
-    a
-      +active-link($blackTextColor)
-    p
-      +padding-trailer(1/2)
-      +margin-trailer(1/2)
-      border-bottom: 1px solid $blackColor4
-    cite
-      margin-top: -1px
-    &:hover p
-      border-bottom: 1px solid $activeLink
-  p.q:before, p.a:before
-    content: "—"
-    padding-right: 5px
-  p.q
-    +t-strong
-  p
-    +hyphenation
-    +padding-trailer(1)
-    display: block
-  cite
-    display: block
-  strong
-    +t-strong
-  em
-    font-style: italic
-  img, iframe
-    +padding-trailer(1)
-    display: block
-    max-width: 100%
-    margin: auto
-  #{headers(2,4)}
-    +margin-trailer(1)
-
-.content
+  +rhythm-margins(1)
+  background-color: rgba(white, 1)
+  position: relative
   +with-layout(12 fluid inside)
-    +content
-    +adv
-    .content-body
+    .article-header
+      +span(12 no-gutter)
+      .cover-image
+        +padding-leader(1)
+      .article-info
+        +t-small
+        color: $blackColor4
+        border-bottom: 1px solid $blackColor4
+        margin-bottom: -1px
+        +desktop-media
+          border-bottom: none
+          margin-bottom: 0
+        & > span
+          margin-right: rhythm(1)
+    .article-body
       +span(12 no-gutter)
       +desktop-media
         +span(8 no-gutter)
+    .adv
+      padding-left: $pad-col
+      display: none
+      +desktop-media
+        +span(4 no-gutter)
+        display: block
+        min-height: 600px
+        img
+          margin: 0
+        #swiffycontainer
+          width: 300px
+          height: 500px
+    .source, .date
+      +t-small
+    .source a
+      +active-link($blackColor4)
+    .source:before, .date:before
+      +fa
+      margin-right: 5px
+    .source:before
+      content: "\f061"
+    .date:before
+      content: "\f017"
+    .close
+      display: none
+      +desktop-media
+        display: block
+        &:before, &:after
+          background-color: $blackTextColor
+    .source-quote
+      +margin-trailer(1)
+      padding: rhythm(1)
+      background-color: lightgray
+      border-left: 5px solid $activeLink
+      a
+        +active-link($blackTextColor)
+      p
+        +padding-trailer(1/2)
+        +margin-trailer(1/2)
+        border-bottom: 1px solid $blackColor4
+      cite
+        margin-top: -1px
+      &:hover p
+        border-bottom: 1px solid $activeLink
+    p.q:before, p.a:before
+      content: "—"
+      padding-right: 5px
+    p.q
+      +t-strong
+    p
+      +hyphenation
+      +padding-trailer(1)
+      display: block
+    cite
+      display: block
+    strong
+      +t-strong
+    em
+      font-style: italic
+    img, iframe
+      +padding-trailer(1)
+      display: block
+      max-width: 100%
+      margin: auto
+    #{headers(2,4)}
+      +margin-trailer(1)
