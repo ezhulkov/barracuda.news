@@ -1,8 +1,11 @@
 TODO:
 
 - caption on photo/video layout
-- news list for topic
+- 404, 505, 401 error pages
 
+- add sentry error logging
+- news list for topic
+- implement delete
 - use Kamon library for log tracing
 - lang support
 - youtube article + youtube widget

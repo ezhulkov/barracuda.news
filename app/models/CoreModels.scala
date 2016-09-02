@@ -31,19 +31,20 @@ object CoreModels {
 
   object RowHeight extends Enumeration {
     type RowHeight = Value
-    val HEIGHT1 = RowHeightValue("HEIGHT1", 1, "height1", 3)
+    val HEIGHT1 = RowHeightValue("HEIGHT1", 1, "height1", 2)
     val HEIGHT2 = RowHeightValue("HEIGHT2", 2, "height2", 5)
-    val HEIGHT3 = RowHeightValue("HEIGHT3", 3, "height3", 7)
-    val HEIGHT4 = RowHeightValue("HEIGHT4", 4, "height4", 9)
+    val HEIGHT3 = RowHeightValue("HEIGHT3", 3, "height3", 8)
+    val HEIGHT4 = RowHeightValue("HEIGHT4", 4, "height4", 10)
     sealed case class RowHeightValue(code: String, height: Int, cssClass: String, maxNews: Int) extends super.Val(code)
     implicit def convert(value: Value): RowHeightValue = value.asInstanceOf[RowHeightValue]
   }
 
   object NewsType extends Enumeration {
     type NewsType = Value
-    val TEXT  = NewsTypeValue("TEXT", "text")
-    val PHOTO = NewsTypeValue("PHOTO", "photo")
-    val VIDEO = NewsTypeValue("VIDEO", "video")
+    val TEXT        = NewsTypeValue("TEXT", "text")
+    val PHOTO       = NewsTypeValue("PHOTO", "photo")
+    val COVER_PHOTO = NewsTypeValue("COVER_PHOTO", "cover-photo")
+    val VIDEO       = NewsTypeValue("VIDEO", "video")
     sealed case class NewsTypeValue(code: String, cssClass: String) extends super.Val(code)
     implicit def convert(value: Value): NewsTypeValue = value.asInstanceOf[NewsTypeValue]
   }

@@ -7,6 +7,7 @@ $row-heights: (6, 12, 18, 24)
 $col-spans: (4, 6, 8, 12)
 
 .news-grid
+  +debug-vertical-alignment()
   +padding-leader(1)
   +flex(1 0 auto)
   .topic-row
@@ -38,14 +39,16 @@ $col-spans: (4, 6, 8, 12)
       +flex(1 1 auto)
       +display-flex()
       +flex-direction(column)
+      +align-content(stretch)
     .item
-      h4
+      h2
         +active-link($color: $blackTextColor)
+        +t-base
       .add-info
         +display-flex()
         +t-tiny
         color: $blackColor4
-        border-top: 1px solid $blackColor4
+        border-top: 1px solid $textColor
         margin-top: -1px
         .type
           margin-right: $featured-width
@@ -54,7 +57,11 @@ $col-spans: (4, 6, 8, 12)
           +t-tiny
     &.featured
       border-top: $featured-width solid $activeLink
-      h2
+      h1
+        +t-base
+        +padding-leader(1/2)
+        +padding-trailer(1/2)
+        +active-link($color: $blackTextColor)
         margin-top: - $featured-width
     &.featured.no-caption
       .items
@@ -67,11 +74,11 @@ $col-spans: (4, 6, 8, 12)
     &.type-photo, &.type-video
       padding: 0
       min-height: rhythm(8)
-      h2, h4, .add-info
+      h1, h2, .add-info
         padding: 0
         margin-left: $pad-col
         margin-right: $pad-col
-      h4
+      h2
         +active-link($color: white)
       .item
         +flex(1 1 auto)
@@ -101,3 +108,17 @@ $col-spans: (4, 6, 8, 12)
         left: 50%
         font-size: 70px
         transform: translate(-50%, -50%)
+  +desktop-media
+    .topic-col.span12.type-text .items
+      +flex-direction(row)
+      .first-item, .rest-items
+        +flex(1 0 auto)
+        width: 0
+      .first-item
+        h2
+          +t-large
+        .add-info
+          border: none
+    .topic-col.span4.type-text .items
+      h2
+        +t-small

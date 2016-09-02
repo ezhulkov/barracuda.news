@@ -198,29 +198,29 @@ html, body {
 .t-large {
   font-size: 23px;
   font-size: 1.44rem;
-  line-height: 48px;
-  line-height: 3rem;
+  line-height: 36px;
+  line-height: 2.25rem;
 }
 
 .t-xlarge {
   font-size: 28px;
   font-size: 1.728rem;
-  line-height: 48px;
-  line-height: 3rem;
+  line-height: 36px;
+  line-height: 2.25rem;
 }
 
 h1 {
   font-size: 28px;
   font-size: 1.728rem;
-  line-height: 48px;
-  line-height: 3rem;
+  line-height: 36px;
+  line-height: 2.25rem;
 }
 
 h2 {
   font-size: 23px;
   font-size: 1.44rem;
-  line-height: 48px;
-  line-height: 3rem;
+  line-height: 36px;
+  line-height: 2.25rem;
 }
 
 h3 {
@@ -456,8 +456,8 @@ header .menu .container {
 header .menu .menu-button {
   font-size: 23px;
   font-size: 1.44rem;
-  line-height: 48px;
-  line-height: 3rem;
+  line-height: 36px;
+  line-height: 2.25rem;
   float: left;
   display: block;
 }
@@ -828,8 +828,8 @@ header .menu.menu-active ul.categories li a:hover, header .menu.menu-active ul.c
   -moz-osx-font-smoothing: grayscale;
   font-size: 23px;
   font-size: 1.44rem;
-  line-height: 48px;
-  line-height: 3rem;
+  line-height: 36px;
+  line-height: 2.25rem;
   color: #eee;
   content: "";
   position: absolute;
@@ -839,8 +839,8 @@ header .menu.menu-active ul.categories li a:hover, header .menu.menu-active ul.c
 .search-overlay .search-input input[type="text"] {
   font-size: 23px;
   font-size: 1.44rem;
-  line-height: 48px;
-  line-height: 3rem;
+  line-height: 36px;
+  line-height: 2.25rem;
   width: 100%;
   outline: none;
   color: white;
@@ -1020,6 +1020,17 @@ footer .copyright span {
 }
 
 .news-grid {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjEuMCIgeDI9IjAuNSIgeTI9IjAuMCI+PHN0b3Agb2Zmc2V0PSI1JSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjUiLz48c3RvcCBvZmZzZXQ9IjUlIiBzdG9wLWNvbG9yPSIjMDAwMDAwIiBzdG9wLW9wYWNpdHk9IjAuMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(5%, rgba(0, 0, 0, 0.5)), color-stop(5%, rgba(0, 0, 0, 0)));
+  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 5%);
+  -moz-background-size: 100% 0.75rem;
+  -o-background-size: 100% 0.75rem;
+  -webkit-background-size: 100% 0.75rem;
+  background-size: 100% 0.75rem;
+  background-position: left top;
   padding-top: 24px;
   padding-top: 1.5rem;
   -webkit-flex: 1 0 auto;
@@ -1110,8 +1121,16 @@ footer .copyright span {
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
+  -webkit-align-content: stretch;
+  align-content: stretch;
 }
-.news-grid .topic-col .item h4, .news-grid .topic-col .item h4 * {
+.news-grid .topic-col .item h2 {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+}
+.news-grid .topic-col .item h2, .news-grid .topic-col .item h2 * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1121,7 +1140,7 @@ footer .copyright span {
   background-color: initial;
   text-decoration: none;
 }
-.news-grid .topic-col .item h4:hover, .news-grid .topic-col .item h4:hover * {
+.news-grid .topic-col .item h2:hover, .news-grid .topic-col .item h2:hover * {
   color: #f26522 !important;
   background-color: initial;
   text-decoration: none;
@@ -1134,7 +1153,7 @@ footer .copyright span {
   line-height: 24px;
   line-height: 1.5rem;
   color: #777;
-  border-top: 1px solid #777;
+  border-top: 1px solid #ddd;
   margin-top: -1px;
 }
 .news-grid .topic-col .item .add-info .type {
@@ -1155,8 +1174,31 @@ footer .copyright span {
 .news-grid .topic-col.featured {
   border-top: 5px solid #f26522;
 }
-.news-grid .topic-col.featured h2 {
+.news-grid .topic-col.featured h1 {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  padding-top: 12px;
+  padding-top: 0.75rem;
+  padding-bottom: 12px;
+  padding-bottom: 0.75rem;
   margin-top: -5px;
+}
+.news-grid .topic-col.featured h1, .news-grid .topic-col.featured h1 * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #333;
+  background-color: initial;
+  text-decoration: none;
+}
+.news-grid .topic-col.featured h1:hover, .news-grid .topic-col.featured h1:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
 }
 .news-grid .topic-col.featured.no-caption .items {
   margin-top: -5px;
@@ -1172,12 +1214,12 @@ footer .copyright span {
   padding: 0;
   min-height: 12rem;
 }
-.news-grid .topic-col.type-photo h2, .news-grid .topic-col.type-photo h4, .news-grid .topic-col.type-photo .add-info, .news-grid .topic-col.type-video h2, .news-grid .topic-col.type-video h4, .news-grid .topic-col.type-video .add-info {
+.news-grid .topic-col.type-photo h1, .news-grid .topic-col.type-photo h2, .news-grid .topic-col.type-photo .add-info, .news-grid .topic-col.type-video h1, .news-grid .topic-col.type-video h2, .news-grid .topic-col.type-video .add-info {
   padding: 0;
   margin-left: 20px;
   margin-right: 20px;
 }
-.news-grid .topic-col.type-photo h4, .news-grid .topic-col.type-photo h4 *, .news-grid .topic-col.type-video h4, .news-grid .topic-col.type-video h4 * {
+.news-grid .topic-col.type-photo h2, .news-grid .topic-col.type-photo h2 *, .news-grid .topic-col.type-video h2, .news-grid .topic-col.type-video h2 * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1187,7 +1229,7 @@ footer .copyright span {
   background-color: initial;
   text-decoration: none;
 }
-.news-grid .topic-col.type-photo h4:hover, .news-grid .topic-col.type-photo h4:hover *, .news-grid .topic-col.type-video h4:hover, .news-grid .topic-col.type-video h4:hover * {
+.news-grid .topic-col.type-photo h2:hover, .news-grid .topic-col.type-photo h2:hover *, .news-grid .topic-col.type-video h2:hover, .news-grid .topic-col.type-video h2:hover * {
   color: #f26522 !important;
   background-color: initial;
   text-decoration: none;
@@ -1248,6 +1290,32 @@ footer .copyright span {
   color: #f26522 !important;
   background-color: initial;
   text-decoration: none;
+}
+@media screen and (min-width: 60em) {
+  .news-grid .topic-col.span12.type-text .items {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+  }
+  .news-grid .topic-col.span12.type-text .items .first-item, .news-grid .topic-col.span12.type-text .items .rest-items {
+    -webkit-flex: 1 0 auto;
+    flex: 1 0 auto;
+    width: 0;
+  }
+  .news-grid .topic-col.span12.type-text .items .first-item h2 {
+    font-size: 23px;
+    font-size: 1.44rem;
+    line-height: 36px;
+    line-height: 2.25rem;
+  }
+  .news-grid .topic-col.span12.type-text .items .first-item .add-info {
+    border: none;
+  }
+  .news-grid .topic-col.span4.type-text .items h2 {
+    font-size: 13px;
+    font-size: 0.833rem;
+    line-height: 24px;
+    line-height: 1.5rem;
+  }
 }
 
 .content-body {
@@ -1724,8 +1792,8 @@ main.admin-area section.news-section .pagination {
 main.admin-area section.news-section .pagination li {
   font-size: 23px;
   font-size: 1.44rem;
-  line-height: 48px;
-  line-height: 3rem;
+  line-height: 36px;
+  line-height: 2.25rem;
   float: left;
   padding-right: 10px;
 }
@@ -1856,6 +1924,12 @@ main.admin-area section.article-section dl.publish {
   float: left;
   padding-right: 0.41667%;
 }
+main.admin-area section.article-section dl.publish input {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+}
 main.admin-area section.article-section dl.origin {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -1880,8 +1954,8 @@ main.admin-area section.article-section dl.caption {
 main.admin-area section.article-section dl.caption input {
   font-size: 23px;
   font-size: 1.44rem;
-  line-height: 48px;
-  line-height: 3rem;
+  line-height: 36px;
+  line-height: 2.25rem;
   height: 3rem;
 }
 main.admin-area section.article-section .lang-label {

@@ -4,7 +4,7 @@
 @(item: Article, newsType: NewsType.NewsTypeValue, first: Boolean = false)
 
 <div class="item @if(first) {first-item}" @Html(item.backgroundStyle(newsType).getOrElse(""))>
-    <h4><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">@item.translations(0).caption</a></h4>
+    <h2><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">@item.translations(0).caption</a></h2>
     @if(newsType == NewsType.VIDEO) {
         <i class="fa fa-youtube-play playback" aria-hidden="true"></i>
     }
