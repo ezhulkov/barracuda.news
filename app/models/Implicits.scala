@@ -46,7 +46,6 @@ object Implicits {
   implicit val tagFormat           = Json.format[Tag]
   implicit val mediaFormat         = Json.format[NewsMedia]
   implicit val translationFormat   = Json.format[Translation]
-  implicit val articleFormat       = Json.format[Article]
   implicit val newsFormat          = Json.format[NewsBlock]
   implicit val rowFormat           = Json.format[NewsRow]
   implicit val layoutFormat        = Json.format[Layout]

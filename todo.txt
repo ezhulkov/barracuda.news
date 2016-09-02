@@ -1,16 +1,14 @@
 TODO:
 
+- caption on photo/video layout
+- news list for topic
 
-
-- slow news list in admin area
 - use Kamon library for log tracing
 - lang support
-- caption on photo/video layout
 - youtube article + youtube widget
 - image resize
 - search
 - admin search
-- news list for topic
 - upload cover media
 - social buttons
 - og tags
@@ -18,6 +16,7 @@ TODO:
 - sitemap.xml
 - rss.xml
 
++ slow news list in admin area
 + tracking API
 + buttons style and rhythm height everywhere
 + auth

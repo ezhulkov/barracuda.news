@@ -345,6 +345,8 @@ html {
   padding-right: 10px;
   padding-right: 0.625rem;
   border: 1px solid gray;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
 .inp.md {
   font-size: 16px;
@@ -375,6 +377,8 @@ html {
   height: 1.5rem;
   line-height: 1.5rem;
   width: 100%;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
   outline: none;
   text-transform: uppercase;
   border: 1px solid #f26522;
@@ -1022,13 +1026,13 @@ footer .copyright span {
   flex: 1 0 auto;
 }
 .news-grid .topic-row {
-  margin-left: 0.83333%;
-  margin-right: 0.83333%;
+  margin-left: 0;
+  margin-right: 0;
 }
 @media screen and (min-width: 60em) {
   .news-grid .topic-row {
-    margin-left: -10px;
-    margin-right: -10px;
+    margin-left: -0.83333%;
+    margin-right: -0.83333%;
   }
   .news-grid .topic-row.height1 {
     height: 9rem;
@@ -2019,6 +2023,8 @@ main.login-area form .submit {
   height: 1.5rem;
   line-height: 1.5rem;
   width: 100%;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
   outline: none;
   text-transform: uppercase;
   border: 1px solid #f26522;

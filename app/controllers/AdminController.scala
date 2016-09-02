@@ -6,7 +6,7 @@ import jp.t2v.lab.play2.auth.AuthElement
 import models.CoreModels.{Article, Language, Layout}
 import play.api.Environment
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.libs.json.{JsArray, JsString, Json}
+import play.api.libs.json._
 import play.api.mvc._
 import services.ArticleService
 import scala.util.{Failure, Success}
@@ -33,7 +33,8 @@ class AdminController @Inject()(
   }
   def index = StackAction(AuthorityKey -> Administrator) { implicit request =>
     val articles = Json.toJson(articleService.allArticles(false).sortBy(-_.publish.getMillis))
-    Ok(views.html.admin.index(Json.stringify(articles)))
+    val pruned = JsArray(articles.asInstanceOf[JsArray].value.map { t => t.transform((__ \ 'translations).json.prune).get })
+    Ok(views.html.admin.index(Json.stringify(pruned)))
   }
   def articleNew = getArticle(None)
   def article(id: Long) = getArticle(Some(id))
