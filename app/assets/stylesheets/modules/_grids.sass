@@ -7,7 +7,7 @@ $row-heights: (6, 12, 18, 24)
 $col-spans: (4, 6, 8, 12)
 
 .news-grid
-  +debug-vertical-alignment()
+  //+debug-vertical-alignment()
   +padding-leader(1)
   +flex(1 0 auto)
   .topic-row
@@ -18,15 +18,16 @@ $col-spans: (4, 6, 8, 12)
       margin-right: - gutter()
       @for $i from 1 through length($row-heights)
         &.height#{$i}
-          height: rhythm(nth($row-heights, $i))
+          min-height: rhythm(nth($row-heights, $i))
           .topic-col
-            height: rhythm(nth($row-heights, $i))
+            min-height: rhythm(nth($row-heights, $i))
   .topic-col
     +margin-trailer(1)
     +padding-trailer(1)
     +pad($pad-col)
     +display-flex()
     +flex-direction(column)
+    border: 1px solid $textColor
     position: relative
     overflow: hidden
     min-height: rhythm(3)
@@ -55,13 +56,14 @@ $col-spans: (4, 6, 8, 12)
         .type:before
           +fa
           +t-tiny
+    h1
+      +t-base
+      +padding-leader(1/2)
+      +padding-trailer(1/2)
+      +active-link($color: $blackTextColor)
     &.featured
       border-top: $featured-width solid $activeLink
       h1
-        +t-base
-        +padding-leader(1/2)
-        +padding-trailer(1/2)
-        +active-link($color: $blackTextColor)
         margin-top: - $featured-width
     &.featured.no-caption
       .items
@@ -75,7 +77,6 @@ $col-spans: (4, 6, 8, 12)
       padding: 0
       min-height: rhythm(8)
       h1, h2, .add-info
-        padding: 0
         margin-left: $pad-col
         margin-right: $pad-col
       h2
@@ -108,17 +109,25 @@ $col-spans: (4, 6, 8, 12)
         left: 50%
         font-size: 70px
         transform: translate(-50%, -50%)
-  +desktop-media
-    .topic-col.span12.type-text .items
-      +flex-direction(row)
-      .first-item, .rest-items
-        +flex(1 0 auto)
-        width: 0
-      .first-item
-        h2
-          +t-large
-        .add-info
-          border: none
-    .topic-col.span4.type-text .items
+
+  //custom styles
+  .topic-col.type-text
+    &.span12 .items
+      +desktop-media
+        +flex-direction(row)
+        .first-item, .rest-items
+          +flex(1 0 auto)
+          width: 0
+        .first-item
+          h2
+            +t-large
+          .add-info
+            border: none
+    &.span4 .items
       h2
         +t-small
+  .topic-col.type-cover-photo
+    &.span12
+      h2
+        +t-large
+        +t-strong

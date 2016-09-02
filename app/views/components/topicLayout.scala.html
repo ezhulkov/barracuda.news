@@ -36,7 +36,7 @@
                             firstArticle ++ List(Html("""<div class="rest-items">""")) ++ restArticles ++ List(Html("</div>"))
                         case _ =>
                             Html(
-                                s"""<p>Empty topic</p>
+                                s"""<h1>Empty topic</h1>
                                  <p>Type: ${block.newsType}</p>
                                  <p>Topic tags: ${rootTag.getOrElse("")} ${block.tag}</p>"""
                             )

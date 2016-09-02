@@ -175,7 +175,6 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, file
     $scope.loading = true
     article = angular.copy($scope.articleModel)
     article.publish = article.publish_moment.valueOf()
-    console.log(article)
     $http.post("/admin/article", article)
     .error (data, status) ->
       $scope.processResponse(data)

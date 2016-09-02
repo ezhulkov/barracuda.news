@@ -32,7 +32,7 @@ object CoreModels {
   object RowHeight extends Enumeration {
     type RowHeight = Value
     val HEIGHT1 = RowHeightValue("HEIGHT1", 1, "height1", 2)
-    val HEIGHT2 = RowHeightValue("HEIGHT2", 2, "height2", 5)
+    val HEIGHT2 = RowHeightValue("HEIGHT2", 2, "height2", 4)
     val HEIGHT3 = RowHeightValue("HEIGHT3", 3, "height3", 8)
     val HEIGHT4 = RowHeightValue("HEIGHT4", 4, "height4", 10)
     sealed case class RowHeightValue(code: String, height: Int, cssClass: String, maxNews: Int) extends super.Val(code)
