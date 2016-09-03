@@ -33,9 +33,17 @@ class FrontendController @Inject()(
   val trackingKey  = "tracking"
   val trackingUrl  = Configuration.getValue[String]("tracking.url").getOrElse(throw new RuntimeException("bad config"))
   val trackingData = cache.getOrElse[Future[Seq[TrackingEvent]]](trackingKey) {
-    val wsResult = ws.url(trackingUrl).withFollowRedirects(true).withRequestTimeout(Duration(1000, MILLISECONDS)).get()
-    val result = wsResult.map(r => r.json.as[Seq[TrackingEvent]])
-    cache.set(trackingKey, result, Duration(10, MINUTES))
+    val wsResult = ws.url(trackingUrl).withFollowRedirects(true).withRequestTimeout(Duration(2000, MILLISECONDS)).get()
+    val result = wsResult.map { r =>
+      val res = r.json.as[Seq[TrackingEvent]]
+      cache.set(trackingKey, res, Duration(10, MINUTES))
+      res
+    }.recover {
+      case e: Exception =>
+        cache.remove(trackingKey)
+        Logger.error("", e)
+        Nil
+    }
     result
   }
 
