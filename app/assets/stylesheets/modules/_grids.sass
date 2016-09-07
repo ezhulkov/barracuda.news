@@ -7,7 +7,7 @@ $row-heights: (6, 12, 18, 24)
 $col-spans: (4, 6, 8, 12)
 
 .news-grid
-  +debug-vertical-alignment()
+  //+debug-vertical-alignment()
   +padding-leader(1)
   +flex(1 0 auto)
   .topic-row
@@ -45,14 +45,12 @@ $col-spans: (4, 6, 8, 12)
       h2
         +active-link($color: $blackTextColor)
         +t-base
-        z-index: 100
       .cover
         background-size: cover
         background-position: 50% 50%
       .add-info
         +display-flex()
         +t-tiny
-        z-index: 100
         color: $blackColor4
         border-top: 1px solid $textColor
         margin-top: -1px
@@ -66,7 +64,6 @@ $col-spans: (4, 6, 8, 12)
       +padding-leader(1/2)
       +padding-trailer(1/2)
       +active-link($color: $blackTextColor)
-      z-index: 100
     &.featured
       border-top: $featured-width solid $activeLink
       h1
@@ -78,16 +75,17 @@ $col-spans: (4, 6, 8, 12)
       +padding-leader(1/2)
 
   //custom styles
-  .topic-col.type-photo, .topic-col.type-video
+  .topic-col.type-photo, .topic-col.type-video, .topic-col.type-cover-photo
     +pad(0, 0)
     h1, h2, .add-info
       margin-left: $pad-col
       margin-right: $pad-col
     .item
       +transition(all 0.2s ease-in-out)
+      min-height: rhythm(8)
       .cover
-        min-height: rhythm(8)
         display: block
+        min-height: rhythm(6)
       .title
         +padding-leader(1/2)
       +desktop-media
@@ -95,6 +93,7 @@ $col-spans: (4, 6, 8, 12)
         +display-flex()
         +flex-direction(column)
         +align-items(stretch)
+        min-height: initial
         .cover
           +flex(1 1 auto)
           min-height: initial
@@ -106,6 +105,25 @@ $col-spans: (4, 6, 8, 12)
   .topic-col.type-photo, .topic-col.type-cover-photo
     .type:before
       content: "\f030"
+  .topic-col.type-cover-photo
+    .item
+      +flex(1 1 auto)
+      +display-flex()
+      +flex-direction(column)
+      +align-items(stretch)
+      +justify-content(flex-end)
+      .cover
+        +stretch($offset-top: rhythm(2))
+        display: block
+      .title
+        z-index: 100
+        h2 a
+          +t-xlarge
+          +active-link($color: white)
+        .add-info
+          color: white
+    &.span4 .item .title h2 a
+      +t-base
   .topic-col.type-video
     .type:before
       content: "\f16a"

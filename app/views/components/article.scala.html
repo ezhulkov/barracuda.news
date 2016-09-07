@@ -20,14 +20,15 @@
             <div class="title">@title</div>
         }
         case NewsType.VIDEO => {
-            <div class="cover" style="background-image: url('http://img.youtube.com/vi/@{item.coverMedia.orNull}/0.jpg')">
+            <a class="cover" style="background-image: url('http://img.youtube.com/vi/@{item.coverMedia.orNull}/0.jpg')" href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">
                 <i class="fa fa-youtube-play playback" aria-hidden="true"></i>
-            </div>
+            </a>
             <div class="title">@title</div>
         }
         case NewsType.TEXT => {
             @title
         }
+        case _ => {}
     }
 
 </div>
