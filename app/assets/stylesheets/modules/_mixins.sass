@@ -1,6 +1,7 @@
 @import "vars"
 @import "compass"
 @import "breakpoint"
+@import "susy"
 
 =border($width: 1px, $color: grey)
   +box-sizing(border-box)
@@ -87,3 +88,6 @@
       +span(10 no-gutter)
       +pre(1 no-gutter)
       +post(1 no-gutter)
+
+.content-body
+  +content-body

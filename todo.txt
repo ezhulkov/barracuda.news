@@ -3,6 +3,14 @@ TODO:
 - caption on photo/video layout
 - 404, 505, 401 error pages
 
+- dynamic grid
+- mobile logos - support 2x scale
+- place barracuda logo instead of top banner in mobile version
+- advertise network
+- about, contacts, advertise pages
+- photo galleries
+- duplicate alt_id error
+- cross news on article's page
 - add sentry error logging
 - news list for topic
 - implement delete

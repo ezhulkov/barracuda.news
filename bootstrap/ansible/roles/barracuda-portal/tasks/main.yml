@@ -20,9 +20,6 @@
 - name: rename artifact
   command: mv /var/lib/barracuda/barracuda-news-1.0-SNAPSHOT /var/lib/barracuda/barracuda-portal
 
-- name: copy logback.xml
-  template: src=logback.xml dest=/var/lib/barracuda/barracuda-portal/conf/ owner=root group=root mode=0744
-
 - name: stop service
   service: name=barracuda-portal state=stopped
 

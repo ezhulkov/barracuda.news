@@ -1,5 +1,7 @@
 @import components._
-@import models.CoreModels._
+@import models.CoreModels.Article
+@import models.CoreModels.Layout
+@import models.CoreModels.NewsType
 
 @(layoutOpt: Option[Layout], news: Seq[Article], rootTag: Option[String] = None)
 
@@ -29,7 +31,7 @@
                         case NewsType.TEXT => news.filter(t => t.hasTag(block.tag))
                         case _ => news.find(t => t.hasTag(block.tag)).toSeq
                     }
-                    newsToDisplay.toSeq.take(row.height.maxNews) match {
+                    newsToDisplay.take(row.height.maxNews) match {
                         case head :: tail =>
                             val firstArticle = List(article(head, block.newsType, first = true))
                             val restArticles = tail.map(t => article(t, block.newsType))

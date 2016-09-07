@@ -3,13 +3,31 @@
 
 @(item: Article, newsType: NewsType.NewsTypeValue, first: Boolean = false)
 
-<div class="item @if(first) {first-item}" @Html(item.backgroundStyle(newsType).getOrElse(""))>
-    <h2><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">@item.translations(0).caption</a></h2>
-    @if(newsType == NewsType.VIDEO) {
-        <i class="fa fa-youtube-play playback" aria-hidden="true"></i>
+
+<div class="item @if(first) {first-item}">
+
+    @title = {
+        <h2><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">@item.translations(0).caption</a></h2>
+        <div class="add-info">
+            <span class="type"></span>
+            <span class="date">@item.publishFormatted</span>
+        </div>
     }
-    <div class="add-info">
-        <span class="type"></span>
-        <span class="date">@item.publishFormatted</span>
-    </div>
+
+    @newsType match {
+        case NewsType.PHOTO | NewsType.COVER_PHOTO => {
+            <a class="cover" style="background-image: url('@{item.coverMedia.orNull}')" href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))"></a>
+            <div class="title">@title</div>
+        }
+        case NewsType.VIDEO => {
+            <div class="cover" style="background-image: url('http://img.youtube.com/vi/@{item.coverMedia.orNull}/0.jpg')">
+                <i class="fa fa-youtube-play playback" aria-hidden="true"></i>
+            </div>
+            <div class="title">@title</div>
+        }
+        case NewsType.TEXT => {
+            @title
+        }
+    }
+
 </div>

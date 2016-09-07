@@ -5,13 +5,13 @@ COMMAND=$1
 NAME=barracuda-news
 PORT=9000
 APP_DIR=/var/lib/barracuda/barracuda-portal
-APP_ARGS="-Dhttp.port=${PORT} -Dhttp.address=127.0.0.1 -Dconfig.resource=application.prod.conf"
 PID_FILE=/var/${NAME}.pid
 
 export JAVA_OPTS="-Xmx8G -Xms6G -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote \
     -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port=9001 \
     -Dcom.sun.management.jmxremote.local.only=true -Dcom.sun.management.jmxremote.authenticate=false \
-    -Dpidfile.path=${PID_FILE} -Dlogback.configurationFile=conf/logback.xml"
+    -Dpidfile.path=${PID_FILE} -Dlogback.configurationFile=conf/logback.prod.xml \
+    -Dhttp.port=${PORT} -Dhttp.address=127.0.0.1 -Dconfig.resource=application.prod.conf"
 
 # Helper functions
 echoProgress()
