@@ -4,7 +4,7 @@
 
 @(article: Article,translation:Translation)(implicit messages: Messages, lang: LanguageValue)
 
-    @space.front("barracuda.news") {
+    @space.front(translation.caption) {
 
         <article>
             <span class="close" ng-click="closeArticle()"></span>

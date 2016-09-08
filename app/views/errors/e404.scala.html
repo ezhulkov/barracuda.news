@@ -1,0 +1,13 @@
+@import models.CoreModels.Language.LanguageValue
+
+@()(implicit messages: Messages, lang: LanguageValue)
+
+@space.front(Messages("error.404")) {
+
+    <section class="container">
+        <div class="content-body">
+            <h1>@Messages("error.404")</h1>
+        </div>
+    </section>
+
+}

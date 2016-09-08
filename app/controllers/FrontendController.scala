@@ -6,14 +6,14 @@ import controllers.stack.LoggingElement
 import models.CoreModels.Language
 import models.CoreModels.Layout
 import models.CoreModels.TrackingEvent
+import play.api.Environment
+import play.api.Logger
 import play.api.cache.CacheApi
 import play.api.i18n.I18nSupport
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc._
-import play.api.Environment
-import play.api.Logger
 import services.ArticleService
 import utils.Configuration
 import scala.concurrent.Future
@@ -64,7 +64,7 @@ class FrontendController @Inject()(
   def article(url: String) = AsyncStack { implicit request => Future {
     articleService.findArticle(url).orElse(articleService.findArticle(Try(url.toLong).getOrElse(-1L))) match {
       case Some(article) => Ok(views.html.article(article, article.translationOrDefault(Language.ENGLISH)))
-      case None => NotFound("Article not found")
+      case None => NotFound(views.html.errors.e404())
     }
   }
   }
@@ -86,6 +86,7 @@ class FrontendController @Inject()(
     Ok(views.html.contacts())
   }
   }
+  def exception = StackAction(request => throw new RuntimeException())
   def adv = AsyncStack { implicit request => Future {
     Ok(views.html.adv())
   }

@@ -15,3 +15,5 @@ title.subscribe=Подписаться
 tracking.archive=Показать событие
 tracking.replay=Повтор
 tracking.transmit=Онлайн
+error.404=Ошибка 404 - страница не найдена
+error.500=Ошибка 500 - ошибка сервера

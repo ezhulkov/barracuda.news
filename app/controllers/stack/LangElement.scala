@@ -1,10 +1,14 @@
 package controllers.stack
 
-import jp.t2v.lab.play2.stackc.{RequestAttributeKey, RequestWithAttributes, StackableController}
+import jp.t2v.lab.play2.stackc.RequestAttributeKey
+import jp.t2v.lab.play2.stackc.RequestWithAttributes
+import jp.t2v.lab.play2.stackc.StackableController
 import models.CoreModels.Language
 import models.CoreModels.Language._
 import org.apache.commons.lang3.StringUtils
-import play.api.mvc.{Controller, Request, Result}
+import play.api.mvc.Controller
+import play.api.mvc.Request
+import play.api.mvc.Result
 import scala.concurrent.Future
 import scala.util.Try
 

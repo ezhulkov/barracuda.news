@@ -8,6 +8,7 @@ GET           /tracking                 controllers.FrontendController.tracking
 GET           /about                    controllers.FrontendController.about
 GET           /adv                      controllers.FrontendController.adv
 GET           /contacts                 controllers.FrontendController.contacts
+GET           /exception                controllers.FrontendController.exception
 POST          /search                   controllers.FrontendController.search(q:String)
 
 

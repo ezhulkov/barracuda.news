@@ -3,13 +3,17 @@ package controllers
 import javax.inject._
 import controllers.stack.LoggingElement
 import jp.t2v.lab.play2.auth.AuthElement
-import models.CoreModels.{Article, Language, Layout}
+import models.CoreModels.Article
+import models.CoreModels.Language
+import models.CoreModels.Layout
 import play.api.Environment
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.I18nSupport
+import play.api.i18n.MessagesApi
 import play.api.libs.json._
 import play.api.mvc._
 import services.ArticleService
-import scala.util.{Failure, Success}
+import scala.util.Failure
+import scala.util.Success
 
 @Singleton
 class AdminController @Inject()(
@@ -23,6 +27,7 @@ class AdminController @Inject()(
   import scala.io.Source
 
   val langs = JsArray(Language.values.map(l => Json.obj("value" -> l.code, "label" -> l.name)).toSeq)
+  implicit val lang = Language.DEFAULT
 
   def tags = JsArray(articleService.allTags.map(t => JsString(t.text)).toSeq)
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
@@ -56,7 +61,7 @@ class AdminController @Inject()(
     }
     articleOpt.map(t => Json.toJson(t)) match {
       case Some(article) => Ok(views.html.admin.article(Json.stringify(article), Json.stringify(tags), Json.stringify(langs)))
-      case None => NotFound("Article not found")
+      case None => NotFound(views.html.errors.e404())
     }
   }
 

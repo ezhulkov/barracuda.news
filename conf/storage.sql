@@ -12,3 +12,5 @@ INSERT INTO news_media (translation_id, url) VALUES (2, 'url2');
 
 update translation set text=replace(text,'style="text-align: justify; line-height: normal;"','');
 update translation set text=replace(text,'style="text-align:justify;line-height:normal;"','');
+update translation set text=replace(text,'style="text-align:justify;"','');
+update translation set text=replace(text,'style="line-height:normal;"','');

@@ -15,3 +15,5 @@ title.subscribe=Subscribe
 tracking.archive=Show event
 tracking.replay=Reply
 tracking.transmit=Online
+error.404=Error 404 - page not found
+error.500=Error 500 - server error
