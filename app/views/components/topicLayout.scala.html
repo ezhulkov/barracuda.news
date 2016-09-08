@@ -3,7 +3,7 @@
 @import models.CoreModels.Layout
 @import models.CoreModels.NewsType
 
-@(layoutOpt: Option[Layout], news: Seq[Article], rootTag: Option[String] = None)
+@(layoutOpt: Option[Layout], news: Seq[Article], rootTag: String)
 
 @{
     layoutOpt match {
@@ -13,42 +13,53 @@
 }
 
 @listGrid(news: Seq[Article]) = {
-    LIST NEWS
+    <section class="container">
+        <div class="content-body">
+            <h1>@rootTag</h1>
+        </div>
+    </section>
 }
 
 @layoutGrid(layout: Layout, news: Seq[Article]) = {
-@for(row <- layout.rows) {
-    <div class="topic-row @row.height.cssClass">
-    @for(block <- row.blocks) {
-        @if(block.tag) {
-            <div class="topic-col @block.size.cssClass @if(block.featured) {featured} type-@block.newsType.cssClass @if(block.caption.isEmpty) {no-caption}">
-                @for(caption <- block.caption) {
-                    <h1>@caption</h1>
+    <section class="news-grid">
+        <section class="container">
+        @for(row <- layout.rows) {
+            <div class="topic-row @row.height.cssClass">
+            @for(block <- row.blocks) {
+                @if(block.tag) {
+                    <div class="topic-col @block.size.cssClass @if(block.featured) {featured} type-@block.newsType.cssClass @if(block.caption.isEmpty) {no-caption}">
+                        @for(caption <- block.caption) {
+                            <h1><a href="@routes.FrontendController.topic(block.tag)">@caption</a></h1>
+                        }
+                        <div class="items">
+                        @{
+                            val newsToDisplay = block.newsType match {
+                                case NewsType.TEXT => news.filter(t => t.hasTag(block.tag))
+                                case _ => news.find(t => t.hasTag(block.tag)).toSeq
+                            }
+                            newsToDisplay.take(row.height.maxNews) match {
+                                case head :: tail =>
+                                    val firstArticle = List(article(head, block.newsType, first = true))
+                                    val restArticles = tail.map(t => article(t, block.newsType))
+                                    firstArticle ++ List(Html("""<div class="rest-items">""")) ++ restArticles ++ List(Html("</div>"))
+                                case _ =>
+                                    Html(
+                                        s"""
+                                        <div>
+                                            <p>Empty topic</p>
+                                            <p>Type: ${block.newsType}</p>
+                                            <p>Topic tags: $rootTag ${block.tag}</p>
+                                        </div>"""
+                                    )
+                            }
+                        }
+                        </div>
+                    </div>
                 }
-                <div class="items">
-                @{
-                    val newsToDisplay = block.newsType match {
-                        case NewsType.TEXT => news.filter(t => t.hasTag(block.tag))
-                        case _ => news.find(t => t.hasTag(block.tag)).toSeq
-                    }
-                    newsToDisplay.take(row.height.maxNews) match {
-                        case head :: tail =>
-                            val firstArticle = List(article(head, block.newsType, first = true))
-                            val restArticles = tail.map(t => article(t, block.newsType))
-                            firstArticle ++ List(Html("""<div class="rest-items">""")) ++ restArticles ++ List(Html("</div>"))
-                        case _ =>
-                            Html(
-                                s"""<h1>Empty topic</h1>
-                                 <p>Type: ${block.newsType}</p>
-                                 <p>Topic tags: ${rootTag.getOrElse("")} ${block.tag}</p>"""
-                            )
-                    }
-                }
-                </div>
+            }
             </div>
         }
-    }
-    </div>
-}
+        </section>
+    </section>
 }
 

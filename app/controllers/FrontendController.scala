@@ -57,8 +57,9 @@ class FrontendController @Inject()(
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
-  def index() = AsyncStack { implicit request => Future {
-    Ok(views.html.index(layouts.get(MAIN_LAYOUT), articleService.allArticles()))
+  def index() = topic(MAIN_LAYOUT)
+  def topic(name: String) = AsyncStack { implicit request => Future {
+    Ok(views.html.topic(layouts.get(name), articleService.allTagged(name), name))
   }
   }
   def article(url: String) = AsyncStack { implicit request => Future {
@@ -66,10 +67,6 @@ class FrontendController @Inject()(
       case Some(article) => Ok(views.html.article(article, article.translationOrDefault(Language.ENGLISH)))
       case None => NotFound(views.html.errors.e404())
     }
-  }
-  }
-  def topic(name: String) = AsyncStack { implicit request => Future {
-    Ok(views.html.topic(layouts.get(name), articleService.allTagged(name), Some(name)))
   }
   }
 

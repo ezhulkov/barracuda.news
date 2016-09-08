@@ -1,7 +1,7 @@
 
 #Frontend
 
-GET           /                         controllers.FrontendController.index()
+GET           /                         controllers.FrontendController.index
 GET           /topic/:name              controllers.FrontendController.topic(name:String)
 GET           /article/:url             controllers.FrontendController.article(url:String)
 GET           /tracking                 controllers.FrontendController.tracking

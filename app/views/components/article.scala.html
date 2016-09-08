@@ -1,5 +1,6 @@
 @import models.CoreModels.Article
 @import models.CoreModels.NewsType
+@import models.CoreModels.Language
 
 @(item: Article, newsType: NewsType.NewsTypeValue, first: Boolean = false)
 
@@ -7,7 +8,7 @@
 <div class="item @if(first) {first-item}">
 
     @title = {
-        <h2><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">@item.translations(0).caption</a></h2>
+        <h2><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">@item.translationOrDefault(Language.DEFAULT).caption</a></h2>
         <div class="add-info">
             <span class="type"></span>
             <span class="date">@item.publishFormatted</span>

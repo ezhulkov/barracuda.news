@@ -14,3 +14,4 @@ update translation set text=replace(text,'style="text-align: justify; line-heigh
 update translation set text=replace(text,'style="text-align:justify;line-height:normal;"','');
 update translation set text=replace(text,'style="text-align:justify;"','');
 update translation set text=replace(text,'style="line-height:normal;"','');
+update translation set text=replace(text,'style="text-align:justify;line-height:115%;"','');
