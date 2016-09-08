@@ -15,16 +15,22 @@
   .races
     +padding-leader(1)
     .race
-      padding-left: $pad-col
       +t-small
-    .replay
-      +btn($color: white, $hover: $blackTextColor, $bgColor: $activeLink, $hoverBgColor: transparent)
-      +float-right
-      +pad($pad-col, $pad-col)
-      width: auto
-      text-transform: lowercase
-      height: rhythm(9/10)
-      line-height: rhythm(9/10)
+      padding-left: $pad-col
+      .replay
+        +btn($color: white, $hover: $blackTextColor, $bgColor: $activeLink, $hoverBgColor: white)
+        +float-right
+        +pad($pad-col, $pad-col)
+        margin-top: rhythm(1/10)
+        width: auto
+        text-transform: lowercase
+        height: rhythm(8/10)
+        line-height: rhythm(8/10)
+    .race:hover
+      +pad(2 * $pad-col, $pad-col)
+      background-color: #eef
+      margin-left: - $pad-col
+      margin-right: - $pad-col
   .show
     +float-right
     +t-small

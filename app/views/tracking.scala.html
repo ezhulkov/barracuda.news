@@ -5,12 +5,17 @@
 @(tracking: Seq[TrackingEvent])(implicit messages: Messages, lang: LanguageValue)
 
 @showEvent(event: TrackingEvent, first: Boolean = false) = {
-    <div class="event @if(event.isActive || first) {active}">
-        @if(!first) {
-            <a ng-click="show['@event.id']=true" class="show">@Messages("tracking.archive")</a>
-        }
-        <h2>@event.name</h2>
-        <p class="date">@event.startFormatted &mdash; @event.endFormatted</p>
+    <div class="event @if(event.isActive || first) {active} @if(first) {featured}">
+        <div class="header">
+            @if(!first) {
+                <a ng-click="show['@event.id']=!show['@event.id']" class="show">
+                    <span ng-hide="show['@event.id']">@Messages("tracking.show")</span>
+                    <span ng-show="show['@event.id']">@Messages("tracking.hide")</span>
+                </a>
+            }
+            <h2>@event.name</h2>
+            <p class="date">@event.startFormatted &mdash; @event.endFormatted</p>
+        </div>
         <div class="races ng-cloak" id="@event.id" ng-show="@first || show['@event.id']">
         @for(race@(time, races) <- event.races.getOrElse(Nil).groupBy(t => t.startTrimmed.orNull).toSeq.sortBy(t => t._1)) {
             <p class="date">@time.toString("YYYY/MM/dd")</p>

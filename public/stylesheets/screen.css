@@ -2177,13 +2177,13 @@ main.login-area form .submit {
   padding-top: 1.5rem;
 }
 .tracking .races .race {
-  padding-left: 20px;
   font-size: 13px;
   font-size: 0.833rem;
   line-height: 24px;
   line-height: 1.5rem;
+  padding-left: 20px;
 }
-.tracking .races .replay {
+.tracking .races .race .replay {
   font-size: 13px;
   font-size: 0.833rem;
   line-height: 24px;
@@ -2205,12 +2205,13 @@ main.login-area form .submit {
   padding-left: 1.25rem;
   padding-right: 20px;
   padding-right: 1.25rem;
+  margin-top: 0.15rem;
   width: auto;
   text-transform: lowercase;
-  height: 1.35rem;
-  line-height: 1.35rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
 }
-.tracking .races .replay.md {
+.tracking .races .race .replay.md {
   font-size: 16px;
   font-size: 1rem;
   line-height: 24px;
@@ -2218,7 +2219,7 @@ main.login-area form .submit {
   height: 2.25rem;
   line-height: 2.25rem;
 }
-.tracking .races .replay.lg {
+.tracking .races .race .replay.lg {
   font-size: 16px;
   font-size: 1rem;
   line-height: 24px;
@@ -2226,7 +2227,7 @@ main.login-area form .submit {
   height: 3rem;
   line-height: 3rem;
 }
-.tracking .races .replay, .tracking .races .replay * {
+.tracking .races .race .replay, .tracking .races .race .replay * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -2236,10 +2237,19 @@ main.login-area form .submit {
   background-color: #f26522;
   text-decoration: none;
 }
-.tracking .races .replay:hover, .tracking .races .replay:hover * {
+.tracking .races .race .replay:hover, .tracking .races .race .replay:hover * {
   color: #333 !important;
-  background-color: transparent;
+  background-color: white;
   text-decoration: none;
+}
+.tracking .races .race:hover {
+  padding-left: 40px;
+  padding-left: 2.5rem;
+  padding-right: 20px;
+  padding-right: 1.25rem;
+  background-color: #eef;
+  margin-left: -20px;
+  margin-right: -20px;
 }
 .tracking .show {
   float: right;
