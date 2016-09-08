@@ -1,5 +1,6 @@
 package models
 
+import java.net.URL
 import java.util.UUID
 import com.github.nscala_time.time.Imports._
 import models.CoreModels.BlockSize.BlockSize
@@ -9,6 +10,7 @@ import models.CoreModels.RowHeight.RowHeight
 import org.apache.commons.lang3.StringUtils
 import services.Utils
 import scala.language.implicitConversions
+import scala.util.Try
 
 /**
   * Created by ezhulkov on 04.07.16.
@@ -78,6 +80,7 @@ object CoreModels {
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
     def translation(lang: Language) = translations.find(t => t.lang == lang)
     def translationOrDefault(lang: Language) = translation(lang).orElse(translation(Language.DEFAULT)).getOrElse(translations.head)
+    def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
   }
   case class Translation(id: Option[Long], articleId: Option[Long], lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
     def searchMatch(q: String) = {

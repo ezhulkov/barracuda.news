@@ -1,8 +1,8 @@
 @import models.CoreModels.Article
-@import models.CoreModels.Translation
 @import models.CoreModels.Language.LanguageValue
+@import models.CoreModels.Translation
 
-@(article: Article,translation:Translation)(implicit messages: Messages, lang: LanguageValue)
+@(article: Article, translation: Translation)(implicit messages: Messages, lang: LanguageValue)
 
     @space.front(translation.caption) {
 
@@ -10,34 +10,41 @@
             <span class="close" ng-click="closeArticle()"></span>
             <section class="container">
                 <div class="content-body">
-                        <div class="article-header">
-                            <h1>@translation.caption</h1>
-                            <div class="article-info">
-                                <span class="source">
-                                @article.origin.map(t => Html(s"""<a href="$t">$t</a>""")).getOrElse(Html("barracuda.news"))
-                                </span>
-                                <span class="date">@article.publishFormatted</span>
+                    <div class="article-header">
+                        <h1>@translation.caption</h1>
+                        <div class="article-info">
+                            <span class="source">
+                            @article.origin match {
+                                case Some(t) => {
+                                    <a href="@t">@article.originDomain</a>
+                                }
+                                case None => {
+                                    "barracuda.news"
+                                }
+                            }
+                            </span>
+                            <span class="date">@article.publishFormatted</span>
+                        </div>
+                        @article.coverMedia.map { t =>
+                            <div class="cover-image">
+                                <img src="@t" alt=""/>
                             </div>
-                            @article.coverMedia.map { t =>
-                                <div class="cover-image">
-                                    <img src="@t" alt=""/>
-                                </div>
-                            }
-                        </div>
-                        <div class="article-body">
-                            @Html(translation.text)
-                            @article.origin.map { t =>
-                                <blockquote class="source-quote">
-                                    <a href="@t" target="_blank">
-                                        <p>@translation.caption</p>
-                                        <cite class="source">@t</cite>
-                                    </a>
-                                </blockquote>
-                            }
-                        </div>
-                        <div class="adv">
-                        @components.adv()
-                        </div>
+                        }
+                    </div>
+                    <div class="article-body">
+                        @Html(translation.text)
+                        @article.origin.map { t =>
+                            <blockquote class="source-quote">
+                                <a href="@t" target="_blank">
+                                    <p>@translation.caption</p>
+                                    <cite class="source">@article.originDomain</cite>
+                                </a>
+                            </blockquote>
+                        }
+                    </div>
+                    <div class="adv">
+                    @components.adv()
+                    </div>
                 </div>
 
 
