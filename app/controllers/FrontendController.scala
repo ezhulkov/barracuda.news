@@ -1,19 +1,26 @@
 package controllers
 
 import javax.inject._
-import controllers.stack.{LangElement, LoggingElement}
-import models.CoreModels.{Language, Layout, TrackingEvent}
-import play.api.{Environment, Logger}
+import controllers.stack.LangElement
+import controllers.stack.LoggingElement
+import models.CoreModels.Language
+import models.CoreModels.Layout
+import models.CoreModels.TrackingEvent
 import play.api.cache.CacheApi
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.I18nSupport
+import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc._
+import play.api.Environment
+import play.api.Logger
 import services.ArticleService
 import utils.Configuration
-import scala.concurrent.{Await, Future}
-import scala.concurrent.duration.{Duration, MILLISECONDS, MINUTES}
-import scala.util.{Success, Try}
+import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+import scala.concurrent.duration.MILLISECONDS
+import scala.concurrent.duration.MINUTES
+import scala.util.Try
 
 @Singleton
 class FrontendController @Inject()(
@@ -56,7 +63,7 @@ class FrontendController @Inject()(
   }
   def article(url: String) = AsyncStack { implicit request => Future {
     articleService.findArticle(url).orElse(articleService.findArticle(Try(url.toLong).getOrElse(-1L))) match {
-      case Some(article) => Ok(views.html.article(article))
+      case Some(article) => Ok(views.html.article(article, article.translationOrDefault(Language.ENGLISH)))
       case None => NotFound("Article not found")
     }
   }

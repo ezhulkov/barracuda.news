@@ -9,3 +9,6 @@ INSERT INTO article_tag VALUES (1, 1);
 INSERT INTO article_tag VALUES (1, 2);
 INSERT INTO news_media (translation_id, url) VALUES (1, 'url1');
 INSERT INTO news_media (translation_id, url) VALUES (2, 'url2');
+
+update translation set text=replace(text,'style="text-align: justify; line-height: normal;"','');
+update translation set text=replace(text,'style="text-align:justify;line-height:normal;"','');

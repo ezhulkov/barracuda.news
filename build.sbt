@@ -20,6 +20,8 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   play.sbt.Play.autoImport.cache,
+  "ch.qos.logback" % "logback-classic" % "1.1.7",
+  "ch.qos.logback" % "logback-core" % "1.1.7",
   "jp.t2v" %% "play2-auth" % "0.14.2",
   "jp.t2v" %% "stackable-controller" % "0.5.1",
   "org.mindrot" % "jbcrypt" % "0.3m",
@@ -42,3 +44,4 @@ libraryDependencies ++= Seq(
 
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, UniversalPlugin, SbtWeb)
+  .disablePlugins(PlayLogback)

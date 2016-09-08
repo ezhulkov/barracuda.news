@@ -2,8 +2,13 @@
 
     <property name="PATTERN" value="%cyan(%date{ISO8601, UTC} UTC) %highlight(%-5level) %cyan(%logger) - %msg%n"/>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>/var/log/barracuda/barracuda-portal.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/zeptodev/dmp-frontend.%d.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
         <encoder>
             <pattern>${PATTERN}</pattern>
         </encoder>
@@ -14,7 +19,7 @@
     </appender>
 
     <logger name="play" level="INFO"/>
-    <logger name="application" level="{{ log_level }}"/>
+    <logger name="application" level="INFO"/>
 
     <logger name="org.apache.hadoop" level="WARN"/>
     <logger name="io.netty" level="WARN"/>

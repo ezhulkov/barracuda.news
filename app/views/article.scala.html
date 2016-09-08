@@ -1,7 +1,8 @@
 @import models.CoreModels.Article
+@import models.CoreModels.Translation
 @import models.CoreModels.Language.LanguageValue
 
-@(article: Article)(implicit messages: Messages, lang: LanguageValue)
+@(article: Article,translation:Translation)(implicit messages: Messages, lang: LanguageValue)
 
     @space.front("barracuda.news") {
 
@@ -10,7 +11,7 @@
             <section class="container">
                 <div class="content-body">
                         <div class="article-header">
-                            <h1>@article.translations.headOption.map(t => t.caption).orNull</h1>
+                            <h1>@translation.caption</h1>
                             <div class="article-info">
                                 <span class="source">
                                 @article.origin.map(t => Html(s"""<a href="$t">$t</a>""")).getOrElse(Html("barracuda.news"))
@@ -24,16 +25,15 @@
                             }
                         </div>
                         <div class="article-body">
-                            @Html(article.translations.headOption.map(t => t.text).orNull)
+                            @Html(translation.text)
                             @article.origin.map { t =>
                                 <blockquote class="source-quote">
                                     <a href="@t" target="_blank">
-                                        <p>@article.translations.headOption.map(t => t.caption).orNull</p>
+                                        <p>@translation.caption</p>
                                         <cite class="source">@t</cite>
                                     </a>
                                 </blockquote>
                             }
-
                         </div>
                         <div class="adv">
                         @components.adv()

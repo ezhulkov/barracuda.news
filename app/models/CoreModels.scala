@@ -76,6 +76,8 @@ object CoreModels {
     val publishShortFormatted = publish.toString("YYYY-MM-dd-")
     def generateUrl = publishShortFormatted + translations.find(t => t.lang == Language.DEFAULT && StringUtils.isNotEmpty(t.caption)).map(t => Utils.transliterate(t.caption)).getOrElse(id.toString)
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
+    def translation(lang: Language) = translations.find(t => t.lang == lang)
+    def translationOrDefault(lang: Language) = translation(lang).orElse(translation(Language.DEFAULT)).getOrElse(translations.head)
   }
   case class Translation(id: Option[Long], articleId: Option[Long], lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
     def searchMatch(q: String) = {
