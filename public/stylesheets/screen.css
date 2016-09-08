@@ -456,6 +456,17 @@ header .corporate .container {
   text-align: center;
   position: relative;
 }
+header .corporate .container a.banner {
+  display: none;
+}
+@media screen and (min-width: 48em) {
+  header .corporate .container a.banner {
+    display: initial;
+  }
+  header .corporate .container a.logo {
+    display: none;
+  }
+}
 header .corporate .container img {
   max-width: 90%;
   vertical-align: middle;
@@ -481,6 +492,8 @@ header .menu .menu-button {
   line-height: 2.25rem;
   float: left;
   display: block;
+  height: 3rem;
+  line-height: 3rem;
 }
 header .menu .menu-button, header .menu .menu-button * {
   -moz-transition: all 0.2s ease-in-out;
@@ -631,20 +644,29 @@ header .menu ul.tools li.search > div:after {
 header .menu ul.categories {
   display: none;
 }
-header .menu ul.categories li.logo img {
-  vertical-align: middle;
-}
-header .menu ul.categories li.logo img.all {
-  display: initial;
-}
-header .menu ul.categories li.logo img.tablet {
+header .menu ul.categories li.logo {
   display: none;
 }
-@media screen and (max-width: 60em) and (min-width: 48em) {
+header .menu ul.categories li.logo img {
+  display: none;
+  vertical-align: middle;
+}
+@media screen and (min-width: 48em) {
+  header .menu ul.categories li.logo {
+    display: initial;
+  }
+  header .menu ul.categories li.logo img.desktop {
+    display: none;
+  }
   header .menu ul.categories li.logo img.tablet {
     display: initial;
   }
-  header .menu ul.categories li.logo img.all {
+}
+@media screen and (min-width: 60em) {
+  header .menu ul.categories li.logo img.desktop {
+    display: initial;
+  }
+  header .menu ul.categories li.logo img.tablet {
     display: none;
   }
 }

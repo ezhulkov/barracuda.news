@@ -21,6 +21,13 @@ header
       line-height: rhythm($corporate-lines)
       text-align: center
       position: relative
+      a.banner
+        display: none
+      +tablet-media
+        a.banner
+          display: initial
+        a.logo
+          display: none
       img
         max-width: 90%
         vertical-align: middle
@@ -36,6 +43,8 @@ header
       +t-large
       +float-left
       display: block
+      height: rhythm(2)
+      line-height: rhythm(2)
     ul
       +no-bullet
       height: rhythm($menu-lines)
@@ -93,16 +102,20 @@ header
     ul.categories
       display: none
       li.logo
+        display: none
         img
-          vertical-align: middle
-        img.all
-          display: initial
-        img.tablet
           display: none
-        +eq-tablet-media-only
+          vertical-align: middle
+        +tablet-media
+          display: initial
+          img.desktop
+            display: none
           img.tablet
             display: initial
-          img.all
+        +desktop-media
+          img.desktop
+            display: initial
+          img.tablet
             display: none
     &.menu-active
       ul.categories
