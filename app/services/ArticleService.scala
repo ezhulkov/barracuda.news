@@ -3,10 +3,15 @@ package services
 import javax.inject.Singleton
 import com.google.inject.ImplementedBy
 import models.CoreModels.Language.Language
-import models.CoreModels.{Article, Language, Tag}
+import models.CoreModels.Article
+import models.CoreModels.Language
+import models.CoreModels.Tag
 import play.api.Logger
-import scalikejdbc.{DB, DBSession}
-import scala.util.{Failure, Success, Try}
+import scalikejdbc.DB
+import scalikejdbc.DBSession
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
 
 /**
   * Created by ezhulkov on 17.08.16.
@@ -45,7 +50,7 @@ class ArticleServiceImpl extends ArticleService {
   }
   override def allTagged(tag: String): Seq[Article] = {
     val tagged = Mappers.Article.findAllTagged(tag: String)
-    Mappers.Article.findAllByIdsSeq(tagged.map(t => t.id.getOrElse(0L)))
+    Mappers.Article.findAllByIdsSeq(tagged.map(t => t.id.getOrElse(0L))).sortBy(t => -t.publish.getMillis)
   }
   override def search(q: String): Seq[Article] = Nil
   override def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article] = Mappers.Article.findByUrl(url)

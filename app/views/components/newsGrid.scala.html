@@ -1,9 +1,3 @@
-@import models.CoreModels.Article
-@import models.CoreModels.Layout
-@import models.CoreModels.Language
-@import models.CoreModels.NewsType
-@import components.article
-
 @(layout: Layout, news: Seq[Article], rootTag: String)(implicit messages: Messages, lang: Language.LanguageValue)
 
 <section class="news-grid">
@@ -24,8 +18,8 @@
                             }
                             newsToDisplay.take(row.height.maxNews) match {
                                 case head :: tail =>
-                                    val firstArticle = List(article(head, block.newsType, first = true))
-                                    val restArticles = tail.map(t => article(t, block.newsType))
+                                    val firstArticle = List(components.article(head, block.newsType, first = true))
+                                    val restArticles = tail.map(t => components.article(t, block.newsType))
                                     firstArticle ++ List(Html("""<div class="rest-items">""")) ++ restArticles ++ List(Html("</div>"))
                                 case _ =>
                                     Html(

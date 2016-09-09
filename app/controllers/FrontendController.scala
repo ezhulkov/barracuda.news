@@ -59,7 +59,7 @@ class FrontendController @Inject()(
 
   def index() = topic(MAIN_LAYOUT)
   def topic(tag: String, title: Option[String] = None) = AsyncStack { implicit request => Future {
-    Ok(views.html.topic(layouts.get(tag), articleService.allTagged(tag), tag, title))
+    Ok(views.html.topic(layouts.get(tag), articleService.allTagged(tag).take(100), tag, title))
   }
   }
   def article(url: String) = AsyncStack { implicit request => Future {
@@ -70,7 +70,7 @@ class FrontendController @Inject()(
   }
   }
   def newsList(tag: String, offset: Option[Int]) = AsyncStack { implicit request => Future {
-    Ok(views.html.components.newsList(articleService.allTagged(tag), None, offset))
+    Ok(views.html.components.newsListBlock(articleService.allTagged(tag), None))
   }
   }
 

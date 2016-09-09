@@ -42,6 +42,13 @@ libraryDependencies ++= Seq(
   "org.webjars" % "font-awesome" % "4.6.3"
 )
 
+TwirlKeys.templateImports ++= Seq(
+  "components._",
+  "models.CoreModels._",
+  "models.Implicits._",
+  "models.CoreModels.Language.LanguageValue"
+)
+
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, UniversalPlugin, SbtWeb)
   .disablePlugins(PlayLogback)

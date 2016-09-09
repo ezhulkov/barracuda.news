@@ -18,13 +18,11 @@
         {
           "newsType": "TEXT",
           "tag": "sub_news",
-          "size": "SIZE4",
-          "featured": true
+          "size": "SIZE4"
         },
         {
           "newsType": "PHOTO",
           "caption": "Personal stories",
-          "featured": true,
           "tag": "stories",
           "size": "SIZE4"
         },

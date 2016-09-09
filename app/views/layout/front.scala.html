@@ -1,5 +1,3 @@
-@import models.CoreModels.Language.LanguageValue
-
 @(title: String)(content: Html)(implicit messages: Messages, lang: LanguageValue)
 
     @jsFiles = {
@@ -24,7 +22,7 @@
 
     }
 
-    @space.main(title, jsFiles = jsFiles, cssFiles = Html("")) {
+    @layout.main(title, jsFiles = jsFiles, cssFiles = Html("")) {
 
         <div class="app-wrapper" ng-app="frontendApp" ng-controller="FrontendController as frontendCtrl" ng-class="{'search-active': searchOn}">
             <main>

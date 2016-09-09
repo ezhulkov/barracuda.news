@@ -16,7 +16,7 @@
     <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
 }
 
-@space.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
+@layout.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
 
     <div class="app-wrapper" ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}'")).orNull ng-class="{'loading-active': loading}">
 

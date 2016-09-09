@@ -8,7 +8,7 @@
     </ul>
 }
 
-@space.admin("news-section", Some(sidebar), controller = Some("NewsController")) {
+@layout.admin("news-section", Some(sidebar), controller = Some("NewsController")) {
 
     <ul class="news">
         <li class="item" ng-repeat="item in newsPage">

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .content-body {
   padding-top: 1.5em;
-  padding-bottom: 1.5em;
+  padding-bottom: 6em;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -1423,6 +1423,55 @@ footer .copyright span {
   line-height: 36px;
   line-height: 2.25rem;
   font-weight: 700;
+}
+
+.news-list .item {
+  overflow: hidden;
+  *zoom: 1;
+  padding-top: 12px;
+  padding-top: 0.75rem;
+  padding-bottom: 12px;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: -1px;
+}
+.news-list .item .photo {
+  float: left;
+  width: 200px;
+}
+.news-list .item .photo img {
+  opacity: 1;
+  width: 200px;
+  display: block;
+  float: left;
+}
+.news-list .item .photo img:hover {
+  opacity: 0.95;
+}
+.news-list .item h2, .news-list .item .date {
+  padding-left: 220px;
+}
+.news-list .item h2 a, .news-list .item h2 a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #333;
+  background-color: initial;
+  text-decoration: none;
+}
+.news-list .item h2 a:hover, .news-list .item h2 a:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
+}
+.news-list .item .date {
+  font-size: 11px;
+  font-size: 0.694rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  color: #777;
 }
 
 article {

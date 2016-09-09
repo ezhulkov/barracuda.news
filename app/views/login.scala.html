@@ -1,39 +1,37 @@
 @(loginForm: Form[Option[Account]])(implicit flash: Flash, messages: Messages)
 
-@import helper._
+    @layout.main("Admin area") {
 
-@space.main("Admin area") {
+        <div class="app-wrapper">
+            <main class="login-area">
 
-    <div class="app-wrapper">
-        <main class="login-area">
+            @helper.form(controllers.routes.AuthController.authenticate()) {
 
-        @helper.form(controllers.routes.AuthController.authenticate()) {
+                <a class="logo" href="@routes.FrontendController.index()">
+                    <img src="@routes.Assets.versioned("images/logo-small.png")"/>
+                </a>
 
-            <a class="logo" href="@routes.FrontendController.index()">
-                <img src="@routes.Assets.versioned("images/logo-small.png")"/>
-            </a>
-
-            @if(loginForm.hasGlobalErrors) {
-                @loginForm.globalError.map { e =>
-                    <p class="error">
-                        @e.message
+                @if(loginForm.hasGlobalErrors) {
+                    @loginForm.globalError.map { e =>
+                        <p class="error">
+                            @e.message
+                        </p>
+                    }
                     </p>
                 }
-                </p>
+                <div class="control-container login">
+                    <input type="text" class="inp md" name="login" id="login" placeholder="Login">
+                </div>
+                <div class="control-container password">
+                    <input type="password" class="inp md" name="password" id="password" placeholder="Password">
+                </div>
+                <div class="control-container submit">
+                    <input type="submit" class="btn md" value="Login">
+                </div>
+
             }
-            <div class="control-container login">
-                <input type="text" class="inp md" name="login" id="login" placeholder="Login">
-            </div>
-            <div class="control-container password">
-                <input type="password" class="inp md" name="password" id="password" placeholder="Password">
-            </div>
-            <div class="control-container submit">
-                <input type="submit" class="btn md" value="Login">
-            </div>
 
-        }
+            </main>
+        </div>
 
-        </main>
-    </div>
-
-}
+    }

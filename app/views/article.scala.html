@@ -1,10 +1,6 @@
-@import models.CoreModels.Article
-@import models.CoreModels.Language.LanguageValue
-@import models.CoreModels.Translation
-
 @(article: Article, translation: Translation)(implicit messages: Messages, lang: LanguageValue)
 
-    @space.front(translation.caption) {
+    @layout.front(translation.caption) {
 
         <article>
             <span class="close" ng-click="closeArticle()"></span>

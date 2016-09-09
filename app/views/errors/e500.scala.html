@@ -1,8 +1,6 @@
-@import models.CoreModels.Language.LanguageValue
-
 @(cause: String)(implicit messages: Messages, lang: LanguageValue)
 
-@space.front(Messages("error.500")) {
+@layout.front(Messages("error.500")) {
 
     <section class="container">
         <div class="content-body">

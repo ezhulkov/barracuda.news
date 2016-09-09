@@ -1,7 +1,3 @@
-@import models.CoreModels.Language.LanguageValue
-@import models.CoreModels.TrackingEvent
-@import models.Implicits._
-
 @(tracking: Seq[TrackingEvent])(implicit messages: Messages, lang: LanguageValue)
 
 @showEvent(event: TrackingEvent, first: Boolean = false) = {
@@ -37,7 +33,7 @@
     </div>
 }
 
-@space.front("barracuda.news") {
+@layout.front("barracuda.news") {
 
     <section class="tracking container">
         <class class="content-body">

@@ -1,7 +1,3 @@
-@import models.CoreModels.Article
-@import models.CoreModels.NewsType
-@import models.CoreModels.Language
-
 @(item: Article, newsType: NewsType.NewsTypeValue, first: Boolean = false)
 
 <div class="item @if(first) {first-item}">

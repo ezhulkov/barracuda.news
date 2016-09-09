@@ -7,7 +7,6 @@ $row-heights: (6, 12, 18, 24)
 $col-spans: (4, 6, 8, 12)
 
 .news-grid
-  //+debug-vertical-alignment()
   +padding-leader(1)
   +flex(1 0 auto)
   .topic-row
@@ -161,3 +160,26 @@ $col-spans: (4, 6, 8, 12)
       h2
         +t-large
         +t-strong
+
+.news-list
+  //+debug-vertical-alignment()
+  .item
+    +clearfix
+    +rhythm-padding(1/2)
+    border-bottom: 1px solid $textColor
+    margin-bottom: -1px
+    .photo
+      float: left
+      width: 200px
+      img
+        +hover-img
+        width: 200px
+        display: block
+        float: left
+    h2, .date
+      padding-left: 200px+$pad-col
+    h2 a
+      +active-link($color: $blackTextColor)
+    .date
+      +t-tiny
+      color: $blackColor4

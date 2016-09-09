@@ -1,11 +1,6 @@
-@import models.CoreModels.Article
-@import models.CoreModels.Layout
-@import models.CoreModels.Language
-@import models.CoreModels.Page
-
 @(layoutOpt: Option[Layout], news: Seq[Article], rootTag: String, rootTagName: Option[String])(implicit messages: Messages, lang: Language.LanguageValue)
 
-@space.front(rootTagName.getOrElse("barracuda.news")) {
+@layout.front(rootTagName.getOrElse("barracuda.news")) {
 
     @layoutOpt match {
         case Some(layout) => {
