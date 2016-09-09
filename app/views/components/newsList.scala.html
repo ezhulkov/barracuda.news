@@ -1,0 +1,12 @@
+@import models.CoreModels.Article
+@import models.CoreModels.Language
+@import models.CoreModels.Page
+
+@(news: Seq[Article], rootTagName: Option[String], offset: Option[Int])(implicit messages: Messages, lang: Language.LanguageValue)
+
+<section class="container">
+    <div class="content-body">
+        @rootTagName.map { t => <h1>@t</h1> }
+
+    </div>
+</section>

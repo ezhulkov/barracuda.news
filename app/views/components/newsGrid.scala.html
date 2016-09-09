@@ -1,35 +1,20 @@
-@import components._
 @import models.CoreModels.Article
 @import models.CoreModels.Layout
+@import models.CoreModels.Language
 @import models.CoreModels.NewsType
+@import components.article
 
-@(layoutOpt: Option[Layout], news: Seq[Article], rootTag: String)
+@(layout: Layout, news: Seq[Article], rootTag: String)(implicit messages: Messages, lang: Language.LanguageValue)
 
-@{
-    layoutOpt match {
-        case Some(layout) => layoutGrid(layout, news)
-        case _ => listGrid(news)
-    }
-}
-
-@listGrid(news: Seq[Article]) = {
+<section class="news-grid">
     <section class="container">
-        <div class="content-body">
-            <h1>@rootTag</h1>
-        </div>
-    </section>
-}
-
-@layoutGrid(layout: Layout, news: Seq[Article]) = {
-    <section class="news-grid">
-        <section class="container">
         @for(row <- layout.rows) {
             <div class="topic-row @row.height.cssClass">
             @for(block <- row.blocks) {
                 @if(block.tag) {
                     <div class="topic-col @block.size.cssClass @if(block.featured) {featured} type-@block.newsType.cssClass @if(block.caption.isEmpty) {no-caption}">
                         @for(caption <- block.caption) {
-                            <h1><a href="@routes.FrontendController.topic(block.tag)">@caption</a></h1>
+                            <h1><a href="@routes.FrontendController.topic(block.tag, Some(caption))">@caption</a></h1>
                         }
                         <div class="items">
                         @{
@@ -59,7 +44,5 @@
             }
             </div>
         }
-        </section>
     </section>
-}
-
+</section>

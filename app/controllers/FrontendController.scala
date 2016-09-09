@@ -58,8 +58,8 @@ class FrontendController @Inject()(
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
   def index() = topic(MAIN_LAYOUT)
-  def topic(name: String) = AsyncStack { implicit request => Future {
-    Ok(views.html.topic(layouts.get(name), articleService.allTagged(name), name))
+  def topic(tag: String, title: Option[String] = None) = AsyncStack { implicit request => Future {
+    Ok(views.html.topic(layouts.get(tag), articleService.allTagged(tag), tag, title))
   }
   }
   def article(url: String) = AsyncStack { implicit request => Future {
@@ -67,6 +67,10 @@ class FrontendController @Inject()(
       case Some(article) => Ok(views.html.article(article, article.translationOrDefault(Language.ENGLISH)))
       case None => NotFound(views.html.errors.e404())
     }
+  }
+  }
+  def newsList(tag: String, offset: Option[Int]) = AsyncStack { implicit request => Future {
+    Ok(views.html.components.newsList(articleService.allTagged(tag), None, offset))
   }
   }
 

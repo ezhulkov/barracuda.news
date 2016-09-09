@@ -1,12 +1,19 @@
-@import components._
-@import models.CoreModels._
+@import models.CoreModels.Article
+@import models.CoreModels.Layout
+@import models.CoreModels.Language
+@import models.CoreModels.Page
 
-@(layout: Option[Layout], news: Seq[Article], rootTag: String)(implicit messages: Messages, lang: Language.LanguageValue)
+@(layoutOpt: Option[Layout], news: Seq[Article], rootTag: String, rootTagName: Option[String])(implicit messages: Messages, lang: Language.LanguageValue)
 
-@space.front("barracuda.news") {
+@space.front(rootTagName.getOrElse("barracuda.news")) {
 
-        @topicLayout(layout, news, rootTag)
-
-
+    @layoutOpt match {
+        case Some(layout) => {
+            @components.newsGrid(layout, news, rootTag)
+        }
+        case None => {
+            @components.newsList(news, rootTagName, None)
+        }
+    }
 
 }

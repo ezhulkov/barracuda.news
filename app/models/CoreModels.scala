@@ -60,6 +60,7 @@ object CoreModels {
     implicit def convert(value: Value): LanguageValue = value.asInstanceOf[LanguageValue]
   }
 
+  case class Page(offset:Int,limit:Int)
   case class Tag(id: Option[Long], text: String, root: Option[Boolean] = None)
   case class Layout(rows: Seq[NewsRow])
   case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
