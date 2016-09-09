@@ -1266,6 +1266,8 @@ footer .copyright span {
 .news-grid .topic-col.type-photo .item .cover, .news-grid .topic-col.type-video .item .cover, .news-grid .topic-col.type-cover-photo .item .cover {
   display: block;
   min-height: 9rem;
+  margin-left: 1px;
+  margin-right: 1px;
 }
 .news-grid .topic-col.type-photo .item .title, .news-grid .topic-col.type-video .item .title, .news-grid .topic-col.type-cover-photo .item .title {
   padding-top: 12px;
@@ -1437,6 +1439,8 @@ article .article-header {
   box-sizing: border-box;
   width: 100%;
   float: left;
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
 }
 article .article-header .cover-image {
   padding-top: 24px;
@@ -2018,6 +2022,9 @@ main.admin-area section.article-section dl.publish input {
   font-size: 0.833rem;
   line-height: 24px;
   line-height: 1.5rem;
+}
+main.admin-area section.article-section dl.publish dd {
+  margin-top: -1px;
 }
 main.admin-area section.article-section dl.origin {
   -moz-box-sizing: border-box;
