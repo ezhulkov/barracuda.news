@@ -133,7 +133,7 @@ adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList
   $scope.total = $scope.newsList.length
   $scope.page = 1
-  $scope.pageSize = 10
+  $scope.pageSize = 50
   $scope.newsPage = $scope.newsList.slice(0, $scope.pageSize)
   $scope.showPage = (p) ->
     from = (p - 1) * $scope.pageSize
@@ -160,6 +160,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, file
   $scope.langs = angular.copy($window.langs)
   $scope.selectedLang = $scope.langs[0]
   $scope.articleModel = angular.copy($window.articleModel)
+  $scope.articleLinks = angular.copy($window.articleLinks)
   $scope.articleModel.publish_moment = moment($scope.articleModel.publish)
   $scope.tags = angular.copy($window.tags)
   $scope.alloyConfig = $window.alloyConfig

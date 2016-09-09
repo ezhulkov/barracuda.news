@@ -3,8 +3,12 @@ package services
 import models.CoreModels.Language.Language
 import models.CoreModels._
 import org.joda.time.DateTime
-import scalikejdbc.{DBSession, WrappedResultSet, autoConstruct, _}
-import skinny.orm.{SkinnyCRUDMapper, SkinnyJoinTable}
+import scalikejdbc.DBSession
+import scalikejdbc.WrappedResultSet
+import scalikejdbc._
+import scalikejdbc.autoConstruct
+import skinny.orm.SkinnyCRUDMapper
+import skinny.orm.SkinnyJoinTable
 import scala.util.Try
 
 /**
@@ -36,14 +40,18 @@ object Mappers {
 
     override def connectionPoolName = 'default
     override lazy val defaultAlias = createAlias("a")
-    override def extract(rs: WrappedResultSet, rn: ResultName[Article]): Article = autoConstruct(rs, rn, "tags", "translations")
+    override def extract(rs: WrappedResultSet, rn: ResultName[Article]): Article = autoConstruct(rs, rn, "tags", "translations", "crossLinks")
 
-    lazy val ordering = Seq(sqls"${defaultAlias.publish} desc")
-    lazy val tagsRef  = hasManyThrough[Tag](
+    lazy val ordering      = Seq(sqls"${defaultAlias.publish} desc")
+    lazy val tagsRef       = hasManyThrough[Tag](
       through = ArticleTag,
       many = Tag,
       merge = (a, t) => a.copy(tags = t))
-    lazy val transRef = hasMany[Translation](
+    lazy val crossLinksRef = hasManyThrough[Article](
+      through = CrossLinkArticle,
+      many = Article,
+      merge = (a, t) => a.copy(crossLinks = t))
+    lazy val transRef      = hasMany[Translation](
       many = Translation -> Translation.defaultAlias,
       on = (a, t) => sqls.eq(a.id, t.articleId),
       merge = (a, t) => a.copy(translations = t))
@@ -55,16 +63,16 @@ object Mappers {
       'publish -> article.publish
     )
     def findAll(onlyPublished: Boolean): Seq[Article] = {
-      val query = joins(Mappers.Article.tagsRef, Mappers.Article.transRef)
+      val query = joins(tagsRef, transRef)
       val now = DateTime.now()
       if (onlyPublished) query.findAllBy(sqls.le(defaultAlias.publish, now), ordering)
       else query.findAll(ordering)
     }
 
-    def findById(id: Long): Option[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findById(id)
-    def findByUrl(url: String): Option[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findBy(sqls.eq(defaultAlias.url, url))
-    def findAllTagged(tag: String): Seq[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findAllBy(sqls.eq(Tag.defaultAlias.text, tag), ordering)
-    def findAllByIdsSeq(ids: Seq[Long]): Seq[Article] = joins(Mappers.Article.tagsRef, Mappers.Article.transRef).findAllByIds(ids: _*)
+    def findById(id: Long): Option[Article] = joins(tagsRef, transRef, crossLinksRef).findById(id)
+    def findByUrl(url: String): Option[Article] = joins(tagsRef, transRef, crossLinksRef).findBy(sqls.eq(defaultAlias.url, url))
+    def findAllTagged(tag: String): Seq[Article] = joins(tagsRef, transRef).findAllBy(sqls.eq(Tag.defaultAlias.text, tag), ordering)
+    def findAllByIdsSeq(ids: Seq[Long]): Seq[Article] = joins(tagsRef, transRef).findAllByIds(ids: _*)
     def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
     def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(updateAttributes(article): _*))
 
@@ -97,21 +105,25 @@ object Mappers {
   }
 
   object NewsMedia extends SkinnyCRUDMapper[NewsMedia] {
-
     override def connectionPoolName = 'default
     override lazy val defaultAlias = createAlias("m")
     override def extract(rs: WrappedResultSet, rn: ResultName[NewsMedia]): NewsMedia = autoConstruct(rs, rn)
+  }
 
+  sealed case class CrossLinkArticle(articleId: Long, linkId: Long)
+  object CrossLinkArticle extends SkinnyJoinTable[CrossLinkArticle] {
+    override def connectionPoolName = 'default
+    override def defaultAlias = createAlias("aa")
+    def create(articleId: Long, linkId: Long): Try[Any] = Try(CrossLinkArticle.createWithAttributes('articleId -> articleId, 'linkId -> linkId))
+    def deleteForArticle(articleId: Long) = CrossLinkArticle.deleteBy(sqls.eq(ArticleTag.column.articleId, articleId))
   }
 
   sealed case class ArticleTag(articleId: Long, tagId: Long)
   object ArticleTag extends SkinnyJoinTable[ArticleTag] {
-
     override def connectionPoolName = 'default
     override def defaultAlias = createAlias("at")
     def create(articleId: Long, tagId: Long): Try[Any] = Try(ArticleTag.createWithAttributes('articleId -> articleId, 'tagId -> tagId))
     def deleteForArticle(articleId: Long) = ArticleTag.deleteBy(sqls.eq(ArticleTag.column.articleId, articleId))
-
   }
 
 }

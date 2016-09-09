@@ -278,6 +278,14 @@ html {
   border: 1px solid grey !important;
 }
 
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
 .close {
   cursor: pointer;
   display: block;
@@ -2106,6 +2114,30 @@ main.admin-area section.article-section dl.caption input {
 main.admin-area section.article-section .lang-label {
   border-bottom: 1px solid #333;
   margin-bottom: -1px;
+}
+main.admin-area section.article-section .links {
+  min-height: 1.5rem;
+}
+main.admin-area section.article-section .add-link {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+}
+main.admin-area section.article-section .add-link, main.admin-area section.article-section .add-link * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #333;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area section.article-section .add-link:hover, main.admin-area section.article-section .add-link:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
 }
 main.admin-area section.article-section article.edit {
   margin-top: 0px;
