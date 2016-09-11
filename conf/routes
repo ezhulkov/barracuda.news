@@ -14,6 +14,9 @@ POST          /search                   controllers.FrontendController.search(q:
 
 
 #Admin area
+
+GET           /t/article/:id            controllers.DummyController.article(id:Long)
+
 GET           /login                    controllers.AuthController.login
 POST          /login                    controllers.AuthController.authenticate
 GET           /logout                   controllers.AuthController.logout

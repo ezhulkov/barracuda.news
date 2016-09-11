@@ -77,7 +77,8 @@ object CoreModels {
   ) {
     val publishFormatted      = publish.toString(dateFormat)
     val publishShortFormatted = publish.toString("YYYY-MM-dd-")
-    def generateUrl = publishShortFormatted + translations.find(t => t.lang == Language.DEFAULT && StringUtils.isNotEmpty(t.caption)).map(t => Utils.transliterate(t.caption)).getOrElse(id.toString)
+    def transliteratedUrl = translations.find(t => t.lang == Language.DEFAULT && StringUtils.isNotEmpty(t.caption)).map(t => Utils.transliterate(t.caption)).getOrElse(id.toString)
+    def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
     def translation(lang: Language) = translations.find(t => t.lang == lang)
     def translationOrDefault(lang: Language) = translation(lang).orElse(translation(Language.DEFAULT)).getOrElse(translations.head)

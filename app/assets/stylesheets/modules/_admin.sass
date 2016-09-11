@@ -6,7 +6,7 @@
 @import "compass/css3"
 
 $menu-width: 180px
-$submenu-width: 140px
+$submenu-width: 180px
 $pad: 20px
 
 main.admin-area
@@ -70,9 +70,12 @@ main.admin-area
     ul
       +padding-leader(1)
       li
-        padding-left: 30px
+        padding-left: 10px
+        padding-right: 10px
       a
-        +active-link($color: $darkBlueColor)
+        +btn($hoverBgColor: white, $hover: $blackTextColor)
+        width: 100%
+        margin-bottom: 3px
     ul.langs
       li
         padding-left: 10px

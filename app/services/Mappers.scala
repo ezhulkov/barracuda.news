@@ -56,12 +56,6 @@ object Mappers {
       on = (a, t) => sqls.eq(a.id, t.articleId),
       merge = (a, t) => a.copy(translations = t))
 
-    def updateAttributes(article: Article) = Seq(
-      'url -> article.generateUrl,
-      'origin -> article.origin.orNull,
-      'coverMedia -> article.coverMedia.orNull,
-      'publish -> article.publish
-    )
     def findAll(onlyPublished: Boolean): Seq[Article] = {
       val query = joins(tagsRef, transRef)
       val now = DateTime.now()
@@ -73,8 +67,17 @@ object Mappers {
     def findByUrl(url: String): Option[Article] = joins(tagsRef, transRef, crossLinksRef).findBy(sqls.eq(defaultAlias.url, url))
     def findAllTagged(tag: String): Seq[Article] = joins(tagsRef, transRef).findAllBy(sqls.eq(Tag.defaultAlias.text, tag), ordering)
     def findAllByIdsSeq(ids: Seq[Long]): Seq[Article] = joins(tagsRef, transRef).findAllByIds(ids: _*)
-    def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(updateAttributes(article): _*))
-    def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(updateAttributes(article): _*))
+    def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(
+      'url -> article.generateUrl,
+      'origin -> article.origin.orNull,
+      'coverMedia -> article.coverMedia.orNull,
+      'publish -> article.publish
+    ))
+    def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(
+      'origin -> article.origin.orNull,
+      'coverMedia -> article.coverMedia.orNull,
+      'publish -> article.publish
+    ))
 
   }
 

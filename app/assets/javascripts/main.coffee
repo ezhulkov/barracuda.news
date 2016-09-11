@@ -154,7 +154,7 @@ adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
         $scope.result = {}
       , 2000
 
-adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, fileUpload) ->
+adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $location) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")
   $scope.result = {}
   $scope.langs = angular.copy($window.langs)
@@ -176,8 +176,8 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, file
     return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
   $scope.processResponse = (data) ->
     $scope.result = data
-    if(data.article_id != undefined)
-      $scope.articleModel.id = data.article_id
+    if($scope.articleModel.id == undefined)
+      $window.location.pathname = $window.location.pathname + "/" + data.article_id
     $scope.loading = false
     $timeout ->
       $scope.result = {}

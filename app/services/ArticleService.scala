@@ -60,7 +60,10 @@ class ArticleServiceImpl extends ArticleService {
       case Some(id) =>
         Mappers.Article.update(article)
         Success(id)
-      case None => Mappers.Article.create(article)
+      case None =>
+        val result = Mappers.Article.create(article)
+        Mappers.Article.update(article)
+        result
     }
   }
   private def saveTranslations(article: Article, articleId: Long)(implicit s: DBSession) = {

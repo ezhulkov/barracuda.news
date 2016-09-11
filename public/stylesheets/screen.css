@@ -406,6 +406,8 @@ html {
   height: 1.5rem;
   line-height: 1.5rem;
   width: 100%;
+  text-align: center;
+  display: block;
   -webkit-appearance: none;
   -webkit-border-radius: 0;
   outline: none;
@@ -1801,14 +1803,53 @@ main.admin-area aside.sub-menu {
   top: 3rem;
   right: 0;
   bottom: 0;
-  width: 140px;
+  width: 180px;
 }
 main.admin-area aside.sub-menu ul {
   padding-top: 24px;
   padding-top: 1.5rem;
 }
 main.admin-area aside.sub-menu ul li {
-  padding-left: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+main.admin-area aside.sub-menu ul a {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  padding-top: 0px;
+  padding-top: 0rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  width: 100%;
+  text-align: center;
+  display: block;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  outline: none;
+  text-transform: uppercase;
+  border: 1px solid #f26522;
+  width: 100%;
+  margin-bottom: 3px;
+}
+main.admin-area aside.sub-menu ul a.md {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  height: 2.25rem;
+  line-height: 2.25rem;
+}
+main.admin-area aside.sub-menu ul a.lg {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  height: 3rem;
+  line-height: 3rem;
 }
 main.admin-area aside.sub-menu ul a, main.admin-area aside.sub-menu ul a * {
   -moz-transition: all 0.2s ease-in-out;
@@ -1816,13 +1857,13 @@ main.admin-area aside.sub-menu ul a, main.admin-area aside.sub-menu ul a * {
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  color: darkblue;
-  background-color: initial;
+  color: white;
+  background-color: #f26522;
   text-decoration: none;
 }
 main.admin-area aside.sub-menu ul a:hover, main.admin-area aside.sub-menu ul a:hover * {
-  color: #f26522 !important;
-  background-color: initial;
+  color: #333 !important;
+  background-color: white;
   text-decoration: none;
 }
 main.admin-area aside.sub-menu ul.langs li {
@@ -1832,7 +1873,7 @@ main.admin-area aside.sub-menu ul.langs li input {
   margin-right: 5px;
 }
 main.admin-area.submenu-on .main-section {
-  margin-right: 140px;
+  margin-right: 180px;
 }
 main.admin-area section.main-section {
   max-width: 100%;
@@ -2283,6 +2324,8 @@ main.login-area form .submit {
   height: 1.5rem;
   line-height: 1.5rem;
   width: 100%;
+  text-align: center;
+  display: block;
   -webkit-appearance: none;
   -webkit-border-radius: 0;
   outline: none;
