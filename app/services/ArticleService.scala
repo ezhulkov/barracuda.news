@@ -37,7 +37,12 @@ class ArticleServiceImpl extends ArticleService {
 
   override def allTags: Set[Tag] = Mappers.Tag.findAll().toSet
   override def allArticles(onlyPublished: Boolean = true): Seq[Article] = Mappers.Article.findAll(onlyPublished)
-  override def findArticle(id: Long): Option[Article] = Mappers.Article.findById(id)
+  override def findArticle(id: Long): Option[Article] = {
+    Mappers.Article.findById(id).map { article =>
+      val links = Mappers.CrossLinkArticle.findAllBy(article)
+      article.withCrossLinks(links.flatMap(t => t.linkArticle))
+    }
+  }
   override def deleteArticle(id: Long): Unit = Mappers.Article.deleteById(id)
   override def allRootTags: Set[Tag] = Mappers.Tag.findAllRoot()
   override def allTags(text: Set[String]): Set[Tag] = Mappers.Tag.allTags(text.toSeq)

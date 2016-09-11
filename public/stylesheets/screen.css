@@ -2157,7 +2157,56 @@ main.admin-area section.article-section .lang-label {
   margin-bottom: -1px;
 }
 main.admin-area section.article-section .links {
+  padding-top: 12px;
+  padding-top: 0.75rem;
   min-height: 1.5rem;
+}
+main.admin-area section.article-section .links .link {
+  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
+  height: 1.5rem;
+}
+main.admin-area section.article-section .links .link .sel {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 91.66667%;
+  float: left;
+  height: 1.5rem;
+}
+main.admin-area section.article-section .links .link .sel .chosen-container {
+  margin-top: -4px;
+  width: 100% !important;
+}
+main.admin-area section.article-section .links .link .sel .chosen-single {
+  height: 1.5rem;
+}
+main.admin-area section.article-section .links .link .del {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 8.33333%;
+  float: left;
+  text-align: right;
+}
+main.admin-area section.article-section .links .link .del, main.admin-area section.article-section .links .link .del * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: darkblue;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area section.article-section .links .link .del:hover, main.admin-area section.article-section .links .link .del:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
 }
 main.admin-area section.article-section .add-link {
   font-size: 13px;
@@ -2171,7 +2220,7 @@ main.admin-area section.article-section .add-link, main.admin-area section.artic
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  color: #333;
+  color: darkblue;
   background-color: initial;
   text-decoration: none;
 }

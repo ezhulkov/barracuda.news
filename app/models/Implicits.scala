@@ -6,7 +6,7 @@ import models.CoreModels.Language.Language
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight._
 import models.CoreModels.{Language, RowHeight, _}
-import play.api.libs.json._
+import play.api.libs.json.{JsNumber, _}
 
 /**
   * Created by ezhulkov on 04.07.16.
@@ -50,11 +50,19 @@ object Implicits {
   implicit val rowFormat           = Json.format[NewsRow]
   implicit val layoutFormat        = Json.format[Layout]
   implicit val articleReads        = Json.reads[Article]
+  //  implicit val articleReads        = JsonPimped.reads[Article](Json.reads[Article])() { case (json, obj) =>
+  //    val links = json \ "links"
+  //    obj
+  //  }
   implicit val articleWrites       = JsonPimped.writes[Article](Json.writes[Article]) { case (json, obj) =>
-    json.asInstanceOf[JsObject] +
+    json.asInstanceOf[JsObject] - "crossLinks" +
+      ("links", JsArray(obj.crossLinks.getOrElse(Nil).map(t => Json.obj(
+        "id" -> JsString(t.id.map(t => t.toString).get)
+      )))) +
       ("publish_time_formatted", JsString(obj.publishFormatted)) +
       ("caption", JsString(obj.translations.map(t => t.caption).mkString("; ")))
   }
+
 }
 
 

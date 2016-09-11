@@ -38,6 +38,8 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "moment" % "2.10.6",
   "org.webjars.bower" % "moment-timezone" % "0.4.1",
   "org.webjars.bower" % "jquery-cookie" % "1.4.1",
+  "org.webjars.bower" % "chosen" % "1.4.2",
+  "org.webjars.npm" % "angular-chosen-localytics" % "1.4.0",
   "org.webjars" % "jquery" % "2.2.4",
   "org.webjars" % "font-awesome" % "4.6.3"
 )

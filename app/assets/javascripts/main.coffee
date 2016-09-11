@@ -85,7 +85,7 @@ if (typeof AlloyEditor != 'undefined')
   }
 
 frontendApp = angular.module 'frontendApp', []
-adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker']
+adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker', 'localytics.directives']
 
 adminApp.service "fileUpload", ($http) ->
   this.uploadFileToUrl = (file, uploadUrl, success, error) ->
@@ -185,11 +185,22 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
   $scope.show = ->
     $window.open("http://barracuda.news/article/" + $scope.articleModel.id, "_blank")
     return true
+  $scope.addLink = ->
+    if($scope.articleModel.links == undefined)
+      $scope.articleModel.links = []
+    if(($scope.articleModel.links.find (s)-> s.id == 0) == undefined )
+      $scope.articleModel.links.push({id: 0})
+  $scope.delLink = (link) ->
+    item = $scope.articleModel.links.find (a)-> a.id == link.id
+    index = $scope.articleModel.links.indexOf(item)
+    $scope.articleModel.links.splice(index, 1)
+    if $scope.articleModel.links.length == 0
+      $scope.articleModel.links = undefined
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
     article.publish = article.publish_moment.valueOf()
-    $http.post("/admin/article", article)
+    $http.post("/t/article", article)
     .error (data, status) ->
       $scope.processResponse(data)
     .success (data) ->

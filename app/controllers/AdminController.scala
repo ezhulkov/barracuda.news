@@ -61,7 +61,7 @@ class AdminController @Inject()(
     }
     val articles = JsArray(articleService.allArticles(false).map(t => Json.obj(
       "id" -> JsNumber(t.id.get),
-      "label" -> JsString(t.translationOrDefault(Language.DEFAULT).caption)
+      "name" -> JsString(t.translationOrDefault(Language.DEFAULT).caption)
     )))
     articleOpt.map(t => Json.toJson(t)) match {
       case Some(article) => Ok(views.html.admin.article(Json.stringify(article), Json.stringify(tags), Json.stringify(langs), Json.stringify(articles)))

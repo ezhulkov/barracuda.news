@@ -213,10 +213,27 @@ main.admin-area
         border-bottom: 1px solid $blackTextColor
         margin-bottom: -1px
       .links
+        +padding-leader(1/2)
         min-height: rhythm(1)
+        .link
+          +margin-trailer(1/2)
+          height: rhythm(1)
+          .sel
+            +span(11 no-gutter)
+            height: rhythm(1)
+            .chosen-container
+              margin-top: -4px
+              width: 100% !important
+            .chosen-single
+              height: rhythm(1)
+          .del
+            +t-small
+            +active-link($color: $darkBlueColor)
+            +span(1 no-gutter)
+            text-align: right
       .add-link
         +t-small
-        +active-link($color: $blackTextColor)
+        +active-link($color: $darkBlueColor)
 
     article.edit
       +rhythm-margins(0)

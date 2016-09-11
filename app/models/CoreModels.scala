@@ -73,7 +73,7 @@ object CoreModels {
     publish: DateTime,
     tags: Seq[Tag] = Nil,
     translations: Seq[Translation] = Nil,
-    crossLinks: Seq[Article] = Nil
+    crossLinks: Option[Seq[Article]] = None
   ) {
     val publishFormatted      = publish.toString(dateFormat)
     val publishShortFormatted = publish.toString("YYYY-MM-dd-")
@@ -81,8 +81,10 @@ object CoreModels {
     def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
     def translation(lang: Language) = translations.find(t => t.lang == lang)
+    def translationOrDefault: Translation = translationOrDefault(Language.DEFAULT)
     def translationOrDefault(lang: Language) = translation(lang).orElse(translation(Language.DEFAULT)).getOrElse(translations.head)
     def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
+    def withCrossLinks(crossLinks: Option[Seq[Article]]) = copy(crossLinks = crossLinks)
   }
   case class Translation(id: Option[Long], articleId: Option[Long], lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
     def searchMatch(q: String) = {
