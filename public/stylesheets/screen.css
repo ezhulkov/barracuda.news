@@ -1655,6 +1655,7 @@ article p.photo-caption {
   font-size: 0.833rem;
   line-height: 24px;
   line-height: 1.5rem;
+  margin-top: -3rem;
   text-align: center;
 }
 article p {
