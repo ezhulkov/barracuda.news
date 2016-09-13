@@ -52,7 +52,7 @@
                     @if(article.crossArticles.nonEmpty) {
                         <div class="related news-list">
                             <h3>@Messages("see.more")</h3>
-                            <div class="news-list">
+                            <div class="news-list cut-images">
                             @for(item <- article.crossArticles) {
                                 <div class="item">
                                     <div class="photo">@item.coverMedia.map { t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
@@ -68,5 +68,7 @@
 
             </section>
         </article>
+
+
 
     }

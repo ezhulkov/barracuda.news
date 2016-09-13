@@ -1,14 +1,20 @@
 $ ->
   $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active')
 
+@baseLine = 24
+
 @activateMenu = (id) ->
   $(id).addClass('active')
 
 $(window).load ->
   $(".article-body img,.article-header img").keepTheRhythm({
-    baseLine: 24,
+    baseLine: baseLine,
     spacing: "margin"
   })
+  $(".cut-images img").each (i, e)->
+    h = $(e).height()
+    if(h % baseLine != 0)
+      $(e).closest(".photo").height(h - h % baseLine)
 
 Array::filter = (func) -> x for x in @ when func(x)
 
