@@ -1,13 +1,17 @@
 package controllers
 
 import jp.t2v.lab.play2.auth._
-import models.{Account, Role}
+import models.Account
+import models.Role
 import play.api.Logger
+import play.api.mvc.RequestHeader
+import play.api.mvc.Result
 import play.api.mvc.Results._
-import play.api.mvc.{RequestHeader, Result}
 import utils.Configuration
-import scala.concurrent.{ExecutionContext, Future}
-import scala.reflect.{ClassTag, classTag}
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+import scala.reflect.ClassTag
+import scala.reflect.classTag
 
 /**
   * Created by ezhulkov on 27.08.16.
@@ -25,7 +29,8 @@ trait BnAuthConfig extends AuthConfig {
   def resolveUser(id: Id)(implicit ctx: ExecutionContext): Future[Option[User]] = Future.successful(Account.findByName(id))
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] = {
     Logger.info("Logged in")
-    Future.successful(Redirect(routes.AdminController.index()))
+    val uri = request.session.get("access_uri").getOrElse(routes.AdminController.index().url.toString)
+    Future.successful(Redirect(uri).withSession(request.session - "access_uri"))
   }
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext): Future[Result] = {
     Logger.info("Logged out")
@@ -36,7 +41,7 @@ trait BnAuthConfig extends AuthConfig {
     Future.successful {
       request.headers.get("X-Requested-With") match {
         case Some("XMLHttpRequest") => Unauthorized("Authentication failed")
-        case _ => Redirect(routes.AuthController.login())
+        case _ => Redirect(routes.AuthController.login()).withSession("access_uri" -> request.uri)
       }
     }
   }
