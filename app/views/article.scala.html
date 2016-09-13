@@ -1,74 +1,87 @@
-@(article: Article, translation: Translation)(implicit messages: Messages, lang: LanguageValue)
+@(article: Article, translation: Translation)(implicit messages: Messages, lang: LanguageValue, request: play.api.mvc.Request[_])
 
-    @caption(article: Article) = @{
-        article.translationOrDefault(Language.DEFAULT).caption
-    }
+@caption(article: Article) = @{
+    article.translationOrDefault(Language.DEFAULT).caption
+}
 
-    @url(article: Article) = @{
-        routes.FrontendController.article(article.url.getOrElse(article.id.toString))
-    }
+@url(article: Article) = @{
+    routes.FrontendController.article(article.url.getOrElse(article.id.toString))
+}
 
-    @layout.front(translation.caption) {
+@metaTags = {
 
-        <article>
-            <span class="close" ng-click="closeArticle()"></span>
-            <section class="container">
-                <div class="content-body">
-                    <div class="article-header">
-                        <h1>@translation.caption</h1>
-                        <div class="article-info">
-                            <span class="source">
-                            @article.origin match {
-                                case Some(t) => {
-                                    <a href="@t">@article.originDomain</a>
-                                }
-                                case None => {
-                                    "barracuda.news"
-                                }
+    <meta property="og:site_name" content="Barracuda.news" />
+    <meta property="og:title" content="@translation.caption" />
+    <meta property="og:url" content="https://barracuda.news@request.path" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_EN" />
+    <meta property="og:image" content="@article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png")" />
+    <link rel="image_src" href="@article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png")"/>
+    <meta name="twitter:image" content="@article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png")"/>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="barracuda.news" />
+    <meta name="twitter:title" content="@translation.caption" />
+}
+
+@layout.front(translation.caption, metaTags = metaTags) {
+
+    <article>
+        <span class="close" ng-click="closeArticle()"></span>
+        <section class="container">
+            <div class="content-body">
+                <div class="article-header">
+                    <h1>@translation.caption</h1>
+                    <div class="article-info">
+                        <span class="source">
+                        @article.origin match {
+                            case Some(t) => {
+                                <a href="@t">@article.originDomain</a>
                             }
-                            </span>
-                            <span class="date">@article.publishFormatted</span>
-                        </div>
-                        @article.coverMedia.map { t =>
-                            <div class="cover-image">
-                                <img src="@t" alt=""/>
-                            </div>
-                        }
-                    </div>
-                    <div class="article-body">
-                        @Html(translation.text)
-                        @article.origin.map { t =>
-                            <blockquote class="source-quote">
-                                <a href="@t" target="_blank">
-                                    <p>@translation.caption</p>
-                                    <cite class="source">@article.originDomain</cite>
-                                </a>
-                            </blockquote>
-                        }
-                    </div>
-                    <div class="adv">
-                    @components.adv()
-                    </div>
-                    @if(article.crossArticles.nonEmpty) {
-                        <div class="related news-list">
-                            <h3>@Messages("see.more")</h3>
-                            <div class="news-list cut-images">
-                            @for(item <- article.crossArticles) {
-                                <div class="item">
-                                    <div class="photo">@item.coverMedia.map { t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
-                                    <h2><a href="@url(item)">@caption(item)</a></h2>
-                                    <div class="date">@item.publishFormatted</div>
-                                </div>
+                            case None => {
+                                "barracuda.news"
                             }
-                            </div>
+                        }
+                        </span>
+                        <span class="date">@article.publishFormatted</span>
+                    </div>
+                    @article.coverMedia.map { t =>
+                        <div class="cover-image">
+                            <img src="@t" alt=""/>
                         </div>
                     }
                 </div>
+                <div class="article-body">
+                    @Html(translation.text)
+                    @article.origin.map { t =>
+                        <blockquote class="source-quote">
+                            <a href="@t" target="_blank">
+                                <p>@translation.caption</p>
+                                <cite class="source">@article.originDomain</cite>
+                            </a>
+                        </blockquote>
+                    }
+                </div>
+                <div class="adv">
+                @components.adv()
+                </div>
+                @if(article.crossArticles.nonEmpty) {
+                    <div class="related news-list">
+                        <h3>@Messages("see.more")</h3>
+                        <div class="news-list cut-images">
+                        @for(item <- article.crossArticles) {
+                            <div class="item">
+                                <div class="photo">@item.coverMedia.map { t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
+                                <h2><a href="@url(item)">@caption(item)</a></h2>
+                                <div class="date">@item.publishFormatted</div>
+                            </div>
+                        }
+                        </div>
+                    </div>
+                }
+            </div>
 
 
-            </section>
-        </article>
+        </section>
+    </article>
 
-
-
-    }
+}
