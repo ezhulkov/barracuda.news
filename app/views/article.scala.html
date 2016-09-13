@@ -15,12 +15,12 @@
     <meta property="og:url" content="https://barracuda.news@request.path" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="en_EN" />
-    <meta property="og:image" content="@article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png")" />
-    <link rel="image_src" href="@article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png")"/>
-    <meta name="twitter:image" content="@article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png")"/>
+    <meta property="og:image" content="@Html(article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png"))" />
+    <meta name="twitter:image" content="@Html(article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png"))"/>
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="barracuda.news" />
     <meta name="twitter:title" content="@translation.caption" />
+    <link rel="image_src" href="@Html(article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png"))"/>
 }
 
 @layout.front(translation.caption, metaTags = metaTags) {
