@@ -57,8 +57,9 @@ class ArticleServiceImpl extends ArticleService {
   override def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article] = Mappers.Article.findByUrl(url).map(joinCrossLinks)
 
   private def joinCrossLinks(article: Article) = {
-    val links = Mappers.CrossLinkArticle.findByArticleJoiningLinks(article)
-    article.withCrossLinks(links.flatMap(t => t.linkArticle))
+    val links = Mappers.CrossLinkArticle.findByArticle(article)
+    val articles = Mappers.Article.findAllByIdsSeq(links.map(t => t.linkId))
+    article.withCrossLinks(articles)
   }
 
   private def trySaveArticle(article: Article)(implicit s: DBSession): Try[Long] = {

@@ -1,8 +1,7 @@
 @(article: Article, translation: Translation)(implicit messages: Messages, lang: LanguageValue)
 
     @caption(article: Article) = @{
-        //        article.translationOrDefault(Language.DEFAULT).caption
-        "Caption"
+        article.translationOrDefault(Language.DEFAULT).caption
     }
 
     @url(article: Article) = @{
