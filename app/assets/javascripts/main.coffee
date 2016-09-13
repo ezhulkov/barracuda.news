@@ -162,6 +162,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
   $scope.articleModel = angular.copy($window.articleModel)
   $scope.articleLinks = angular.copy($window.articleLinks)
   $scope.articleModel.publish_moment = moment($scope.articleModel.publish)
+  $scope.articleModel.crossLinks = $scope.articleModel.crossLinks.map (id)-> {id: id.toString()}
   $scope.tags = angular.copy($window.tags)
   $scope.alloyConfig = $window.alloyConfig
   $scope.loading = false
@@ -186,21 +187,22 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
     $window.open("http://barracuda.news/article/" + $scope.articleModel.id, "_blank")
     return true
   $scope.addLink = ->
-    if($scope.articleModel.links == undefined)
-      $scope.articleModel.links = []
-    if(($scope.articleModel.links.find (s)-> s.id == 0) == undefined )
-      $scope.articleModel.links.push({id: 0})
+    if($scope.articleModel.crossLinks == undefined)
+      $scope.articleModel.crossLinks = []
+    if(($scope.articleModel.crossLinks.find (s)-> s.id == 0) == undefined )
+      $scope.articleModel.crossLinks.push({id: "0"})
   $scope.delLink = (link) ->
-    item = $scope.articleModel.links.find (a)-> a.id == link.id
-    index = $scope.articleModel.links.indexOf(item)
-    $scope.articleModel.links.splice(index, 1)
-    if $scope.articleModel.links.length == 0
-      $scope.articleModel.links = undefined
+    item = $scope.articleModel.crossLinks.find (a)-> a.id == link.id
+    index = $scope.articleModel.crossLinks.indexOf(item)
+    $scope.articleModel.crossLinks.splice(index, 1)
+    if $scope.articleModel.crossLinks.length == 0
+      $scope.articleModel.crossLinks = undefined
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
     article.publish = article.publish_moment.valueOf()
-    $http.post("/t/article", article)
+    article.crossLinks = article.crossLinks.map (t)-> parseInt(t.id)
+    $http.post("/admin/article", article)
     .error (data, status) ->
       $scope.processResponse(data)
     .success (data) ->

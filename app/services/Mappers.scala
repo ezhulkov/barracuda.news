@@ -1,10 +1,15 @@
 package services
 
+import models.CoreModels.Article
 import models.CoreModels.Language.Language
-import models.CoreModels.{Article, _}
+import models.CoreModels._
 import org.joda.time.DateTime
-import scalikejdbc.{DBSession, WrappedResultSet, autoConstruct, _}
-import skinny.orm.{SkinnyCRUDMapper, SkinnyJoinTable}
+import scalikejdbc.DBSession
+import scalikejdbc.WrappedResultSet
+import scalikejdbc._
+import scalikejdbc.autoConstruct
+import skinny.orm.SkinnyCRUDMapper
+import skinny.orm.SkinnyJoinTable
 import scala.util.Try
 
 /**
@@ -115,7 +120,8 @@ object Mappers {
       fk = "linkId",
       merge = (link, article) => link.copy(linkArticle = article)
     )
-    def findAllBy(article: Article) = joins(articleRef).findAllBy(sqls.eq(defaultAlias.articleId, article.id.get))
+    def findByArticle(article: Article) = findAllBy(sqls.eq(defaultAlias.articleId, article.id.get))
+    def findByArticleJoiningLinks(article: Article) = joins(articleRef).findAllBy(sqls.eq(defaultAlias.articleId, article.id.get))
     def create(articleId: Long, linkId: Long): Try[Any] = Try(CrossLinkArticle.createWithAttributes('articleId -> articleId, 'linkId -> linkId))
     def deleteForArticle(articleId: Long) = CrossLinkArticle.deleteBy(sqls.eq(ArticleTag.column.articleId, articleId))
   }

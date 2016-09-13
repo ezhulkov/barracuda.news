@@ -73,10 +73,11 @@ object CoreModels {
     publish: DateTime,
     tags: Seq[Tag] = Nil,
     translations: Seq[Translation] = Nil,
-    crossLinks: Option[Seq[Article]] = None
+    crossLinks: Option[Seq[Long]] = None
   ) {
-    val publishFormatted      = publish.toString(dateFormat)
-    val publishShortFormatted = publish.toString("YYYY-MM-dd-")
+    val publishFormatted            = publish.toString(dateFormat)
+    val publishShortFormatted       = publish.toString("YYYY-MM-dd-")
+    var crossArticles: Seq[Article] = Nil
     def transliteratedUrl = translations.find(t => t.lang == Language.DEFAULT && StringUtils.isNotEmpty(t.caption)).map(t => Utils.transliterate(t.caption)).getOrElse(id.toString)
     def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
@@ -84,7 +85,11 @@ object CoreModels {
     def translationOrDefault: Translation = translationOrDefault(Language.DEFAULT)
     def translationOrDefault(lang: Language) = translation(lang).orElse(translation(Language.DEFAULT)).getOrElse(translations.head)
     def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
-    def withCrossLinks(crossLinks: Option[Seq[Article]]) = copy(crossLinks = crossLinks)
+    def withCrossLinks(links: Seq[Article]) = {
+      val c = copy(crossLinks = Some(links.flatMap(t => t.id)))
+      c.crossArticles=links
+      c
+    }
   }
   case class Translation(id: Option[Long], articleId: Option[Long], lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
     def searchMatch(q: String) = {

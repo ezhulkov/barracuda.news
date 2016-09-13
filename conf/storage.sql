@@ -10,8 +10,11 @@ INSERT INTO article_tag VALUES (1, 2);
 INSERT INTO news_media (translation_id, url) VALUES (1, 'url1');
 INSERT INTO news_media (translation_id, url) VALUES (2, 'url2');
 
-update translation set text=replace(text,'style="text-align: justify; line-height: normal;"','');
-update translation set text=replace(text,'style="text-align:justify;line-height:normal;"','');
-update translation set text=replace(text,'style="text-align:justify;"','');
-update translation set text=replace(text,'style="line-height:normal;"','');
-update translation set text=replace(text,'style="text-align:justify;line-height:115%;"','');
+update translation set text=replace(text,'line-height:115%;','');
+update translation set text=replace(text,'line-height:normal;','');
+update translation set text=replace(text,'text-align:justify;','');
+update translation set text=replace(text,'line-height:150%;','');
+update translation set text=replace(text,'margin-bottom:6.0pt;','');
+update translation set text=replace(text,'margin-bottom:0cm;margin-bottom:.0001pt;','');
+update translation set text=replace(text,'margin-top:0cm;margin-right:0cm;margin-left:0cm;','');
+update translation set text=replace(text,'style=""','');

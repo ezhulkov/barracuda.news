@@ -70,15 +70,15 @@ main.admin-area
     ul
       +padding-leader(1)
       li
-        padding-left: 10px
-        padding-right: 10px
+        +pad($pad-col, $pad-col)
       a
         +btn($hoverBgColor: white, $hover: $blackTextColor)
         width: 100%
         margin-bottom: 3px
     ul.langs
+      +padding-trailer(1)
+      border-bottom: 1px solid $whiteColor
       li
-        padding-left: 10px
         input
           margin-right: 5px
   &.submenu-on .main-section
@@ -226,6 +226,8 @@ main.admin-area
               width: 100% !important
             .chosen-single
               height: rhythm(1)
+            .chosen-drop,.chosen-single
+              +border-radius(0)
           .del
             +t-small
             +active-link($color: $darkBlueColor)

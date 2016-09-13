@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .content-body {
   padding-top: 1.5em;
-  padding-bottom: 6em;
+  padding-bottom: 3em;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -1505,6 +1505,11 @@ article .article-header .cover-image {
   padding-top: 24px;
   padding-top: 1.5rem;
 }
+article .article-header .cover-image img {
+  display: block;
+  max-width: 100%;
+  margin: auto;
+}
 article .article-header .article-info {
   font-size: 13px;
   font-size: 0.833rem;
@@ -1522,22 +1527,6 @@ article .article-header .article-info {
 }
 article .article-header .article-info > span {
   margin-right: 1.5rem;
-}
-article .article-body {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-  float: left;
-}
-@media screen and (min-width: 60em) {
-  article .article-body {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 66.66667%;
-    float: left;
-  }
 }
 article .adv {
   padding-left: 20px;
@@ -1560,6 +1549,81 @@ article .adv {
     width: 300px;
     height: 500px;
   }
+}
+article .article-body {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  float: left;
+}
+@media screen and (min-width: 60em) {
+  article .article-body {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 66.66667%;
+    float: left;
+  }
+}
+article .article-body p.q:before, article .article-body p.a:before {
+  content: "—";
+  padding-right: 5px;
+}
+article .article-body p.q {
+  font-weight: 700;
+}
+article .article-body p.photo-caption {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  margin-top: -3rem;
+  text-align: center;
+}
+article .article-body p {
+  word-break: break-all;
+  word-break: break-word;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
+  display: block;
+}
+article .article-body cite {
+  display: block;
+}
+article .article-body strong {
+  font-weight: 700;
+}
+article .article-body em {
+  font-style: italic;
+}
+article .article-body img, article .article-body iframe {
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
+  display: block;
+  max-width: 100%;
+  margin: auto;
+}
+article .article-body h2, article .article-body h3, article .article-body h4 {
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
+}
+article .related {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 66.66667%;
+  float: left;
+}
+article .related h3 {
+  border-bottom: 2px solid #f26522;
+}
+article .related .news-list {
+  margin-top: -2px;
 }
 article .source, article .date {
   font-size: 13px;
@@ -1642,52 +1706,6 @@ article .source-quote cite {
 }
 article .source-quote:hover p {
   border-bottom: 1px solid #f26522;
-}
-article p.q:before, article p.a:before {
-  content: "—";
-  padding-right: 5px;
-}
-article p.q {
-  font-weight: 700;
-}
-article p.photo-caption {
-  font-size: 13px;
-  font-size: 0.833rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  margin-top: -3rem;
-  text-align: center;
-}
-article p {
-  word-break: break-all;
-  word-break: break-word;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-  padding-bottom: 24px;
-  padding-bottom: 1.5rem;
-  display: block;
-}
-article cite {
-  display: block;
-}
-article strong {
-  font-weight: 700;
-}
-article em {
-  font-style: italic;
-}
-article img, article iframe {
-  padding-bottom: 24px;
-  padding-bottom: 1.5rem;
-  display: block;
-  max-width: 100%;
-  margin: auto;
-}
-article h2, article h3, article h4 {
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
 }
 
 main.admin-area {
@@ -1811,8 +1829,10 @@ main.admin-area aside.sub-menu ul {
   padding-top: 1.5rem;
 }
 main.admin-area aside.sub-menu ul li {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-left: 1.25rem;
+  padding-right: 20px;
+  padding-right: 1.25rem;
 }
 main.admin-area aside.sub-menu ul a {
   font-size: 13px;
@@ -1867,8 +1887,10 @@ main.admin-area aside.sub-menu ul a:hover, main.admin-area aside.sub-menu ul a:h
   background-color: white;
   text-decoration: none;
 }
-main.admin-area aside.sub-menu ul.langs li {
-  padding-left: 10px;
+main.admin-area aside.sub-menu ul.langs {
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #eee;
 }
 main.admin-area aside.sub-menu ul.langs li input {
   margin-right: 5px;
@@ -2181,6 +2203,11 @@ main.admin-area section.article-section .links .link .sel .chosen-container {
 }
 main.admin-area section.article-section .links .link .sel .chosen-single {
   height: 1.5rem;
+}
+main.admin-area section.article-section .links .link .sel .chosen-drop, main.admin-area section.article-section .links .link .sel .chosen-single {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
 }
 main.admin-area section.article-section .links .link .del {
   font-size: 13px;

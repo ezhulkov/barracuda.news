@@ -1,5 +1,14 @@
 @(article: Article, translation: Translation)(implicit messages: Messages, lang: LanguageValue)
 
+    @caption(article: Article) = @{
+        //        article.translationOrDefault(Language.DEFAULT).caption
+        "Caption"
+    }
+
+    @url(article: Article) = @{
+        routes.FrontendController.article(article.url.getOrElse(article.id.toString))
+    }
+
     @layout.front(translation.caption) {
 
         <article>
@@ -41,6 +50,20 @@
                     <div class="adv">
                     @components.adv()
                     </div>
+                    @if(article.crossArticles.nonEmpty) {
+                        <div class="related news-list">
+                            <h3>@Messages("see.more")</h3>
+                            <div class="news-list">
+                            @for(item <- article.crossArticles) {
+                                <div class="item">
+                                    <div class="photo">@item.coverMedia.map { t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
+                                    <h2><a href="@url(item)">@caption(item)</a></h2>
+                                    <div class="date">@item.publishFormatted</div>
+                                </div>
+                            }
+                            </div>
+                        </div>
+                    }
                 </div>
 
 

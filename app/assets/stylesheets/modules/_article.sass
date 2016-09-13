@@ -3,6 +3,7 @@
 @import "mixins"
 
 article
+  //+debug-vertical-alignment()
   +rhythm-margins(1)
   background-color: rgba(white, 1)
   position: relative
@@ -12,6 +13,10 @@ article
       +padding-trailer(1)
       .cover-image
         +padding-leader(1)
+        img
+          display: block
+          max-width: 100%
+          margin: auto
       .article-info
         +t-small
         color: $blackColor4
@@ -22,10 +27,6 @@ article
           margin-bottom: 0
         & > span
           margin-right: rhythm(1)
-    .article-body
-      +span(12 no-gutter)
-      +desktop-media
-        +span(8 no-gutter)
     .adv
       padding-left: $pad-col
       display: none
@@ -38,6 +39,43 @@ article
         #swiffycontainer
           width: 300px
           height: 500px
+    .article-body
+      +span(12 no-gutter)
+      +desktop-media
+        +span(8 no-gutter)
+      p.q:before, p.a:before
+        content: "—"
+        padding-right: 5px
+      p.q
+        +t-strong
+      p.photo-caption
+        +t-small
+        margin-top: - rhythm(2)
+        text-align: center
+      p
+        +hyphenation
+        +padding-trailer(1)
+        display: block
+      cite
+        display: block
+      strong
+        +t-strong
+      em
+        font-style: italic
+      img, iframe
+        +padding-trailer(1)
+        display: block
+        max-width: 100%
+        margin: auto
+      #{headers(2,4)}
+        +margin-trailer(1)
+    .related
+      +span(8 no-gutter)
+      h3
+        //width: 50%
+        border-bottom: 2px solid $activeLink
+      .news-list
+        margin-top: - 2px
     .source, .date
       +t-small
     .source a
@@ -70,29 +108,3 @@ article
         margin-top: -1px
       &:hover p
         border-bottom: 1px solid $activeLink
-    p.q:before, p.a:before
-      content: "—"
-      padding-right: 5px
-    p.q
-      +t-strong
-    p.photo-caption
-      +t-small
-      margin-top: - rhythm(2)
-      text-align: center
-    p
-      +hyphenation
-      +padding-trailer(1)
-      display: block
-    cite
-      display: block
-    strong
-      +t-strong
-    em
-      font-style: italic
-    img, iframe
-      +padding-trailer(1)
-      display: block
-      max-width: 100%
-      margin: auto
-    #{headers(2,4)}
-      +margin-trailer(1)
