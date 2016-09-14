@@ -3,6 +3,7 @@
   with_items:
     - "/var/log/barracuda"
     - "/var/lib/barracuda"
+    - "/usr/share/barracuda/media"
     - "/run"
 
 - name: copy init.d

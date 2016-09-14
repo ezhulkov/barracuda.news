@@ -168,10 +168,11 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
   $scope.articleModel = angular.copy($window.articleModel)
   $scope.articleLinks = angular.copy($window.articleLinks)
   $scope.articleModel.publish_moment = moment($scope.articleModel.publish)
-  $scope.articleModel.crossLinks = $scope.articleModel.crossLinks.map (id)-> {id: id.toString()}
   $scope.tags = angular.copy($window.tags)
   $scope.alloyConfig = $window.alloyConfig
   $scope.loading = false
+  if($scope.articleModel.crossLinks != undefined)
+    $scope.articleModel.crossLinks = $scope.articleModel.crossLinks.map (id)-> {id: id.toString()}
   $scope.findTranslation = () ->
     (t for t in $scope.articleModel.translations when t.lang is $scope.selectedLang.value)[0]
   $scope.translation = $scope.findTranslation()
@@ -213,7 +214,8 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
     $scope.loading = true
     article = angular.copy($scope.articleModel)
     article.publish = article.publish_moment.valueOf()
-    article.crossLinks = article.crossLinks.map (t)-> parseInt(t.id)
+    if(article.crossLinks != undefined)
+      article.crossLinks = article.crossLinks.map (t)-> parseInt(t.id)
     $http.post("/admin/article", article)
     .error (data, status) ->
       $scope.processResponse(data)

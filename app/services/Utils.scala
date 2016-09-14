@@ -85,14 +85,9 @@ object Utils {
   )
 
   def transliterate(text: String): String = {
-    Option(text).map(_.trim).filter(StringUtils.isNotEmpty)
-      .map(_.toLowerCase).map(_.replaceAll("(:|\\[|\\]|\r\n|\r|\n|\n\r|\t| )", " ")).map { t =>
-      val strResult: StringBuilder = new StringBuilder
-      val textChars: Array[Char] = text.toCharArray
-      for (textChar <- textChars) {
-        strResult.append(symbolMap.getOrElse(textChar, textChar.toString))
-      }
-      strResult.toString.toLowerCase.take(64)
+    Option(text).map(_.toLowerCase.trim).filter(StringUtils.isNotEmpty).map { t =>
+      val textChars: Array[Char] = t.toCharArray
+      textChars.flatMap(ch => symbolMap.get(ch)).mkString.toLowerCase.trim.take(64)
     }.getOrElse(text)
   }
 
