@@ -595,6 +595,7 @@ header .menu ul a, header .menu ul div {
   text-transform: uppercase;
   display: block;
   position: relative;
+  -webkit-font-smoothing: initial;
 }
 header .menu ul.tools {
   float: right;
