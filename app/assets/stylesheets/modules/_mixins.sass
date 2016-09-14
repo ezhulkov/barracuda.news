@@ -35,20 +35,22 @@
   +breakpoint((max-width $desktopWidth) (min-width $tabletWidth))
     @content
 
+=md-size
+  +t-base
+  height: rhythm(3/2)
+  line-height: rhythm(3/2)
+
+=lg-size
+  +t-base
+  height: rhythm(2)
+  line-height: rhythm(2)
+
 =form-control
   +t-small
   +rhythm-padding(0)
   height: rhythm(1)
   line-height: rhythm(1)
   width: 100%
-  &.md
-    +t-base
-    height: rhythm(3/2)
-    line-height: rhythm(3/2)
-  &.lg
-    +t-base
-    height: rhythm(2)
-    line-height: rhythm(2)
 
 =hover-img
   opacity: 1

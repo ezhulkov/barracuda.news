@@ -203,6 +203,12 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
     $scope.articleModel.crossLinks.splice(index, 1)
     if $scope.articleModel.crossLinks.length == 0
       $scope.articleModel.crossLinks = undefined
+  $scope.delete = ->
+    $http.delete("/admin/article/" + $scope.articleModel.id)
+    .error (data, status) ->
+      console.log("error")
+    .success (data) ->
+      $window.location.pathname = data.redirect_url
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)

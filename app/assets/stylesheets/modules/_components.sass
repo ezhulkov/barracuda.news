@@ -48,10 +48,38 @@
 
 .inp
   +form-control
-  +pad(10px,10px)
+  +pad(10px, 10px)
   border: 1px solid gray
   -webkit-appearance: none
   -webkit-border-radius: 0
+  &.md
+    +md-size
+  &.lg
+    +lg-size
 
 .btn
   +btn
+  &.md
+    +md-size
+  &.lg
+    +lg-size
+
+.remodal-overlay
+  background: rgba(0, 0, 0, 0.8)
+
+.remodal
+  +pad($pad-col, $pad-col)
+  max-width: 98%
+  .controls
+    input
+      +btn($hoverBgColor: white, $hover: $blackTextColor)
+      +md-size
+      margin-bottom: 3px
+  +tablet-media
+    max-width: 400px
+    .controls
+      +display-flex()
+      +flex-direction(row)
+      input
+        +flex(1 1 auto)
+        margin: 0 $pad-col/2

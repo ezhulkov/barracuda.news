@@ -52,7 +52,8 @@ class AdminController @Inject()(
     }
   }
   def articleDelete(id: Long) = StackAction(AuthorityKey -> Administrator) { implicit request =>
-    Redirect(routes.AdminController.index())
+    articleService.deleteArticle(id)
+    Ok(Json.obj("result" -> "Article deleted!", "redirect_url" -> routes.AdminController.index().url.toString)).as(JSON)
   }
   def getArticle(idOpt: Option[Long]) = StackAction(AuthorityKey -> Administrator) { implicit request =>
     val articleOpt = idOpt match {

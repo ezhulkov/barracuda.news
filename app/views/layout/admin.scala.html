@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.css")">
     <link rel="stylesheet" href="@routes.Assets.versioned("lib/chosen/chosen.min.css")">
     <link rel="stylesheet" href="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.css")">
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/remodal/dist/remodal.css")">
+    <link rel="stylesheet" href="@routes.Assets.versioned("lib/remodal/dist/remodal-default-theme.css")">
 }
 
 @jsFiles = {
@@ -15,6 +17,7 @@
     <script src="@routes.Assets.versioned("lib/moment-timezone/builds/moment-timezone.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("lib/angular-chosen-localytics/dist/angular-chosen.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("lib/chosen/chosen.jquery.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("lib/remodal/dist/remodal.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("javascripts/paging.min.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
 }
@@ -45,7 +48,7 @@
             </aside>
 
             @subMenu.map { menu =>
-            <aside class="sub-menu">
+            <aside class="sub-menu ng-cloak">
                 @menu
             </aside>
             }.orNull

@@ -1,104 +1,115 @@
 @(article: String, tags: String, langs: String, articleNames: String)(implicit user: Account)
 
-@sidebar = {
-    <ul class="langs">
-        <li ng-repeat="l in langs">
-            <input type="radio" name="lang" id="{{l.value}}" ng-value="l" ng-model="$parent.selectedLang" ng-change="changeLang()"/><label for="{{l.value}}">{{l.label}}</label>
-        </li>
-    </ul>
-    <ul>
-        <li ng-hide="articleModel.id">
-            <a href="#" ng-click="save()">Create</a>
-        </li>
-        <li ng-show="articleModel.id">
-            <a href="#" ng-click="save()">Save</a>
-        </li>
-        <li ng-show="articleModel.id">
-            <a href="#" ng-click="delete()">Delete</a>
-        </li>
-        <li ng-show="articleModel.id">
-            <a href="#" ng-click="show()">Show</a>
-        </li>
-    </ul>
-}
-
-@layout.admin("article-section", subMenu = Some(sidebar), activeMenu = Some("#news"), controller = Some("ArticleController")) {
-
-    <div>
-        <ul class="breadcrumbs">
-            <li><a href="@routes.AdminController.index">News</a></li>
-            <li>{{translation.caption}}</li>
+    @sidebar = {
+        <ul class="langs">
+            <li ng-repeat="l in langs">
+                <input type="radio" name="lang" id="{{l.value}}" ng-value="l" ng-model="$parent.selectedLang" ng-change="changeLang()"/><label for="{{l.value}}">{{l.label}}</label>
+            </li>
         </ul>
-        <fieldset>
-            <dl class="tags">
-                <dt><label for="tags">Tags:</label></dt>
-                <dd>
-                    <tags-input id="tags" class="tags-input" ng-model="articleModel.tags" placeholder="Add tags" add-on-paste="true">
-                        <auto-complete min-length="0" load-on-focus="true" load-on-empty="true" source="loadTags($query)"></auto-complete>
-                    </tags-input>
-                </dd>
-            </dl>
-            <dl class="publish">
-                <dt><label for="publish">Publish date:</label></dt>
-                <dd><input type="text" date-time view="hours" timezone="Europe/Moscow" format="YYYY/MM/D HH:mm z" name="publish" ng-model="articleModel.publish_moment"></dd>
-            </dl>
-            <dl class="origin">
-                <dt><label for="origin">Original url (optional):</label></dt>
-                <dd><input type="text" name="origin" ng-model="articleModel.origin"></dd>
-            </dl>
-            <dl class="cover">
-                <dt><label for="cover">Cover media (optional):</label></dt>
-                <dd><input type="text" name="cover" ng-model="articleModel.coverMedia"></dd>
-            </dl>
-        </fieldset>
-        <fieldset>
-            <div class="lang-label">Cross links:
-                <a href="#" ng-click="addLink()" class="pull-right add-link">Add link</a>
-            </div>
-            <div class="links">
-                <div class="link" ng-repeat="link in articleModel.crossLinks">
-                    <div class="sel">
-                        <select chosen
-                        ng-model="link.id"
-                        data-placeholder="Choose cross article...">
-                            <option ng-repeat="option in articleLinks" value="{{option.id}}">{{option.name}}</option>
-                        </select>
-                    </div>
-                    <div class="del">
-                        <a href="#" ng-click="delLink(link)">Delete</a>
+        <ul>
+            <li ng-hide="articleModel.id">
+                <a href="#" ng-click="save()">Create</a>
+            </li>
+            <li ng-show="articleModel.id">
+                <a href="#" ng-click="save()">Save</a>
+            </li>
+            <li ng-show="articleModel.id">
+                <a data-remodal-target="delete-modal">Delete</a>
+            </li>
+            <li ng-show="articleModel.id">
+                <a href="#" ng-click="show()">Show</a>
+            </li>
+        </ul>
+
+    }
+
+    @layout.admin("article-section", subMenu = Some(sidebar), activeMenu = Some("#news"), controller = Some("ArticleController")) {
+
+        <div>
+            <ul class="breadcrumbs">
+                <li><a href="@routes.AdminController.index">News</a></li>
+                <li>{{translation.caption}}</li>
+            </ul>
+            <fieldset>
+                <dl class="tags">
+                    <dt><label for="tags">Tags:</label></dt>
+                    <dd>
+                        <tags-input id="tags" class="tags-input" ng-model="articleModel.tags" placeholder="Add tags" add-on-paste="true">
+                            <auto-complete min-length="0" load-on-focus="true" load-on-empty="true" source="loadTags($query)"></auto-complete>
+                        </tags-input>
+                    </dd>
+                </dl>
+                <dl class="publish">
+                    <dt><label for="publish">Publish date:</label></dt>
+                    <dd><input type="text" date-time view="hours" timezone="Europe/Moscow" format="YYYY/MM/D HH:mm z" name="publish" ng-model="articleModel.publish_moment"></dd>
+                </dl>
+                <dl class="origin">
+                    <dt><label for="origin">Original url (optional):</label></dt>
+                    <dd><input type="text" name="origin" ng-model="articleModel.origin"></dd>
+                </dl>
+                <dl class="cover">
+                    <dt><label for="cover">Cover media (optional):</label></dt>
+                    <dd><input type="text" name="cover" ng-model="articleModel.coverMedia"></dd>
+                </dl>
+            </fieldset>
+            <fieldset>
+                <div class="lang-label">Cross links:
+                    <a href="#" ng-click="addLink()" class="pull-right add-link">Add link</a>
+                </div>
+                <div class="links">
+                    <div class="link" ng-repeat="link in articleModel.crossLinks">
+                        <div class="sel">
+                            <select chosen
+                            ng-model="link.id"
+                            data-placeholder="Choose cross article...">
+                                <option ng-repeat="option in articleLinks" value="{{option.id}}">{{option.name}}</option>
+                            </select>
+                        </div>
+                        <div class="del">
+                            <a href="#" ng-click="delLink(link)">Delete</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </fieldset>
-        <fieldset>
-            <div class="lang-label">{{selectedLang.label}}:</div>
-            <dl class="caption">
-                <dd><input id="caption" type="text" name="caption" ng-model="translation.caption" placeholder="Caption"></dd>
-            </dl>
-            <dl>
-                <dd>
-                    <article class="edit">
-                        <section class="container">
-                            <div class="article-body">
-                                <alloy-editor id="article_editor" ng-model="translation.text" config="alloyConfig"></alloy-editor>
-                            </div>
-                            <div class="adv">
-                                <div class="banner">
-                                    <img src="http://placehold.it/300x600">
+            </fieldset>
+            <fieldset>
+                <div class="lang-label">{{selectedLang.label}}:</div>
+                <dl class="caption">
+                    <dd><input id="caption" type="text" name="caption" ng-model="translation.caption" placeholder="Caption"></dd>
+                </dl>
+                <dl>
+                    <dd>
+                        <article class="edit">
+                            <section class="container">
+                                <div class="article-body">
+                                    <alloy-editor id="article_editor" ng-model="translation.text" config="alloyConfig"></alloy-editor>
                                 </div>
-                            </div>
-                        </section>
-                    </article>
-                </dd>
-            </dl>
-        </fieldset>
+                                <div class="adv">
+                                    <div class="banner">
+                                        <img src="http://placehold.it/300x600">
+                                    </div>
+                                </div>
+                            </section>
+                        </article>
+                    </dd>
+                </dl>
+            </fieldset>
 
-    </div>
-    <script type="application/javascript">
-            var articleModel = @Html(article);
-            var articleLinks = @Html(articleNames);
-            var tags = @Html(tags);
-            var langs = @Html(langs);
-    </script>
+        </div>
 
-}
+        <div class="remodal" data-remodal-id="delete-modal">
+            <h3>Delete article?</h3>
+            <br>
+            <div class="controls">
+                <input data-remodal-action="cancel" type="button" value="Cancel">
+                <input data-remodal-action="confirm" type="button" value="Delete" ng-click="delete()">
+            </div>
+        </div>
+
+        <script type="application/javascript">
+                var articleModel = @Html(article);
+                var articleLinks = @Html(articleNames);
+                var tags = @Html(tags);
+                var langs = @Html(langs);
+        </script>
+
+    }

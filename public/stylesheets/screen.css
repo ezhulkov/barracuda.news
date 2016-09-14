@@ -340,22 +340,6 @@ html {
   line-height: 1.5rem;
   width: 100%;
 }
-.form-control.md {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  height: 2.25rem;
-  line-height: 2.25rem;
-}
-.form-control.lg {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  height: 3rem;
-  line-height: 3rem;
-}
 
 .inp {
   font-size: 13px;
@@ -414,6 +398,21 @@ html {
   text-transform: uppercase;
   border: 1px solid #f26522;
 }
+.btn, .btn * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: white;
+  background-color: #f26522;
+  text-decoration: none;
+}
+.btn:hover, .btn:hover * {
+  color: #ddd !important;
+  background-color: #1E1E1E;
+  text-decoration: none;
+}
 .btn.md {
   font-size: 16px;
   font-size: 1rem;
@@ -430,7 +429,46 @@ html {
   height: 3rem;
   line-height: 3rem;
 }
-.btn, .btn * {
+
+.remodal-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.remodal {
+  padding-left: 20px;
+  padding-left: 1.25rem;
+  padding-right: 20px;
+  padding-right: 1.25rem;
+  max-width: 98%;
+}
+.remodal .controls input {
+  font-size: 13px;
+  font-size: 0.833rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  padding-top: 0px;
+  padding-top: 0rem;
+  padding-bottom: 0px;
+  padding-bottom: 0rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  width: 100%;
+  text-align: center;
+  display: block;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  outline: none;
+  text-transform: uppercase;
+  border: 1px solid #f26522;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  margin-bottom: 3px;
+}
+.remodal .controls input, .remodal .controls input * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -440,10 +478,26 @@ html {
   background-color: #f26522;
   text-decoration: none;
 }
-.btn:hover, .btn:hover * {
-  color: #ddd !important;
-  background-color: #1E1E1E;
+.remodal .controls input:hover, .remodal .controls input:hover * {
+  color: #333 !important;
+  background-color: white;
   text-decoration: none;
+}
+@media screen and (min-width: 48em) {
+  .remodal {
+    max-width: 400px;
+  }
+  .remodal .controls {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+  }
+  .remodal .controls input {
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin: 0 10px;
+  }
 }
 
 @media screen and (min-width: 48em) {
@@ -1862,22 +1916,6 @@ main.admin-area aside.sub-menu ul a {
   width: 100%;
   margin-bottom: 3px;
 }
-main.admin-area aside.sub-menu ul a.md {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  height: 2.25rem;
-  line-height: 2.25rem;
-}
-main.admin-area aside.sub-menu ul a.lg {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  height: 3rem;
-  line-height: 3rem;
-}
 main.admin-area aside.sub-menu ul a, main.admin-area aside.sub-menu ul a * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
@@ -2424,22 +2462,6 @@ main.login-area form .submit {
   text-transform: lowercase;
   height: 1.2rem;
   line-height: 1.2rem;
-}
-.tracking .races .race .replay.md {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  height: 2.25rem;
-  line-height: 2.25rem;
-}
-.tracking .races .race .replay.lg {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  height: 3rem;
-  line-height: 3rem;
 }
 .tracking .races .race .replay, .tracking .races .race .replay * {
   -moz-transition: all 0.2s ease-in-out;
