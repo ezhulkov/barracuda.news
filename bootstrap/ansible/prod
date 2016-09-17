@@ -2,4 +2,4 @@
 log_level=INFO
 
 [barracuda-portal]
-barracuda2.news
+barracuda.news
