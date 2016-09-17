@@ -1,39 +1,10 @@
 @import "vars"
 @import "compass"
-@import "breakpoint"
 @import "susy"
 
 =border($width: 1px, $color: grey)
   +box-sizing(border-box)
   border: $width solid $color !important
-
-=xdesktop-media
-  +breakpoint($xDesktopWidth)
-    @content
-
-=desktop-media
-  +breakpoint($desktopWidth)
-    @content
-
-=tablet-media
-  +breakpoint($tabletWidth)
-    @content
-
-=mobile-media
-  +breakpoint(max-width $tabletWidth - 1)
-    @content
-
-=lt-desktop-media
-  +breakpoint(max-width $desktopWidth - 1)
-    @content
-
-=lt-tablet-media
-  +breakpoint(max-width $tabletWidth - 1)
-    @content
-
-=eq-tablet-media-only
-  +breakpoint((max-width $desktopWidth) (min-width $tabletWidth))
-    @content
 
 =md-size
   +t-base
@@ -98,6 +69,3 @@
       +span(10 no-gutter)
       +pre(1 no-gutter)
       +post(1 no-gutter)
-
-.content-body
-  +content-body

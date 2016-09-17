@@ -1,7 +1,36 @@
-@import "mixins"
+@import "vars"
 @import "susy"
 @import "compass"
+@import "breakpoint"
 @import "compass/reset"
+
+=xdesktop-media
+  +breakpoint($xDesktopWidth)
+    @content
+
+=desktop-media
+  +breakpoint($desktopWidth)
+    @content
+
+=tablet-media
+  +breakpoint($tabletWidth)
+    @content
+
+=mobile-media
+  +breakpoint(max-width $tabletWidth - 1)
+    @content
+
+=lt-desktop-media
+  +breakpoint(max-width $desktopWidth - 1)
+    @content
+
+=lt-tablet-media
+  +breakpoint(max-width $tabletWidth - 1)
+    @content
+
+=eq-tablet-media-only
+  +breakpoint((max-width $desktopWidth) (min-width $tabletWidth))
+    @content
 
 body
   background-color: $bgColor
@@ -29,10 +58,6 @@ main
   min-height: 100vh
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-
-input[type='button'], input[type='text']
-  +appearance(none)
-  +border-radius(0)
 
 html, body
   height: 100%

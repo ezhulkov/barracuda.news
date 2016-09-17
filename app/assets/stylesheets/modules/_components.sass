@@ -2,6 +2,10 @@
 @import "compass"
 @import "typography"
 
+input[type='button'], input[type='text']
+  +appearance(none)
+  +border-radius(0)
+
 .float-right
   +float-right
 
@@ -67,6 +71,9 @@
 .remodal-overlay
   background: rgba(0, 0, 0, 0.8)
 
+.active-link
+  +active-link($color: $blackTextColor)
+
 .remodal
   +pad($pad-col, $pad-col)
   max-width: 98%
@@ -83,3 +90,11 @@
       input
         +flex(1 1 auto)
         margin: 0 $pad-col/2
+
+.content-body
+  +content-body
+  &.generic
+    #{headings()}
+      +margin-trailer(1)
+    p
+      +margin-trailer(1)

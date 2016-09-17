@@ -1,25 +1,4 @@
 @charset "UTF-8";
-.content-body {
-  padding-top: 1.5em;
-  padding-bottom: 3em;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-  float: left;
-}
-@media screen and (min-width: 80em) {
-  .content-body {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 83.33333%;
-    float: left;
-    margin-left: 8.33333%;
-    margin-right: 8.33333%;
-  }
-}
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -150,14 +129,6 @@ main {
   -moz-osx-font-smoothing: grayscale;
 }
 
-input[type='button'], input[type='text'] {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  border-radius: 0;
-}
-
 html, body {
   height: 100%;
 }
@@ -261,6 +232,14 @@ h4 {
 html {
   font-size: 100%;
   line-height: 1.5em;
+}
+
+input[type='button'], input[type='text'] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
 }
 
 .float-right {
@@ -434,6 +413,22 @@ html {
   background: rgba(0, 0, 0, 0.8);
 }
 
+.active-link, .active-link * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #333;
+  background-color: initial;
+  text-decoration: none;
+}
+.active-link:hover, .active-link:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
+}
+
 .remodal {
   padding-left: 20px;
   padding-left: 1.25rem;
@@ -498,6 +493,37 @@ html {
     flex: 1 1 auto;
     margin: 0 10px;
   }
+}
+
+.content-body {
+  padding-top: 24px;
+  padding-top: 1.5rem;
+  padding-bottom: 48px;
+  padding-bottom: 3rem;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  float: left;
+}
+@media screen and (min-width: 80em) {
+  .content-body {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 83.33333%;
+    float: left;
+    margin-left: 8.33333%;
+    margin-right: 8.33333%;
+  }
+}
+.content-body.generic h1, .content-body.generic h2, .content-body.generic h3, .content-body.generic h4, .content-body.generic h5, .content-body.generic h6 {
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
+}
+.content-body.generic p {
+  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
 }
 
 @media screen and (min-width: 48em) {
