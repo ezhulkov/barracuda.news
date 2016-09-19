@@ -1,10 +1,10 @@
-@()(implicit messages: Messages, lang: LanguageValue)
+@()(implicit messages: Messages, lang: LanguageValue, env: Environment, request: RequestHeader)
 
-@layout.front("barracuda.news") {
+@layout.front(messages("title.advertising")) {
 
     <section class="container">
         <div class="content-body generic">
-            <h1>Advertising</h1>
+            <h1>@messages("title.advertising")</h1>
             <p>
                 If you have any questions about advertising please email to this address: <a href="mailto:adv@@barracuda.news" class="active-link">adv@@barracuda.news</a>
             </p>

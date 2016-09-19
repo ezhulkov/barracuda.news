@@ -1,6 +1,6 @@
 CREATE ROLE barracuda LOGIN INHERIT CREATEDB CREATEROLE;
 ALTER ROLE barracuda PASSWORD 'barracuda';
-CREATE DATABASE barracuda_prod OWNER barracuda TEMPLATE template0;
+CREATE DATABASE barracuda_local OWNER barracuda TEMPLATE template0;
 
 INSERT INTO article (url, origin, publish) VALUES ('https://barracuda.news', 'http://ya.ru', now());
 INSERT INTO translation (article_id, lang, caption, text) VALUES (1, 'en', 'caption en', 'body en');

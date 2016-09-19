@@ -1,4 +1,4 @@
-@(tracking: Seq[TrackingEvent])(implicit messages: Messages, lang: LanguageValue)
+@(tracking: Seq[TrackingEvent])(implicit messages: Messages, lang: LanguageValue, env: Environment, request: RequestHeader)
 
 @showEvent(event: TrackingEvent, first: Boolean = false) = {
     <div class="event @if(event.isActive || first) {active} @if(first) {featured}">

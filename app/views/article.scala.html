@@ -1,4 +1,4 @@
-@(article: Article, translation: Translation)(implicit messages: Messages, lang: LanguageValue, request: play.api.mvc.Request[_])
+@(article: Article, translation: Translation)(implicit messages: Messages, lang: LanguageValue, env: Environment, request: RequestHeader)
 
 @caption(article: Article) = @{
     article.translationOrDefault(Language.DEFAULT).caption

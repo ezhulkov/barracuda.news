@@ -1,8 +1,10 @@
 package controllers.stack
 
-import jp.t2v.lab.play2.stackc.{RequestWithAttributes, StackableController}
+import jp.t2v.lab.play2.stackc.RequestWithAttributes
+import jp.t2v.lab.play2.stackc.StackableController
 import play.api.Logger
-import play.api.mvc.{Controller, Result}
+import play.api.mvc.Controller
+import play.api.mvc.Result
 import scala.concurrent.Future
 
 /**
@@ -12,7 +14,7 @@ trait LoggingElement extends StackableController {
   self: Controller =>
 
   override def proceed[A](request: RequestWithAttributes[A])(f: (RequestWithAttributes[A]) => Future[Result]): Future[Result] = {
-    Logger.info(s"${request.method} to ${request.path}")
+    Logger.info(request.toString)
     super.proceed(request)(f)
   }
 

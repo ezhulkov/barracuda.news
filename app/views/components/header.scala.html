@@ -1,4 +1,4 @@
-@()(implicit messages: Messages, lang: LanguageValue)
+@()(implicit messages: Messages, lang: LanguageValue, env: Environment, request: RequestHeader)
 
 <header>
 
@@ -7,7 +7,7 @@
             <a class="banner" href="http://bedynamiq.com/" target="_blanc">
                 <img src="@routes.Assets.versioned("/banners/bd_990x90.gif")" alt="bedynamiq.com" title="bedynamiq.com"/>
             </a>
-            <a class="logo" href="@routes.FrontendController.index">
+            <a class="logo" href="@routes.FrontendController.index.withLang">
                 <img src="@routes.Assets.versioned("/images/logo.png")" srcset="@routes.Assets.versioned("/images/logo.2x.png") 2x" alt="barracuda.news" title="barracuda.news"/>
             </a>
         </section>
@@ -19,24 +19,27 @@
             </div>
             <ul class="tools">
                 <li class="search" ng-click="toggleSearch()"><div></div></li>
-                <li class="lang hidden">
+                <li class="lang">
                     <div>@lang.label</div>
                     <ul>
+                        @for(l <- Language.values) {
+                            <li><a href="@addLang(request.path)(env, l)">@{l.label}</a></li>
+                        }
                     </ul>
                 </li>
             </ul>
             <ul class="categories">
                 <li class="logo">
-                    <a href="@routes.FrontendController.index">
+                    <a href="@routes.FrontendController.index.withLang">
                         <img class="desktop" src="@routes.Assets.versioned("/images/logo-small.png")" srcset="@routes.Assets.versioned("/images/logo-small.2x.png") 2x" alt="barracuda.news" title="barracuda.news"/>
                         <img class="tablet" src="@routes.Assets.versioned("/images/logo-small2.png")" srcset="@routes.Assets.versioned("/images/logo-small2.2x.png") 2x" alt="barracuda.news" title="barracuda.news"/>
                     </a>
                 </li>
-                <li class="color1"><a href="@routes.FrontendController.index()">@messages("title.news")</a></li>
-                <li class="color2"><a href="@routes.FrontendController.topic("stories")">@messages("title.stories")</a></li>
-                <li class="color3"><a href="@routes.FrontendController.tracking()">@messages("title.tracking")</a></li>
-                <li class="color4"><a href="@routes.FrontendController.topic("media")">@messages("title.media")</a></li>
-                <li class="color5"><a href="@routes.FrontendController.topic("fish")">@messages("title.fish")</a></li>
+                <li class="color1"><a href="@routes.FrontendController.index().withLang">@messages("title.news")</a></li>
+                <li class="color2"><a href="@routes.FrontendController.topic("stories").withLang">@messages("title.stories")</a></li>
+                <li class="color3"><a href="@routes.FrontendController.tracking().withLang">@messages("title.tracking")</a></li>
+                <li class="color4"><a href="@routes.FrontendController.topic("media").withLang">@messages("title.media")</a></li>
+                <li class="color5"><a href="@routes.FrontendController.topic("fish").withLang">@messages("title.fish")</a></li>
             </ul>
         </section>
     </section>

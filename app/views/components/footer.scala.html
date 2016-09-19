@@ -1,19 +1,19 @@
-@()(implicit messages: Messages)
+@()(implicit messages: Messages, lang: LanguageValue, env: Environment)
 
 <footer>
     <section class="links">
         <section class="container">
             <div class="logo">
-                <a href="@routes.FrontendController.index">
+                <a href="@routes.FrontendController.index.withLang">
                     <img src="@routes.Assets.versioned("/images/logo200px.png")" srcset="@routes.Assets.versioned("/images/logo200px.2x.png") 2x" alt="barracuda.news" title="barracuda.news"/>
                 </a>
             </div>
             <div class="about">
                 <h4>@messages("title.information"):</h4>
                 <ul>
-                    <li><a href="@routes.FrontendController.about">@messages("title.about")</a></li>
-                    <li><a href="@routes.FrontendController.adv">@messages("title.advertising")</a></li>
-                    <li><a href="@routes.FrontendController.contacts">@messages("title.contacts")</a></li>
+                    <li><a href="@routes.FrontendController.about.withLang">@messages("title.about")</a></li>
+                    <li><a href="@routes.FrontendController.adv.withLang">@messages("title.advertising")</a></li>
+                    <li><a href="@routes.FrontendController.contacts.withLang">@messages("title.contacts")</a></li>
                 </ul>
             </div>
             <div class="social">

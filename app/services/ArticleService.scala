@@ -14,7 +14,6 @@ import models.CoreModels.Language.Language
 import models.CoreModels.Tag
 import models.CoreModels.Translation
 import net.coobird.thumbnailator.Thumbnails
-import org.apache.commons.io.FileUtils
 import play.api.Logger
 import scalikejdbc.DB
 import scalikejdbc.DBSession

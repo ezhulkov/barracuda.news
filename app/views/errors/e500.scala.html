@@ -1,4 +1,4 @@
-@(cause: String)(implicit messages: Messages, lang: LanguageValue)
+@(cause: String)(implicit messages: Messages, lang: LanguageValue, env: Environment, request: RequestHeader)
 
 @layout.front(Messages("error.500")) {
 

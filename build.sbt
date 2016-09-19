@@ -50,6 +50,9 @@ libraryDependencies ++= Seq(
 
 TwirlKeys.templateImports ++= Seq(
   "components._",
+  "play.api.Environment",
+  "controllers.LangUtils._",
+  "play.api.mvc._",
   "models.CoreModels._",
   "models.Implicits._",
   "models.CoreModels.Language.LanguageValue"

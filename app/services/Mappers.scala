@@ -66,13 +66,13 @@ object Mappers {
     def findAllByIdsSeq(ids: Seq[Long]): Seq[Article] = joins(tagsRef, transRef).findAllByIds(ids: _*)
     def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(
       'url -> article.generateUrl,
-      'origin -> article.origin.orNull,
-      'coverMedia -> article.coverMedia.orNull,
+      'origin -> article.origin.filter(_.nonEmpty).orNull,
+      'coverMedia -> article.coverMedia.filter(_.nonEmpty).orNull,
       'publish -> article.publish
     ))
     def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(
-      'origin -> article.origin.orNull,
-      'coverMedia -> article.coverMedia.orNull,
+      'origin -> article.origin.filter(_.nonEmpty).orNull,
+      'coverMedia -> article.coverMedia.filter(_.nonEmpty).orNull,
       'publish -> article.publish
     ))
 

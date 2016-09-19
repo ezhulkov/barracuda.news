@@ -17,7 +17,7 @@ import scala.util.Success
 
 @Singleton
 class AdminController @Inject()(
-  env: Environment,
+  implicit env: Environment,
   articleService: ArticleService,
   val messagesApi: MessagesApi
 ) extends Controller with I18nSupport with AuthElement with BnAuthConfig with LoggingElement {

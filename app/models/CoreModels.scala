@@ -8,6 +8,7 @@ import models.CoreModels.Language.Language
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
 import org.apache.commons.lang3.StringUtils
+import play.api.i18n.Lang
 import services.Utils
 import scala.language.implicitConversions
 import scala.util.Try
@@ -56,7 +57,9 @@ object CoreModels {
     val ENGLISH = LanguageValue("en", "English", "Eng")
     val RUSSIAN = LanguageValue("ru", "Русский", "Рус")
     val DEFAULT = ENGLISH
-    sealed case class LanguageValue(code: String, name: String, label: String) extends super.Val(code)
+    sealed case class LanguageValue(code: String, name: String, label: String) extends super.Val(code) {
+      def playLang = Lang(code)
+    }
     implicit def convert(value: Value): LanguageValue = value.asInstanceOf[LanguageValue]
   }
 
@@ -87,7 +90,7 @@ object CoreModels {
     def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
     def withCrossLinks(links: Seq[Article]) = {
       val c = copy(crossLinks = Some(links.flatMap(t => t.id)))
-      c.crossArticles=links
+      c.crossArticles = links
       c
     }
   }

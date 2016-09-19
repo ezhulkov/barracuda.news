@@ -10,6 +10,7 @@ import play.api.Environment
 import play.api.Logger
 import play.api.cache.CacheApi
 import play.api.i18n.I18nSupport
+import play.api.i18n.Lang
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
@@ -24,7 +25,7 @@ import scala.util.Try
 
 @Singleton
 class FrontendController @Inject()(
-  env: Environment,
+  implicit env: Environment,
   articleService: ArticleService,
   cache: CacheApi,
   ws: WSClient,
@@ -76,21 +77,10 @@ class FrontendController @Inject()(
 
   def search(q: String) = AsyncStack { implicit request => Future(Ok(Json.toJson(articleService.search(q))).as(JSON)) }
 
-  def tracking = AsyncStack { implicit request =>
-    trackingData.map(t => Ok(views.html.tracking(t)))
-  }
-  def about = AsyncStack { implicit request => Future {
-    Ok(views.html.about())
-  }
-  }
-  def contacts = AsyncStack { implicit request => Future {
-    Ok(views.html.contacts())
-  }
-  }
+  def tracking = AsyncStack(implicit request => trackingData.map(t => Ok(views.html.tracking(t))))
+  def about = AsyncStack(implicit request => Future(Ok(views.html.about())))
+  def contacts = AsyncStack(implicit request => Future(Ok(views.html.contacts())))
   def exception = StackAction(request => throw new RuntimeException())
-  def adv = AsyncStack { implicit request => Future {
-    Ok(views.html.adv())
-  }
-  }
+  def adv = AsyncStack(implicit request => Future(Ok(views.html.adv())))
 
 }

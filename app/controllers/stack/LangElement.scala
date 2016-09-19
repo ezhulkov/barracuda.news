@@ -5,7 +5,7 @@ import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import jp.t2v.lab.play2.stackc.StackableController
 import models.CoreModels.Language
 import models.CoreModels.Language._
-import org.apache.commons.lang3.StringUtils
+import play.api.i18n.I18nSupport
 import play.api.mvc.Controller
 import play.api.mvc.Request
 import play.api.mvc.Result
@@ -16,21 +16,22 @@ import scala.util.Try
   * Created by ezhulkov on 28.08.16.
   */
 trait LangElement extends StackableController {
-  self: Controller =>
+  self: Controller with I18nSupport =>
+
+  import scala.concurrent.ExecutionContext.Implicits.global
 
   implicit def resourceLang(implicit req: RequestWithAttributes[_]) = req.get(ResourceLang).get
-  implicit def allLangs(implicit req: RequestWithAttributes[_]) = Language.values.toSeq
 
   case object ResourceLang extends RequestAttributeKey[LanguageValue]
-  case object AllLangs extends RequestAttributeKey[Seq[LanguageValue]]
+
   override def proceed[A](request: RequestWithAttributes[A])(f: (RequestWithAttributes[A]) => Future[Result]): Future[Result] = {
     val resourceLang = getResourceLang(request).getOrElse(Language.DEFAULT)
-    super.proceed(request
-      .set(ResourceLang, Language.convert(resourceLang))
-    )(f)
+    super.proceed(request.set(
+      ResourceLang, Language.convert(resourceLang)
+    ))(f).map(r => r.withLang(resourceLang.playLang))
   }
 
-  private def getResourceLang(request: Request[_]): Option[Language] = request.path.split("\\/").find(StringUtils.isNotEmpty).flatMap(tryParseLang)
+  private def getResourceLang(request: Request[_]): Option[Language] = request.getQueryString("lang").flatMap(t => tryParseLang(t))
   private def tryParseLang(lang: String): Option[Language] = Try(Language.withName(lang)).toOption
 
 }

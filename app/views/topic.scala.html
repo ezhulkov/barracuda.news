@@ -1,4 +1,4 @@
-@(layoutOpt: Option[Layout], news: Seq[Article], rootTag: String, rootTagName: Option[String])(implicit messages: Messages, lang: Language.LanguageValue)
+@(layoutOpt: Option[Layout], news: Seq[Article], rootTag: String, rootTagName: Option[String])(implicit messages: Messages, lang: LanguageValue, env: Environment, request: RequestHeader)
 
 @layout.front(rootTagName.getOrElse("barracuda.news")) {
 
