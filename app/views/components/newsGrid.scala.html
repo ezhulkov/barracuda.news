@@ -1,4 +1,4 @@
-@(layout: Layout, news: Seq[Article], rootTag: String)(implicit messages: Messages, lang: Language.LanguageValue)
+@(layout: Layout, news: Seq[Article], rootTag: String)(implicit messages: Messages, lang: Lang, env: Environment)
 
 <section class="news-grid">
     <section class="container">
@@ -6,9 +6,9 @@
             <div class="topic-row @row.height.cssClass">
             @for(block <- row.blocks) {
                 @if(block.tag) {
-                    <div class="topic-col @block.size.cssClass @if(block.featured) {featured} type-@block.newsType.cssClass @if(block.caption.isEmpty) {no-caption}">
-                        @for(caption <- block.caption) {
-                            <h1><a href="@routes.FrontendController.topic(block.tag, Some(caption))">@caption</a></h1>
+                    <div class="topic-col @block.size.cssClass @if(block.featured) {featured} type-@block.newsType.cssClass @if(block.localCaption.isEmpty) {no-caption}">
+                        @for(caption <- block.localCaption) {
+                            <h1><a href="@routes.FrontendController.topic(block.tag, Some(caption.text)).withLang">@caption.text</a></h1>
                         }
                         <div class="items">
                         @{

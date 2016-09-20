@@ -9,12 +9,12 @@ import javax.imageio.ImageIO
 import javax.inject.Singleton
 import com.google.inject.ImplementedBy
 import models.CoreModels.Article
-import models.CoreModels.Language
-import models.CoreModels.Language.Language
 import models.CoreModels.Tag
 import models.CoreModels.Translation
 import net.coobird.thumbnailator.Thumbnails
+import org.joda.time.DateTime
 import play.api.Logger
+import play.api.i18n.Lang
 import scalikejdbc.DB
 import scalikejdbc.DBSession
 import utils.Configuration
@@ -31,7 +31,7 @@ trait ArticleService {
   def allArticles(onlyPublished: Boolean = true): Seq[Article]
   def allTagged(tag: String): Seq[Article]
   def findArticle(id: Long): Option[Article]
-  def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article]
+  def findArticle(url: String, lang: Lang = LangUtils.defaultLang): Option[Article]
   def deleteArticle(id: Long)
   def saveArticle(article: Article): Try[Long]
   def allTags: Set[Tag]
@@ -71,24 +71,30 @@ class ArticleServiceImpl extends ArticleService {
     Mappers.Article.findAllByIdsSeq(tagged.map(t => t.id.getOrElse(0L))).sortBy(t => -t.publish.getMillis)
   }
   override def search(q: String): Seq[Article] = Nil
-  override def findArticle(url: String, lang: Language = Language.DEFAULT): Option[Article] = Mappers.Article.findByUrl(url).map(joinCrossLinks)
+  override def findArticle(url: String, lang: Lang = LangUtils.defaultLang): Option[Article] = Mappers.Article.findByUrl(url).map(joinCrossLinks)
   override def extractImages(translation: Translation): Try[Translation] = Try {
-    val imgMatcher = imgPattern.matcher(translation.text)
-    val out = new StringBuffer()
-    val counter = new AtomicInteger(0)
-    while (imgMatcher.find()) {
-      if (imgMatcher.groupCount() == 1) {
-        val data = imgMatcher.group(1)
-        val b64Matcher = b64Pattern.matcher(data)
-        if (b64Matcher.find()) {
-          val base64Data = b64Matcher.group(1)
-          val fileName = decodeAndStore(translation.caption, counter.incrementAndGet(), base64Data)
-          imgMatcher.appendReplacement(out, s"""<img class="article-image" src="$imageUrl/$fileName" title="${translation.caption}" alt="${translation.caption}"""")
+    translation.text match {
+      case Some(text) =>
+        val imgMatcher = imgPattern.matcher(text)
+        val out = new StringBuffer()
+        val counter = new AtomicInteger(0)
+        while (imgMatcher.find()) {
+          if (imgMatcher.groupCount() == 1) {
+            val data = imgMatcher.group(1)
+            val b64Matcher = b64Pattern.matcher(data)
+            if (b64Matcher.find()) {
+              val base64Data = b64Matcher.group(1)
+              val fileName = decodeAndStore(translation.caption.getOrElse(DateTime.now().toString), counter.incrementAndGet(), base64Data)
+              val transFileName = Utils.transliterate(fileName)
+              imgMatcher.appendReplacement(out, s"""<img class="article-image" src="$imageUrl/$transFileName" title="${translation.caption}" alt="${translation.caption}"""")
+            }
+          }
         }
-      }
+        val extractedText = imgMatcher.appendTail(out).toString
+        translation.copy(text = Some(extractedText))
+      case None =>
+        translation
     }
-    val extractedText = imgMatcher.appendTail(out).toString
-    translation.copy(text = extractedText)
   }
   private def decodeAndStore(caption: String, number: Int, base64Data: String): String = {
     val bytes = Base64.getDecoder.decode(base64Data)

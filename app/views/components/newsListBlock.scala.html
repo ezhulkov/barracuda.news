@@ -1,11 +1,11 @@
-@(news: Seq[Article], offset: Option[Int])(implicit messages: Messages, lang: Language.LanguageValue)
+@(news: Seq[Article], offset: Option[Int])(implicit messages: Messages, lang: Lang, env: Environment)
 
     @caption(article: Article) = @{
-        article.translationOrDefault(Language.DEFAULT).caption
+        article.translationOrDefault.caption
     }
 
     @url(article: Article) = @{
-        routes.FrontendController.article(article.url.getOrElse(article.id.toString))
+        routes.FrontendController.article(article.url.getOrElse(article.id.toString)).withLang
     }
 
     @for(item <- news) {

@@ -5,7 +5,16 @@
       "blocks": [
         {
           "newsType": "PHOTO",
-          "caption": "Story of the day",
+          "captions": [
+            {
+              "lang": "en",
+              "text": "Story of the day"
+            },
+            {
+              "lang": "ru",
+              "text": "История дня"
+            }
+          ],
           "tag": "story_1",
           "size": "SIZE12",
           "featured": true

@@ -2,13 +2,13 @@ package models
 
 import com.github.nscala_time.time.TypeImports
 import models.CoreModels.BlockSize.BlockSize
-import models.CoreModels.Language
-import models.CoreModels.Language.Language
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight
 import models.CoreModels.RowHeight._
 import models.CoreModels._
+import play.api.i18n.Lang
 import play.api.libs.json._
+import services.LangUtils
 
 /**
   * Created by ezhulkov on 04.07.16.
@@ -29,9 +29,9 @@ object Implicits {
     def reads(json: JsValue) = JsSuccess(NewsType.withName(json.as[String]))
     def writes(ob: NewsType) = JsString(ob.toString)
   }
-  implicit val langsEnumFormat     = new Format[Language] {
-    def reads(json: JsValue) = JsSuccess(Language.withName(json.as[String]))
-    def writes(ob: Language) = JsString(ob.toString)
+  implicit val langsEnumFormat     = new Format[Lang] {
+    def reads(json: JsValue) = JsSuccess(Lang(json.as[String]))
+    def writes(ob: Lang) = JsString(ob.code)
   }
   implicit val trackingRaceReads   = Json.reads[TrackingRace]
   implicit val trackingEventReads  = Json.reads[TrackingEvent]
@@ -48,6 +48,7 @@ object Implicits {
   implicit val tagFormat           = Json.format[Tag]
   implicit val mediaFormat         = Json.format[NewsMedia]
   implicit val translationFormat   = Json.format[Translation]
+  implicit val blockCaptionFormat  = Json.format[BlockCaption]
   implicit val newsFormat          = Json.format[NewsBlock]
   implicit val rowFormat           = Json.format[NewsRow]
   implicit val layoutFormat        = Json.format[Layout]
@@ -55,7 +56,7 @@ object Implicits {
   implicit val articleWrites       = JsonPimped.writes[Article](Json.writes[Article]) { case (json, obj) =>
     json.asInstanceOf[JsObject] +
       ("publish_time_formatted", JsString(obj.publishFormatted)) +
-      ("caption", JsString(obj.translations.map(t => t.caption).mkString("; ")))
+      ("caption", JsString(obj.translationOrDefault(LangUtils.defaultLang).caption.getOrElse("-")))
   }
 
 }

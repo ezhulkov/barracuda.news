@@ -76,7 +76,7 @@
                 <dl class="caption">
                     <dd><input id="caption" type="text" name="caption" ng-model="translation.caption" placeholder="Caption"></dd>
                 </dl>
-                <dl>
+                <dl ng-show="hasCaption(translation)">
                     <dd>
                         <article class="edit">
                             <section class="container">

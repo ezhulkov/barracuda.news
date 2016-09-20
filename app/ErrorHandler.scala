@@ -1,12 +1,11 @@
 import javax.inject._
-import models.CoreModels.Language
 import play.api._
 import play.api.http.DefaultHttpErrorHandler
 import play.api.i18n.I18nSupport
-import play.api.i18n.MessagesApi
 import play.api.mvc.Results._
 import play.api.mvc._
 import play.api.routing.Router
+import services.BnMessagesApi
 import scala.concurrent._
 
 @Singleton
@@ -15,10 +14,8 @@ class ErrorHandler @Inject()(
   config: Configuration,
   sourceMapper: OptionalSourceMapper,
   router: Provider[Router],
-  val messagesApi: MessagesApi
+  val messagesApi: BnMessagesApi
 ) extends DefaultHttpErrorHandler(env, config, sourceMapper, router) with I18nSupport {
-
-  implicit val lang = Language.DEFAULT
 
   override def onProdServerError(request: RequestHeader, exception: UsefulException) = Future.successful {
     implicit val rq = request

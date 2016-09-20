@@ -4,7 +4,6 @@ import javax.inject._
 import controllers.stack.LoggingElement
 import jp.t2v.lab.play2.auth.AuthElement
 import models.CoreModels.Article
-import models.CoreModels.Language
 import models.CoreModels.Layout
 import play.api.Environment
 import play.api.i18n.I18nSupport
@@ -12,6 +11,7 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json._
 import play.api.mvc._
 import services.ArticleService
+import services.LangUtils
 import scala.util.Failure
 import scala.util.Success
 
@@ -26,9 +26,7 @@ class AdminController @Inject()(
   import models.Role._
   import scala.io.Source
 
-  val langs = JsArray(Language.values.map(l => Json.obj("value" -> l.code, "label" -> l.name)).toSeq)
-  implicit val lang = Language.DEFAULT
-
+  def langs = JsArray(LangUtils.langs.map(l => Json.obj("value" -> l.code, "label" -> messagesApi(s"lang.name.${l.code}"))).toSeq)
   def tags = JsArray(articleService.allTags.map(t => JsString(t.text)).toSeq)
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
@@ -62,7 +60,7 @@ class AdminController @Inject()(
     }
     val articles = JsArray(articleService.allArticles(false).map(t => Json.obj(
       "id" -> JsNumber(t.id.get),
-      "name" -> JsString(t.translationOrDefault(Language.DEFAULT).caption)
+      "name" -> JsString(t.translationOrDefault(LangUtils.defaultLang).caption.getOrElse("-"))
     )))
     articleOpt.map(t => Json.toJson(t)) match {
       case Some(article) => Ok(views.html.admin.article(Json.stringify(article), Json.stringify(tags), Json.stringify(langs), Json.stringify(articles)))

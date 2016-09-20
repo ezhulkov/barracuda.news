@@ -7,7 +7,16 @@
           "newsType": "TEXT",
           "tag": "main_news",
           "size": "SIZE12",
-          "caption": "Main News",
+          "captions": [
+            {
+              "lang": "en",
+              "text": "Main News"
+            },
+            {
+              "lang": "ru",
+              "text": "Главные новости"
+            }
+          ],
           "featured": true
         }
       ]
@@ -22,7 +31,16 @@
         },
         {
           "newsType": "PHOTO",
-          "caption": "Personal stories",
+          "captions": [
+            {
+              "lang": "en",
+              "text": "Stories"
+            },
+            {
+              "lang": "ru",
+              "text": "Истории"
+            }
+          ],
           "tag": "stories",
           "size": "SIZE4"
         },
@@ -38,7 +56,16 @@
       "blocks": [
         {
           "newsType": "COVER_PHOTO",
-          "caption": "Photo Gallery",
+          "captions": [
+            {
+              "lang": "en",
+              "text": "Photo gallery"
+            },
+            {
+              "lang": "ru",
+              "text": "Фотогалереи"
+            }
+          ],
           "tag": "gallery",
           "size": "SIZE12"
         }

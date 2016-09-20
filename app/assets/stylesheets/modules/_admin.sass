@@ -27,6 +27,9 @@ main.admin-area
     z-index: 9
     h2
       +float-left
+      line-height: rhythm(2)
+      a
+        +active-link($color: $whiteColor)
     .auth
       +float-right
       +inline-list
@@ -241,9 +244,8 @@ main.admin-area
       +rhythm-margins(0)
       +rhythm-padding(1)
       .article-body
-        +xdesktop-media
-          +span(8)
-          +pre(0)
+        +span(8)
+        +pre(0)
       .alloy-editor
         +border(1px, $color: lightblue)
         width: 100%

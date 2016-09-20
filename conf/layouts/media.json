@@ -5,7 +5,16 @@
       "blocks": [
         {
           "newsType": "PHOTO",
-          "caption": "Photo Gallery",
+          "captions": [
+            {
+              "lang": "en",
+              "text": "Photo gallery"
+            },
+            {
+              "lang": "ru",
+              "text": "Фотогалереи"
+            }
+          ],
           "tag": "gallery_1",
           "size": "SIZE12"
         }
@@ -16,7 +25,6 @@
       "blocks": [
         {
           "newsType": "PHOTO",
-          "caption": "Photo Gallery",
           "tag": "gallery_2",
           "size": "SIZE12"
         }
@@ -32,7 +40,6 @@
         },
         {
           "newsType": "PHOTO",
-          "caption": "Personal stories",
           "tag": "gallery_4",
           "size": "SIZE4"
         },
@@ -53,7 +60,6 @@
         },
         {
           "newsType": "PHOTO",
-          "caption": "Personal stories",
           "tag": "gallery_7",
           "size": "SIZE4"
         },

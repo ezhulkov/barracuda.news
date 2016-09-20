@@ -51,11 +51,11 @@ libraryDependencies ++= Seq(
 TwirlKeys.templateImports ++= Seq(
   "components._",
   "play.api.Environment",
-  "controllers.LangUtils._",
+  "services.LangUtils._",
   "play.api.mvc._",
   "models.CoreModels._",
-  "models.Implicits._",
-  "models.CoreModels.Language.LanguageValue"
+  "play.api.i18n._",
+  "models.Implicits._"
 )
 
 lazy val root = (project in file("."))

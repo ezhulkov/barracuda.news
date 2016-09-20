@@ -19,5 +19,6 @@ tracking.transmit=Online
 error.404=Error 404 - page not found
 error.500=Error 500 - server error
 see.more=Read more:
+empty.article=Empty article
 
 

@@ -4,11 +4,10 @@ import java.net.URL
 import java.util.UUID
 import com.github.nscala_time.time.Imports._
 import models.CoreModels.BlockSize.BlockSize
-import models.CoreModels.Language.Language
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
-import org.apache.commons.lang3.StringUtils
 import play.api.i18n.Lang
+import services.LangUtils
 import services.Utils
 import scala.language.implicitConversions
 import scala.util.Try
@@ -52,22 +51,17 @@ object CoreModels {
     implicit def convert(value: Value): NewsTypeValue = value.asInstanceOf[NewsTypeValue]
   }
 
-  object Language extends Enumeration {
-    type Language = Value
-    val ENGLISH = LanguageValue("en", "English", "Eng")
-    val RUSSIAN = LanguageValue("ru", "Русский", "Рус")
-    val DEFAULT = ENGLISH
-    sealed case class LanguageValue(code: String, name: String, label: String) extends super.Val(code) {
-      def playLang = Lang(code)
-    }
-    implicit def convert(value: Value): LanguageValue = value.asInstanceOf[LanguageValue]
-  }
-
   case class Tag(id: Option[Long], text: String, root: Option[Boolean] = None)
   case class Layout(rows: Seq[NewsRow])
   case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
-  case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, caption: Option[String] = None, newsType: NewsType = NewsType.TEXT)
+  case class BlockCaption(lang: Lang, text: String)
+  case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, captions: Option[Seq[BlockCaption]] = None, newsType: NewsType = NewsType.TEXT) {
+    def localCaption(implicit lang: Lang) = captions.getOrElse(Nil).find(t => t.lang == lang)
+  }
   case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
+  object Article {
+    def newArticle = Article(None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
+  }
   case class Article(
     id: Option[Long],
     url: Option[String],
@@ -81,12 +75,11 @@ object CoreModels {
     val publishFormatted            = publish.toString(dateFormat)
     val publishShortFormatted       = publish.toString("YYYY-MM-dd-")
     var crossArticles: Seq[Article] = Nil
-    def transliteratedUrl = translations.find(t => t.lang == Language.DEFAULT && StringUtils.isNotEmpty(t.caption)).map(t => Utils.transliterate(t.caption)).getOrElse(id.toString)
+    def transliteratedUrl = translation(LangUtils.defaultLang).flatMap(t => t.caption).map(t => Utils.transliterate(t)).getOrElse(id.toString)
     def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
-    def translation(lang: Language) = translations.find(t => t.lang == lang)
-    def translationOrDefault: Translation = translationOrDefault(Language.DEFAULT)
-    def translationOrDefault(lang: Language) = translation(lang).orElse(translation(Language.DEFAULT)).getOrElse(translations.head)
+    def translation(implicit lang: Lang) = translations.find(t => t.lang == lang)
+    def translationOrDefault(implicit lang: Lang) = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t=>t.caption.isDefined).get)
     def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
     def withCrossLinks(links: Seq[Article]) = {
       val c = copy(crossLinks = Some(links.flatMap(t => t.id)))
@@ -94,11 +87,11 @@ object CoreModels {
       c
     }
   }
-  case class Translation(id: Option[Long], articleId: Option[Long], lang: Language, caption: String, text: String, media: Seq[NewsMedia] = Nil) {
-    def searchMatch(q: String) = {
-      val lCQ = q.toLowerCase
-      text.toLowerCase.contains(lCQ) || caption.contains(lCQ)
-    }
+  object Translation {
+    def newTranslations = LangUtils.langs.map(l => Translation(None, None, l, None, None, Nil)).toSeq
+  }
+  case class Translation(id: Option[Long], articleId: Option[Long], lang: Lang, caption: Option[String], text: Option[String], media: Seq[NewsMedia] = Nil) {
+    def searchMatch(q: String) = (text ++ caption).mkString(" ").toLowerCase.contains(q.toLowerCase)
   }
   case class TrackingEvent(id: Option[UUID], name: Option[String], eventStart: Option[DateTime], eventEnd: Option[DateTime], imageUrl: Option[String], races: Option[Seq[TrackingRace]]) {
     val interval       = new org.joda.time.Interval(eventStart.getOrElse(DateTime.now()), eventEnd.getOrElse(DateTime.now()))
@@ -115,13 +108,6 @@ object CoreModels {
     val startFormatted = startTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
     val endFormatted   = endTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
     def isActive = interval.containsNow()
-  }
-
-  object Translation {
-    def newTranslations = Language.values.map(l => Translation(None, None, l, s"Article caption [${l.name}]", s"Article body [${l.name}]", Nil)).toSeq
-  }
-  object Article {
-    def newArticle = Article(None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
   }
 
 }

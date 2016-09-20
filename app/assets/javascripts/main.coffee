@@ -221,3 +221,5 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
       $scope.processResponse(data)
     .success (data) ->
       $scope.processResponse(data)
+  $scope.hasCaption = (translation)->
+    translation.caption != undefined && translation.caption.length > 0

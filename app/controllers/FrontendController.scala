@@ -1,20 +1,18 @@
 package controllers
 
 import javax.inject._
-import controllers.stack.LangElement
 import controllers.stack.LoggingElement
-import models.CoreModels.Language
 import models.CoreModels.Layout
 import models.CoreModels.TrackingEvent
 import play.api.Environment
 import play.api.Logger
 import play.api.cache.CacheApi
 import play.api.i18n.I18nSupport
+import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 import services.ArticleService
-import services.BnMessagesApi
 import utils.Configuration
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
@@ -28,8 +26,8 @@ class FrontendController @Inject()(
   articleService: ArticleService,
   cache: CacheApi,
   ws: WSClient,
-  val messagesApi: BnMessagesApi
-) extends Controller with I18nSupport with LoggingElement with LangElement {
+  val messagesApi: MessagesApi
+) extends Controller with I18nSupport with LoggingElement {
 
   import models.Implicits._
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -59,23 +57,19 @@ class FrontendController @Inject()(
 
   def index() = topic(MAIN_LAYOUT)
   def topic(tag: String, title: Option[String] = None) = AsyncStack { implicit request => Future {
-    Ok(views.html.topic(layouts.get(tag), articleService.allTagged(tag).take(100), tag, title))
+    val articles = articleService.allTagged(tag).filter(a => a.translation.exists(t => t.caption.isDefined)).take(100)
+    Ok(views.html.topic(layouts.get(tag), articles, tag, title))
   }
   }
-  def article(url: String) = AsyncStack { implicit request => Future {
-    articleService.findArticle(url).orElse(articleService.findArticle(Try(url.toLong).getOrElse(-1L))) match {
-      case Some(article) => Ok(views.html.article(article, article.translationOrDefault(Language.ENGLISH)))
-      case None => NotFound(views.html.errors.e404())
-    }
+  def article(url: String) = AsyncStack(implicit request => Future {
+    articleService.findArticle(url).orElse(articleService.findArticle(Try(url.toLong).getOrElse(-1L)))
+      .filter(article => article.translation.exists(t => t.caption.isDefined))
+      .map(article => Ok(views.html.article(article)))
+      .getOrElse(NotFound(views.html.errors.e404()))
   }
-  }
-  def newsList(tag: String, offset: Option[Int]) = AsyncStack { implicit request => Future {
-    Ok(views.html.components.newsListBlock(articleService.allTagged(tag), None))
-  }
-  }
-
+  )
+  def newsList(tag: String, offset: Option[Int]) = AsyncStack(implicit request => Future(Ok(views.html.components.newsListBlock(articleService.allTagged(tag), None))))
   def search(q: String) = AsyncStack { implicit request => Future(Ok(Json.toJson(articleService.search(q))).as(JSON)) }
-
   def tracking = AsyncStack(implicit request => trackingData.map(t => Ok(views.html.tracking(t))))
   def about = AsyncStack(implicit request => Future(Ok(views.html.about())))
   def contacts = AsyncStack(implicit request => Future(Ok(views.html.contacts())))

@@ -1,9 +1,9 @@
-@(item: Article, newsType: NewsType.NewsTypeValue, first: Boolean = false)
+@(item: Article, newsType: NewsType.NewsTypeValue, first: Boolean = false)(implicit messages: Messages, lang: Lang, env: Environment)
 
 <div class="item @if(first) {first-item}">
 
     @title = {
-        <h2><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">@item.translationOrDefault(Language.DEFAULT).caption</a></h2>
+        <h2><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString)).withLang">@item.translationOrDefault.caption</a></h2>
         <div class="add-info">
             <span class="type"></span>
             <span class="date">@item.publishFormatted</span>
@@ -12,11 +12,11 @@
 
     @newsType match {
         case NewsType.PHOTO | NewsType.COVER_PHOTO => {
-            <a class="cover" style="background-image: url('@{item.coverMedia.orNull}')" href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))"></a>
+            <a class="cover" style="background-image: url('@{item.coverMedia.orNull}')" href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString)).withLang"></a>
             <div class="title">@title</div>
         }
         case NewsType.VIDEO => {
-            <a class="cover" style="background-image: url('http://img.youtube.com/vi/@{item.coverMedia.orNull}/0.jpg')" href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString))">
+            <a class="cover" style="background-image: url('http://img.youtube.com/vi/@{item.coverMedia.orNull}/0.jpg')" href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString)).withLang">
                 <i class="fa fa-youtube-play playback" aria-hidden="true"></i>
             </a>
             <div class="title">@title</div>

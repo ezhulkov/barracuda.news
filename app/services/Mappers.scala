@@ -1,9 +1,9 @@
 package services
 
 import models.CoreModels.Article
-import models.CoreModels.Language.Language
 import models.CoreModels._
 import org.joda.time.DateTime
+import play.api.i18n.Lang
 import scalikejdbc.DBSession
 import scalikejdbc.WrappedResultSet
 import scalikejdbc._
@@ -17,7 +17,7 @@ import scala.util.Try
   */
 object Mappers {
 
-  implicit val langBinder: Binders[Language] = Binders.string.xmap[Language](t => Language.withName(t), t => t.toString)
+  implicit val langBinder: Binders[Lang] = Binders.string.xmap[Lang](t => Lang(t), t => t.code)
 
   object Tag extends SkinnyCRUDMapper[Tag] {
 
@@ -89,17 +89,17 @@ object Mappers {
       on = (t, m) => sqls.eq(t.id, m.translationId),
       merge = (t, m) => t.copy(media = m))
 
-    def findByLang(articleId: Long, lang: Language)(implicit session: DBSession): Option[Translation] =
-      where(sqls.eq(defaultAlias.articleId, articleId) and sqls.eq(defaultAlias.lang, lang)).apply().headOption
-    def create(articleId: Long, lang: Language, translation: Translation)(implicit session: DBSession): Try[Long] = Try(Translation.createWithAttributes(
+    def findByLang(articleId: Long, lang: Lang)(implicit session: DBSession): Option[Translation] =
+      where(sqls.eq(defaultAlias.articleId, articleId) and sqls.eq(defaultAlias.lang, lang.code)).apply().headOption
+    def create(articleId: Long, lang: Lang, translation: Translation)(implicit session: DBSession): Try[Long] = Try(Translation.createWithAttributes(
       'articleId -> articleId,
-      'lang -> lang.toString,
-      'caption -> translation.caption,
-      'text -> translation.text
+      'lang -> lang.code,
+      'caption -> translation.caption.filter(_.nonEmpty).orNull,
+      'text -> translation.text.filter(_.nonEmpty).orNull
     ))
     def update(translation: Translation, translationId: Long)(implicit session: DBSession): Try[Int] = Try(Translation.updateById(translationId).withAttributes(
-      'caption -> translation.caption,
-      'text -> translation.text
+      'caption -> translation.caption.filter(_.nonEmpty).orNull,
+      'text -> translation.text.filter(_.nonEmpty).orNull
     ))
 
   }

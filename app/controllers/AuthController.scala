@@ -1,10 +1,11 @@
 package controllers
 
 import javax.inject._
-import controllers.stack.{LoggingElement, TokenValidateElement}
+import controllers.stack.LoggingElement
 import jp.t2v.lab.play2.auth.LoginLogout
 import models.Account
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.I18nSupport
+import play.api.i18n.MessagesApi
 import play.api.mvc._
 import scala.concurrent.Future
 

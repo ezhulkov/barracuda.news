@@ -1,4 +1,4 @@
-@()(implicit messages: Messages, lang: LanguageValue, env: Environment, request: RequestHeader)
+@()(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
 <header>
 
@@ -20,11 +20,11 @@
             <ul class="tools">
                 <li class="search" ng-click="toggleSearch()"><div></div></li>
                 <li class="lang">
-                    <div>@lang.label</div>
+                    <div>@Messages("lang." + lang.code)</div>
                     <ul>
-                        @for(l <- Language.values) {
-                            <li><a href="@addLang(request)(env, l)">@{l.label}</a></li>
-                        }
+                    @for(l <- langs) {
+                        <li><a href="@addLang(request)(env, l)">@Messages("lang." + l.code)</a></li>
+                    }
                     </ul>
                 </li>
             </ul>

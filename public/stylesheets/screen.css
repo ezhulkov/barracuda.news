@@ -812,7 +812,7 @@ header .menu.menu-active ul.categories li a:hover, header .menu.menu-active ul.c
     display: none;
   }
   header .menu ul.tools {
-    margin-right: 15px;
+    margin-right: 10px;
   }
   header .menu ul.categories {
     float: left;
@@ -1827,6 +1827,22 @@ main.admin-area > header {
 }
 main.admin-area > header h2 {
   float: left;
+  line-height: 3rem;
+}
+main.admin-area > header h2 a, main.admin-area > header h2 a * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #eee;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area > header h2 a:hover, main.admin-area > header h2 a:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
 }
 main.admin-area > header .auth {
   float: right;
@@ -2344,14 +2360,12 @@ main.admin-area section.article-section article.edit {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
 }
-@media screen and (min-width: 80em) {
-  main.admin-area section.article-section article.edit .article-body {
-    width: 65%;
-    float: left;
-    margin-left: 0.83333%;
-    margin-right: 0.83333%;
-    margin-left: 0.83333%;
-  }
+main.admin-area section.article-section article.edit .article-body {
+  width: 65%;
+  float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
+  margin-left: 0.83333%;
 }
 main.admin-area section.article-section article.edit .alloy-editor {
   -moz-box-sizing: border-box;
