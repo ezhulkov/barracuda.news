@@ -23,7 +23,7 @@ object LangUtils {
       case _ => Some(lang)
     }
     env.mode match {
-      case Mode.Prod => langCode.map(t => s"${t.code}$url${qsString.map(q => "?" + q).getOrElse("")}").getOrElse(url)
+      case Mode.Prod => langCode.map(t => s"/${t.code}$url${qsString.map(q => "?" + q).getOrElse("")}").getOrElse(url)
       case _ =>
         val newQs = (langCode.map(l => s"lang=${l.code}") ++ qsString).mkString("&")
         if (newQs.nonEmpty) s"$url?$newQs" else url

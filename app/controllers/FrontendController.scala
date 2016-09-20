@@ -58,7 +58,7 @@ class FrontendController @Inject()(
   def index() = topic(MAIN_LAYOUT)
   def topic(tag: String, title: Option[String] = None) = AsyncStack { implicit request => Future {
     val articles = articleService.allTagged(tag)
-//      .filter(a => a.translation.exists(t => t.caption.isDefined))
+      .filter(article => article.translation.exists(t => t.caption.isDefined))
       .take(100)
     Ok(views.html.topic(layouts.get(tag), articles, tag, title))
   }

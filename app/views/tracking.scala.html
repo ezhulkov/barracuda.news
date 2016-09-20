@@ -37,7 +37,7 @@
 
     <section class="tracking container">
         <class class="content-body">
-            <h1>Barracuda tracking</h1>
+            <h1>@Messages("title.tracking")</h1>
             @{
                 tracking.sortBy(t => t.startTrimmed.orNull) match {
                     case head :: tail =>
