@@ -5,7 +5,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>/var/log/barracuda/barracuda-portal.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/var/log/zeptodev/dmp-frontend.%d.log</fileNamePattern>
+            <fileNamePattern>/var/log/zeptodev/barracuda-portal.%d.log</fileNamePattern>
             <maxHistory>7</maxHistory>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
