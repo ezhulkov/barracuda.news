@@ -10,12 +10,11 @@ import play.api.Environment
 import play.api.Logger
 import play.api.cache.CacheApi
 import play.api.i18n.I18nSupport
-import play.api.i18n.Lang
-import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 import services.ArticleService
+import services.BnMessagesApi
 import utils.Configuration
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
@@ -29,7 +28,7 @@ class FrontendController @Inject()(
   articleService: ArticleService,
   cache: CacheApi,
   ws: WSClient,
-  val messagesApi: MessagesApi
+  val messagesApi: BnMessagesApi
 ) extends Controller with I18nSupport with LoggingElement with LangElement {
 
   import models.Implicits._

@@ -23,7 +23,7 @@
                     <div>@lang.label</div>
                     <ul>
                         @for(l <- Language.values) {
-                            <li><a href="@addLang(request.path)(env, l)">@{l.label}</a></li>
+                            <li><a href="@addLang(request)(env, l)">@{l.label}</a></li>
                         }
                     </ul>
                 </li>

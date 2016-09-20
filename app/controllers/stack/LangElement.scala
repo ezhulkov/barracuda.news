@@ -18,8 +18,6 @@ import scala.util.Try
 trait LangElement extends StackableController {
   self: Controller with I18nSupport =>
 
-  import scala.concurrent.ExecutionContext.Implicits.global
-
   implicit def resourceLang(implicit req: RequestWithAttributes[_]) = req.get(ResourceLang).get
 
   case object ResourceLang extends RequestAttributeKey[LanguageValue]
@@ -28,7 +26,7 @@ trait LangElement extends StackableController {
     val resourceLang = getResourceLang(request).getOrElse(Language.DEFAULT)
     super.proceed(request.set(
       ResourceLang, Language.convert(resourceLang)
-    ))(f).map(r => r.withLang(resourceLang.playLang))
+    ))(f)
   }
 
   private def getResourceLang(request: Request[_]): Option[Language] = request.getQueryString("lang").flatMap(t => tryParseLang(t))

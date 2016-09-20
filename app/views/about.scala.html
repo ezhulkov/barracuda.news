@@ -1,28 +1,25 @@
-@()(implicit messages: Messages, lang: LanguageValue, env: Environment, request: RequestHeader, l: Lang)
+@()(implicit messages: Messages, lang: LanguageValue, env: Environment, request: RequestHeader)
 
 @layout.front(messages("title.about")) {
 
     <section class="container">
         <div class="content-body generic">
             <h1>@messages("title.about")</h1>
-
-            <p>
-            @l
-            </p>
-            <p>
-            @lang
-            </p>
-
-            <p>
-                Barracuda News was established in 2015. We cover all the intense regattas of various classes around the world!
-            </p>
-            <p>
-                We aim to provide the most up-to-date information about sailing regattas, exclusive interviews with champions and other interesting people who participate in the sailing industry around the world. We also give full media-support for the events of Melges 20 class: the most recent projects are Melges 20 Summer Sailing Series, Melges 20 World Championship and Melges 20 Russian Open Championship.
-            </p>
-            <p>
-                Don't forget to check out our unique <a href="@routes.FrontendController.tracking.withLang" class="active-link">3D Tracking Tool</a>
-                , with which you can follow the races live as they are happening!
-            </p>
+            @en {
+                <p>
+                    Barracuda News was established in 2015. We cover all the intense regattas of various classes around the world!
+                </p>
+                <p>
+                    We aim to provide the most up-to-date information about sailing regattas, exclusive interviews with champions and other interesting people who participate in the sailing industry around the world. We also give full media-support for the events of Melges 20 class: the most recent projects are Melges 20 Summer Sailing Series, Melges 20 World Championship and Melges 20 Russian Open Championship.
+                </p>
+                <p>
+                    Don't forget to check out our unique <a href="@routes.FrontendController.tracking.withLang" class="active-link">3D Tracking Tool</a>
+                    , with which you can follow the races live as they are happening!
+                </p>
+            }
+            @ru {
+                текст
+            }
         </div>
     </section>
 
