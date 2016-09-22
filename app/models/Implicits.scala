@@ -53,9 +53,10 @@ object Implicits {
   implicit val rowFormat           = Json.format[NewsRow]
   implicit val layoutConfigFormat  = Json.format[LayoutConfig]
   implicit val layoutFormatReads   = Json.reads[Layout]
-  implicit val layoutFormatWrites  = JsonPimped.writes[Layout](Json.writes[Layout]) { case (json, obj) =>
-    json.asInstanceOf[JsObject] +
-      ("config", Json.parse(obj.rawConfig.getOrElse(""))) - "rawConfig"
+  implicit val layoutFormatWrites  = JsonPimped.writes[Layout](Json.writes[Layout]) { case (json, obj) => obj.rawConfig match {
+    case Some(conf) => json.asInstanceOf[JsObject] + ("config", Json.parse(conf)) - "rawConfig"
+    case _ => json
+  }
   }
   implicit val articleReads        = Json.reads[Article]
   implicit val articleWrites       = JsonPimped.writes[Article](Json.writes[Article]) { case (json, obj) =>

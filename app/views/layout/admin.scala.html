@@ -62,7 +62,7 @@
             @activeMenu.map { active =>
             <script type="application/javascript">
                 document.addEventListener("DOMContentLoaded", function (event) {
-                    activateMenu("#news");
+                    activateMenu("@activeMenu.orNull");
                 });
             </script>
             }.orNull
