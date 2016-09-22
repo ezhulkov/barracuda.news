@@ -67,5 +67,15 @@ class AdminController @Inject()(
       case None => NotFound(views.html.errors.e404())
     }
   }
+  def uploadCoverPhoto(id: Long) = StackAction(AuthorityKey -> Administrator) { implicit request =>
+    request.body.asMultipartFormData match {
+      case Some(data) if data.files.size == 1 =>
+        val file = data.files.head.ref.file
+        articleService.attachCoverPhoto(id,file)
+        Ok(Json.obj("result" -> "Cover photo saved!", "article_id" -> id)).as(JSON)
+      case _ => Ok(Json.obj("result" -> "Error saving photo!", "article_id" -> id)).as(JSON)
+    }
+  }
+
 
 }

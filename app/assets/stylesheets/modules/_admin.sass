@@ -116,6 +116,8 @@ main.admin-area
             &:after
               padding-left: 5px
               content: '>'
+      .info-controls
+        position: relative
       dl
         +span(12 no-gutter)
         +margin-trailer(1)
@@ -160,7 +162,8 @@ main.admin-area
   section.article-section
     +with-layout(12 fluid inside)
       dl.tags
-        +span(12 no-gutter)
+        +span(9 no-gutter)
+        +post(3)
         .host
           margin: 0
         span, a
@@ -193,20 +196,41 @@ main.admin-area
             padding: 2px 5px
           em
             +t-small
+      .cover
+        +pad($pad-col, $pad-col)
+        +display-flex()
+        +justify-content(center)
+        +align-items(center)
+        overflow: hidden
+        background: white
+        width: 300px
+        border: 1px dashed $activeLink
+        position: absolute
+        right: 0
+        top: rhythm(1)
+        bottom: rhythm(1)
+        text-align: center
+        input
+          position: absolute
+          bottom: 0
+          height: rhythm(1)
+          padding: 3px 15px
+          background: rgba(255, 255, 255, 0.8)
+          width: 300px
+        img
+          width: 300px
+        span
+          +flex(0 1 auto)
       dl.publish
-        +span(2 no-gutter)
-        padding-right: gutter()/2
+        +span(9 no-gutter)
+        +post(3)
         input
           +t-small
         dd
           margin-top: -1px
       dl.origin
-        +span(5 no-gutter)
-        padding-left: gutter()/2
-        padding-right: gutter()/2
-      dl.cover
-        +span(5 no-gutter)
-        padding-left: gutter()/2
+        +span(9 no-gutter)
+        +post(3)
       dl.caption
         +padding-leader(1)
         input
@@ -229,7 +253,7 @@ main.admin-area
               width: 100% !important
             .chosen-single
               height: rhythm(1)
-            .chosen-drop,.chosen-single
+            .chosen-drop, .chosen-single
               +border-radius(0)
           .del
             +t-small

@@ -682,7 +682,7 @@ header .menu ul.tools li.lang ul {
   border-top: 2px solid #f26522;
   position: absolute;
   z-index: 10;
-  left: -10px;
+  right: -10px;
   width: 100px;
   height: initial;
   padding: 5px 0;
@@ -2051,6 +2051,9 @@ main.admin-area section.main-section .breadcrumbs li a:after {
   padding-left: 5px;
   content: ">";
 }
+main.admin-area section.main-section .info-controls {
+  position: relative;
+}
 main.admin-area section.main-section dl {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -2167,8 +2170,9 @@ main.admin-area section.article-section dl.tags {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 100%;
+  width: 75%;
   float: left;
+  margin-right: 25%;
 }
 main.admin-area section.article-section dl.tags .host {
   margin: 0;
@@ -2223,13 +2227,49 @@ main.admin-area section.article-section dl.tags .autocomplete em {
   line-height: 24px;
   line-height: 1.5rem;
 }
+main.admin-area section.article-section .cover {
+  padding-left: 20px;
+  padding-left: 1.25rem;
+  padding-right: 20px;
+  padding-right: 1.25rem;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  overflow: hidden;
+  background: white;
+  width: 300px;
+  border: 1px dashed #f26522;
+  position: absolute;
+  right: 0;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  text-align: center;
+}
+main.admin-area section.article-section .cover input {
+  position: absolute;
+  bottom: 0;
+  height: 1.5rem;
+  padding: 3px 15px;
+  background: rgba(255, 255, 255, 0.8);
+  width: 300px;
+}
+main.admin-area section.article-section .cover img {
+  width: 300px;
+}
+main.admin-area section.article-section .cover span {
+  -webkit-flex: 0 1 auto;
+  flex: 0 1 auto;
+}
 main.admin-area section.article-section dl.publish {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 16.66667%;
+  width: 75%;
   float: left;
-  padding-right: 0.41667%;
+  margin-right: 25%;
 }
 main.admin-area section.article-section dl.publish input {
   font-size: 13px;
@@ -2244,18 +2284,9 @@ main.admin-area section.article-section dl.origin {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 41.66667%;
+  width: 75%;
   float: left;
-  padding-left: 0.41667%;
-  padding-right: 0.41667%;
-}
-main.admin-area section.article-section dl.cover {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 41.66667%;
-  float: left;
-  padding-left: 0.41667%;
+  margin-right: 25%;
 }
 main.admin-area section.article-section dl.caption {
   padding-top: 24px;

@@ -30,7 +30,12 @@
                 <li><a href="@routes.AdminController.index">News</a></li>
                 <li>{{translation.caption}}</li>
             </ul>
-            <fieldset>
+            <fieldset class="info-controls">
+                <div class="cover">
+                    <span ng-hide="articleHasId()">In order to upload cover photo push 'Create' button first</span>
+                    <img ng-show="articleHasId()" ng-src="{{articleModel.coverMedia}}"/>
+                    <input id="uploader" ng-show="articleHasId()" type="file" nv-file-select uploader="uploader"/>
+                </div>
                 <dl class="tags">
                     <dt><label for="tags">Tags:</label></dt>
                     <dd>
@@ -46,10 +51,6 @@
                 <dl class="origin">
                     <dt><label for="origin">Original url (optional):</label></dt>
                     <dd><input type="text" name="origin" ng-model="articleModel.origin"></dd>
-                </dl>
-                <dl class="cover">
-                    <dt><label for="cover">Cover media (optional):</label></dt>
-                    <dd><input type="text" name="cover" ng-model="articleModel.coverMedia"></dd>
                 </dl>
             </fieldset>
             <fieldset>
@@ -74,7 +75,7 @@
             <fieldset>
                 <div class="lang-label">{{selectedLang.label}}:</div>
                 <dl class="caption">
-                    <dd><input id="caption" type="text" name="caption" ng-model="translation.caption" placeholder="Caption"></dd>
+                    <dd><input id="caption" type="text" name="caption" ng-model="translation.caption" placeholder="Enter caption to enable {{selectedLang.label | lowercase}} translation"></dd>
                 </dl>
                 <dl ng-show="hasCaption(translation)">
                     <dd>
@@ -85,7 +86,7 @@
                                 </div>
                                 <div class="adv">
                                     <div class="banner">
-                                        <img src="http://placehold.it/300x600">
+                                        <img src="https://placehold.it/300x600">
                                     </div>
                                 </div>
                             </section>

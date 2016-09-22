@@ -2,6 +2,7 @@ package services
 
 import java.io.ByteArrayInputStream
 import java.io.File
+import java.nio.file.{Files, Paths}
 import java.util.Base64
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.regex.Pattern
@@ -39,6 +40,7 @@ trait ArticleService {
   def allRootTags: Set[Tag]
   def search(q: String): Seq[Article]
   def extractImages(translation: Translation): Try[Translation]
+  def attachCoverPhoto(id: Long, file: File)
 
 }
 
@@ -96,8 +98,17 @@ class ArticleServiceImpl extends ArticleService {
         translation
     }
   }
-  private def decodeAndStore(caption: String, number: Int, base64Data: String): String = {
-    val bytes = Base64.getDecoder.decode(base64Data)
+  override def attachCoverPhoto(id: Long, file: File) = DB.autoCommit { implicit session =>
+    findArticle(id) match {
+      case Some(article) =>
+        val bytes = Files.readAllBytes(Paths.get(file.toURI))
+        val savedFile = decodeAndStore(article.translationOrDefault(LangUtils.defaultLang).caption.getOrElse(DateTime.now().toString), 1, bytes)
+        val newArticle = article.copy(coverMedia = Some(s"$imageUrl/$savedFile"))
+        Mappers.Article.updateCover(newArticle)
+      case _ => Logger.error(s"Can not find article $id")
+    }
+  }
+  private def decodeAndStore(caption: String, number: Int, bytes: Array[Byte]): String = {
     val image = ImageIO.read(new ByteArrayInputStream(bytes))
     val resized = image.getWidth > articleImageWidth match {
       case true => Thumbnails.of(image).width(articleImageWidth).keepAspectRatio(true).asBufferedImage
@@ -108,6 +119,7 @@ class ArticleServiceImpl extends ArticleService {
     ImageIO.write(resized, "jpg", file)
     fileName
   }
+  private def decodeAndStore(caption: String, number: Int, base64Data: String): String = decodeAndStore(caption, number, Base64.getDecoder.decode(base64Data))
   private def joinCrossLinks(article: Article) = {
     val links = Mappers.CrossLinkArticle.findByArticle(article)
     val articles = Mappers.Article.findAllByIdsSeq(links.map(t => t.linkId))

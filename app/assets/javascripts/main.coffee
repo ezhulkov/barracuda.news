@@ -91,7 +91,7 @@ if (typeof AlloyEditor != 'undefined')
   }
 
 frontendApp = angular.module 'frontendApp', []
-adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker', 'localytics.directives']
+adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker', 'localytics.directives', 'angularFileUpload']
 
 adminApp.service "fileUpload", ($http) ->
   this.uploadFileToUrl = (file, uploadUrl, success, error) ->
@@ -160,7 +160,7 @@ adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
         $scope.result = {}
       , 2000
 
-adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $location) ->
+adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $location, FileUploader) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")
   $scope.result = {}
   $scope.langs = angular.copy($window.langs)
@@ -171,6 +171,20 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
   $scope.tags = angular.copy($window.tags)
   $scope.alloyConfig = $window.alloyConfig
   $scope.loading = false
+  $scope.newArticle = $scope.articleModel.id == undefined
+  $scope.uploader = new FileUploader({
+    url: "/admin/cover_photo/" + $scope.articleModel.id
+  })
+  $scope.uploader.onAfterAddingFile = (fileItem) ->
+    file = document.getElementById("uploader").files[0]
+    fileReader = new FileReader()
+    fileReader.onload = (data) ->
+      $scope.$apply ->
+        $scope.articleModel.coverMedia = data.target.result
+    fileReader.readAsDataURL(file)
+    $scope.uploader.uploadAll()
+  $scope.uploader.onSuccessItem = (fileItem, response, status, headers) ->
+    $scope.processResponse(response)
   if($scope.articleModel.crossLinks != undefined)
     $scope.articleModel.crossLinks = $scope.articleModel.crossLinks.map (id)-> {id: id.toString()}
   $scope.findTranslation = () ->
@@ -182,10 +196,16 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
     if(query.length == 0)
       return $scope.tags
     return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
+  $scope.showCoverPhoto = ->
+    $scope.articleHasId && $scope.articleModel.coverMedia != undefined
+  $scope.articleHasId = ->
+    $scope.articleModel.id != undefined
   $scope.processResponse = (data) ->
     $scope.result = data
-    if($scope.articleModel.id == undefined)
+    if($scope.newArticle)
       $window.location.pathname = $window.location.pathname + "/" + data.article_id
+    else if($scope.articleModel.id == undefined)
+      $scope.articleModel.id = data.article_id
     $scope.loading = false
     $timeout ->
       $scope.result = {}
