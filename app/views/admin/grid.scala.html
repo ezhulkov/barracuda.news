@@ -1,0 +1,42 @@
+@(layoutModel: String, tags: String, langs: String)(implicit user: Account)
+
+@sidebar = {
+    <ul>
+        <li ng-hide="layoutModel.id">
+            <a href="#" ng-click="save()">Create</a>
+        </li>
+        <li ng-show="layoutModel.id">
+            <a href="#" ng-click="save()">Save</a>
+        </li>
+        <li ng-show="layoutModel.id">
+            <a data-remodal-target="delete-modal">Delete</a>
+        </li>
+    </ul>
+
+}
+
+@layout.admin("layout-section", subMenu = Some(sidebar), activeMenu = Some("#layouts"), controller = Some("LayoutController")) {
+
+    <div>
+        <ul class="breadcrumbs">
+            <li><a href="@routes.AdminController.layouts">Layouts</a></li>
+            <li>{{layoutModel.name}}</li>
+        </ul>
+    </div>
+
+    <div class="remodal" data-remodal-id="delete-modal">
+        <h3>Delete layout?</h3>
+        <br>
+        <div class="controls">
+            <input data-remodal-action="cancel" type="button" value="Cancel">
+            <input data-remodal-action="confirm" type="button" value="Delete" ng-click="delete()">
+        </div>
+    </div>
+
+    <script type="application/javascript">
+            var layoutModel = @Html(layoutModel);
+            var tags = @Html(tags);
+            var langs = @Html(langs);
+    </script>
+
+}

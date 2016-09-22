@@ -135,6 +135,17 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
   $scope.toggleMenu = ->
     $scope.menuOn = !$scope.menuOn
 
+adminApp.controller "LayoutsController", ($timeout, $window, $scope, $http) ->
+  $scope.layouts = $window.layouts
+
+adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
+  $scope.result = {}
+  $scope.langs = angular.copy($window.langs)
+  $scope.tags = angular.copy($window.tags)
+  $scope.layoutModel = angular.copy($window.layoutModel)
+  $scope.loading = false
+  $scope.newLayout = $scope.layoutModel.id == undefined
+
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList
   $scope.total = $scope.newsList.length
@@ -145,20 +156,6 @@ adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
     from = (p - 1) * $scope.pageSize
     $scope.newsPage = $scope.newsList.slice(from, from + $scope.pageSize);
     return false
-  $scope.addArticle = () ->
-    $http.post("/admin/article")
-    .error (data, status) ->
-      $scope.result = data
-      $scope.loading = false
-      $timeout ->
-        $scope.result = {}
-      , 2000
-    .success (data) ->
-      $scope.result = data
-      $scope.loading = false
-      $timeout ->
-        $scope.result = {}
-      , 2000
 
 adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $location, FileUploader) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")

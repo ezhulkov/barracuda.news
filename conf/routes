@@ -19,7 +19,11 @@ POST          /login                        controllers.AuthController.authentic
 GET           /logout                       controllers.AuthController.logout
 GET           /admin                        controllers.AdminController.index
 POST          /admin/cover_photo/:id        controllers.AdminController.uploadCoverPhoto(id:Long)
-GET           /admin/layout                 controllers.AdminController.layout
+GET           /admin/layouts                controllers.AdminController.layouts
+GET           /admin/layout                 controllers.AdminController.layoutNew
+GET           /admin/layout/:id             controllers.AdminController.layout(id:Long)
+DELETE        /admin/layout/:id             controllers.AdminController.layoutDelete(id:Long)
+POST          /admin/layout                 controllers.AdminController.layoutSave
 GET           /admin/article                controllers.AdminController.articleNew
 GET           /admin/article/:id            controllers.AdminController.article(id:Long)
 DELETE        /admin/article/:id            controllers.AdminController.articleDelete(id:Long)

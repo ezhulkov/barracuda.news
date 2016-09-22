@@ -7,6 +7,7 @@ import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 import services.LangUtils
 import services.Utils
 import scala.language.implicitConversions
@@ -16,6 +17,8 @@ import scala.util.Try
   * Created by ezhulkov on 04.07.16.
   */
 object CoreModels {
+
+  import Implicits._
 
   val dateFormat      = "YYYY/MM/dd HH:mm"
   val dateFormatShort = "YYYY/MM/dd"
@@ -52,7 +55,13 @@ object CoreModels {
   }
 
   case class Tag(id: Option[Long], text: String, root: Option[Boolean] = None)
-  case class Layout(rows: Seq[NewsRow])
+  object Layout {
+    def newLayout = Layout(None, None, None, None)
+  }
+  case class Layout(id: Option[Long], name: Option[String], rawConfig: Option[String], tag: Option[Tag] = None) {
+    def config: Option[LayoutConfig] = rawConfig.map(c => Json.parse(c).as[LayoutConfig])
+  }
+  case class LayoutConfig(rows: Seq[NewsRow])
   case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
   case class BlockCaption(lang: Lang, text: String)
   case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, captions: Option[Seq[BlockCaption]] = None, newsType: NewsType = NewsType.TEXT) {
@@ -79,7 +88,7 @@ object CoreModels {
     def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
     def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
     def translation(implicit lang: Lang) = translations.find(t => t.lang == lang)
-    def translationOrDefault(implicit lang: Lang) = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t=>t.caption.isDefined).get)
+    def translationOrDefault(implicit lang: Lang) = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t => t.caption.isDefined).get)
     def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
     def withCrossLinks(links: Seq[Article]) = {
       val c = copy(crossLinks = Some(links.flatMap(t => t.id)))

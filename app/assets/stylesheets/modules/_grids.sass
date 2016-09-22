@@ -146,8 +146,9 @@ $col-spans: (4, 6, 8, 12)
         +flex-direction(row)
         .first-item, .rest-items
           +flex(1 0 auto)
-          width: 0
+          width: 50%
         .first-item
+          padding-right: $pad-col
           h2
             +t-large
           .add-info

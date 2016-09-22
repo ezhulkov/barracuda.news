@@ -164,6 +164,7 @@ main.admin-area
       dl.tags
         +span(9 no-gutter)
         +post(3)
+        padding-right: $pad-col
         .host
           margin: 0
         span, a
@@ -196,14 +197,30 @@ main.admin-area
             padding: 2px 5px
           em
             +t-small
+      dl.publish
+        +span(9 no-gutter)
+        +post(3)
+        padding-right: $pad-col
+        input
+          +t-small
+        dd
+          margin-top: -1px
+      dl.origin
+        +span(9 no-gutter)
+        +post(3)
+        padding-right: $pad-col
+      dl.caption
+        +padding-leader(1)
+        input
+          +t-large
+          height: rhythm(2)
       .cover
-        +pad($pad-col, $pad-col)
         +display-flex()
         +justify-content(center)
         +align-items(center)
+        +span(3)
         overflow: hidden
         background: white
-        width: 300px
         border: 1px dashed $activeLink
         position: absolute
         right: 0
@@ -213,29 +230,15 @@ main.admin-area
         input
           position: absolute
           bottom: 0
+          left: 0
+          right: 0
           height: rhythm(1)
           padding: 3px 15px
           background: rgba(255, 255, 255, 0.8)
-          width: 300px
         img
-          width: 300px
+          height: 100%
         span
           +flex(0 1 auto)
-      dl.publish
-        +span(9 no-gutter)
-        +post(3)
-        input
-          +t-small
-        dd
-          margin-top: -1px
-      dl.origin
-        +span(9 no-gutter)
-        +post(3)
-      dl.caption
-        +padding-leader(1)
-        input
-          +t-large
-          height: rhythm(2)
       .lang-label
         border-bottom: 1px solid $blackTextColor
         margin-bottom: -1px
@@ -276,6 +279,57 @@ main.admin-area
         min-height: 50px
         padding-left: $pad/2
         padding-right: $pad/2
+  section.layouts-section
+    .layouts
+      +inline-block-list()
+      .item
+        border: 2px solid $activeLink
+        vertical-align: top
+        width: 150px
+        margin: 0 $pad-col/2 rhythm(1) $pad-col/2
+        height: rhythm(10)
+        overflow: hidden
+        background-color: white
+        position: relative
+        .grid
+          +container(90%)
+          +margin-leader(1/4)
+          .row
+            +span(12)
+          .block
+            border: 1px dashed $activeLink
+            height: rhythm(3/2)
+            &.SIZE12
+              +span(12)
+            &.SIZE6
+              +span(6)
+            &.SIZE4
+              +span(4)
+            &.SIZE8
+              +span(8)
+            &:hover
+              background-color: rgba(238, 123, 14, 0.5)
+        .info
+          +rhythm-padding(1/2)
+          margin-bottom: -3px
+          text-align: center
+          position: absolute
+          background-color: white
+          bottom: 0
+          left: 0
+          right: 0
+          z-index: 10
+          .tag
+            +t-tiny
+            +t-strong
+            color: white
+            background: $activeLink
+            margin: 0 30px 2px 30px
+            line-height: rhythm(1/2)
+            padding: 4px
+            border-radius: 5px
+          a
+            +active-link($color: $blackTextColor)
 
 .ae-listbox
   span

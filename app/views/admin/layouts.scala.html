@@ -1,4 +1,30 @@
-@()(implicit user: Account)
+@(layouts: String)(implicit user: Account)
 
-@layout.admin("layouts-section", None) {
+@sidebar = {
+    <ul>
+        <li>
+            <a href="@routes.AdminController.layoutNew">Add layout</a>
+        </li>
+    </ul>
+}
+
+@layout.admin("layouts-section", Some(sidebar), controller = Some("LayoutsController")) {
+
+    <ul class="layouts">
+        <li class="item" ng-repeat="item in layouts">
+            <div class="grid">
+                <div class="row" ng-repeat="row in item.config.rows">
+                    <a class="block {{block.size}}" ng-repeat="block in row.blocks" href="/admin/grid/{{item.id}}"></a>
+                </div>
+            </div>
+            <div class="info">
+                <div class="tag" ng-show="item.tag">{{item.tag.text}}</div>
+                <h4><a href="/admin/grid/{{item.id}}">{{item.name}}</a></h4>
+            </div>
+        </li>
+    </ul>
+    <script type="application/javascript">
+        var layouts=@Html(layouts)
+    </script>
+
 }
