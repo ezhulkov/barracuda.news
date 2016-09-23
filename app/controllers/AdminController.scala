@@ -13,6 +13,7 @@ import play.api.mvc._
 import services.ArticleService
 import services.LangUtils
 import services.LayoutService
+import services.Utils._
 import scala.util.Failure
 import scala.util.Success
 
@@ -30,6 +31,7 @@ class AdminController @Inject()(
 
   def langs = JsArray(LangUtils.langs.map(l => Json.obj("value" -> l.code, "label" -> messagesApi(s"lang.name.${l.code}"))).toSeq)
   def tags = JsArray(articleService.allTags.map(t => JsString(t.text)).toSeq)
+  def rootTags = JsArray(articleService.allRootTags.map(t => Json.obj("id" -> JsNumber(t.id.get), "name" -> JsString(t.text))).toSeq)
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
@@ -41,8 +43,7 @@ class AdminController @Inject()(
   def articleNew = getArticle(None)
   def article(id: Long) = getArticle(Some(id))
   def articleSave = StackAction(AuthorityKey -> Administrator) { implicit request =>
-    request.body.asJson.map(json => json.as[Article])
-      .map(article => articleService.saveArticle(article)) match {
+    request.body.asJson.map(json => json.as[Article]).map(article => articleService.saveArticle(article).recoverWith(loggedFailure())) match {
       case Some(Success(id)) => Ok(Json.obj("result" -> "Article saved!", "article_id" -> id)).as(JSON)
       case Some(Failure(e)) => InternalServerError(Json.obj("result" -> s"Error: ${e.getMessage}")).as(JSON)
       case None => BadRequest(Json.obj("result" -> s"Bad request")).as(JSON)
@@ -69,7 +70,7 @@ class AdminController @Inject()(
   def layoutNew = getLayout(None)
   def layout(id: Long) = getLayout(Some(id))
   def layoutSave = StackAction(AuthorityKey -> Administrator) { implicit request =>
-    request.body.asJson.map(json => json.as[Layout]).map(layout => layoutService.saveLayout(layout)) match {
+    request.body.asJson.map(json => json.as[Layout]).map(layout => layoutService.saveLayout(layout).recoverWith(loggedFailure())) match {
       case Some(Success(id)) => Ok(Json.obj("result" -> "Layout saved!", "layout_id" -> id)).as(JSON)
       case Some(Failure(e)) => InternalServerError(Json.obj("result" -> s"Error: ${e.getMessage}")).as(JSON)
       case None => BadRequest(Json.obj("result" -> s"Bad request")).as(JSON)
@@ -100,7 +101,7 @@ class AdminController @Inject()(
       case None => Some(Layout.newLayout)
     }
     layoutOpt.map(t => Json.toJson(t)) match {
-      case Some(layout) => Ok(views.html.admin.grid(Json.stringify(layout), Json.stringify(tags), Json.stringify(langs)))
+      case Some(layout) => Ok(views.html.admin.grid(Json.stringify(layout), Json.stringify(rootTags), Json.stringify(langs)))
       case None => NotFound(views.html.errors.e404())
     }
   }

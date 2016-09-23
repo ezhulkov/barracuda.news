@@ -52,7 +52,12 @@ object Implicits {
   implicit val newsFormat          = Json.format[NewsBlock]
   implicit val rowFormat           = Json.format[NewsRow]
   implicit val layoutConfigFormat  = Json.format[LayoutConfig]
-  implicit val layoutFormatReads   = Json.reads[Layout]
+  implicit val layoutFormatReads   = JsonPimped.reads[Layout](Json.reads[Layout])() { case (json, obj) =>
+    (json \ "config").toOption match {
+      case Some(config) => obj.copy(rawConfig = Some(Json.stringify(config)))
+      case _ => obj
+    }
+  }
   implicit val layoutFormatWrites  = JsonPimped.writes[Layout](Json.writes[Layout]) { case (json, obj) => obj.rawConfig match {
     case Some(conf) => json.asInstanceOf[JsObject] + ("config", Json.parse(conf)) - "rawConfig"
     case _ => json
@@ -69,10 +74,10 @@ object Implicits {
 
 object JsonPimped {
 
-  private def partialIdentity: PartialFunction[JsValue, JsValue] = {
+  def partialIdentity: PartialFunction[JsValue, JsValue] = {
     case o => o
   }
-  private def partialTupleIdObj[T]: PartialFunction[(JsValue, T), T] = {
+  def partialTupleIdObj[T]: PartialFunction[(JsValue, T), T] = {
     case (json, obj) => obj
   }
   private def partialTupleIdJson[T]: PartialFunction[(JsValue, T), JsValue] = {

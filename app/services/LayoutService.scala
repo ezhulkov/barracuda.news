@@ -29,10 +29,7 @@ class LayoutServiceImpl extends LayoutService {
   override def deleteLayout(id: Long): Unit = Mappers.Layout.deleteById(id)
   override def saveLayout(layout: Layout): Try[Long] = DB.autoCommit { implicit session =>
     layout.id match {
-      case Some(id) => Try {
-        Mappers.Layout.update(layout)
-        id
-      }
+      case Some(id) => Mappers.Layout.update(layout).map(count => id)
       case _ => Mappers.Layout.create(layout)
     }
   }

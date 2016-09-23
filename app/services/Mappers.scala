@@ -53,12 +53,12 @@ object Mappers {
     def update(layout: Layout)(implicit s: DBSession): Try[Int] = Try(updateById(layout.id.get).withAttributes(
       'name -> layout.name.getOrElse("-"),
       'rawConfig -> layout.rawConfig.filter(_.nonEmpty).orNull,
-      'tag -> layout.tag.orNull
+      'tagId -> layout.tag.map(t => t.id).orNull
     ))
     def create(layout: Layout)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(
       'name -> layout.name.getOrElse("-"),
       'rawConfig -> layout.rawConfig.filter(_.nonEmpty).orNull,
-      'tag -> layout.tag.orNull
+      'tagId -> layout.tag.map(t => t.id).orNull
     ))
 
   }

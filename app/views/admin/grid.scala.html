@@ -22,6 +22,26 @@
             <li><a href="@routes.AdminController.layouts">Layouts</a></li>
             <li>{{layoutModel.name}}</li>
         </ul>
+        <fieldset>
+            <dl class="name">
+                <dt><label for="name">Layout name:</label></dt>
+                <dd><input type="text" name="name" ng-model="layoutModel.name"></dd>
+            </dl>
+            <dl class="tag">
+                <dt><label for="tag">Page tag (optional):</label></dt>
+                <dd>
+                    <select chosen
+                    ng-model="layoutModel.tag.id"
+                    data-placeholder="Choose page tag...">
+                        <option value="">&nbsp;</option>
+                        <option ng-repeat="option in tags" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                </dd>
+            </dl>
+        </fieldset>
+        <fieldset>
+            {{layoutModel.config | json}}
+        </fieldset>
     </div>
 
     <div class="remodal" data-remodal-id="delete-modal">

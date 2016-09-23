@@ -2023,8 +2023,8 @@ main.admin-area section.main-section .flash {
   z-index: 10;
 }
 main.admin-area section.main-section .breadcrumbs {
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
   overflow: auto;
 }
 main.admin-area section.main-section .breadcrumbs li {
@@ -2181,31 +2181,31 @@ main.admin-area section.article-section dl.tags {
 main.admin-area section.article-section dl.tags .host {
   margin: 0;
 }
-main.admin-area section.article-section dl.tags span, main.admin-area section.article-section dl.tags a {
+main.admin-area section.article-section dl.tags .host span, main.admin-area section.article-section dl.tags .host a {
   font-size: 13px;
   font-size: 0.833rem;
   line-height: 24px;
   line-height: 1.5rem;
 }
-main.admin-area section.article-section dl.tags input {
+main.admin-area section.article-section dl.tags .host input {
   width: 80px !important;
 }
-main.admin-area section.article-section dl.tags a {
+main.admin-area section.article-section dl.tags .host a {
   color: white;
 }
-main.admin-area section.article-section dl.tags li.tag-item {
+main.admin-area section.article-section dl.tags .host li.tag-item {
   color: white;
   background: blue;
   -webkit-font-smoothing: subpixel-antialiased;
 }
-main.admin-area section.article-section dl.tags ti-tag-item {
+main.admin-area section.article-section dl.tags .host ti-tag-item {
   display: block;
   margin-top: -3px;
   -webkit-font-smoothing: subpixel-antialiased;
   line-height: 18px;
   height: 18px;
 }
-main.admin-area section.article-section dl.tags li.tag-item, main.admin-area section.article-section dl.tags input {
+main.admin-area section.article-section dl.tags .host li.tag-item, main.admin-area section.article-section dl.tags .host input {
   font-size: 13px;
   font-size: 0.833rem;
   line-height: 24px;
@@ -2218,14 +2218,14 @@ main.admin-area section.article-section dl.tags li.tag-item, main.admin-area sec
   height: 20px;
   font-family: "Open Sans", sans-serif;
 }
-main.admin-area section.article-section dl.tags .autocomplete {
+main.admin-area section.article-section dl.tags .host .autocomplete {
   margin: 0;
   padding: 0;
 }
-main.admin-area section.article-section dl.tags .autocomplete li {
+main.admin-area section.article-section dl.tags .host .autocomplete li {
   padding: 2px 5px;
 }
-main.admin-area section.article-section dl.tags .autocomplete em {
+main.admin-area section.article-section dl.tags .host .autocomplete em {
   font-size: 13px;
   font-size: 0.833rem;
   line-height: 24px;
@@ -2416,6 +2416,34 @@ main.admin-area section.article-section article.edit .alloy-editor {
   min-height: 50px;
   padding-left: 10px;
   padding-right: 10px;
+}
+main.admin-area section.layout-section dl.name {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 66.66667%;
+  float: left;
+  padding-right: 20px;
+}
+main.admin-area section.layout-section dl.tag {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 33.33333%;
+  float: left;
+  height: 1.5rem;
+}
+main.admin-area section.layout-section dl.tag .chosen-container {
+  margin-top: -4px;
+  width: 100% !important;
+}
+main.admin-area section.layout-section dl.tag .chosen-single {
+  height: 1.5rem;
+}
+main.admin-area section.layout-section dl.tag .chosen-drop, main.admin-area section.layout-section dl.tag .chosen-single {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
 }
 main.admin-area section.layouts-section .layouts {
   margin: 0;

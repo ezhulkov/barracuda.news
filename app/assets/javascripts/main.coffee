@@ -145,8 +145,36 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   $scope.langs = angular.copy($window.langs)
   $scope.tags = angular.copy($window.tags)
   $scope.layoutModel = angular.copy($window.layoutModel)
+  if($scope.layoutModel.tag != undefined)
+    $scope.layoutModel.tag.id = $scope.layoutModel.tag.id.toString()
   $scope.loading = false
   $scope.newLayout = $scope.layoutModel.id == undefined
+  $scope.loadTags = (query) ->
+    if(query.length == 0)
+      return $scope.tags
+    return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
+  $scope.processResponse = (data) ->
+    $scope.result = data
+    if($scope.newLayout)
+      $window.location.pathname = $window.location.pathname + "/" + data.layout_id
+    else if($scope.layoutModel.id == undefined)
+      $scope.layoutModel.id = data.layout_id
+    $scope.loading = false
+    $timeout ->
+      $scope.result = {}
+    , 1000
+  $scope.save = ->
+    $scope.loading = true
+    layout = angular.copy($scope.layoutModel)
+    if(layout.tag != undefined && layout.tag.id != undefined && layout.tag.id.length > 0)
+      layout.tag.id = parseInt(layout.tag.id)
+    else
+      layout.tag = undefined
+    $http.post("/admin/layout", layout)
+    .error (data, status) ->
+      $scope.processResponse(data)
+    .success (data) ->
+      $scope.processResponse(data)
 
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList

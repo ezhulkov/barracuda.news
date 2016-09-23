@@ -19,8 +19,8 @@ import play.api.Logger
 import play.api.i18n.Lang
 import scalikejdbc.DB
 import scalikejdbc.DBSession
+import services.Utils.loggedFailure
 import utils.Configuration
-import scala.util.Failure
 import scala.util.Success
 import scala.util.Try
 
@@ -170,10 +170,6 @@ class ArticleServiceImpl extends ArticleService {
     tagIds.map(t => Mappers.ArticleTag.create(articleId, t).recoverWith(loggedFailure())).collect { case Success(tag) => tag }
     articleId
   }
-  private def loggedFailure[T](msg: String = ""): PartialFunction[Throwable, Try[T]] = {
-    case th: Throwable =>
-      Logger.error(msg, th)
-      Failure(th)
-  }
+
 
 }

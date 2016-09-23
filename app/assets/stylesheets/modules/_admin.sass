@@ -9,6 +9,50 @@ $menu-width: 180px
 $submenu-width: 180px
 $pad: 20px
 
+=chosen-style
+  height: rhythm(1)
+  .chosen-container
+    margin-top: -4px
+    width: 100% !important
+  .chosen-single
+    height: rhythm(1)
+  .chosen-drop, .chosen-single
+    +border-radius(0)
+
+=tags-style
+  .host
+    margin: 0
+    span, a
+      +t-small
+    input
+      width: 80px !important
+    a
+      color: white
+    li.tag-item
+      color: white
+      background: blue
+      -webkit-font-smoothing: subpixel-antialiased
+    ti-tag-item
+      display: block
+      margin-top: -3px
+      -webkit-font-smoothing: subpixel-antialiased
+      line-height: 18px
+      height: 18px
+    li.tag-item, input
+      +t-small
+      +border-radius(0)
+      padding: 1px 5px
+      margin: 0 2px
+      height: 20px
+      font-family: 'Open Sans', sans-serif
+    .autocomplete
+      margin: 0
+      padding: 0
+      li
+        padding: 2px 5px
+      em
+        +t-small
+
 main.admin-area
   //+debug-vertical-alignment()
   +container(100%)
@@ -105,7 +149,7 @@ main.admin-area
         padding: 5px 20px
         z-index: 10
       .breadcrumbs
-        +margin-trailer(1)
+        +margin-trailer(1/2)
         overflow: auto
         li
           +t-small
@@ -164,39 +208,8 @@ main.admin-area
       dl.tags
         +span(9 no-gutter)
         +post(3)
+        +tags-style
         padding-right: $pad-col
-        .host
-          margin: 0
-        span, a
-          +t-small
-        input
-          width: 80px !important
-        a
-          color: white
-        li.tag-item
-          color: white
-          background: blue
-          -webkit-font-smoothing: subpixel-antialiased
-        ti-tag-item
-          display: block
-          margin-top: -3px
-          -webkit-font-smoothing: subpixel-antialiased
-          line-height: 18px
-          height: 18px
-        li.tag-item, input
-          +t-small
-          +border-radius(0)
-          padding: 1px 5px
-          margin: 0 2px
-          height: 20px
-          font-family: 'Open Sans', sans-serif
-        .autocomplete
-          margin: 0
-          padding: 0
-          li
-            padding: 2px 5px
-          em
-            +t-small
       dl.publish
         +span(9 no-gutter)
         +post(3)
@@ -250,14 +263,7 @@ main.admin-area
           height: rhythm(1)
           .sel
             +span(11 no-gutter)
-            height: rhythm(1)
-            .chosen-container
-              margin-top: -4px
-              width: 100% !important
-            .chosen-single
-              height: rhythm(1)
-            .chosen-drop, .chosen-single
-              +border-radius(0)
+            +chosen-style
           .del
             +t-small
             +active-link($color: $darkBlueColor)
@@ -279,6 +285,14 @@ main.admin-area
         min-height: 50px
         padding-left: $pad/2
         padding-right: $pad/2
+  section.layout-section
+    +with-layout(12 fluid inside)
+      dl.name
+        +span(8 no-gutter)
+        padding-right: $pad-col
+      dl.tag
+        +span(4 no-gutter)
+        +chosen-style
   section.layouts-section
     .layouts
       +inline-block-list()
