@@ -160,9 +160,9 @@ class ArticleServiceImpl extends ArticleService {
     articleId
   }
   private def trySaveTags(article: Article, articleId: Long)(implicit s: DBSession): Try[Long] = Try {
-    val existingTags = Mappers.Tag.allTags(article.tags.map(t => t.text))
+    val existingTags = Mappers.Tag.allTags(article.tags.map(t => t.text.orNull))
     val newTags = article.tags.filterNot(t => existingTags.exists(m => m.text == t.text))
-    val createdTags = newTags.map(t => Mappers.Tag.create(t.text))
+    val createdTags = newTags.map(t => Mappers.Tag.create(t.text.orNull))
       .map(t => t.recoverWith(loggedFailure()))
       .collect { case Success(tag) => tag }
     val tagIds = existingTags.flatMap(t => t.id) ++ createdTags

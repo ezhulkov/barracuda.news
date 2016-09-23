@@ -28,6 +28,7 @@ class LayoutServiceImpl extends LayoutService {
   override def findByTag(tag: String): Option[Layout] = Mappers.Layout.findByTag(tag)
   override def deleteLayout(id: Long): Unit = Mappers.Layout.deleteById(id)
   override def saveLayout(layout: Layout): Try[Long] = DB.autoCommit { implicit session =>
+    layout.tag.flatMap(tag => Mappers.Layout.findByTagId(tag.id.getOrElse(0L))).filter(l => l.id != layout.id).foreach(Mappers.Layout.clearTags)
     layout.id match {
       case Some(id) => Mappers.Layout.update(layout).map(count => id)
       case _ => Mappers.Layout.create(layout)

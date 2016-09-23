@@ -30,8 +30,8 @@ class AdminController @Inject()(
   import scala.io.Source
 
   def langs = JsArray(LangUtils.langs.map(l => Json.obj("value" -> l.code, "label" -> messagesApi(s"lang.name.${l.code}"))).toSeq)
-  def tags = JsArray(articleService.allTags.map(t => JsString(t.text)).toSeq)
-  def rootTags = JsArray(articleService.allRootTags.map(t => Json.obj("id" -> JsNumber(t.id.get), "name" -> JsString(t.text))).toSeq)
+  def tags = JsArray(articleService.allTags.map(t => JsString(t.text.orNull)).toSeq)
+  def rootTags = JsArray(articleService.allRootTags.map(t => Json.obj("id" -> JsNumber(t.id.get), "name" -> JsString(t.text.orNull))).toSeq)
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 

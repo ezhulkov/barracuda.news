@@ -54,7 +54,7 @@ object CoreModels {
     implicit def convert(value: Value): NewsTypeValue = value.asInstanceOf[NewsTypeValue]
   }
 
-  case class Tag(id: Option[Long], text: String, root: Option[Boolean] = None)
+  case class Tag(id: Option[Long], text: Option[String], root: Option[Boolean] = None)
   object Layout {
     def newLayout = Layout(None, None, None, None)
   }

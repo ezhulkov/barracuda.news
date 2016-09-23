@@ -49,6 +49,7 @@ object Mappers {
 
     def findById(id: Long) = joins(tagRef).findById(id)
     def findByTag(tag: String) = joins(tagRef).findBy(sqls.eq(Tag.defaultAlias.text, tag))
+    def findByTagId(id: Long) = joins(tagRef).findBy(sqls.eq(Tag.defaultAlias.id, id))
     def findAll = joins(tagRef).findAll()
     def update(layout: Layout)(implicit s: DBSession): Try[Int] = Try(updateById(layout.id.get).withAttributes(
       'name -> layout.name.getOrElse("-"),
@@ -60,6 +61,11 @@ object Mappers {
       'rawConfig -> layout.rawConfig.filter(_.nonEmpty).orNull,
       'tagId -> layout.tag.map(t => t.id).orNull
     ))
+    def clearTags(layout: Layout)(implicit s: DBSession): Unit = {
+      updateById(layout.id.get).withAttributes(
+        'tagId -> null
+      )
+    }
 
   }
 

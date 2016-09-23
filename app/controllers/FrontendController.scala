@@ -36,7 +36,7 @@ class FrontendController @Inject()(
   import scala.io.Source
 
   val MAIN_LAYOUT  = "main"
-  val layouts      = (articleService.allRootTags.map(t => parsedLayout(t.text)) + parsedLayout(MAIN_LAYOUT)).toMap
+  val layouts      = (articleService.allRootTags.map(t => parsedLayout(t.text.orNull)) + parsedLayout(MAIN_LAYOUT)).toMap
   val trackingKey  = "tracking"
   val trackingUrl  = Configuration.getValue[String]("tracking.url").getOrElse(throw new RuntimeException("bad config"))
   val trackingData = cache.getOrElse[Future[Seq[TrackingEvent]]](trackingKey) {
