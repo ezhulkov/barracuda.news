@@ -23,7 +23,7 @@ trait LayoutService {
 @Singleton
 class LayoutServiceImpl extends LayoutService {
 
-  override def allLayouts: Seq[Layout] = Mappers.Layout.findAll.sortBy(t => t.tag.isEmpty)
+  override def allLayouts: Seq[Layout] = Mappers.Layout.findAll
   override def findLayout(id: Long): Option[Layout] = Mappers.Layout.findById(id)
   override def findByTag(tag: String): Option[Layout] = Mappers.Layout.findByTag(tag)
   override def deleteLayout(id: Long): Unit = Mappers.Layout.deleteById(id)

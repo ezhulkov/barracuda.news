@@ -137,6 +137,8 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
 
 adminApp.controller "LayoutsController", ($timeout, $window, $scope, $http) ->
   $scope.layouts = $window.layouts
+  $scope.layoutsTagged = $scope.layouts.filter (item)-> item.tag != undefined
+  $scope.layoutsUntagged = $scope.layouts.filter (item)-> item.tag == undefined
 
 adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   $scope.result = {}

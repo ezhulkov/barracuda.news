@@ -11,7 +11,7 @@
 @layout.admin("layouts-section", subMenu = Some(sidebar), activeMenu = Some("#layouts"), controller = Some("LayoutsController")) {
 
     <ul class="layouts">
-        <li class="item" ng-repeat="item in layouts">
+        <li class="item" ng-repeat="item in layoutsTagged">
             <div class="grid">
                 <div class="row" ng-repeat="row in item.config.rows">
                     <a class="block {{block.size}}" ng-repeat="block in row.blocks" href="/admin/layout/{{item.id}}"></a>
@@ -19,6 +19,18 @@
             </div>
             <div class="info">
                 <div class="tag" ng-show="item.tag">{{item.tag.text}}</div>
+                <h4><a href="/admin/layout/{{item.id}}">{{item.name}}</a></h4>
+            </div>
+        </li>
+    </ul>
+    <ul class="layouts">
+        <li class="item" ng-repeat="item in layoutsUntagged">
+            <div class="grid">
+                <div class="row" ng-repeat="row in item.config.rows">
+                    <a class="block {{block.size}}" ng-repeat="block in row.blocks" href="/admin/layout/{{item.id}}"></a>
+                </div>
+            </div>
+            <div class="info">
                 <h4><a href="/admin/layout/{{item.id}}">{{item.name}}</a></h4>
             </div>
         </li>
