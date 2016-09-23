@@ -48,6 +48,12 @@
                         <p>Tag: {{block.tag}}</p>
                         <p ng-show="block.featured">Featured block</p>
                     </div>
+                    <a data-remodal-target="delete-modal" class="edit"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <div class="remodal" data-remodal-id="edit-block-modal-">
+                        <h3>Edit block?</h3>
+                        <br>
+                        {{block.newsType}}
+                    </div>
                 </div>
             </div>
         </div>

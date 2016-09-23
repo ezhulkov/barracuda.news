@@ -54,7 +54,7 @@ $pad: 20px
         +t-small
 
 main.admin-area
-  +debug-vertical-alignment()
+  //+debug-vertical-alignment()
   +container(100%)
   position: relative
   display: block
@@ -321,12 +321,16 @@ main.admin-area
             +span(8)
           &:hover
             background-color: rgba(238, 123, 14, 0.5)
-            p
+            p, i
               color: $blackColor1
         .info
+          +float-left
           p
             +t-small
             color: $blackColor4
+        .edit
+          +float-right
+          color: $blackColor4
 
   section.layouts-section
     h3
