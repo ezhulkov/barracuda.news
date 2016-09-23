@@ -54,7 +54,7 @@ $pad: 20px
         +t-small
 
 main.admin-area
-  //+debug-vertical-alignment()
+  +debug-vertical-alignment()
   +container(100%)
   position: relative
   display: block
@@ -293,6 +293,41 @@ main.admin-area
       dl.tag
         +span(4 no-gutter)
         +chosen-style
+    +with-layout(12 fluid split)
+      .grid
+        +span(10)
+        +pre(1)
+        +post(1)
+        +padding-leader(1)
+        +padding-trailer(1/2)
+        +margin-leader(1)
+        background-color: white
+        min-height: rhythm(5)
+        .row
+          +span(12)
+          +margin-trailer(1/2)
+        .block
+          border: 1px dashed $activeLink
+          height: rhythm(6)
+          cursor: pointer
+          padding:  rhythm(1/2)
+          &.SIZE12
+            +span(12)
+          &.SIZE6
+            +span(6)
+          &.SIZE4
+            +span(4)
+          &.SIZE8
+            +span(8)
+          &:hover
+            background-color: rgba(238, 123, 14, 0.5)
+            p
+              color: $blackColor1
+        .info
+          p
+            +t-small
+            color: $blackColor4
+
   section.layouts-section
     h3
       +margin-trailer(1/2)

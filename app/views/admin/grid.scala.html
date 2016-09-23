@@ -39,9 +39,18 @@
                 </dd>
             </dl>
         </fieldset>
-        <fieldset>
-            {{layoutModel.config | json}}
-        </fieldset>
+        <h3>Layout config</h3>
+        <div class="grid">
+            <div class="row" ng-repeat="row in layoutModel.config.rows">
+                <div class="block {{block.size}}" ng-repeat="block in row.blocks">
+                    <div class="info">
+                        <p>News type: {{block.newsType}}</p>
+                        <p>Tag: {{block.tag}}</p>
+                        <p ng-show="block.featured">Featured block</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="remodal" data-remodal-id="delete-modal">

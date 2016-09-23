@@ -139,6 +139,8 @@ adminApp.controller "LayoutsController", ($timeout, $window, $scope, $http) ->
   $scope.layouts = $window.layouts
   $scope.layoutsTagged = $scope.layouts.filter (item)-> item.tag != undefined
   $scope.layoutsUntagged = $scope.layouts.filter (item)-> item.tag == undefined
+  $scope.hasUntagged = ()->
+    $scope.layoutsUntagged != undefined && $scope.layoutsUntagged.length > 0
 
 adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   $scope.result = {}
