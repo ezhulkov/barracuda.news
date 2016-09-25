@@ -178,11 +178,11 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   $scope.block6Blueprint.size = "SIZE6"
   $scope.block8Blueprint.size = "SIZE8"
   $scope.block12Blueprint.size = "SIZE12"
-  $scope.row12Blueprint.blocks = [$scope.block12Blueprint]
-  $scope.row66Blueprint.blocks = [$scope.block6Blueprint, $scope.block6Blueprint]
-  $scope.row444Blueprint.blocks = [$scope.block4Blueprint, $scope.block4Blueprint, $scope.block4Blueprint]
-  $scope.row48Blueprint.blocks = [$scope.block4Blueprint, $scope.block8Blueprint]
-  $scope.row84Blueprint.blocks = [$scope.block8Blueprint, $scope.block4Blueprint]
+  $scope.row12Blueprint.blocks = [angular.copy($scope.block12Blueprint)]
+  $scope.row66Blueprint.blocks = [angular.copy($scope.block6Blueprint), angular.copy($scope.block6Blueprint)]
+  $scope.row444Blueprint.blocks = [angular.copy($scope.block4Blueprint), angular.copy($scope.block4Blueprint), angular.copy($scope.block4Blueprint)]
+  $scope.row48Blueprint.blocks = [angular.copy($scope.block4Blueprint), angular.copy($scope.block8Blueprint)]
+  $scope.row84Blueprint.blocks = [angular.copy($scope.block8Blueprint), angular.copy($scope.block4Blueprint)]
   $scope.rowBlueprints = [$scope.row12Blueprint, $scope.row66Blueprint, $scope.row444Blueprint, $scope.row84Blueprint, $scope.row48Blueprint]
   if($scope.layoutModel.tag != undefined)
     $scope.layoutModel.tag.id = $scope.layoutModel.tag.id.toString()
@@ -209,7 +209,7 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   initRemodal = () ->
     $timeout ->
       $('.remodal').remodal()
-    , 0
+    , 10
   $scope.addRow = () ->
     newRow = angular.copy($scope.row12Blueprint)
     $scope.layoutModel.config = {
@@ -231,8 +231,8 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   $scope.deleteRow = (row) ->
     index = $scope.layoutModel.config.rows.indexOf(row)
     $scope.layoutModel.config.rows.splice(index, 1)
-    if(layoutModel.config.rows.length == 0)
-      layoutModel.config.rows = undefined
+    if($scope.layoutModel.config.rows.length == 0)
+      $scope.layoutModel.config.rows = undefined
   $scope.processResponse = (data) ->
     $scope.result = data
     if($scope.newLayout)
@@ -255,6 +255,12 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
       $scope.processResponse(data)
     .success (data) ->
       $scope.processResponse(data)
+  $scope.delete = ->
+    $http.delete("/admin/layout/" + $scope.layoutModel.id)
+    .error (data, status) ->
+      console.log("error")
+    .success (data) ->
+      $window.location.pathname = data.redirect_url
 
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList

@@ -1,1 +1,60 @@
-{  "rows": [    {      "height": "HEIGHT4",      "blocks": [        {          "newsType": "PHOTO",          "captions": [            {              "lang": "en",              "text": "Story of the day"            },            {              "lang": "ru",              "text": "История дня"            }          ],          "tag": "story_1",          "size": "SIZE12",          "featured": true        }      ]    },    {      "height": "HEIGHT2",      "blocks": [        {          "newsType": "PHOTO",          "tag": "story_2",          "size": "SIZE4"        },        {          "newsType": "PHOTO",          "tag": "story_3",          "size": "SIZE4"        },        {          "newsType": "PHOTO",          "tag": "story_4",          "size": "SIZE4"        }      ]    },    {      "height": "HEIGHT2",      "blocks": [        {          "newsType": "PHOTO",          "tag": "story_5",          "size": "SIZE8"        },        {          "newsType": "PHOTO",          "tag": "story_6",          "size": "SIZE4"        }      ]    }  ]}
+{
+  "rows": [
+    {
+      "height": "HEIGHT4",
+      "blocks": [
+        {
+          "newsType": "PHOTO",
+          "captions": [
+            {
+              "lang": "en",
+              "text": "Story of the day"
+            },
+            {
+              "lang": "ru",
+              "text": "История дня"
+            }
+          ],
+          "tag": "story_1",
+          "size": "SIZE12",
+          "featured": true
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "newsType": "PHOTO",
+          "tag": "story_2",
+          "size": "SIZE4"
+        },
+        {
+          "newsType": "PHOTO",
+          "tag": "story_3",
+          "size": "SIZE4"
+        },
+        {
+          "newsType": "PHOTO",
+          "tag": "story_4",
+          "size": "SIZE4"
+        }
+      ]
+    },
+    {
+      "height": "HEIGHT2",
+      "blocks": [
+        {
+          "newsType": "PHOTO",
+          "tag": "story_5",
+          "size": "SIZE8"
+        },
+        {
+          "newsType": "PHOTO",
+          "tag": "story_6",
+          "size": "SIZE4"
+        }
+      ]
+    }
+  ]
+}

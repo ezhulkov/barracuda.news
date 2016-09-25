@@ -105,7 +105,7 @@
                                 <dt><label for="tags-{{$id}}">Tags:</label></dt>
                                 <dd>
                                     <select id="tags-{{$id}}" chosen ng-model="block.tag" data-placeholder="Choose block tag...">
-                                        <option ng-repeat="option in tags" value="{{option}}">{{option}}</option>
+                                        <option ng-repeat="option in tags | orderBy" value="{{option}}">{{option}}</option>
                                     </select>
                                 </dd>
                             </dl>
