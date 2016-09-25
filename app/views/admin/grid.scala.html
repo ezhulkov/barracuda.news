@@ -1,4 +1,4 @@
-@(layoutModel: String, tags: String, langs: String)(implicit user: Account)
+@(layoutModel: String, tags: String, rootTags: String, langs: String, newsTypes: String)(implicit user: Account)
 
 @sidebar = {
     <ul>
@@ -34,7 +34,7 @@
                     ng-model="layoutModel.tag.id"
                     data-placeholder="Choose page tag...">
                         <option value="">&nbsp;</option>
-                        <option ng-repeat="option in tags" value="{{option.id}}">{{option.name}}</option>
+                        <option ng-repeat="option in rootTags" value="{{option.id}}">{{option.name}}</option>
                     </select>
                 </dd>
             </dl>
@@ -44,15 +44,46 @@
             <div class="row" ng-repeat="row in layoutModel.config.rows">
                 <div class="block {{block.size}}" ng-repeat="block in row.blocks">
                     <div class="info">
+                        <p ng-show="block.captions[0].text">Caption: {{block.captions[0].text}}</p>
                         <p>News type: {{block.newsType}}</p>
                         <p>Tag: {{block.tag}}</p>
                         <p ng-show="block.featured">Featured block</p>
                     </div>
-                    <a data-remodal-target="delete-modal" class="edit"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <div class="remodal" data-remodal-id="edit-block-modal-">
-                        <h3>Edit block?</h3>
-                        <br>
-                        {{block.newsType}}
+                    <a data-remodal-target="edit-block-modal-{{$id}}" class="edit"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <div class="remodal edit-block-modal" data-remodal-id="edit-block-modal-{{$id}}">
+                        <fieldset>
+                            <dl class="caption" ng-repeat="lang in langs">
+                                <dt><label for="caption-{{lang.value}}-{{$id}}">{{lang.label}} caption:</label></dt>
+                                <dd ng-repeat="c in block.captions | filter:byLangCode(lang.value)">
+                                    <input type="text" id="caption-{{lang.value}}-{{$id}}" ng-model="c.text"/>
+                                </dd>
+                            </dl>
+                            <dl class="tag">
+                                <dt><label for="tags-{{$id}}">Tags:</label></dt>
+                                <dd>
+                                    <select id="tags-{{$id}}" chosen ng-model="block.tag" data-placeholder="Choose block tag...">
+                                        <option ng-repeat="option in tags" value="{{option}}">{{option}}</option>
+                                    </select>
+                                </dd>
+                            </dl>
+                            <dl class="featured">
+                                <dt><label for="featured-{{$id}}">Featured:</label></dt>
+                                <dd>
+                                    <input id="featured-{{$id}}" type="checkbox" ng-model="block.featured"/>
+                                </dd>
+                            </dl>
+                            <dl class="type">
+                                <dt><label for="type-{{$id}}">Content type:</label></dt>
+                                <dd>
+                                    <select id="type-{{$id}}" chosen ng-model="block.newsType" data-placeholder="Choose content type...">
+                                        <option ng-repeat="option in newsTypes" value="{{option}}">{{option}}</option>
+                                    </select>
+                                </dd>
+                            </dl>
+                        </fieldset>
+                        <div class="controls">
+                            <input data-remodal-action="confirm" type="button" value="Close">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,7 +101,9 @@
 
     <script type="application/javascript">
             var layoutModel = @Html(layoutModel);
+            var rootTags = @Html(rootTags);
             var tags = @Html(tags);
+            var newsTypes = @Html(newsTypes);
             var langs = @Html(langs);
     </script>
 

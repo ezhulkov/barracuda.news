@@ -146,11 +146,16 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   $scope.result = {}
   $scope.langs = angular.copy($window.langs)
   $scope.tags = angular.copy($window.tags)
+  $scope.rootTags = angular.copy($window.rootTags)
+  $scope.newsTypes = angular.copy($window.newsTypes)
   $scope.layoutModel = angular.copy($window.layoutModel)
   if($scope.layoutModel.tag != undefined)
     $scope.layoutModel.tag.id = $scope.layoutModel.tag.id.toString()
   $scope.loading = false
   $scope.newLayout = $scope.layoutModel.id == undefined
+  $scope.byLangCode = (code) ->
+    (el) ->
+      return el.lang == code
   $scope.loadTags = (query) ->
     if(query.length == 0)
       return $scope.tags

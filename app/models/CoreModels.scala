@@ -6,6 +6,7 @@ import com.github.nscala_time.time.Imports._
 import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
+import org.apache.commons.lang3.StringUtils
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import services.LangUtils
@@ -65,7 +66,7 @@ object CoreModels {
   case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
   case class BlockCaption(lang: Lang, text: String)
   case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, captions: Option[Seq[BlockCaption]] = None, newsType: NewsType = NewsType.TEXT) {
-    def localCaption(implicit lang: Lang) = captions.getOrElse(Nil).find(t => t.lang == lang)
+    def localCaption(implicit lang: Lang) = captions.getOrElse(Nil).find(t => t.lang == lang).filter(c => StringUtils.isNotEmpty(c.text))
   }
   case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   object Article {
