@@ -206,6 +206,28 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
     if(query.length == 0)
       return $scope.tags
     return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
+  initRemodal = () ->
+    $timeout ->
+      $('.remodal').remodal()
+    , 0
+  $scope.addRow = () ->
+    newRow = angular.copy($scope.row12Blueprint)
+    $scope.layoutModel.config = {
+      rows: [newRow]
+    }
+    initRemodal()
+  $scope.addRowBefore = (row) ->
+    newRow = angular.copy($scope.row12Blueprint)
+    index = $scope.layoutModel.config.rows.indexOf(row)
+    $scope.layoutModel.config.rows.splice(index, 0, newRow)
+    initRemodal()
+  $scope.addRowAfter = (row) ->
+    newRow = angular.copy($scope.row12Blueprint)
+    index = $scope.layoutModel.config.rows.indexOf(row)
+    $scope.layoutModel.config.rows.splice(index + 1, 0, newRow)
+    initRemodal()
+  $scope.hasRows = () ->
+    $scope.layoutModel.config != undefined && $scope.layoutModel.config.rows != undefined && $scope.layoutModel.config.rows.length > 0
   $scope.deleteRow = (row) ->
     index = $scope.layoutModel.config.rows.indexOf(row)
     $scope.layoutModel.config.rows.splice(index, 1)

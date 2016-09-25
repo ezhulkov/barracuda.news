@@ -2460,7 +2460,28 @@ main.admin-area section.layout-section .grid {
   margin-top: 24px;
   margin-top: 1.5rem;
   background-color: white;
-  min-height: 7.5rem;
+}
+main.admin-area section.layout-section .grid .row-add {
+  margin-top: 48px;
+  margin-top: 3rem;
+  margin-bottom: 48px;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+main.admin-area section.layout-section .grid .row-add, main.admin-area section.layout-section .grid .row-add * {
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  color: #333;
+  background-color: initial;
+  text-decoration: none;
+}
+main.admin-area section.layout-section .grid .row-add:hover, main.admin-area section.layout-section .grid .row-add:hover * {
+  color: #f26522 !important;
+  background-color: initial;
+  text-decoration: none;
 }
 main.admin-area section.layout-section .grid .row {
   width: 98.33333%;
@@ -2472,6 +2493,7 @@ main.admin-area section.layout-section .grid .row {
   padding-bottom: 6px;
   padding-bottom: 0.375rem;
   padding-left: 50px;
+  padding-right: 30px;
   position: relative;
 }
 main.admin-area section.layout-section .grid .row .row-edit {
@@ -2504,6 +2526,17 @@ main.admin-area section.layout-section .grid .row:hover {
 }
 main.admin-area section.layout-section .grid .row:hover .row-edit {
   display: block;
+}
+main.admin-area section.layout-section .grid .row .row-add-before, main.admin-area section.layout-section .grid .row .row-add-after {
+  left: initial;
+  right: 5px;
+}
+main.admin-area section.layout-section .grid .row .row-add-before {
+  top: 20px;
+}
+main.admin-area section.layout-section .grid .row .row-add-after {
+  top: initial;
+  bottom: -5px;
 }
 main.admin-area section.layout-section .grid .block {
   border: 1px dashed #f26522;
@@ -2719,6 +2752,8 @@ main.admin-area section.layouts-section .layouts .item .info a:hover, main.admin
 .edit-block-modal dl, .edit-row-modal dl {
   width: 98.33333%;
   float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
   margin-bottom: 12px;
   margin-bottom: 0.75rem;
   height: 1.5rem;
@@ -2741,10 +2776,14 @@ main.admin-area section.layouts-section .layouts .item .info a:hover, main.admin
 .edit-block-modal dt, .edit-row-modal dt {
   width: 31.66667%;
   float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
 }
 .edit-block-modal dd, .edit-row-modal dd {
   width: 65%;
   float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
 }
 .edit-block-modal .controls, .edit-row-modal .controls {
   -webkit-justify-content: flex-end;
@@ -2762,8 +2801,10 @@ main.admin-area section.layouts-section .layouts .item .info a:hover, main.admin
   margin: 0 10px;
 }
 .edit-block-modal .types-block, .edit-row-modal .types-block {
-  margin-top: 12px;
-  margin-top: 0.75rem;
+  width: 98.33333%;
+  float: left;
+  margin-left: 0.83333%;
+  margin-right: 0.83333%;
   margin-bottom: 24px;
   margin-bottom: 1.5rem;
 }

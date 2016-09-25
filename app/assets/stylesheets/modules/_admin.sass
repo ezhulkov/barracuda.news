@@ -305,11 +305,15 @@ main.admin-area
         +rhythm-padding(1)
         +margin-leader(1)
         background-color: white
-        min-height: rhythm(5)
+        .row-add
+          +rhythm-margins(2)
+          +active-link($color: $blackTextColor)
+          text-align: center
         .row
           +span(12)
           +rhythm-padding(1/4)
           padding-left: 50px
+          padding-right: 30px
           position: relative
           .row-edit
             +transform(translate(-50%, -50%))
@@ -323,6 +327,14 @@ main.admin-area
             background: #eeeef3
             .row-edit
               display: block
+          .row-add-before, .row-add-after
+            left: initial
+            right: 5px
+          .row-add-before
+            top: 20px
+          .row-add-after
+            top: initial
+            bottom: -5px
         .block
           border: 1px dashed $activeLink
           min-height: rhythm(6)
@@ -412,15 +424,15 @@ main.admin-area
   text-align: left
   max-width: 600px
   dl
-    +span(12 no-gutter)
+    +span(12)
     +margin-trailer(1/2)
     height: rhythm(1)
     &.tag, &.type, &.height
       +chosen-style
   dt
-    +span(4 no-gutter)
+    +span(4)
   dd
-    +span(8 no-gutter)
+    +span(8)
   .controls
     +justify-content(flex-end)
     input
@@ -431,7 +443,7 @@ main.admin-area
       line-height: rhythm(1)
       margin: 0 10px
   .types-block
-    +margin-leader(1/2)
+    +span(12)
     +margin-trailer(1)
   .row-type
     +container(100%)

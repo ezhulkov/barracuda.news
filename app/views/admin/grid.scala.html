@@ -46,6 +46,12 @@
                     <a data-remodal-target="del-row-modal-{{$id}}"><i class="fa fa-2 fa-minus-square-o" aria-hidden="true"></i></a>
                     <a data-remodal-target="edit-row-modal-{{$id}}"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
                 </div>
+                <div class="row-edit row-add-before">
+                    <a ng-click="addRowBefore(row)"><i class="fa fa-2 fa-arrow-circle-o-up" aria-hidden="true"></i></a>
+                </div>
+                <div class="row-edit row-add-after">
+                    <a ng-click="addRowAfter(row)"><i class="fa fa-2 fa-arrow-circle-o-down" aria-hidden="true"></i></a>
+                </div>
                 <div class="remodal" data-remodal-id="del-row-modal-{{$id}}">
                     <h3>Delete row?</h3>
                     <br>
@@ -65,10 +71,14 @@
                             </dd>
                         </dl>
                     </fieldset>
-                    <h4>Choose row layout:</h4>
-                    <fieldset class="types-block">
-                        <div class="row-type active-{{rowBlueprintMatches(row, rowBlueprint)}}" ng-repeat="rowBlueprint in rowBlueprints track by $index" ng-click="setRowType(row,rowBlueprint)">
-                            <div class="row-type-block" ng-class="blockBlueprint.size" ng-repeat="blockBlueprint in rowBlueprint.blocks track by $index"></div>
+                    <fieldset>
+                        <dl>
+                            <dt><label>Choose row layout:</label></dt>
+                        </dl>
+                        <div class="types-block">
+                            <div class="row-type active-{{rowBlueprintMatches(row, rowBlueprint)}}" ng-repeat="rowBlueprint in rowBlueprints track by $index" ng-click="setRowType(row,rowBlueprint)" data-remodal-action="confirm">
+                                <div class="row-type-block" ng-class="blockBlueprint.size" ng-repeat="blockBlueprint in rowBlueprint.blocks track by $index"></div>
+                            </div>
                         </div>
                     </fieldset>
                     <div class="controls">
@@ -120,6 +130,7 @@
                     </div>
                 </div>
             </div>
+            <div class="row-add" ng-hide="hasRows()" ng-click="addRow()">Add new row...</div>
         </div>
     </div>
 
