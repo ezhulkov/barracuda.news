@@ -328,6 +328,9 @@ main.admin-area
           min-height: rhythm(6)
           cursor: pointer
           padding: rhythm(1/2)
+          .edit
+            +float-right
+            display: none
           &.SIZE12
             +span(12)
           &.SIZE6
@@ -338,16 +341,15 @@ main.admin-area
             +span(8)
           &:hover
             background-color: rgba(238, 123, 14, 0.5)
-            p, i
+            p
               color: $blackColor1
+            .edit
+              display: block
         .info
           +float-left
           p
             +t-small
             color: $blackColor4
-        .edit
-          +float-right
-          color: $blackColor4
 
   section.layouts-section
     h3

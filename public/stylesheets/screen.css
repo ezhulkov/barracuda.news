@@ -2511,6 +2511,10 @@ main.admin-area section.layout-section .grid .block {
   cursor: pointer;
   padding: 0.75rem;
 }
+main.admin-area section.layout-section .grid .block .edit {
+  float: right;
+  display: none;
+}
 main.admin-area section.layout-section .grid .block.SIZE12 {
   width: 98.33333%;
   float: left;
@@ -2538,8 +2542,11 @@ main.admin-area section.layout-section .grid .block.SIZE8 {
 main.admin-area section.layout-section .grid .block:hover {
   background-color: rgba(238, 123, 14, 0.5);
 }
-main.admin-area section.layout-section .grid .block:hover p, main.admin-area section.layout-section .grid .block:hover i {
+main.admin-area section.layout-section .grid .block:hover p {
   color: #1E1E1E;
+}
+main.admin-area section.layout-section .grid .block:hover .edit {
+  display: block;
 }
 main.admin-area section.layout-section .grid .info {
   float: left;
@@ -2549,10 +2556,6 @@ main.admin-area section.layout-section .grid .info p {
   font-size: 0.833rem;
   line-height: 24px;
   line-height: 1.5rem;
-  color: #777;
-}
-main.admin-area section.layout-section .grid .edit {
-  float: right;
   color: #777;
 }
 main.admin-area section.layouts-section h3 {

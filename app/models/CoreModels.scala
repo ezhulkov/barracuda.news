@@ -7,6 +7,7 @@ import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
 import org.apache.commons.lang3.StringUtils
+import play.api.Logger
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import services.LangUtils
@@ -65,9 +66,9 @@ object CoreModels {
   }
   case class LayoutConfig(rows: Seq[NewsRow])
   case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
-  case class BlockCaption(lang: Lang, text: String)
+  case class BlockCaption(lang: Lang, text: Option[String])
   case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, captions: Option[Seq[BlockCaption]] = None, newsType: NewsType = NewsType.TEXT) {
-    def localCaption(implicit lang: Lang) = captions.getOrElse(Nil).find(t => t.lang == lang).filter(c => StringUtils.isNotEmpty(c.text))
+    def localCaption(implicit lang: Lang) = captions.getOrElse(Nil).find(t => t.lang == lang && t.text.exists(c => StringUtils.isNotEmpty(c))).flatMap(t => t.text)
   }
   case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   object Article {
@@ -88,7 +89,7 @@ object CoreModels {
     var crossArticles: Seq[Article] = Nil
     def transliteratedUrl = translation(LangUtils.defaultLang).flatMap(t => t.caption).map(t => Utils.transliterate(t)).getOrElse(id.toString)
     def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
-    def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
+    def hasTag(tag: String): Boolean = tags.exists(t=>t.text.contains(tag))
     def translation(implicit lang: Lang) = translations.find(t => t.lang == lang)
     def translationOrDefault(implicit lang: Lang) = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t => t.caption.isDefined).get)
     def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
