@@ -1,4 +1,4 @@
-@(layoutModel: String, tags: String, rootTags: String, langs: String, newsTypes: String)(implicit user: Account)
+@(layoutModel: String, tags: String, rootTags: String, langs: String, newsTypes: String, rowHeights: String)(implicit user: Account)
 
 @sidebar = {
     <ul>
@@ -52,6 +52,21 @@
                     <div class="controls">
                         <input data-remodal-action="cancel" type="button" value="Cancel">
                         <input data-remodal-action="confirm" type="button" value="Delete" ng-click="deleteRow(row)">
+                    </div>
+                </div>
+                <div class="remodal edit-row-modal" data-remodal-id="edit-row-modal-{{$id}}">
+                    <fieldset>
+                        <dl class="height">
+                            <dt><label for="height-{{$id}}">Row height:</label></dt>
+                            <dd>
+                                <select id="height-{{$id}}" chosen ng-model="row.height" data-placeholder="Choose row height...">
+                                    <option ng-repeat="option in rowHeights | orderBy" value="{{option}}">{{option}}</option>
+                                </select>
+                            </dd>
+                        </dl>
+                    </fieldset>
+                    <div class="controls">
+                        <input data-remodal-action="confirm" type="button" value="Close">
                     </div>
                 </div>
                 <div class="block {{block.size}}" ng-repeat="block in row.blocks">
@@ -116,6 +131,7 @@
             var rootTags = @Html(rootTags);
             var tags = @Html(tags);
             var newsTypes = @Html(newsTypes);
+            var rowHeights = @Html(rowHeights);
             var langs = @Html(langs);
     </script>
 

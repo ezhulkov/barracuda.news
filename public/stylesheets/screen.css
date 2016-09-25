@@ -2455,8 +2455,8 @@ main.admin-area section.layout-section .grid {
   margin-right: 9.16667%;
   padding-top: 24px;
   padding-top: 1.5rem;
-  padding-bottom: 12px;
-  padding-bottom: 0.75rem;
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
   margin-top: 24px;
   margin-top: 1.5rem;
   background-color: white;
@@ -2500,7 +2500,7 @@ main.admin-area section.layout-section .grid .row .row-edit a:hover, main.admin-
   text-decoration: none;
 }
 main.admin-area section.layout-section .grid .row:hover {
-  background: #eee;
+  background: #eeeef3;
 }
 main.admin-area section.layout-section .grid .row:hover .row-edit {
   display: block;
@@ -2679,7 +2679,7 @@ main.admin-area section.layouts-section .layouts .item .info a:hover, main.admin
   text-decoration: none;
 }
 
-.edit-block-modal {
+.edit-block-modal, .edit-row-modal {
   padding-top: 24px;
   padding-top: 1.5rem;
   padding-bottom: 12px;
@@ -2687,7 +2687,7 @@ main.admin-area section.layouts-section .layouts .item .info a:hover, main.admin
   text-align: left;
   max-width: 600px;
 }
-.edit-block-modal input, .edit-block-modal textarea {
+.edit-block-modal input, .edit-block-modal textarea, .edit-row-modal input, .edit-row-modal textarea {
   font-size: 16px;
   font-size: 1rem;
   line-height: 24px;
@@ -2703,17 +2703,17 @@ main.admin-area section.layouts-section .layouts .item .info a:hover, main.admin
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
-.edit-block-modal input input, .edit-block-modal textarea input {
+.edit-block-modal input input, .edit-block-modal textarea input, .edit-row-modal input input, .edit-row-modal textarea input {
   height: 1.5rem;
 }
-.edit-block-modal input textarea, .edit-block-modal textarea textarea {
+.edit-block-modal input textarea, .edit-block-modal textarea textarea, .edit-row-modal input textarea, .edit-row-modal textarea textarea {
   padding-top: 0px;
   padding-top: 0rem;
   padding-bottom: 0px;
   padding-bottom: 0rem;
   height: 45rem;
 }
-.edit-block-modal dl {
+.edit-block-modal dl, .edit-row-modal dl {
   width: 98.33333%;
   float: left;
   margin-left: 0.83333%;
@@ -2721,38 +2721,38 @@ main.admin-area section.layouts-section .layouts .item .info a:hover, main.admin
   margin-bottom: 12px;
   margin-bottom: 0.75rem;
 }
-.edit-block-modal dl.tag, .edit-block-modal dl.type {
+.edit-block-modal dl.tag, .edit-block-modal dl.type, .edit-block-modal dl.height, .edit-row-modal dl.tag, .edit-row-modal dl.type, .edit-row-modal dl.height {
   height: 1.5rem;
 }
-.edit-block-modal dl.tag .chosen-container, .edit-block-modal dl.type .chosen-container {
+.edit-block-modal dl.tag .chosen-container, .edit-block-modal dl.type .chosen-container, .edit-block-modal dl.height .chosen-container, .edit-row-modal dl.tag .chosen-container, .edit-row-modal dl.type .chosen-container, .edit-row-modal dl.height .chosen-container {
   margin-top: -4px;
   width: 100% !important;
 }
-.edit-block-modal dl.tag .chosen-single, .edit-block-modal dl.type .chosen-single {
+.edit-block-modal dl.tag .chosen-single, .edit-block-modal dl.type .chosen-single, .edit-block-modal dl.height .chosen-single, .edit-row-modal dl.tag .chosen-single, .edit-row-modal dl.type .chosen-single, .edit-row-modal dl.height .chosen-single {
   height: 1.5rem;
 }
-.edit-block-modal dl.tag .chosen-drop, .edit-block-modal dl.tag .chosen-single, .edit-block-modal dl.type .chosen-drop, .edit-block-modal dl.type .chosen-single {
+.edit-block-modal dl.tag .chosen-drop, .edit-block-modal dl.tag .chosen-single, .edit-block-modal dl.type .chosen-drop, .edit-block-modal dl.type .chosen-single, .edit-block-modal dl.height .chosen-drop, .edit-block-modal dl.height .chosen-single, .edit-row-modal dl.tag .chosen-drop, .edit-row-modal dl.tag .chosen-single, .edit-row-modal dl.type .chosen-drop, .edit-row-modal dl.type .chosen-single, .edit-row-modal dl.height .chosen-drop, .edit-row-modal dl.height .chosen-single {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-.edit-block-modal dt {
+.edit-block-modal dt, .edit-row-modal dt {
   width: 31.66667%;
   float: left;
   margin-left: 0.83333%;
   margin-right: 0.83333%;
 }
-.edit-block-modal dd {
+.edit-block-modal dd, .edit-row-modal dd {
   width: 65%;
   float: left;
   margin-left: 0.83333%;
   margin-right: 0.83333%;
 }
-.edit-block-modal .controls {
+.edit-block-modal .controls, .edit-row-modal .controls {
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
 }
-.edit-block-modal .controls input {
+.edit-block-modal .controls input, .edit-row-modal .controls input {
   font-size: 13px;
   font-size: 0.833rem;
   line-height: 24px;

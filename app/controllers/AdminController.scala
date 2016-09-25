@@ -3,7 +3,7 @@ package controllers
 import javax.inject._
 import controllers.stack.LoggingElement
 import jp.t2v.lab.play2.auth.AuthElement
-import models.CoreModels.{Article, Layout, NewsType}
+import models.CoreModels.{Article, Layout, NewsType, RowHeight}
 import play.api.Environment
 import play.api.i18n.I18nSupport
 import play.api.i18n.MessagesApi
@@ -31,6 +31,7 @@ class AdminController @Inject()(
   def langs = JsArray(LangUtils.langs.map(l => Json.obj("value" -> l.code, "label" -> messagesApi(s"lang.name.${l.code}"))).toSeq)
   def tags = JsArray(articleService.allTags.map(t => JsString(t.text.orNull)).toSeq)
   def newsTypes = JsArray(NewsType.values.map(t => JsString(t.toString)).toSeq)
+  def rowHeights = JsArray(RowHeight.values.map(t => JsString(t.toString)).toSeq)
   def rootTags = JsArray(articleService.allRootTags.map(t => Json.obj("id" -> JsNumber(t.id.get), "name" -> JsString(t.text.orNull))).toSeq)
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
@@ -101,7 +102,7 @@ class AdminController @Inject()(
       case None => Some(Layout.newLayout)
     }
     layoutOpt.map(t => Json.toJson(t)) match {
-      case Some(layout) => Ok(views.html.admin.grid(Json.stringify(layout), Json.stringify(tags), Json.stringify(rootTags), Json.stringify(langs), Json.stringify(newsTypes)))
+      case Some(layout) => Ok(views.html.admin.grid(Json.stringify(layout), Json.stringify(tags), Json.stringify(rootTags), Json.stringify(langs), Json.stringify(newsTypes), Json.stringify(rowHeights)))
       case None => NotFound(views.html.errors.e404())
     }
   }

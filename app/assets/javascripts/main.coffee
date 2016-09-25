@@ -148,6 +148,7 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   $scope.tags = angular.copy($window.tags)
   $scope.rootTags = angular.copy($window.rootTags)
   $scope.newsTypes = angular.copy($window.newsTypes)
+  $scope.rowHeights = angular.copy($window.rowHeights)
   $scope.layoutModel = angular.copy($window.layoutModel)
   if($scope.layoutModel.tag != undefined)
     $scope.layoutModel.tag.id = $scope.layoutModel.tag.id.toString()

@@ -302,8 +302,7 @@ main.admin-area
         +span(10)
         +pre(1)
         +post(1)
-        +padding-leader(1)
-        +padding-trailer(1/2)
+        +rhythm-padding(1)
         +margin-leader(1)
         background-color: white
         min-height: rhythm(5)
@@ -321,7 +320,7 @@ main.admin-area
             a
               +active-link($color: $blackColor1)
           &:hover
-            background: $whiteColor
+            background: #eeeef3
             .row-edit
               display: block
         .block
@@ -404,8 +403,7 @@ main.admin-area
           a
             +active-link($color: $blackTextColor)
 
-.edit-block-modal
-  //+debug-vertical-alignment()
+.edit-block-modal,.edit-row-modal
   +padding-leader(1)
   +padding-trailer(1/2)
   +input-style
@@ -414,7 +412,7 @@ main.admin-area
   dl
     +span(12)
     +margin-trailer(1/2)
-    &.tag, &.type
+    &.tag, &.type, &.height
       +chosen-style
   dt
     +span(4)

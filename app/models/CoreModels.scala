@@ -37,11 +37,12 @@ object CoreModels {
 
   object RowHeight extends Enumeration {
     type RowHeight = Value
-    val HEIGHT1 = RowHeightValue("HEIGHT1", 1, "height1", 3)
-    val HEIGHT2 = RowHeightValue("HEIGHT2", 2, "height2", 6)
-    val HEIGHT3 = RowHeightValue("HEIGHT3", 3, "height3", 9)
-    val HEIGHT4 = RowHeightValue("HEIGHT4", 4, "height4", 11)
-    sealed case class RowHeightValue(code: String, height: Int, cssClass: String, maxNews: Int) extends super.Val(code)
+    val HEIGHT1 = RowHeightValue("HEIGHT1", "height1", 3)
+    val HEIGHT2 = RowHeightValue("HEIGHT2", "height2", 6)
+    val HEIGHT3 = RowHeightValue("HEIGHT3", "height3", 9)
+    val HEIGHT4 = RowHeightValue("HEIGHT4", "height4", 11)
+    val AUTO    = RowHeightValue("AUTO", "height-auto", 9)
+    sealed case class RowHeightValue(code: String, cssClass: String, maxNews: Int) extends super.Val(code)
     implicit def convert(value: Value): RowHeightValue = value.asInstanceOf[RowHeightValue]
   }
 
