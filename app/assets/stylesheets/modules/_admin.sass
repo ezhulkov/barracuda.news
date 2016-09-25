@@ -405,21 +405,22 @@ main.admin-area
           a
             +active-link($color: $blackTextColor)
 
-.edit-block-modal,.edit-row-modal
+.edit-block-modal, .edit-row-modal
   +padding-leader(1)
   +padding-trailer(1/2)
   +input-style
   text-align: left
   max-width: 600px
   dl
-    +span(12)
+    +span(12 no-gutter)
     +margin-trailer(1/2)
+    height: rhythm(1)
     &.tag, &.type, &.height
       +chosen-style
   dt
-    +span(4)
+    +span(4 no-gutter)
   dd
-    +span(8)
+    +span(8 no-gutter)
   .controls
     +justify-content(flex-end)
     input
@@ -428,6 +429,29 @@ main.admin-area
       flex: 0 1 auto
       height: rhythm(1)
       line-height: rhythm(1)
+      margin: 0 10px
+  .types-block
+    +margin-leader(1/2)
+    +margin-trailer(1)
+  .row-type
+    +container(100%)
+    padding: rhythm(1/4) 15%
+    cursor: pointer
+    &:hover, &.active-true
+      background-color: rgba(238, 123, 14, 0.5)
+      .row-type-block
+        border: 1px dashed white
+  .row-type-block
+    height: rhythm(2)
+    border: 1px dashed $activeLink
+    &.SIZE12
+      +span(12)
+    &.SIZE4
+      +span(4)
+    &.SIZE6
+      +span(6)
+    &.SIZE8
+      +span(8)
 
 .ae-listbox
   span

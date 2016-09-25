@@ -150,9 +150,54 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   $scope.newsTypes = angular.copy($window.newsTypes)
   $scope.rowHeights = angular.copy($window.rowHeights)
   $scope.layoutModel = angular.copy($window.layoutModel)
+  $scope.rowBlueprint = {
+    height: "AUTO"
+  }
+  $scope.blockBlueprint = {
+    newsType: "TEXT",
+    tag: "main_news",
+    captions: [
+      {
+        lang: "en"
+      },
+      {
+        lang: "ru"
+      }
+    ]
+  }
+  $scope.row12Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.row66Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.row444Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.row48Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.row84Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.block4Blueprint = angular.copy($scope.blockBlueprint)
+  $scope.block6Blueprint = angular.copy($scope.blockBlueprint)
+  $scope.block8Blueprint = angular.copy($scope.blockBlueprint)
+  $scope.block12Blueprint = angular.copy($scope.blockBlueprint)
+  $scope.block4Blueprint.size = "SIZE4"
+  $scope.block6Blueprint.size = "SIZE6"
+  $scope.block8Blueprint.size = "SIZE8"
+  $scope.block12Blueprint.size = "SIZE12"
+  $scope.row12Blueprint.blocks = [$scope.block12Blueprint]
+  $scope.row66Blueprint.blocks = [$scope.block6Blueprint, $scope.block6Blueprint]
+  $scope.row444Blueprint.blocks = [$scope.block4Blueprint, $scope.block4Blueprint, $scope.block4Blueprint]
+  $scope.row48Blueprint.blocks = [$scope.block4Blueprint, $scope.block8Blueprint]
+  $scope.row84Blueprint.blocks = [$scope.block8Blueprint, $scope.block4Blueprint]
+  $scope.rowBlueprints = [$scope.row12Blueprint, $scope.row66Blueprint, $scope.row444Blueprint, $scope.row84Blueprint, $scope.row48Blueprint]
   if($scope.layoutModel.tag != undefined)
     $scope.layoutModel.tag.id = $scope.layoutModel.tag.id.toString()
   $scope.loading = false
+  $scope.setRowType = (row, blueprint)->
+    if(!$scope.rowBlueprintMatches(row, blueprint))
+      index = $scope.layoutModel.config.rows.indexOf(row)
+      $scope.layoutModel.config.rows[index].blocks = blueprint.blocks
+  $scope.rowBlueprintMatches = (row, blueprint) ->
+    if(blueprint.blocks.length != row.blocks.length)
+      return false
+    for i in [0...blueprint.blocks.length]
+      if(blueprint.blocks[i].size != row.blocks[i].size)
+        return false
+    return true
   $scope.newLayout = $scope.layoutModel.id == undefined
   $scope.byLangCode = (code) ->
     (el) ->

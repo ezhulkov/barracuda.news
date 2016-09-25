@@ -65,11 +65,17 @@
                             </dd>
                         </dl>
                     </fieldset>
+                    <h4>Choose row layout:</h4>
+                    <fieldset class="types-block">
+                        <div class="row-type active-{{rowBlueprintMatches(row, rowBlueprint)}}" ng-repeat="rowBlueprint in rowBlueprints track by $index" ng-click="setRowType(row,rowBlueprint)">
+                            <div class="row-type-block" ng-class="blockBlueprint.size" ng-repeat="blockBlueprint in rowBlueprint.blocks track by $index"></div>
+                        </div>
+                    </fieldset>
                     <div class="controls">
                         <input data-remodal-action="confirm" type="button" value="Close">
                     </div>
                 </div>
-                <div class="block {{block.size}}" ng-repeat="block in row.blocks">
+                <div class="block {{block.size}}" ng-repeat="block in row.blocks track by $index">
                     <div class="info">
                         <p ng-show="block.captions[0].text">Caption: {{block.captions[0].text}}</p>
                         <p>News type: {{block.newsType}}</p>
