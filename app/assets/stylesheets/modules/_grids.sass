@@ -10,6 +10,8 @@ $col-spans: (4, 6, 8, 12)
   +padding-leader(1)
   +flex(1 0 auto)
   .topic-row
+    +display-flex()
+    +flex-direction(row)
     margin-left: 0
     margin-right: 0
     +desktop-media
@@ -27,6 +29,7 @@ $col-spans: (4, 6, 8, 12)
     +display-flex()
     +flex-direction(column)
     +box-shadow(inset 0 0 0 1px $textColor)
+    +align-self(auto)
     position: relative
     overflow: hidden
     min-height: rhythm(3)
