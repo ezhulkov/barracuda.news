@@ -42,6 +42,18 @@
         <h3>Layout config</h3>
         <div class="grid">
             <div class="row" ng-repeat="row in layoutModel.config.rows">
+                <div class="row-edit">
+                    <a data-remodal-target="del-row-modal-{{$id}}"><i class="fa fa-2 fa-minus-square-o" aria-hidden="true"></i></a>
+                    <a data-remodal-target="edit-row-modal-{{$id}}"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
+                </div>
+                <div class="remodal" data-remodal-id="del-row-modal-{{$id}}">
+                    <h3>Delete row?</h3>
+                    <br>
+                    <div class="controls">
+                        <input data-remodal-action="cancel" type="button" value="Cancel">
+                        <input data-remodal-action="confirm" type="button" value="Delete" ng-click="deleteRow(row)">
+                    </div>
+                </div>
                 <div class="block {{block.size}}" ng-repeat="block in row.blocks">
                     <div class="info">
                         <p ng-show="block.captions[0].text">Caption: {{block.captions[0].text}}</p>

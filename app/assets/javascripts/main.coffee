@@ -160,6 +160,11 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
     if(query.length == 0)
       return $scope.tags
     return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
+  $scope.deleteRow = (row) ->
+    index = $scope.layoutModel.config.rows.indexOf(row)
+    $scope.layoutModel.config.rows.splice(index, 1)
+    if(layoutModel.config.rows.length == 0)
+      layoutModel.config.rows = undefined
   $scope.processResponse = (data) ->
     $scope.result = data
     if($scope.newLayout)

@@ -309,7 +309,21 @@ main.admin-area
         min-height: rhythm(5)
         .row
           +span(12)
-          +margin-trailer(1/2)
+          +rhythm-padding(1/4)
+          padding-left: 50px
+          position: relative
+          .row-edit
+            +transform(translate(-50%, -50%))
+            display: none
+            position: absolute
+            left: 30px
+            top: 50%
+            a
+              +active-link($color: $blackColor1)
+          &:hover
+            background: $whiteColor
+            .row-edit
+              display: block
         .block
           border: 1px dashed $activeLink
           min-height: rhythm(6)
