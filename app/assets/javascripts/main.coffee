@@ -135,6 +135,133 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
   $scope.toggleMenu = ->
     $scope.menuOn = !$scope.menuOn
 
+adminApp.controller "LayoutsController", ($timeout, $window, $scope, $http) ->
+  $scope.layouts = $window.layouts
+  $scope.layoutsTagged = $scope.layouts.filter (item)-> item.tag != undefined
+  $scope.layoutsUntagged = $scope.layouts.filter (item)-> item.tag == undefined
+  $scope.hasUntagged = ()->
+    $scope.layoutsUntagged != undefined && $scope.layoutsUntagged.length > 0
+
+adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
+  $scope.result = {}
+  $scope.langs = angular.copy($window.langs)
+  $scope.tags = angular.copy($window.tags)
+  $scope.rootTags = angular.copy($window.rootTags)
+  $scope.newsTypes = angular.copy($window.newsTypes)
+  $scope.rowHeights = angular.copy($window.rowHeights)
+  $scope.layoutModel = angular.copy($window.layoutModel)
+  $scope.rowBlueprint = {
+    height: "AUTO"
+  }
+  $scope.blockBlueprint = {
+    newsType: "TEXT",
+    tag: "main_news",
+    captions: [
+      {
+        lang: "en"
+      },
+      {
+        lang: "ru"
+      }
+    ]
+  }
+  $scope.row12Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.row66Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.row444Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.row48Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.row84Blueprint = angular.copy($scope.rowBlueprint)
+  $scope.block4Blueprint = angular.copy($scope.blockBlueprint)
+  $scope.block6Blueprint = angular.copy($scope.blockBlueprint)
+  $scope.block8Blueprint = angular.copy($scope.blockBlueprint)
+  $scope.block12Blueprint = angular.copy($scope.blockBlueprint)
+  $scope.block4Blueprint.size = "SIZE4"
+  $scope.block6Blueprint.size = "SIZE6"
+  $scope.block8Blueprint.size = "SIZE8"
+  $scope.block12Blueprint.size = "SIZE12"
+  $scope.row12Blueprint.blocks = [angular.copy($scope.block12Blueprint)]
+  $scope.row66Blueprint.blocks = [angular.copy($scope.block6Blueprint), angular.copy($scope.block6Blueprint)]
+  $scope.row444Blueprint.blocks = [angular.copy($scope.block4Blueprint), angular.copy($scope.block4Blueprint), angular.copy($scope.block4Blueprint)]
+  $scope.row48Blueprint.blocks = [angular.copy($scope.block4Blueprint), angular.copy($scope.block8Blueprint)]
+  $scope.row84Blueprint.blocks = [angular.copy($scope.block8Blueprint), angular.copy($scope.block4Blueprint)]
+  $scope.rowBlueprints = [$scope.row12Blueprint, $scope.row66Blueprint, $scope.row444Blueprint, $scope.row84Blueprint, $scope.row48Blueprint]
+  if($scope.layoutModel.tag != undefined)
+    $scope.layoutModel.tag.id = $scope.layoutModel.tag.id.toString()
+  $scope.loading = false
+  $scope.setRowType = (row, blueprint)->
+    if(!$scope.rowBlueprintMatches(row, blueprint))
+      index = $scope.layoutModel.config.rows.indexOf(row)
+      $scope.layoutModel.config.rows[index].blocks = blueprint.blocks
+  $scope.rowBlueprintMatches = (row, blueprint) ->
+    if(blueprint.blocks.length != row.blocks.length)
+      return false
+    for i in [0...blueprint.blocks.length]
+      if(blueprint.blocks[i].size != row.blocks[i].size)
+        return false
+    return true
+  $scope.newLayout = $scope.layoutModel.id == undefined
+  $scope.byLangCode = (code) ->
+    (el) ->
+      return el.lang == code
+  $scope.loadTags = (query) ->
+    if(query.length == 0)
+      return $scope.tags
+    return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
+  initRemodal = () ->
+    $timeout ->
+      $('.remodal').remodal()
+    , 10
+  $scope.addRow = () ->
+    newRow = angular.copy($scope.row12Blueprint)
+    $scope.layoutModel.config = {
+      rows: [newRow]
+    }
+    initRemodal()
+  $scope.addRowBefore = (row) ->
+    newRow = angular.copy($scope.row12Blueprint)
+    index = $scope.layoutModel.config.rows.indexOf(row)
+    $scope.layoutModel.config.rows.splice(index, 0, newRow)
+    initRemodal()
+  $scope.addRowAfter = (row) ->
+    newRow = angular.copy($scope.row12Blueprint)
+    index = $scope.layoutModel.config.rows.indexOf(row)
+    $scope.layoutModel.config.rows.splice(index + 1, 0, newRow)
+    initRemodal()
+  $scope.hasRows = () ->
+    $scope.layoutModel.config != undefined && $scope.layoutModel.config.rows != undefined && $scope.layoutModel.config.rows.length > 0
+  $scope.deleteRow = (row) ->
+    index = $scope.layoutModel.config.rows.indexOf(row)
+    $scope.layoutModel.config.rows.splice(index, 1)
+    if($scope.layoutModel.config.rows.length == 0)
+      $scope.layoutModel.config.rows = undefined
+  $scope.processResponse = (data) ->
+    $scope.result = data
+    if($scope.newLayout)
+      $window.location.pathname = $window.location.pathname + "/" + data.layout_id
+    else if($scope.layoutModel.id == undefined)
+      $scope.layoutModel.id = data.layout_id
+    $scope.loading = false
+    $timeout ->
+      $scope.result = {}
+    , 1000
+  $scope.save = ->
+    $scope.loading = true
+    layout = angular.copy($scope.layoutModel)
+    if(layout.tag != undefined && layout.tag.id != undefined && layout.tag.id.length > 0)
+      layout.tag.id = parseInt(layout.tag.id)
+    else
+      layout.tag = undefined
+    $http.post("/admin/layout", layout)
+    .error (data, status) ->
+      $scope.processResponse(data)
+    .success (data) ->
+      $scope.processResponse(data)
+  $scope.delete = ->
+    $http.delete("/admin/layout/" + $scope.layoutModel.id)
+    .error (data, status) ->
+      console.log("error")
+    .success (data) ->
+      $window.location.pathname = data.redirect_url
+
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList
   $scope.total = $scope.newsList.length
@@ -145,20 +272,6 @@ adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
     from = (p - 1) * $scope.pageSize
     $scope.newsPage = $scope.newsList.slice(from, from + $scope.pageSize);
     return false
-  $scope.addArticle = () ->
-    $http.post("/admin/article")
-    .error (data, status) ->
-      $scope.result = data
-      $scope.loading = false
-      $timeout ->
-        $scope.result = {}
-      , 2000
-    .success (data) ->
-      $scope.result = data
-      $scope.loading = false
-      $timeout ->
-        $scope.result = {}
-      , 2000
 
 adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $location, FileUploader) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")

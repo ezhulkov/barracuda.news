@@ -2,6 +2,7 @@ package controllers.stack
 
 import jp.t2v.lab.play2.stackc.RequestWithAttributes
 import jp.t2v.lab.play2.stackc.StackableController
+import org.slf4j.MDC
 import play.api.Logger
 import play.api.mvc.Controller
 import play.api.mvc.Result
@@ -14,6 +15,7 @@ trait LoggingElement extends StackableController {
   self: Controller =>
 
   override def proceed[A](request: RequestWithAttributes[A])(f: (RequestWithAttributes[A]) => Future[Result]): Future[Result] = {
+    MDC.put("ip", request.headers.get("X-Real-IP").getOrElse(request.remoteAddress))
     Logger.info(request.toString)
     super.proceed(request)(f)
   }

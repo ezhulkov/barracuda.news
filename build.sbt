@@ -32,6 +32,7 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.5.1",
   "org.postgresql" % "postgresql" % "9.4.1209",
   "org.apache.commons" % "commons-io" % "1.3.2",
+  "org.apache.commons" % "commons-lang3" % "3.4",
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.0-RC1" % Test,
   "org.webjars" % "webjars-play_2.11" % "2.5.0-2",
   "org.webjars.bower" % "angular" % "1.5.7",

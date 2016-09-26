@@ -6,7 +6,10 @@ import com.github.nscala_time.time.Imports._
 import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
+import org.apache.commons.lang3.StringUtils
+import play.api.Logger
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 import services.LangUtils
 import services.Utils
 import scala.language.implicitConversions
@@ -16,6 +19,8 @@ import scala.util.Try
   * Created by ezhulkov on 04.07.16.
   */
 object CoreModels {
+
+  import Implicits._
 
   val dateFormat      = "YYYY/MM/dd HH:mm"
   val dateFormatShort = "YYYY/MM/dd"
@@ -33,11 +38,12 @@ object CoreModels {
 
   object RowHeight extends Enumeration {
     type RowHeight = Value
-    val HEIGHT1 = RowHeightValue("HEIGHT1", 1, "height1", 3)
-    val HEIGHT2 = RowHeightValue("HEIGHT2", 2, "height2", 6)
-    val HEIGHT3 = RowHeightValue("HEIGHT3", 3, "height3", 9)
-    val HEIGHT4 = RowHeightValue("HEIGHT4", 4, "height4", 11)
-    sealed case class RowHeightValue(code: String, height: Int, cssClass: String, maxNews: Int) extends super.Val(code)
+    val HEIGHT1 = RowHeightValue("HEIGHT1", "height1", 3)
+    val HEIGHT2 = RowHeightValue("HEIGHT2", "height2", 6)
+    val HEIGHT3 = RowHeightValue("HEIGHT3", "height3", 9)
+    val HEIGHT4 = RowHeightValue("HEIGHT4", "height4", 11)
+    val AUTO    = RowHeightValue("AUTO", "height-auto", 9)
+    sealed case class RowHeightValue(code: String, cssClass: String, maxNews: Int) extends super.Val(code)
     implicit def convert(value: Value): RowHeightValue = value.asInstanceOf[RowHeightValue]
   }
 
@@ -51,12 +57,18 @@ object CoreModels {
     implicit def convert(value: Value): NewsTypeValue = value.asInstanceOf[NewsTypeValue]
   }
 
-  case class Tag(id: Option[Long], text: String, root: Option[Boolean] = None)
-  case class Layout(rows: Seq[NewsRow])
+  case class Tag(id: Option[Long], text: Option[String], root: Option[Boolean] = None)
+  object Layout {
+    def newLayout = Layout(None, None, None, None)
+  }
+  case class Layout(id: Option[Long], name: Option[String], rawConfig: Option[String], tag: Option[Tag] = None) {
+    def config: Option[LayoutConfig] = rawConfig.map(c => Json.parse(c).as[LayoutConfig])
+  }
+  case class LayoutConfig(rows: Seq[NewsRow])
   case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
-  case class BlockCaption(lang: Lang, text: String)
+  case class BlockCaption(lang: Lang, text: Option[String])
   case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, captions: Option[Seq[BlockCaption]] = None, newsType: NewsType = NewsType.TEXT) {
-    def localCaption(implicit lang: Lang) = captions.getOrElse(Nil).find(t => t.lang == lang)
+    def localCaption(implicit lang: Lang) = captions.getOrElse(Nil).find(t => t.lang == lang && t.text.exists(c => StringUtils.isNotEmpty(c))).flatMap(t => t.text)
   }
   case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   object Article {
@@ -77,9 +89,9 @@ object CoreModels {
     var crossArticles: Seq[Article] = Nil
     def transliteratedUrl = translation(LangUtils.defaultLang).flatMap(t => t.caption).map(t => Utils.transliterate(t)).getOrElse(id.toString)
     def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
-    def hasTag(tag: String): Boolean = tags.exists(_.text == tag)
+    def hasTag(tag: String): Boolean = tags.exists(t=>t.text.contains(tag))
     def translation(implicit lang: Lang) = translations.find(t => t.lang == lang)
-    def translationOrDefault(implicit lang: Lang) = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t=>t.caption.isDefined).get)
+    def translationOrDefault(implicit lang: Lang) = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t => t.caption.isDefined).get)
     def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
     def withCrossLinks(links: Seq[Article]) = {
       val c = copy(crossLinks = Some(links.flatMap(t => t.id)))

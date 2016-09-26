@@ -37,6 +37,38 @@ object Mappers {
 
   }
 
+  object Layout extends SkinnyCRUDMapper[Layout] {
+
+    override def connectionPoolName = 'default
+    override lazy val defaultAlias = createAlias("l")
+    override def extract(rs: WrappedResultSet, rn: ResultName[Layout]): Layout = autoConstruct(rs, rn, "tag")
+
+    lazy val tagRef = belongsTo[Tag](
+      right = Tag,
+      merge = (a, t) => a.copy(tag = t))
+
+    def findById(id: Long) = joins(tagRef).findById(id)
+    def findByTag(tag: String) = joins(tagRef).findBy(sqls.eq(Tag.defaultAlias.text, tag))
+    def findByTagId(id: Long) = joins(tagRef).findBy(sqls.eq(Tag.defaultAlias.id, id))
+    def findAll = joins(tagRef).findAll()
+    def update(layout: Layout)(implicit s: DBSession): Try[Int] = Try(updateById(layout.id.get).withAttributes(
+      'name -> layout.name.getOrElse("-"),
+      'rawConfig -> layout.rawConfig.filter(_.nonEmpty).orNull,
+      'tagId -> layout.tag.map(t => t.id).orNull
+    ))
+    def create(layout: Layout)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(
+      'name -> layout.name.getOrElse("-"),
+      'rawConfig -> layout.rawConfig.filter(_.nonEmpty).orNull,
+      'tagId -> layout.tag.map(t => t.id).orNull
+    ))
+    def clearTags(layout: Layout)(implicit s: DBSession): Unit = {
+      updateById(layout.id.get).withAttributes(
+        'tagId -> null
+      )
+    }
+
+  }
+
   object Article extends SkinnyCRUDMapper[Article] {
 
     override def connectionPoolName = 'default

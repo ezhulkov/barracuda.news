@@ -1,6 +1,9 @@
 package services
 
 import org.apache.commons.lang3.StringUtils
+import play.api.Logger
+import scala.util.Failure
+import scala.util.Try
 
 /**
   * Created by ezhulkov on 18.08.16.
@@ -89,6 +92,12 @@ object Utils {
       val textChars: Array[Char] = t.toCharArray
       textChars.flatMap(ch => symbolMap.get(ch)).mkString.toLowerCase.trim.take(64)
     }.getOrElse(text)
+  }
+
+  def loggedFailure[T] (msg: String = ""): PartialFunction[Throwable, Try[T]] = {
+    case th: Throwable =>
+      Logger.error(msg, th)
+      Failure(th)
   }
 
 }

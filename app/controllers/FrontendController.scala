@@ -13,6 +13,7 @@ import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 import services.ArticleService
+import services.LayoutService
 import utils.Configuration
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
@@ -24,6 +25,7 @@ import scala.util.Try
 class FrontendController @Inject()(
   implicit env: Environment,
   articleService: ArticleService,
+  layoutService: LayoutService,
   cache: CacheApi,
   ws: WSClient,
   val messagesApi: MessagesApi
@@ -34,7 +36,7 @@ class FrontendController @Inject()(
   import scala.io.Source
 
   val MAIN_LAYOUT  = "main"
-  val layouts      = (articleService.allRootTags.map(t => parsedLayout(t.text)) + parsedLayout(MAIN_LAYOUT)).toMap
+  val layouts      = (articleService.allRootTags.map(t => parsedLayout(t.text.orNull)) + parsedLayout(MAIN_LAYOUT)).toMap
   val trackingKey  = "tracking"
   val trackingUrl  = Configuration.getValue[String]("tracking.url").getOrElse(throw new RuntimeException("bad config"))
   val trackingData = cache.getOrElse[Future[Seq[TrackingEvent]]](trackingKey) {
@@ -60,7 +62,7 @@ class FrontendController @Inject()(
     val articles = articleService.allTagged(tag)
       .filter(article => article.translation.exists(t => t.caption.isDefined))
       .take(100)
-    Ok(views.html.topic(layouts.get(tag), articles, tag, title))
+    Ok(views.html.topic(layoutService.findByTag(tag).flatMap(l => l.config), articles, tag, title))
   }
   }
   def article(url: String) = AsyncStack(implicit request => Future {

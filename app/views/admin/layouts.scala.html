@@ -1,4 +1,46 @@
-@()(implicit user: Account)
+@(layouts: String)(implicit user: Account)
 
-@layout.admin("layouts-section", None) {
-}
+    @sidebar = {
+        <ul>
+            <li>
+                <a href="@routes.AdminController.layoutNew">Add layout</a>
+            </li>
+        </ul>
+    }
+
+    @layout.admin("layouts-section", subMenu = Some(sidebar), activeMenu = Some("#layouts"), controller = Some("LayoutsController")) {
+
+        <h3>Active layouts</h3>
+        <ul class="layouts">
+            <li class="item" ng-repeat="item in layoutsTagged">
+                <div class="grid">
+                    <div class="row" ng-repeat="row in item.config.rows">
+                        <a class="block {{block.size}}" ng-repeat="block in row.blocks" href="/admin/layout/{{item.id}}"></a>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="tag" ng-show="item.tag">{{item.tag.text}}</div>
+                    <h4><a href="/admin/layout/{{item.id}}">{{item.name}}</a></h4>
+                </div>
+            </li>
+        </ul>
+        <div ng-show="hasUntagged()">
+            <h3>Layout library</h3>
+            <ul class="layouts">
+                <li class="item" ng-repeat="item in layoutsUntagged">
+                    <div class="grid">
+                        <div class="row" ng-repeat="row in item.config.rows">
+                            <a class="block {{block.size}}" ng-repeat="block in row.blocks" href="/admin/layout/{{item.id}}"></a>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <h4><a href="/admin/layout/{{item.id}}">{{item.name}}</a></h4>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <script type="application/javascript">
+        var layouts=@Html(layouts)
+        </script>
+
+    }

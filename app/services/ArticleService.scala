@@ -2,7 +2,8 @@ package services
 
 import java.io.ByteArrayInputStream
 import java.io.File
-import java.nio.file.{Files, Paths}
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.util.Base64
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.regex.Pattern
@@ -18,8 +19,8 @@ import play.api.Logger
 import play.api.i18n.Lang
 import scalikejdbc.DB
 import scalikejdbc.DBSession
+import services.Utils.loggedFailure
 import utils.Configuration
-import scala.util.Failure
 import scala.util.Success
 import scala.util.Try
 
@@ -86,9 +87,8 @@ class ArticleServiceImpl extends ArticleService {
             val b64Matcher = b64Pattern.matcher(data)
             if (b64Matcher.find()) {
               val base64Data = b64Matcher.group(1)
-              val fileName = decodeAndStore(translation.caption.getOrElse(DateTime.now().toString), counter.incrementAndGet(), base64Data)
-              val transFileName = Utils.transliterate(fileName)
-              imgMatcher.appendReplacement(out, s"""<img class="article-image" src="$imageUrl/$transFileName" title="${translation.caption}" alt="${translation.caption}"""")
+              val fileName = decodeAndStore(translation.caption.getOrElse(DateTime.now().toString), Some(counter.incrementAndGet()), base64Data)
+              imgMatcher.appendReplacement(out, s"""<img class="article-image" src="$imageUrl/$fileName" ${translation.caption.map(t => s"title='$t' alt='$t'").getOrElse("")}""")
             }
           }
         }
@@ -102,24 +102,24 @@ class ArticleServiceImpl extends ArticleService {
     findArticle(id) match {
       case Some(article) =>
         val bytes = Files.readAllBytes(Paths.get(file.toURI))
-        val savedFile = decodeAndStore(article.translationOrDefault(LangUtils.defaultLang).caption.getOrElse(DateTime.now().toString), 1, bytes)
+        val savedFile = decodeAndStore(article.translationOrDefault(LangUtils.defaultLang).caption.getOrElse(DateTime.now().toString), None, bytes)
         val newArticle = article.copy(coverMedia = Some(s"$imageUrl/$savedFile"))
         Mappers.Article.updateCover(newArticle)
       case _ => Logger.error(s"Can not find article $id")
     }
   }
-  private def decodeAndStore(caption: String, number: Int, bytes: Array[Byte]): String = {
+  private def decodeAndStore(caption: String, number: Option[Int], bytes: Array[Byte]): String = {
     val image = ImageIO.read(new ByteArrayInputStream(bytes))
     val resized = image.getWidth > articleImageWidth match {
       case true => Thumbnails.of(image).width(articleImageWidth).keepAspectRatio(true).asBufferedImage
       case false => image
     }
-    val fileName = s"${Utils.transliterate(caption)}-$number.jpg"
+    val fileName = s"${Utils.transliterate(caption)}${number.map(n => s"-$n").getOrElse("")}.jpg"
     val file = new File(s"$imageFolder/$fileName")
     ImageIO.write(resized, "jpg", file)
     fileName
   }
-  private def decodeAndStore(caption: String, number: Int, base64Data: String): String = decodeAndStore(caption, number, Base64.getDecoder.decode(base64Data))
+  private def decodeAndStore(caption: String, number: Option[Int], base64Data: String): String = decodeAndStore(caption, number, Base64.getDecoder.decode(base64Data))
   private def joinCrossLinks(article: Article) = {
     val links = Mappers.CrossLinkArticle.findByArticle(article)
     val articles = Mappers.Article.findAllByIdsSeq(links.map(t => t.linkId))
@@ -160,9 +160,9 @@ class ArticleServiceImpl extends ArticleService {
     articleId
   }
   private def trySaveTags(article: Article, articleId: Long)(implicit s: DBSession): Try[Long] = Try {
-    val existingTags = Mappers.Tag.allTags(article.tags.map(t => t.text))
+    val existingTags = Mappers.Tag.allTags(article.tags.map(t => t.text.orNull))
     val newTags = article.tags.filterNot(t => existingTags.exists(m => m.text == t.text))
-    val createdTags = newTags.map(t => Mappers.Tag.create(t.text))
+    val createdTags = newTags.map(t => Mappers.Tag.create(t.text.orNull))
       .map(t => t.recoverWith(loggedFailure()))
       .collect { case Success(tag) => tag }
     val tagIds = existingTags.flatMap(t => t.id) ++ createdTags
@@ -170,10 +170,6 @@ class ArticleServiceImpl extends ArticleService {
     tagIds.map(t => Mappers.ArticleTag.create(articleId, t).recoverWith(loggedFailure())).collect { case Success(tag) => tag }
     articleId
   }
-  private def loggedFailure[T](msg: String = ""): PartialFunction[Throwable, Try[T]] = {
-    case th: Throwable =>
-      Logger.error(msg, th)
-      Failure(th)
-  }
+
 
 }

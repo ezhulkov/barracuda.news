@@ -27,7 +27,15 @@
         {
           "newsType": "TEXT",
           "tag": "sub_news",
-          "size": "SIZE4"
+          "size": "SIZE4",
+          "captions": [
+            {
+              "lang": "en"
+            },
+            {
+              "lang": "ru"
+            }
+          ]
         },
         {
           "newsType": "PHOTO",
@@ -47,7 +55,15 @@
         {
           "newsType": "VIDEO",
           "tag": "video",
-          "size": "SIZE4"
+          "size": "SIZE4",
+          "captions": [
+            {
+              "lang": "en"
+            },
+            {
+              "lang": "ru"
+            }
+          ]
         }
       ]
     },

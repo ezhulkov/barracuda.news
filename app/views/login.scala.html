@@ -8,7 +8,7 @@
             @helper.form(controllers.routes.AuthController.authenticate()) {
 
                 <a class="logo" href="@routes.FrontendController.index()">
-                    <img src="@routes.Assets.versioned("images/logo-small.png")"/>
+                    <img src="@routes.Assets.versioned("images/logo-small.png")" srcset="@routes.Assets.versioned("/images/logo-small.2x.png") 2x"/>
                 </a>
 
                 @if(loginForm.hasGlobalErrors) {

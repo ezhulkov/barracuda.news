@@ -43,7 +43,7 @@
                         <a href="@routes.AdminController.index">News</a>
                     </li>
                     <li id="layouts">
-                        <a href="@routes.AdminController.layout">Layouts</a>
+                        <a href="@routes.AdminController.layouts">Layouts</a>
                     </li>
                 </ul>
             </aside>
@@ -62,7 +62,7 @@
             @activeMenu.map { active =>
             <script type="application/javascript">
                 document.addEventListener("DOMContentLoaded", function (event) {
-                    activateMenu("#news");
+                    activateMenu("@activeMenu.orNull");
                 });
             </script>
             }.orNull
