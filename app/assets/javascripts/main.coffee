@@ -20,7 +20,6 @@ Array::filter = (func) -> x for x in @ when func(x)
 
 if (typeof AlloyEditor != 'undefined')
   @alloyConfig = {
-
     toolbars: {
       add: {
         buttons: ['image', 'link', 'table', 'embed']
@@ -77,7 +76,7 @@ if (typeof AlloyEditor != 'undefined')
                 }
               ]
             }
-          }, 'bold', 'italic', 'underline', 'link', 'paragraphLeft', 'paragraphCenter', 'paragraphRight', 'paragraphJustify', 'removeFormat'],
+          }, 'bold', 'italic', 'underline', 'link', 'ul', 'ol', 'paragraphLeft', 'paragraphCenter', 'paragraphRight', 'paragraphJustify', 'removeFormat'],
           test: AlloyEditor.SelectionTest.text
         }, {
           name: 'table',

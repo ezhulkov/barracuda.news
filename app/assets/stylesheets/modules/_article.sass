@@ -52,6 +52,17 @@ article
         +t-small
         margin-top: - rhythm(2)
         text-align: center
+      ol
+        list-style-type: decimal
+      ul
+        list-style: initial
+      ol, ul
+        +padding-trailer(1)
+        padding-left: 20px
+        li
+          +margin-trailer(1/2)
+        li:last-child
+          +margin-trailer(0)
       p
         +padding-trailer(1)
         display: block
@@ -69,9 +80,10 @@ article
       #{headers(2,4)}
         +margin-trailer(1)
     .related
-      +span(8 no-gutter)
+      +span(12 no-gutter)
+      +desktop-media
+        +span(8 no-gutter)
       h3
-        //width: 50%
         border-bottom: 2px solid $activeLink
       .news-list
         margin-top: - 2px

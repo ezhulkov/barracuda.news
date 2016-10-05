@@ -1691,6 +1691,25 @@ article .article-body p.photo-caption {
   margin-top: -3rem;
   text-align: center;
 }
+article .article-body ol {
+  list-style-type: decimal;
+}
+article .article-body ul {
+  list-style: initial;
+}
+article .article-body ol, article .article-body ul {
+  padding-bottom: 24px;
+  padding-bottom: 1.5rem;
+  padding-left: 20px;
+}
+article .article-body ol li, article .article-body ul li {
+  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
+}
+article .article-body ol li:last-child, article .article-body ul li:last-child {
+  margin-bottom: 0px;
+  margin-bottom: 0rem;
+}
 article .article-body p {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
@@ -1720,8 +1739,17 @@ article .related {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 66.66667%;
+  width: 100%;
   float: left;
+}
+@media screen and (min-width: 60em) {
+  article .related {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 66.66667%;
+    float: left;
+  }
 }
 article .related h3 {
   border-bottom: 2px solid #f26522;
