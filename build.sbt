@@ -45,7 +45,7 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "chosen" % "1.4.2",
   "org.webjars.bower" % "remodal" % "1.1.0",
   "org.webjars.bower" % "github-com-nervgh-angular-file-upload" % "v2.3.4",
-"org.webjars.npm" % "angular-chosen-localytics" % "1.4.0",
+  "org.webjars.npm" % "angular-chosen-localytics" % "1.4.0",
   "org.webjars" % "jquery" % "2.2.4",
   "org.webjars" % "font-awesome" % "4.6.3"
 )

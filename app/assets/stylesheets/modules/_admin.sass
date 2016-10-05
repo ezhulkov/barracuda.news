@@ -210,21 +210,24 @@ main.admin-area
   section.article-section
     +with-layout(12 fluid inside)
       dl.tags
-        +span(9 no-gutter)
-        +post(3)
+        +span(8 no-gutter)
+        +post(4)
         +tags-style
         padding-right: $pad-col
+      dl.youtube
+        +span(4 no-gutter)
+        +post(4)
+        padding-right: $pad-col
       dl.publish
-        +span(9 no-gutter)
-        +post(3)
+        +span(4 no-gutter)
         padding-right: $pad-col
         input
           +t-small
         dd
           margin-top: -1px
       dl.origin
-        +span(9 no-gutter)
-        +post(3)
+        +span(8 no-gutter)
+        +post(4)
         padding-right: $pad-col
       dl.caption
         +padding-leader(1)
@@ -235,7 +238,7 @@ main.admin-area
         +display-flex()
         +justify-content(center)
         +align-items(center)
-        +span(3)
+        +span(4)
         overflow: hidden
         background: white
         border: 1px dashed $activeLink

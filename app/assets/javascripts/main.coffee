@@ -23,7 +23,7 @@ if (typeof AlloyEditor != 'undefined')
 
     toolbars: {
       add: {
-        buttons: ['image', 'link']
+        buttons: ['image', 'link', 'table', 'embed']
       },
       styles: {
         selections: [{
@@ -275,6 +275,7 @@ adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
 
 adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $location, FileUploader) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")
+  CKEDITOR.DEFAULT_AE_EMBED_URL_TPL = '//iframe.ly/api/oembed?url={url}&callback={callback}&api_key=70ef4f2a4a266b31fc44b5';
   $scope.result = {}
   $scope.langs = angular.copy($window.langs)
   $scope.selectedLang = $scope.langs[0]

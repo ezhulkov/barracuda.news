@@ -2182,9 +2182,9 @@ main.admin-area section.article-section dl.tags {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 75%;
+  width: 66.66667%;
   float: left;
-  margin-right: 25%;
+  margin-right: 33.33333%;
   padding-right: 20px;
 }
 main.admin-area section.article-section dl.tags .host {
@@ -2240,13 +2240,21 @@ main.admin-area section.article-section dl.tags .host .autocomplete em {
   line-height: 24px;
   line-height: 1.5rem;
 }
+main.admin-area section.article-section dl.youtube {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 33.33333%;
+  float: left;
+  margin-right: 33.33333%;
+  padding-right: 20px;
+}
 main.admin-area section.article-section dl.publish {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 75%;
+  width: 33.33333%;
   float: left;
-  margin-right: 25%;
   padding-right: 20px;
 }
 main.admin-area section.article-section dl.publish input {
@@ -2262,9 +2270,9 @@ main.admin-area section.article-section dl.origin {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 75%;
+  width: 66.66667%;
   float: left;
-  margin-right: 25%;
+  margin-right: 33.33333%;
   padding-right: 20px;
 }
 main.admin-area section.article-section dl.caption {
@@ -2288,7 +2296,7 @@ main.admin-area section.article-section .cover {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 25%;
+  width: 33.33333%;
   float: left;
   padding-left: 0.83333%;
   padding-right: 0.83333%;

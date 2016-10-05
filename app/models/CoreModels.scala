@@ -72,13 +72,14 @@ object CoreModels {
   }
   case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   object Article {
-    def newArticle = Article(None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
+    def newArticle = Article(None, None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
   }
   case class Article(
     id: Option[Long],
     url: Option[String],
     origin: Option[String],
     coverMedia: Option[String],
+    coverYoutube: Option[String],
     publish: DateTime,
     tags: Seq[Tag] = Nil,
     translations: Seq[Translation] = Nil,
