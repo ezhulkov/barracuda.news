@@ -3,7 +3,7 @@
 @import "mixins"
 
 article
-  //+debug-vertical-alignment()
+  +debug-vertical-alignment()
   +rhythm-margins(1)
   background-color: rgba(white, 1)
   position: relative
@@ -79,6 +79,51 @@ article
         margin: auto
       #{headers(2,4)}
         +margin-trailer(1)
+      .gallery-preview
+        +margin-trailer(1/2)
+        overflow: hidden
+        position: relative
+        .next, .prev
+          +border-radius(5px)
+          +fa
+          +transition(all 0.2s ease-in-out)
+          position: absolute
+          border: 1px solid white
+          color: white
+          width: 50px
+          height: 50px
+          top: 50%
+          transform: translate(0, -50%)
+          cursor: pointer
+          font-size: 20px
+          text-align: center
+          line-height: 48px
+          &:hover
+            border: 1px solid $activeLink
+            color: $activeLink
+        .prev
+          left: 25px
+        .next
+          right: 25px
+      .gallery
+        +margin-trailer(1)
+        padding: 0
+        white-space: nowrap
+        overflow-x: scroll
+        overflow-y: hidden
+        li
+          display: inline-block
+          vertical-align: top
+          cursor: pointer
+          margin-right: rhythm(1/4)
+          margin-bottom: 0
+          & *
+            display: none
+          img
+            padding: 0
+            display: block
+            float: left
+            height: rhythm(3)
     .related
       +span(12 no-gutter)
       +desktop-media

@@ -283,8 +283,8 @@ main.admin-area
     article.edit
       +rhythm-margins(0)
       +rhythm-padding(1)
-      .article-body
-        +span(8)
+      .article-edit
+        +span(12)
         +pre(0)
       .alloy-editor
         +border(1px, $color: lightblue)
@@ -292,6 +292,26 @@ main.admin-area
         min-height: 50px
         padding-left: $pad/2
         padding-right: $pad/2
+      .gallery
+        +rhythm-margins(1/2)
+        border: 1px dashed $blueColor
+        list-style: none
+        padding: 0
+        overflow: auto
+        li
+          +span(6)
+          +rhythm-margins(1/4)
+          padding: rhythm(1/4)
+          min-height: rhythm(4)
+          border: 1px solid $activeLink
+        .photo-caption
+          +t-small
+          +margin-leader(0)
+          text-align: center
+        img
+          width: 100%
+          margin: 0 !important
+          display: block
   section.layout-section
     +with-layout(12 fluid inside)
       dl.name
@@ -476,3 +496,9 @@ main.admin-area
 
 .ae-button
   margin-left: 13px
+
+.ae-icon-gallery:before
+  +fa
+  content: "\f0c5"
+  vertical-align: top
+  margin-top: 3px

@@ -11,18 +11,80 @@ $(window).load ->
     baseLine: baseLine,
     spacing: "margin"
   })
-  $(".cut-images img").each (i, e)->
+  $(".article-body .gallery").each (i, e) ->
+    preview = $("<div class='gallery-preview cut-images'></div>")
+    firstImage = $(e).find("img").first()
+    $(e).wrap("<div class='gallery-wrapper'></div>")
+    preview.prepend($("<span class='prev fa-angle-left'></span>"))
+    preview.prepend($("<span class='next fa-angle-right'></span>"))
+    preview.insertBefore(e)
+    preview.append(firstImage.clone())
+  $(".cut-images img").each (i, e) ->
     h = $(e).height()
     if(h % baseLine != 0)
-      $(e).closest(".photo").height(h - h % baseLine)
+      $(e).closest("div").height(h - h % baseLine)
 
 Array::filter = (func) -> x for x in @ when func(x)
 
 if (typeof AlloyEditor != 'undefined')
+  React = AlloyEditor.React
+  galleryCommand = {
+    canUndo: !1,
+    exec: (editor) ->
+      editor.insertHtml("<ul class='gallery'><li>&nbsp;Insert image here&nbsp;</li></ul>")
+    ,
+    allowedContent: "ul",
+    requiredContent: "ul"
+  }
+  CKEDITOR.plugins.add("gallery", {
+    init: (editor) ->
+      editor.addCommand("gallery", galleryCommand)
+  })
+  CKEDITOR.config.plugins = CKEDITOR.config.plugins + ",gallery"
+  ButtonGallery = React.createClass({
+    mixins: [AlloyEditor.ButtonStyle, AlloyEditor.ButtonActionStyle, AlloyEditor.ButtonStateClasses, AlloyEditor.ButtonCommand],
+    propTypes: {
+      editor: React.PropTypes.object.isRequired
+    },
+    getDefaultProps: () ->
+      {
+        command: 'gallery',
+        style: {
+          element: 'ul',
+          class: 'ololo'
+        }
+      }
+    ,
+    statics: {
+      key: 'gallery'
+    },
+    render: () ->
+      cssClass = 'ae-button ' + this.getStateClasses()
+      props = {
+        'className': cssClass,
+        'area-label': 'Insert Gallery',
+        'title': 'Insert Gallery',
+        'data-type': 'button-list',
+        'tabIndex': this.props.tabIndex,
+        'onClick': this.execCommand
+      }
+      child = React.createElement("span", {'className': 'ae-icon-gallery'})
+      return React.createElement("button", props, child)
+  })
+
+  #  handleClick: () ->
+  #        editor = this.props.editor.get('nativeEditor')
+  #        galleryTag = new CKEDITOR.dom.element("ul", editor.document)
+  #        galleryTag.setAttribute("class", "gallery")
+  #        editor.fire('actionPerformed', this);
+  #      ,
+
+  AlloyEditor.Buttons[ButtonGallery.key] = ButtonGallery;
+  CKEDITOR.DEFAULT_AE_EMBED_URL_TPL = '//iframe.ly/api/oembed?url={url}&callback={callback}&api_key=70ef4f2a4a266b31fc44b5';
   @alloyConfig = {
     toolbars: {
       add: {
-        buttons: ['image', 'link', 'table', 'embed']
+        buttons: ['image', 'link', 'table', 'embed', 'gallery']
       },
       styles: {
         selections: [{
@@ -274,7 +336,6 @@ adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
 
 adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $location, FileUploader) ->
   moment.tz.add("Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0|16e6")
-  CKEDITOR.DEFAULT_AE_EMBED_URL_TPL = '//iframe.ly/api/oembed?url={url}&callback={callback}&api_key=70ef4f2a4a266b31fc44b5';
   $scope.result = {}
   $scope.langs = angular.copy($window.langs)
   $scope.selectedLang = $scope.langs[0]

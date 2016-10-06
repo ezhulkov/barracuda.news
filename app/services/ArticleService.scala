@@ -87,7 +87,7 @@ class ArticleServiceImpl extends ArticleService {
             val b64Matcher = b64Pattern.matcher(data)
             if (b64Matcher.find()) {
               val base64Data = b64Matcher.group(1)
-              val fileName = decodeAndStore(translation.caption.getOrElse(DateTime.now().toString), Some(counter.incrementAndGet()), base64Data)
+              val fileName = decodeAndStore(translation.caption.getOrElse(DateTime.now().toString), Some(translation.lang), Some(counter.incrementAndGet()), base64Data)
               imgMatcher.appendReplacement(out, s"""<img class="article-image" src="$imageUrl/$fileName" ${translation.caption.map(t => s"title='$t' alt='$t'").getOrElse("")}""")
             }
           }
@@ -102,24 +102,24 @@ class ArticleServiceImpl extends ArticleService {
     findArticle(id) match {
       case Some(article) =>
         val bytes = Files.readAllBytes(Paths.get(file.toURI))
-        val savedFile = decodeAndStore(article.translationOrDefault(LangUtils.defaultLang).caption.getOrElse(DateTime.now().toString), None, bytes)
+        val savedFile = decodeAndStore(article.translationOrDefault(LangUtils.defaultLang).caption.getOrElse(DateTime.now().toString), None, None, bytes)
         val newArticle = article.copy(coverMedia = Some(s"$imageUrl/$savedFile"))
         Mappers.Article.updateCover(newArticle)
       case _ => Logger.error(s"Can not find article $id")
     }
   }
-  private def decodeAndStore(caption: String, number: Option[Int], bytes: Array[Byte]): String = {
+  private def decodeAndStore(caption: String, lang: Option[Lang], number: Option[Int], bytes: Array[Byte]): String = {
     val image = ImageIO.read(new ByteArrayInputStream(bytes))
     val resized = image.getWidth > articleImageWidth match {
       case true => Thumbnails.of(image).width(articleImageWidth).keepAspectRatio(true).asBufferedImage
       case false => image
     }
-    val fileName = s"${Utils.transliterate(caption)}${number.map(n => s"-$n").getOrElse("")}.jpg"
+    val fileName = s"${Utils.transliterate(caption)}${lang.map(l => s"-${l.code}").getOrElse("")}${number.map(n => s"-$n").getOrElse("")}.jpg"
     val file = new File(s"$imageFolder/$fileName")
     ImageIO.write(resized, "jpg", file)
     fileName
   }
-  private def decodeAndStore(caption: String, number: Option[Int], base64Data: String): String = decodeAndStore(caption, number, Base64.getDecoder.decode(base64Data))
+  private def decodeAndStore(caption: String, lang: Option[Lang], number: Option[Int], base64Data: String): String = decodeAndStore(caption, lang, number, Base64.getDecoder.decode(base64Data))
   private def joinCrossLinks(article: Article) = {
     val links = Mappers.CrossLinkArticle.findByArticle(article)
     val articles = Mappers.Article.findAllByIdsSeq(links.map(t => t.linkId))
@@ -170,6 +170,5 @@ class ArticleServiceImpl extends ArticleService {
     tagIds.map(t => Mappers.ArticleTag.create(articleId, t).recoverWith(loggedFailure())).collect { case Success(tag) => tag }
     articleId
   }
-
 
 }
