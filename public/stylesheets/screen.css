@@ -1660,7 +1660,7 @@ article .adv {
     height: 500px;
   }
 }
-article .article-body {
+article .article-body, article .article-edit {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -1668,7 +1668,7 @@ article .article-body {
   float: left;
 }
 @media screen and (min-width: 60em) {
-  article .article-body {
+  article .article-body, article .article-edit {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -1676,14 +1676,14 @@ article .article-body {
     float: left;
   }
 }
-article .article-body p.q:before, article .article-body p.a:before {
+article .article-body p.q:before, article .article-body p.a:before, article .article-edit p.q:before, article .article-edit p.a:before {
   content: "—";
   padding-right: 5px;
 }
-article .article-body p.q {
+article .article-body p.q, article .article-edit p.q {
   font-weight: 700;
 }
-article .article-body p.photo-caption {
+article .article-body p.photo-caption, article .article-edit p.photo-caption {
   font-size: 13px;
   font-size: 0.833rem;
   line-height: 24px;
@@ -1691,57 +1691,57 @@ article .article-body p.photo-caption {
   margin-top: -3rem;
   text-align: center;
 }
-article .article-body ol {
+article .article-body ol, article .article-edit ol {
   list-style-type: decimal;
 }
-article .article-body ul {
+article .article-body ul, article .article-edit ul {
   list-style: initial;
 }
-article .article-body ol, article .article-body ul {
+article .article-body ol, article .article-body ul, article .article-edit ol, article .article-edit ul {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
   padding-left: 20px;
 }
-article .article-body ol li, article .article-body ul li {
+article .article-body ol li, article .article-body ul li, article .article-edit ol li, article .article-edit ul li {
   margin-bottom: 12px;
   margin-bottom: 0.75rem;
 }
-article .article-body ol li:last-child, article .article-body ul li:last-child {
+article .article-body ol li:last-child, article .article-body ul li:last-child, article .article-edit ol li:last-child, article .article-edit ul li:last-child {
   margin-bottom: 0px;
   margin-bottom: 0rem;
 }
-article .article-body p {
+article .article-body p, article .article-edit p {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
   display: block;
 }
-article .article-body cite {
+article .article-body cite, article .article-edit cite {
   display: block;
 }
-article .article-body strong {
+article .article-body strong, article .article-edit strong {
   font-weight: 700;
 }
-article .article-body em {
+article .article-body em, article .article-edit em {
   font-style: italic;
 }
-article .article-body img, article .article-body iframe {
+article .article-body img, article .article-body iframe, article .article-edit img, article .article-edit iframe {
   padding-bottom: 24px;
   padding-bottom: 1.5rem;
   display: block;
   max-width: 100%;
   margin: auto;
 }
-article .article-body h2, article .article-body h3, article .article-body h4 {
+article .article-body h2, article .article-body h3, article .article-body h4, article .article-edit h2, article .article-edit h3, article .article-edit h4 {
   margin-bottom: 24px;
   margin-bottom: 1.5rem;
 }
-article .article-body .gallery-preview {
+article .article-body .gallery-preview, article .article-edit .gallery-preview {
   margin-bottom: 12px;
   margin-bottom: 0.75rem;
   overflow: hidden;
   position: relative;
 }
-article .article-body .gallery-preview .next, article .article-body .gallery-preview .prev {
+article .article-body .gallery-preview .next, article .article-body .gallery-preview .prev, article .article-edit .gallery-preview .next, article .article-edit .gallery-preview .prev {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -1767,17 +1767,17 @@ article .article-body .gallery-preview .next, article .article-body .gallery-pre
   text-align: center;
   line-height: 48px;
 }
-article .article-body .gallery-preview .next:hover, article .article-body .gallery-preview .prev:hover {
+article .article-body .gallery-preview .next:hover, article .article-body .gallery-preview .prev:hover, article .article-edit .gallery-preview .next:hover, article .article-edit .gallery-preview .prev:hover {
   border: 1px solid #f26522;
   color: #f26522;
 }
-article .article-body .gallery-preview .prev {
+article .article-body .gallery-preview .prev, article .article-edit .gallery-preview .prev {
   left: 25px;
 }
-article .article-body .gallery-preview .next {
+article .article-body .gallery-preview .next, article .article-edit .gallery-preview .next {
   right: 25px;
 }
-article .article-body .gallery {
+article .article-body .gallery, article .article-edit .gallery {
   margin-bottom: 24px;
   margin-bottom: 1.5rem;
   padding: 0;
@@ -1785,20 +1785,31 @@ article .article-body .gallery {
   overflow-x: scroll;
   overflow-y: hidden;
 }
-article .article-body .gallery li {
+article .article-body .gallery li, article .article-edit .gallery li {
   display: inline-block;
   vertical-align: top;
   cursor: pointer;
   margin-right: 0.375rem;
   margin-bottom: 0;
+  position: relative;
 }
-article .article-body .gallery li * {
+article .article-body .gallery li *, article .article-edit .gallery li * {
   display: none;
 }
-article .article-body .gallery li img {
+article .article-body .gallery li img, article .article-edit .gallery li img {
   padding: 0;
   display: block;
+  height: 4.5rem;
   float: left;
+}
+article .article-body .gallery li.sel:after, article .article-edit .gallery li.sel:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  content: "";
+  border: 2px solid #f26522;
   height: 4.5rem;
 }
 article .related {
@@ -2564,6 +2575,7 @@ main.admin-area section.article-section article.edit .gallery img {
   width: 100%;
   margin: 0 !important;
   display: block;
+  height: initial;
 }
 main.admin-area section.layout-section dl.name {
   -moz-box-sizing: border-box;

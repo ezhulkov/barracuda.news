@@ -7,7 +7,6 @@ import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
 import org.apache.commons.lang3.StringUtils
-import play.api.Logger
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 import services.LangUtils
@@ -22,8 +21,8 @@ object CoreModels {
 
   import Implicits._
 
-  val dateFormat      = "YYYY/MM/dd HH:mm"
-  val dateFormatShort = "YYYY/MM/dd"
+  val dateFormat      = "dd.MM.YYYY HH:mm"
+  val dateFormatShort = "dd.MM.YYYY"
   val trackingBaseUrl = "http://sport2.interprocom.ru"
 
   object BlockSize extends Enumeration {
@@ -55,6 +54,13 @@ object CoreModels {
     val VIDEO       = NewsTypeValue("VIDEO", "video")
     sealed case class NewsTypeValue(code: String, cssClass: String) extends super.Val(code)
     implicit def convert(value: Value): NewsTypeValue = value.asInstanceOf[NewsTypeValue]
+  }
+
+  object RaceStatus extends Enumeration {
+    type RaceStatus = Value
+    val SOON     = Value("SOON")
+    val ACTIVE   = Value("ACTIVE")
+    val FINISHED = Value("FINISHED")
   }
 
   case class Tag(id: Option[Long], text: Option[String], root: Option[Boolean] = None)
@@ -90,7 +96,7 @@ object CoreModels {
     var crossArticles: Seq[Article] = Nil
     def transliteratedUrl = translation(LangUtils.defaultLang).flatMap(t => t.caption).map(t => Utils.transliterate(t)).getOrElse(id.toString)
     def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
-    def hasTag(tag: String): Boolean = tags.exists(t=>t.text.contains(tag))
+    def hasTag(tag: String): Boolean = tags.exists(t => t.text.contains(tag))
     def translation(implicit lang: Lang) = translations.find(t => t.lang == lang)
     def translationOrDefault(implicit lang: Lang) = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t => t.caption.isDefined).get)
     def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
@@ -116,11 +122,16 @@ object CoreModels {
   }
   case class TrackingRace(id: Option[UUID], name: Option[String], start: Option[DateTime], end: Option[DateTime], localUrl: Option[String]) {
     val interval       = new org.joda.time.Interval(start.getOrElse(DateTime.now()), end.getOrElse(DateTime.now()))
-    val startTrimmed   = start.map(t => t.withTimeAtStartOfDay)
     val endTrimmed     = end.map(t => t.withTimeAtStartOfDay)
+    val startTrimmed   = start.map(t => t.withTimeAtStartOfDay).orElse(endTrimmed)
     val startFormatted = startTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
     val endFormatted   = endTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
-    def isActive = interval.containsNow()
+    val raceStatus     = {
+      if (start.isEmpty || end.isEmpty || start.exists(t => t.isAfterNow)) RaceStatus.SOON
+      else if (end.exists(t => t.isBeforeNow)) RaceStatus.FINISHED
+      else RaceStatus.ACTIVE
+    }
+
   }
 
 }

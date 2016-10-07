@@ -15,7 +15,7 @@ import services.LangUtils
   */
 object Implicits {
 
-  implicit def dateTimeOrdering: Ordering[TypeImports.DateTime] = Ordering.fromLessThan(_ isAfter _)
+  implicit def dateTimeOrdering: Ordering[TypeImports.DateTime] = Ordering.fromLessThan((d1, d2) => d1 != null && d2 != null && d1.isAfter(d2))
 
   implicit val sizeEnumFormat      = new Format[BlockSize] {
     def reads(json: JsValue) = JsSuccess(BlockSize.withName(json.as[String]))

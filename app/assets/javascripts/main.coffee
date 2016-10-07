@@ -1,30 +1,46 @@
-$ ->
-  $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active')
-
 @baseLine = 24
-
-@activateMenu = (id) ->
-  $(id).addClass('active')
+Array::filter = (func) -> x for x in @ when func(x)
 
 $(window).load ->
+  path = this.location.pathname
+  setActiveImage = (li) ->
+    preview = $(li).closest(".gallery-wrapper").find(".gallery-preview img")
+    image = $(li).find("img").first()
+    preview.attr("src", image.attr("src"))
+    $(".gallery-wrapper li").removeClass("sel")
+    $(li).addClass("sel")
+  $('a[href="' + path + '"]').parents('li,ul').addClass('active')
+  $('a[alt-href]').each (i, e) ->
+    altHref = $(e).attr("alt-href")
+    if(path.indexOf(altHref) != -1)
+      $(e).parents('li,ul').addClass('active')
   $(".article-body img,.article-header img").keepTheRhythm({
     baseLine: baseLine,
     spacing: "margin"
   })
   $(".article-body .gallery").each (i, e) ->
     preview = $("<div class='gallery-preview cut-images'></div>")
-    firstImage = $(e).find("img").first()
+    firstImage = $(e).find("li").first()
     $(e).wrap("<div class='gallery-wrapper'></div>")
     preview.prepend($("<span class='prev fa-angle-left'></span>"))
     preview.prepend($("<span class='next fa-angle-right'></span>"))
     preview.insertBefore(e)
-    preview.append(firstImage.clone())
+    firstImage.addClass("sel")
+    preview.append(firstImage.find("img").clone())
+    $(".gallery-wrapper .prev").unbind("click").bind "click", ()->
+      li = $(this).closest(".gallery-wrapper").find("li.sel").prev("li")
+      if(li.length > 0)
+        setActiveImage(li)
+    $(".gallery-wrapper .next").unbind("click").bind "click", ()->
+      li = $(this).closest(".gallery-wrapper").find("li.sel").next("li")
+      if(li.length > 0)
+        setActiveImage(li)
+    $(".gallery-wrapper li").unbind("click").bind "click", ()->
+      setActiveImage(this)
   $(".cut-images img").each (i, e) ->
     h = $(e).height()
     if(h % baseLine != 0)
       $(e).closest("div").height(h - h % baseLine)
-
-Array::filter = (func) -> x for x in @ when func(x)
 
 frontendApp = angular.module 'frontendApp', []
 adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker', 'localytics.directives', 'angularFileUpload']

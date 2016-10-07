@@ -48,7 +48,7 @@ if (typeof AlloyEditor != 'undefined')
   @alloyConfig = {
     toolbars: {
       add: {
-        buttons: ['image', 'link', 'table', 'embed']
+        buttons: ['image', 'link', 'table', 'embed', 'gallery']
       },
       styles: {
         selections: [{

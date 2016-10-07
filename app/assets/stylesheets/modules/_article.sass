@@ -39,7 +39,7 @@ article
         #swiffycontainer
           width: 300px
           height: 500px
-    .article-body
+    .article-body, .article-edit
       +span(12 no-gutter)
       +desktop-media
         +span(8 no-gutter)
@@ -117,12 +117,18 @@ article
           cursor: pointer
           margin-right: rhythm(1/4)
           margin-bottom: 0
+          position: relative
           & *
             display: none
           img
             padding: 0
             display: block
+            height: rhythm(3)
             float: left
+          &.sel:after
+            +stretch()
+            content: ""
+            border: 2px solid $activeLink
             height: rhythm(3)
     .related
       +span(12 no-gutter)

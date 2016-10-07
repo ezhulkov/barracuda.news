@@ -1,5 +1,6 @@
 package controllers
 
+import java.util.concurrent.TimeUnit
 import javax.inject._
 import controllers.stack.LoggingElement
 import models.CoreModels.Layout
@@ -43,7 +44,7 @@ class FrontendController @Inject()(
     val wsResult = ws.url(trackingUrl).withFollowRedirects(true).withRequestTimeout(Duration(2000, MILLISECONDS)).get()
     val result = wsResult.map { r =>
       val res = r.json.as[Seq[TrackingEvent]]
-      cache.set(trackingKey, res, Duration(10, MINUTES))
+      cache.set(trackingKey, res, Duration(1, MINUTES))
       res
     }.recover {
       case e: Exception =>
