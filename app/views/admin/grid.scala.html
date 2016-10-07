@@ -43,14 +43,14 @@
         <div class="grid">
             <div class="row" ng-repeat="row in layoutModel.config.rows">
                 <div class="row-edit">
-                    <a data-remodal-target="del-row-modal-{{$id}}"><i class="fa fa-2 fa-minus-square-o" aria-hidden="true"></i></a>
-                    <a data-remodal-target="edit-row-modal-{{$id}}"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a data-remodal-target="del-row-modal-{{$id}}" title="Delete row"><i class="fa fa-2 fa-minus-square-o" aria-hidden="true"></i></a>
+                    <a data-remodal-target="edit-row-modal-{{$id}}" title="Edit row"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
                 </div>
                 <div class="row-edit row-add-before">
-                    <a ng-click="addRowBefore(row)"><i class="fa fa-2 fa-arrow-circle-o-up" aria-hidden="true"></i></a>
+                    <a ng-click="addRowBefore(row)" title="Add row before"><i class="fa fa-2 fa-arrow-circle-o-up" aria-hidden="true"></i></a>
                 </div>
                 <div class="row-edit row-add-after">
-                    <a ng-click="addRowAfter(row)"><i class="fa fa-2 fa-arrow-circle-o-down" aria-hidden="true"></i></a>
+                    <a ng-click="addRowAfter(row)" title="Add row after"><i class="fa fa-2 fa-arrow-circle-o-down" aria-hidden="true"></i></a>
                 </div>
                 <div class="remodal" data-remodal-id="del-row-modal-{{$id}}">
                     <h3>Delete row?</h3>
@@ -92,7 +92,7 @@
                         <p>Tag: {{block.tag}}</p>
                         <p ng-show="block.featured">Featured block</p>
                     </div>
-                    <a data-remodal-target="edit-block-modal-{{$id}}" class="edit"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a data-remodal-target="edit-block-modal-{{$id}}" class="edit" title="Edit block"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
                     <div class="remodal edit-block-modal" data-remodal-id="edit-block-modal-{{$id}}">
                         <fieldset>
                             <dl class="caption" ng-repeat="lang in langs">

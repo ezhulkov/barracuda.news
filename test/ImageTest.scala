@@ -15,7 +15,7 @@ class ImageTest extends PlaySpec with OneAppPerSuite {
 
   "Regexp must" must {
     "Find all matches" in {
-      val text = Mappers.Translation.findById(65L).map(t => t.text).orNull
+      val text = Mappers.Translation.findById(65L).flatMap(t => t.text).orNull
       val imgPattern = Pattern.compile("""<img\s*src=("data.*?base64,.*?")""")
       val b64Pattern = Pattern.compile(""".*?base64,(.*)""")
       val imgMatcher = imgPattern.matcher(text)
