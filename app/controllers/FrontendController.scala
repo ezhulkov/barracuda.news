@@ -16,10 +16,10 @@ import play.api.mvc._
 import services.ArticleService
 import services.LayoutService
 import utils.Configuration
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration
 import scala.concurrent.duration.MILLISECONDS
-import scala.concurrent.duration.MINUTES
+import scala.concurrent.duration.SECONDS
 import scala.util.Try
 
 @Singleton
@@ -36,23 +36,21 @@ class FrontendController @Inject()(
   import scala.concurrent.ExecutionContext.Implicits.global
   import scala.io.Source
 
-  val MAIN_LAYOUT  = "main"
-  val layouts      = (articleService.allRootTags.map(t => parsedLayout(t.text.orNull)) + parsedLayout(MAIN_LAYOUT)).toMap
-  val trackingKey  = "tracking"
-  val trackingUrl  = Configuration.getValue[String]("tracking.url").getOrElse(throw new RuntimeException("bad config"))
-  val trackingData = cache.getOrElse[Future[Seq[TrackingEvent]]](trackingKey) {
-    val wsResult = ws.url(trackingUrl).withFollowRedirects(true).withRequestTimeout(Duration(2000, MILLISECONDS)).get()
-    val result = wsResult.map { r =>
-      val res = r.json.as[Seq[TrackingEvent]]
-      cache.set(trackingKey, res, Duration(1, MINUTES))
-      res
-    }.recover {
-      case e: Exception =>
-        cache.remove(trackingKey)
-        Logger.error("", e)
-        Nil
-    }
-    result
+  val MAIN_LAYOUT = "main"
+  val layouts     = (articleService.allRootTags.map(t => parsedLayout(t.text.orNull)) + parsedLayout(MAIN_LAYOUT)).toMap
+  val trackingKey = "tracking"
+  val trackingUrl = Configuration.getValue[String]("tracking.url").getOrElse(throw new RuntimeException("bad config"))
+  def trackingData = cache.getOrElse[Future[Seq[TrackingEvent]]](trackingKey, Duration(60, SECONDS)) {
+    val duration = Duration(2000, MILLISECONDS)
+    val wsResult = ws.url(trackingUrl).withFollowRedirects(true).withRequestTimeout(duration).get()
+    wsResult
+      .map { r => r.json.as[Seq[TrackingEvent]] }
+      .recover {
+        case e: Exception =>
+          cache.remove(trackingKey)
+          Logger.error("", e)
+          Nil
+      }
   }
 
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))

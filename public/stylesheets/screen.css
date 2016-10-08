@@ -1518,12 +1518,6 @@ footer .copyright span {
     border: none;
   }
 }
-.news-grid .topic-col.type-text.span4 .items h2 {
-  font-size: 13px;
-  font-size: 0.833rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-}
 .news-grid .topic-col.type-cover-photo.span12 h2 {
   font-size: 23px;
   font-size: 1.44rem;
@@ -1735,13 +1729,13 @@ article .article-body h2, article .article-body h3, article .article-body h4, ar
   margin-bottom: 24px;
   margin-bottom: 1.5rem;
 }
-article .article-body .gallery-preview, article .article-edit .gallery-preview {
+article .article-body .gallery-preview {
   margin-bottom: 12px;
   margin-bottom: 0.75rem;
   overflow: hidden;
   position: relative;
 }
-article .article-body .gallery-preview .next, article .article-body .gallery-preview .prev, article .article-edit .gallery-preview .next, article .article-edit .gallery-preview .prev {
+article .article-body .gallery-preview .next, article .article-body .gallery-preview .prev {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -1767,17 +1761,17 @@ article .article-body .gallery-preview .next, article .article-body .gallery-pre
   text-align: center;
   line-height: 48px;
 }
-article .article-body .gallery-preview .next:hover, article .article-body .gallery-preview .prev:hover, article .article-edit .gallery-preview .next:hover, article .article-edit .gallery-preview .prev:hover {
+article .article-body .gallery-preview .next:hover, article .article-body .gallery-preview .prev:hover {
   border: 1px solid #f26522;
   color: #f26522;
 }
-article .article-body .gallery-preview .prev, article .article-edit .gallery-preview .prev {
+article .article-body .gallery-preview .prev {
   left: 25px;
 }
-article .article-body .gallery-preview .next, article .article-edit .gallery-preview .next {
+article .article-body .gallery-preview .next {
   right: 25px;
 }
-article .article-body .gallery, article .article-edit .gallery {
+article .article-body .gallery {
   margin-bottom: 24px;
   margin-bottom: 1.5rem;
   padding: 0;
@@ -1785,7 +1779,7 @@ article .article-body .gallery, article .article-edit .gallery {
   overflow-x: scroll;
   overflow-y: hidden;
 }
-article .article-body .gallery li, article .article-edit .gallery li {
+article .article-body .gallery li {
   display: inline-block;
   vertical-align: top;
   cursor: pointer;
@@ -1793,16 +1787,16 @@ article .article-body .gallery li, article .article-edit .gallery li {
   margin-bottom: 0;
   position: relative;
 }
-article .article-body .gallery li *, article .article-edit .gallery li * {
+article .article-body .gallery li * {
   display: none;
 }
-article .article-body .gallery li img, article .article-edit .gallery li img {
+article .article-body .gallery li img {
   padding: 0;
   display: block;
   height: 4.5rem;
   float: left;
 }
-article .article-body .gallery li.sel:after, article .article-edit .gallery li.sel:after {
+article .article-body .gallery li.sel:after {
   position: absolute;
   top: 0;
   bottom: 0;

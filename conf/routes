@@ -31,3 +31,4 @@ POST          /admin/article                controllers.AdminController.articleS
 
 #Assets
 GET           /assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)
+GET           /favicon.ico                  controllers.Assets.at(path="/public/favs", file="favicon.ico")

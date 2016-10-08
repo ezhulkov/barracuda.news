@@ -1,5 +1,34 @@
 if (typeof AlloyEditor != 'undefined')
   React = AlloyEditor.React
+  ButtonGalleryItem = React.createClass({
+    mixins: [AlloyEditor.ButtonStyle, AlloyEditor.ButtonActionStyle, AlloyEditor.ButtonStateClasses, AlloyEditor.ButtonCommand],
+    propTypes: {
+      editor: React.PropTypes.object.isRequired
+    },
+    getDefaultProps: () ->
+      {
+        command: 'gallery-item',
+        style: {
+          element: 'li',
+        }
+      }
+    ,
+    statics: {
+      key: 'gallery-item'
+    },
+    render: () ->
+      cssClass = 'ae-button ' + this.getStateClasses()
+      props = {
+        'className': cssClass,
+        'area-label': 'Insert Gallery Item',
+        'title': 'Insert Gallery Item',
+        'data-type': 'button-gallery',
+        'tabIndex': this.props.tabIndex,
+        'onClick': this.execCommand
+      }
+      child = React.createElement("span", {'className': 'ae-icon-gallery-item'})
+      return React.createElement("button", props, child)
+  })
   ButtonGallery = React.createClass({
     mixins: [AlloyEditor.ButtonStyle, AlloyEditor.ButtonActionStyle, AlloyEditor.ButtonStateClasses, AlloyEditor.ButtonCommand],
     propTypes: {
@@ -22,7 +51,7 @@ if (typeof AlloyEditor != 'undefined')
         'className': cssClass,
         'area-label': 'Insert Gallery',
         'title': 'Insert Gallery',
-        'data-type': 'button-list',
+        'data-type': 'button-gallery',
         'tabIndex': this.props.tabIndex,
         'onClick': this.execCommand
       }
@@ -30,10 +59,11 @@ if (typeof AlloyEditor != 'undefined')
       return React.createElement("button", props, child)
   })
   AlloyEditor.Buttons[ButtonGallery.key] = ButtonGallery;
+  AlloyEditor.Buttons[ButtonGalleryItem.key] = ButtonGalleryItem;
   galleryCommand = {
-    canUndo: !1,
+    canUndo: true,
     exec: (editor) ->
-      editor.insertHtml("<ul class='gallery'><li>&nbsp;Insert image here&nbsp;</li></ul>")
+      editor.insertHtml("<ul class='gallery'><li><p>Insert image here</p><p>Caption here</p></li></ul>")
     ,
     allowedContent: "ul",
     requiredContent: "ul"
@@ -42,13 +72,25 @@ if (typeof AlloyEditor != 'undefined')
     init: (editor) ->
       editor.addCommand("gallery", galleryCommand)
   })
-  CKEDITOR.config.plugins = CKEDITOR.config.plugins + ",gallery"
+  galleryItemCommand = {
+    canUndo: true,
+    exec: (editor) ->
+      console.log("ITEM")
+    ,
+    allowedContent: "li",
+    requiredContent: "ul"
+  }
+  CKEDITOR.plugins.add("gallery-item", {
+    init: (editor) ->
+      editor.addCommand("gallery-item", galleryItemCommand)
+  })
+  CKEDITOR.config.plugins = CKEDITOR.config.plugins + ",gallery,gallery-item"
   CKEDITOR.DEFAULT_AE_EMBED_URL_TPL = '//iframe.ly/api/oembed?url={url}&callback={callback}&api_key=70ef4f2a4a266b31fc44b5';
 
   @alloyConfig = {
     toolbars: {
       add: {
-        buttons: ['image', 'link', 'table', 'embed', 'gallery']
+        buttons: ['image', 'link', 'table', 'embed', 'gallery', 'gallery-item']
       },
       styles: {
         selections: [{
