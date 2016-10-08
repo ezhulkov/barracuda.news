@@ -1,14 +1,26 @@
 @baseLine = 24
 Array::filter = (func) -> x for x in @ when func(x)
 
+cutImages = (parent)->
+  $(".cut-images img", parent).each (i, e) ->
+    h = $(e).height()
+    if(h % baseLine != 0)
+      $(e).closest("div").height(h - h % baseLine)
+
+setActiveImage = (li) ->
+  wrapper = $(li).closest(".gallery-wrapper")
+  preview = $(wrapper).find(".gallery-preview")
+  image = $(li).find("p.image").clone()
+  caption = $(li).find("p.caption").clone()
+  preview.find("p").remove()
+  preview.append(image)
+  preview.append(caption)
+  $(".gallery-wrapper li").removeClass("sel")
+  $(li).addClass("sel")
+  cutImages(wrapper)
+
 $(window).load ->
   path = this.location.pathname
-  setActiveImage = (li) ->
-    preview = $(li).closest(".gallery-wrapper").find(".gallery-preview img")
-    image = $(li).find("img").first()
-    preview.attr("src", image.attr("src"))
-    $(".gallery-wrapper li").removeClass("sel")
-    $(li).addClass("sel")
   $('a[href="' + path + '"]').parents('li,ul').addClass('active')
   $('a[alt-href]').each (i, e) ->
     altHref = $(e).attr("alt-href")
@@ -26,7 +38,7 @@ $(window).load ->
     preview.prepend($("<span class='next fa-angle-right'></span>"))
     preview.insertBefore(e)
     firstImage.addClass("sel")
-    preview.append(firstImage.find("img").clone())
+    preview.append(firstImage.children().clone())
     $(".gallery-wrapper .prev").unbind("click").bind "click", ()->
       li = $(this).closest(".gallery-wrapper").find("li.sel").prev("li")
       if(li.length > 0)
@@ -37,10 +49,7 @@ $(window).load ->
         setActiveImage(li)
     $(".gallery-wrapper li").unbind("click").bind "click", ()->
       setActiveImage(this)
-  $(".cut-images img").each (i, e) ->
-    h = $(e).height()
-    if(h % baseLine != 0)
-      $(e).closest("div").height(h - h % baseLine)
+  cutImages(document)
 
 frontendApp = angular.module 'frontendApp', []
 adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker', 'localytics.directives', 'angularFileUpload']
@@ -53,8 +62,8 @@ adminApp.service "fileUpload", ($http) ->
       transformRequest: angular.identity,
       headers: {'Content-Type': undefined}
     })
-    .success(success)
-    .error(error)
+      .success(success)
+      .error(error)
 
 frontendApp.directive "autoFocus", ($timeout) ->
   return link: (scope, element, attrs) ->
@@ -76,8 +85,8 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
   $scope.search = ->
     if($scope.searchString != undefined && $scope.searchString.length >= 2)
       $http.post("/search?q=" + $scope.searchString)
-      .success (data) ->
-        $scope.items = data
+        .success (data) ->
+      $scope.items = data
     else
       $scope.items = []
   $scope.closeArticle = ->
@@ -204,16 +213,16 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
     else
       layout.tag = undefined
     $http.post("/admin/layout", layout)
-    .error (data, status) ->
-      $scope.processResponse(data)
-    .success (data) ->
-      $scope.processResponse(data)
+      .error (data, status) ->
+    $scope.processResponse(data)
+      .success (data) ->
+    $scope.processResponse(data)
   $scope.delete = ->
     $http.delete("/admin/layout/" + $scope.layoutModel.id)
-    .error (data, status) ->
-      console.log("error")
-    .success (data) ->
-      $window.location.pathname = data.redirect_url
+      .error (data, status) ->
+    console.log("error")
+      .success (data) ->
+    $window.location.pathname = data.redirect_url
 
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList
@@ -292,10 +301,10 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
       $scope.articleModel.crossLinks = undefined
   $scope.delete = ->
     $http.delete("/admin/article/" + $scope.articleModel.id)
-    .error (data, status) ->
-      console.log("error")
-    .success (data) ->
-      $window.location.pathname = data.redirect_url
+      .error (data, status) ->
+    console.log("error")
+      .success (data) ->
+    $window.location.pathname = data.redirect_url
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
@@ -303,9 +312,9 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
     if(article.crossLinks != undefined)
       article.crossLinks = article.crossLinks.map (t)-> parseInt(t.id)
     $http.post("/admin/article", article)
-    .error (data, status) ->
-      $scope.processResponse(data)
-    .success (data) ->
-      $scope.processResponse(data)
+      .error (data, status) ->
+    $scope.processResponse(data)
+      .success (data) ->
+    $scope.processResponse(data)
   $scope.hasCaption = (translation)->
     translation.caption != undefined && translation.caption.length > 0

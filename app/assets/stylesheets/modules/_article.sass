@@ -106,6 +106,22 @@ article
           left: 25px
         .next
           right: 25px
+        img
+          padding: 0
+        p
+          display: none
+          padding: 0
+          &.image
+            display: block
+          &.caption
+            bottom: 0
+            left: 0
+            right: 0
+            display: block
+            position: absolute
+            padding: rhythm(1/2) $pad-col/2 rhythm(1/2) $pad-col/2
+            background: white
+            opacity: 0.7
       .gallery
         +margin-trailer(1)
         padding: 0
@@ -119,13 +135,14 @@ article
           margin-right: rhythm(1/4)
           margin-bottom: 0
           position: relative
-          & *
+          & > p
             display: none
-          img
-            padding: 0
+          p:nth-child(1)
             display: block
-            height: rhythm(3)
-            float: left
+            img
+              padding: 0
+              height: rhythm(3)
+              float: left
           &.sel:after
             +stretch()
             content: ""

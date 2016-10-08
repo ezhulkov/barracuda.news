@@ -63,7 +63,7 @@ if (typeof AlloyEditor != 'undefined')
   galleryCommand = {
     canUndo: true,
     exec: (editor) ->
-      editor.insertHtml("<ul class='gallery'><li><p>Insert image here</p><p>Caption here</p></li></ul>")
+      editor.insertHtml("<ul class='gallery'><li><p class='image'></p><p class='caption'></p></li></ul>")
     ,
     allowedContent: "ul",
     requiredContent: "ul"
@@ -75,7 +75,7 @@ if (typeof AlloyEditor != 'undefined')
   galleryItemCommand = {
     canUndo: true,
     exec: (editor) ->
-      console.log("ITEM")
+      editor.insertHtml("<li><p class='image'></p><p class='caption'></p></li>")
     ,
     allowedContent: "li",
     requiredContent: "ul"
