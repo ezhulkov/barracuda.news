@@ -11,7 +11,7 @@ setActiveImage = (li) ->
   wrapper = $(li).closest(".gallery-wrapper")
   preview = $(wrapper).find(".gallery-preview")
   imageErapper = $(wrapper).closest(".image-wrapper")
-  image = $(li).find("p.image").clone()
+  image = $(li).find("p.image img").clone()
   caption = $(li).find("p.caption").clone()
   preview.find("p").remove()
   preview.find("img").remove()

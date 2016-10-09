@@ -84,7 +84,19 @@ article
         +margin-trailer(1/2)
         position: relative
         p
-          padding: rhythm(1/2) 0 0 0
+          display: none
+          padding: 0
+          &.caption
+            +padding-leader(1/2)
+            display: block
+            +tablet-media
+              bottom: 0
+              left: 0
+              right: 0
+              position: absolute
+              opacity: 0.7
+              background: white
+              padding: rhythm(1/2) $pad-col/2 rhythm(1/2) $pad-col/2
       .image-wrapper
         position: relative
         overflow: hidden
@@ -112,22 +124,6 @@ article
           right: 25px
         img
           padding: 0
-        p
-          display: none
-          padding: 0
-          &.image
-            display: block
-          &.caption
-            +padding-leader(1/2)
-            display: block
-            +tablet-media
-              bottom: 0
-              left: 0
-              right: 0
-              position: absolute
-              opacity: 0.7
-              background: white
-              padding: rhythm(1/2) $pad-col/2 rhythm(1/2) $pad-col/2
       .gallery
         +margin-trailer(1)
         padding: 0
