@@ -10,10 +10,12 @@ cutImages = (parent)->
 setActiveImage = (li) ->
   wrapper = $(li).closest(".gallery-wrapper")
   preview = $(wrapper).find(".gallery-preview")
+  imageErapper = $(wrapper).closest(".image-wrapper")
   image = $(li).find("p.image").clone()
   caption = $(li).find("p.caption").clone()
   preview.find("p").remove()
-  preview.append(image)
+  preview.find("img").remove()
+  preview.find(".image-wrapper").append(image)
   preview.append(caption)
   $(".gallery-wrapper li").removeClass("sel")
   $(li).addClass("sel")
@@ -31,14 +33,15 @@ $(window).load ->
     spacing: "margin"
   })
   $(".article-body .gallery").each (i, e) ->
-    preview = $("<div class='gallery-preview cut-images'></div>")
+    preview = $("<div class='gallery-preview'><div class='image-wrapper cut-images'></div></div>")
     firstImage = $(e).find("li").first()
     $(e).wrap("<div class='gallery-wrapper'></div>")
-    preview.prepend($("<span class='prev fa-angle-left'></span>"))
-    preview.prepend($("<span class='next fa-angle-right'></span>"))
+    preview.find(".image-wrapper").prepend($("<span class='prev fa-angle-left'></span>"))
+    preview.find(".image-wrapper").prepend($("<span class='next fa-angle-right'></span>"))
     preview.insertBefore(e)
     firstImage.addClass("sel")
-    preview.append(firstImage.children().clone())
+    preview.find(".image-wrapper").append(firstImage.find("p.image img").clone())
+    preview.append(firstImage.find("p.caption").clone())
     $(".gallery-wrapper .prev").unbind("click").bind "click", ()->
       li = $(this).closest(".gallery-wrapper").find("li.sel").prev("li")
       if(li.length > 0)

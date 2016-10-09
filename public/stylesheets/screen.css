@@ -1733,14 +1733,15 @@ article .article-body .gallery-preview {
   margin-bottom: 12px;
   margin-bottom: 0.75rem;
   position: relative;
-  height: initial !important;
 }
-@media screen and (min-width: 48em) {
-  article .article-body .gallery-preview {
-    overflow: hidden;
-  }
+article .article-body .gallery-preview p {
+  padding: 0.75rem 0 0 0;
 }
-article .article-body .gallery-preview .next, article .article-body .gallery-preview .prev {
+article .article-body .image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+article .article-body .image-wrapper .next, article .article-body .image-wrapper .prev {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -1766,33 +1767,33 @@ article .article-body .gallery-preview .next, article .article-body .gallery-pre
   text-align: center;
   line-height: 48px;
 }
-article .article-body .gallery-preview .next:hover, article .article-body .gallery-preview .prev:hover {
+article .article-body .image-wrapper .next:hover, article .article-body .image-wrapper .prev:hover {
   border: 1px solid #f26522;
   color: #f26522;
 }
-article .article-body .gallery-preview .prev {
+article .article-body .image-wrapper .prev {
   left: 25px;
 }
-article .article-body .gallery-preview .next {
+article .article-body .image-wrapper .next {
   right: 25px;
 }
-article .article-body .gallery-preview img {
+article .article-body .image-wrapper img {
   padding: 0;
 }
-article .article-body .gallery-preview p {
+article .article-body .image-wrapper p {
   display: none;
   padding: 0;
 }
-article .article-body .gallery-preview p.image {
+article .article-body .image-wrapper p.image {
   display: block;
 }
-article .article-body .gallery-preview p.caption {
+article .article-body .image-wrapper p.caption {
   padding-top: 12px;
   padding-top: 0.75rem;
   display: block;
 }
 @media screen and (min-width: 48em) {
-  article .article-body .gallery-preview p.caption {
+  article .article-body .image-wrapper p.caption {
     bottom: 0;
     left: 0;
     right: 0;
