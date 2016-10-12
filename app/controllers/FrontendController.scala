@@ -1,6 +1,5 @@
 package controllers
 
-import java.util.concurrent.TimeUnit
 import javax.inject._
 import controllers.stack.LoggingElement
 import models.CoreModels.Layout
@@ -16,7 +15,7 @@ import play.api.mvc._
 import services.ArticleService
 import services.LayoutService
 import utils.Configuration
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 import scala.concurrent.duration.MILLISECONDS
 import scala.concurrent.duration.SECONDS
