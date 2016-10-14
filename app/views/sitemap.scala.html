@@ -31,7 +31,7 @@
     </url>
     @for(article <- news.sortBy(t => t.publish)) {
         <url>
-            <loc>https://barracuda.news/@article.url</loc>
+            <loc>https://barracuda.news/article/@article.url</loc>
             <lastmod>@article.publishSitemap</lastmod>
             <changefreq>daily</changefreq>
             <priority>0.5</priority>

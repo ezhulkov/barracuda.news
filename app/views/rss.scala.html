@@ -13,8 +13,8 @@
         @for(article <- news.sortBy(t => t.publish).take(25)) {
             <item>
                 <title>@article.translationOrDefault.caption.getOrElse("barracuda.news")</title>
-                <link>https://barracuda.news/@article.url </link>
-                <guid>https://barracuda.news/@article.url</guid>
+                <link>https://barracuda.news/article/@article.url </link>
+                <guid>https://barracuda.news/article/@article.url</guid>
                 @article.coverMedia.map(t => Html(s"""<enclosure url="${scala.xml.Utility.escape(t)}" type="image/jpg"/>"""))
                 <pubDate>@article.publish.toString</pubDate>
             </item>
