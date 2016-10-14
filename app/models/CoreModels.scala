@@ -93,6 +93,7 @@ object CoreModels {
   ) {
     val publishFormatted            = publish.toString(dateFormat)
     val publishShortFormatted       = publish.toString("YYYY-MM-dd-")
+    val publishSitemap              = publish.toString("YYYY-MM-dd")
     var crossArticles: Seq[Article] = Nil
     def transliteratedUrl = translation(LangUtils.defaultLang).flatMap(t => t.caption).map(t => Utils.transliterate(t)).getOrElse(id.toString)
     def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"

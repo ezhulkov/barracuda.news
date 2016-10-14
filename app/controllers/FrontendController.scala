@@ -77,5 +77,13 @@ class FrontendController @Inject()(
   def contacts = AsyncStack(implicit request => Future(Ok(views.html.contacts())))
   def exception = StackAction(request => throw new RuntimeException())
   def adv = AsyncStack(implicit request => Future(Ok(views.html.adv())))
+  def sitemap = AsyncStack(implicit request => Future {
+    val news=articleService.allArticles(true)
+    Ok(views.html.sitemap(news).body.trim).as(XML)
+  })
+  def rss = AsyncStack(implicit request => Future {
+    val news=articleService.allArticles(true)
+    Ok(views.html.rss(news).body.trim).as(XML)
+  })
 
 }

@@ -1,0 +1,41 @@
+@(news: Seq[Article])
+
+@lastDateTagged(news: Seq[Article], tag: Option[String]) = @{
+    news.filter(a => tag.isEmpty || a.tags.exists(t => tag == t.text)).sortBy(t => t.publish).headOption.map(t => t.publishSitemap).getOrElse(DateTime.now().toString("YYYY-MM-dd"))
+}
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://barracuda.news/</loc>
+        <lastmod>@lastDateTagged(news, None)</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://barracuda.news/topic/stories</loc>
+        <lastmod>@lastDateTagged(news, Some("stories"))</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://barracuda.news/topic/media</loc>
+        <lastmod>@lastDateTagged(news, Some("media"))</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://barracuda.news/topic/fish</loc>
+        <lastmod>@lastDateTagged(news, Some("fish"))</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
+    </url>
+    @for(article <- news.sortBy(t => t.publish)) {
+        <url>
+            <loc>https://barracuda.news/@article.url</loc>
+            <lastmod>@article.publishSitemap</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>0.5</priority>
+        </url>
+    }
+</urlset>
+

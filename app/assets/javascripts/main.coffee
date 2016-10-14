@@ -65,8 +65,8 @@ adminApp.service "fileUpload", ($http) ->
       transformRequest: angular.identity,
       headers: {'Content-Type': undefined}
     })
-      .success(success)
-      .error(error)
+    .success(success)
+    .error(error)
 
 frontendApp.directive "autoFocus", ($timeout) ->
   return link: (scope, element, attrs) ->
@@ -88,8 +88,8 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
   $scope.search = ->
     if($scope.searchString != undefined && $scope.searchString.length >= 2)
       $http.post("/search?q=" + $scope.searchString)
-        .success (data) ->
-      $scope.items = data
+      .success (data) ->
+        $scope.items = data
     else
       $scope.items = []
   $scope.closeArticle = ->
@@ -216,16 +216,16 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
     else
       layout.tag = undefined
     $http.post("/admin/layout", layout)
-      .error (data, status) ->
-    $scope.processResponse(data)
-      .success (data) ->
-    $scope.processResponse(data)
+    .error (data, status) ->
+      $scope.processResponse(data)
+    .success (data) ->
+      $scope.processResponse(data)
   $scope.delete = ->
     $http.delete("/admin/layout/" + $scope.layoutModel.id)
-      .error (data, status) ->
-    console.log("error")
-      .success (data) ->
-    $window.location.pathname = data.redirect_url
+    .error (data, status) ->
+      $scope.processResponse(data)
+    .success (data) ->
+      $window.location.pathname = data.redirect_url
 
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList
@@ -304,10 +304,10 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
       $scope.articleModel.crossLinks = undefined
   $scope.delete = ->
     $http.delete("/admin/article/" + $scope.articleModel.id)
-      .error (data, status) ->
-    console.log("error")
-      .success (data) ->
-    $window.location.pathname = data.redirect_url
+    .error (data, status) ->
+      console.log("error")
+    .success (data) ->
+      $window.location.pathname = data.redirect_url
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
@@ -315,9 +315,9 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
     if(article.crossLinks != undefined)
       article.crossLinks = article.crossLinks.map (t)-> parseInt(t.id)
     $http.post("/admin/article", article)
-      .error (data, status) ->
-    $scope.processResponse(data)
-      .success (data) ->
-    $scope.processResponse(data)
+    .error (data, status) ->
+      $scope.processResponse(data)
+    .success (data) ->
+      $scope.processResponse(data)
   $scope.hasCaption = (translation)->
     translation.caption != undefined && translation.caption.length > 0

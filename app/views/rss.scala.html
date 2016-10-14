@@ -1,0 +1,23 @@
+@(news: Seq[Article])(implicit lang: Lang)
+
+<rss version="2.0">
+    <channel>
+        <title>Barracuda News</title>
+        <link>https://barracuda.news/rss</link>
+        <description>We cover all the intense regattas of various classes around the world!</description>
+        <image>
+            <url>https://barracuda.news/assets/favs/apple-icon-120x120.png</url>
+            <title>Barracuda Mews</title>
+            <link>https://barracuda.news</link>
+        </image>
+        @for(article <- news.sortBy(t => t.publish).take(25)) {
+            <item>
+                <title>@article.translationOrDefault.caption.getOrElse("barracuda.news")</title>
+                <link>https://barracuda.news/@article.url </link>
+                <guid>https://barracuda.news/@article.url</guid>
+                @article.coverMedia.map(t => Html(s"""<enclosure url="${scala.xml.Utility.escape(t)}" type="image/jpg"/>"""))
+                <pubDate>@article.publish.toString</pubDate>
+            </item>
+        }
+    </channel>
+</rss>

@@ -1,0 +1,10 @@
+User-agent: Yandex
+Disallow:/admin
+Disallow:/tracking
+
+User-agent: *
+Disallow:/admin
+Disallow:/tracking
+
+Sitemap: https://barracuda.news/sitemap.xml
+Host: https://barracuda.news
