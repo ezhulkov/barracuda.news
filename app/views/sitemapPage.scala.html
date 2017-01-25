@@ -1,0 +1,26 @@
+@()(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
+
+@layout.front(messages("title.sitemap")){
+
+    <section class="container">
+        <div class="content-body generic sitemap">
+            <h1>@messages("title.sitemap")</h1>
+            <h3>@messages("title.information"):</h3>
+            <ul>
+                <li><a href="@routes.FrontendController.about.withLang">@messages("title.about")</a></li>
+                <li><a href="@routes.FrontendController.adv.withLang">@messages("title.advertising")</a></li>
+                <li><a href="@routes.FrontendController.contacts.withLang">@messages("title.contacts")</a></li>
+                <li><a href="@routes.FrontendController.sitemapPage.withLang">@messages("title.sitemap")</a></li>
+            </ul>
+            <h3>@messages("title.topics"):</h3>
+            <ul>
+                <li class="color1"><a href="@routes.FrontendController.index().withLang">@messages("title.news")</a></li>
+                <li class="color2"><a href="@routes.FrontendController.topic("stories").withLang">@messages("title.stories")</a></li>
+                <li class="color3"><a href="@routes.FrontendController.tracking().withLang">@messages("title.tracking")</a></li>
+                <li class="color4"><a href="@routes.FrontendController.topic("media").withLang">@messages("title.media")</a></li>
+                <li class="color5"><a href="@routes.FrontendController.topic("fish").withLang">@messages("title.fish")</a></li>
+            </ul>
+        </div>
+    </section>
+
+}

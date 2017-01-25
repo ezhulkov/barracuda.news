@@ -1,3 +1,4 @@
+title.topics=Разделы
 title.news=Новости
 title.stories=Истории
 title.tracking=Трекинг
@@ -7,6 +8,7 @@ title.search=Поиск
 title.about=О проекте
 title.advertising=Рекламодателям
 title.contacts=Контакты
+title.sitemap=Карта сайта
 title.information=Информация
 title.follow=Мы в соцсетях
 title.newsletter=Почтовая рассылка

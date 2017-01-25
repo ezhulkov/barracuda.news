@@ -9,9 +9,10 @@ GET           /tracking                     controllers.FrontendController.track
 GET           /about                        controllers.FrontendController.about
 GET           /adv                          controllers.FrontendController.adv
 GET           /contacts                     controllers.FrontendController.contacts
+GET           /sitemap                      controllers.FrontendController.sitemapPage
 GET           /exception                    controllers.FrontendController.exception
 POST          /search                       controllers.FrontendController.search(q:String)
-GET           /sitemap.xml                  controllers.FrontendController.sitemap
+GET           /sitemap.xml                  controllers.FrontendController.sitemapXml
 GET           /rss                          controllers.FrontendController.rss
 GET           /forbidden                    controllers.FrontendController.forbidden
 

@@ -1,3 +1,4 @@
+title.topics=Topics
 title.news=News
 title.stories=Stories
 title.tracking=Tracking
@@ -7,6 +8,7 @@ title.search=Search
 title.about=About
 title.advertising=Advertising
 title.contacts=Contacts
+title.sitemap=Sitemap
 title.information=Information
 title.follow=Follow us
 title.newsletter=Newsletter
