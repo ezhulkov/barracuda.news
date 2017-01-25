@@ -15,7 +15,6 @@ trait LoggingElement extends StackableController {
   self: Controller =>
 
   override def proceed[A](request: RequestWithAttributes[A])(f: (RequestWithAttributes[A]) => Future[Result]): Future[Result] = {
-    MDC.put("ip", request.headers.get("X-Real-IP").getOrElse(request.remoteAddress))
     Logger.info(request.toString)
     super.proceed(request)(f)
   }

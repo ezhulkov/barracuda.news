@@ -25,6 +25,7 @@ libraryDependencies ++= Seq(
   "jp.t2v" %% "play2-auth" % "0.14.2",
   "jp.t2v" %% "stackable-controller" % "0.5.1",
   "net.coobird" % "thumbnailator" % "0.4.8",
+  "com.maxmind.geoip2" % "geoip2" % "2.7.0",
   "org.mindrot" % "jbcrypt" % "0.3m",
   "com.jsuereth" % "scala-arm_2.11" % "1.4",
   "com.github.nscala-time" %% "nscala-time" % "2.12.0",

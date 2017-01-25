@@ -17,7 +17,7 @@ object LangUtils {
   val defaultLang = langs.headOption.getOrElse(Lang("en"))
 
   def addLang(url: String, qs: Map[String, Seq[String]] = Map.empty)(implicit env: Environment, lang: Lang): String = {
-    val qsString = Option(qs.filter{ case (name, values) => name != "lang" }.map{ case (name, vals) => s"$name=${vals.headOption.getOrElse("")}" }.mkString("&")).filter(_.nonEmpty)
+    val qsString = Option(qs.filter{ case (name, _) => name != "lang" }.map{ case (name, vals) => s"$name=${vals.headOption.getOrElse("")}" }.mkString("&")).filter(_.nonEmpty)
     val langCode = lang match {
       case LangUtils.defaultLang => None
       case _ => Some(lang)

@@ -1,6 +1,7 @@
 package controllers
 
 import javax.inject._
+import controllers.stack.LangRedirectElement
 import controllers.stack.LoggingElement
 import models.CoreModels.Layout
 import models.CoreModels.TrackingEvent
@@ -23,13 +24,13 @@ import scala.util.Try
 
 @Singleton
 class FrontendController @Inject()(
-  implicit env: Environment,
+  implicit val env: Environment,
   articleService: ArticleService,
   layoutService: LayoutService,
   cache: CacheApi,
   ws: WSClient,
   val messagesApi: MessagesApi
-) extends Controller with I18nSupport with LoggingElement {
+) extends Controller with I18nSupport with LoggingElement with LangRedirectElement {
 
   import models.Implicits._
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -39,6 +40,7 @@ class FrontendController @Inject()(
   val layouts     = (articleService.allRootTags.map(t => parsedLayout(t.text.orNull)) + parsedLayout(MAIN_LAYOUT)).toMap
   val trackingKey = "tracking"
   val trackingUrl = Configuration.getValue[String]("tracking.url").getOrElse(throw new RuntimeException("bad config"))
+
   def trackingData = cache.getOrElse[Future[Seq[TrackingEvent]]](trackingKey, Duration(60, SECONDS)){
     val duration = Duration(2000, MILLISECONDS)
     val wsResult = ws.url(trackingUrl).withFollowRedirects(true).withRequestTimeout(duration).get()
@@ -51,7 +53,6 @@ class FrontendController @Inject()(
           Nil
       }
   }
-
   def layoutContentStr(name: String) = env.resourceAsStream(s"layouts/$name.json").map(is => Source.fromInputStream(is).mkString).getOrElse(throw new RuntimeException(s"no $name layout"))
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
