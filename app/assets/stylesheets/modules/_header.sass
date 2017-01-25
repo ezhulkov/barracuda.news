@@ -1,3 +1,4 @@
+@import "base"
 @import "mixins"
 @import "compass"
 @import "susy"
@@ -14,6 +15,7 @@ header
     .container
       border-left: 1px solid $blackColor3
       border-right: 1px solid $blackColor3
+  z-index: 200
   .corporate
     +background-image(linear-gradient($blackColor1, $blackColor2 25%, $blackColor2 75%, $blackColor1))
     height: rhythm($corporate-lines)
@@ -130,7 +132,6 @@ header
         background-color: $blackColor2
         border-top: 2px solid $blackColor4
         margin-top: -2px
-        z-index: 200
         height: auto
         li
           float: none

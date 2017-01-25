@@ -551,6 +551,9 @@ select[chosen] {
   text-decoration: none;
 }
 
+header {
+  z-index: 200;
+}
 @media screen and (min-width: 48em) {
   header .container {
     border-left: 1px solid #444;
@@ -804,7 +807,6 @@ header .menu.menu-active ul.categories {
   background-color: #262626;
   border-top: 2px solid #777;
   margin-top: -2px;
-  z-index: 200;
   height: auto;
 }
 header .menu.menu-active ul.categories li {

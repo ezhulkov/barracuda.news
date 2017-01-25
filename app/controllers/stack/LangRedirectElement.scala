@@ -61,9 +61,10 @@ trait LangRedirectElement extends StackableController {
     val ip = request.getQueryString("ip").orElse(request.headers.get("X-Real-IP")).getOrElse(request.remoteAddress)
     val country = findCountryByIp(ip)
     val lang = messagesApi.preferred(request).lang.code
+    val bot = request.headers.get("User-Agent").exists(t => t.toLowerCase.contains("bot"))
     MDC.put("region", List(Some(ip).map(t => s"ip:${t.toUpperCase}"), country.map(t => s"country:${t.toUpperCase}"), Some(lang).map(t => s"lang:${t.toUpperCase}")).flatten.mkString("/"))
     country match {
-      case Some(c) if !c.equalsIgnoreCase(lang) && langs.contains(c.toLowerCase) && request.cookies.get("explicit_lang").isEmpty && !avoidUrls.exists(u => url.contains(u)) =>
+      case Some(c) if !bot && !c.equalsIgnoreCase(lang) && langs.contains(c.toLowerCase) && request.cookies.get("explicit_lang").isEmpty && !avoidUrls.exists(u => url.contains(u)) =>
         implicit val newLang = Lang(c)
         val url = LangUtils.addLang(request)
         Logger.info(s"Preferred lang detected (rq lang '$lang', country '$c'), Redirecting to $url")
