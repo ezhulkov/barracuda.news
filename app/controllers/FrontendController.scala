@@ -39,12 +39,12 @@ class FrontendController @Inject()(
   val layouts     = (articleService.allRootTags.map(t => parsedLayout(t.text.orNull)) + parsedLayout(MAIN_LAYOUT)).toMap
   val trackingKey = "tracking"
   val trackingUrl = Configuration.getValue[String]("tracking.url").getOrElse(throw new RuntimeException("bad config"))
-  def trackingData = cache.getOrElse[Future[Seq[TrackingEvent]]](trackingKey, Duration(60, SECONDS)) {
+  def trackingData = cache.getOrElse[Future[Seq[TrackingEvent]]](trackingKey, Duration(60, SECONDS)){
     val duration = Duration(2000, MILLISECONDS)
     val wsResult = ws.url(trackingUrl).withFollowRedirects(true).withRequestTimeout(duration).get()
     wsResult
-      .map { r => r.json.as[Seq[TrackingEvent]] }
-      .recover {
+      .map{ r => r.json.as[Seq[TrackingEvent]] }
+      .recover{
         case e: Exception =>
           cache.remove(trackingKey)
           Logger.error("", e)
@@ -56,14 +56,15 @@ class FrontendController @Inject()(
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
   def index() = topic(MAIN_LAYOUT)
-  def topic(tag: String, title: Option[String] = None) = AsyncStack { implicit request => Future {
-    val articles = articleService.allTagged(tag)
-      .filter(article => article.translation.exists(t => t.caption.isDefined))
-      .take(100)
-    Ok(views.html.topic(layoutService.findByTag(tag).flatMap(l => l.config), articles, tag, title))
+  def topic(tag: String, title: Option[String] = None) = AsyncStack{ implicit request =>
+    Future{
+      val articles = articleService.allTagged(tag)
+        .filter(article => article.translation.exists(t => t.caption.isDefined))
+        .take(100)
+      Ok(views.html.topic(layoutService.findByTag(tag).flatMap(l => l.config), articles, tag, title))
+    }
   }
-  }
-  def article(url: String) = AsyncStack(implicit request => Future {
+  def article(url: String) = AsyncStack(implicit request => Future{
     articleService.findArticle(url).orElse(articleService.findArticle(Try(url.toLong).getOrElse(-1L)))
       .filter(article => article.translation.exists(t => t.caption.isDefined))
       .map(article => Ok(views.html.article(article)))
@@ -71,18 +72,19 @@ class FrontendController @Inject()(
   }
   )
   def newsList(tag: String, offset: Option[Int]) = AsyncStack(implicit request => Future(Ok(views.html.components.newsListBlock(articleService.allTagged(tag), None))))
-  def search(q: String) = AsyncStack { implicit request => Future(Ok(Json.toJson(articleService.search(q))).as(JSON)) }
+  def search(q: String) = AsyncStack{ implicit request => Future(Ok(Json.toJson(articleService.search(q))).as(JSON)) }
   def tracking = AsyncStack(implicit request => trackingData.map(t => Ok(views.html.tracking(t))))
   def about = AsyncStack(implicit request => Future(Ok(views.html.about())))
   def contacts = AsyncStack(implicit request => Future(Ok(views.html.contacts())))
   def exception = StackAction(request => throw new RuntimeException())
   def adv = AsyncStack(implicit request => Future(Ok(views.html.adv())))
-  def sitemap = AsyncStack(implicit request => Future {
-    val news=articleService.allArticles(true)
+  def forbidden = AsyncStack(implicit request => Future(Ok(views.html.errors.e403())))
+  def sitemap = AsyncStack(implicit request => Future{
+    val news = articleService.allArticles(true)
     Ok(views.html.sitemap(news).body.trim).as(XML)
   })
-  def rss = AsyncStack(implicit request => Future {
-    val news=articleService.allArticles(true)
+  def rss = AsyncStack(implicit request => Future{
+    val news = articleService.allArticles(true)
     Ok(views.html.rss(news).body.trim).as(XML)
   })
 

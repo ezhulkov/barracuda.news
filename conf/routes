@@ -13,6 +13,7 @@ GET           /exception                    controllers.FrontendController.excep
 POST          /search                       controllers.FrontendController.search(q:String)
 GET           /sitemap.xml                  controllers.FrontendController.sitemap
 GET           /rss                          controllers.FrontendController.rss
+GET           /forbidden                    controllers.FrontendController.forbidden
 
 #Admin area
 GET           /login                        controllers.AuthController.login

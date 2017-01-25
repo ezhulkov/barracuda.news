@@ -17,6 +17,7 @@ tracking.hide=Hide event
 tracking.replay=Replay
 tracking.online=Online
 tracking.soon=Soon
+error.403=Error 403 - forbidden
 error.404=Error 404 - page not found
 error.500=Error 500 - server error
 see.more=Read more:

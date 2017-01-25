@@ -17,6 +17,7 @@ tracking.hide=Скрыть событие
 tracking.replay=Повтор
 tracking.online=Онлайн
 tracking.soon=Скоро
+error.403=Ошибка 403 - доступ запрещен
 error.404=Ошибка 404 - страница не найдена
 error.500=Ошибка 500 - ошибка сервера
 see.more=Читайте также:

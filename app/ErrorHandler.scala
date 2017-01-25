@@ -17,13 +17,16 @@ class ErrorHandler @Inject()(
   val messagesApi: BnMessagesApi
 ) extends DefaultHttpErrorHandler(env, config, sourceMapper, router) with I18nSupport {
 
-  override def onProdServerError(request: RequestHeader, exception: UsefulException) = Future.successful {
+  override def onProdServerError(request: RequestHeader, exception: UsefulException) = Future.successful{
     implicit val rq = request
     InternalServerError(views.html.errors.e500("A server error occurred: " + exception.getMessage))
   }
-  override def onNotFound(request: RequestHeader, message: String): Future[Result] = Future.successful {
+  override def onNotFound(request: RequestHeader, message: String): Future[Result] = Future.successful{
     implicit val rq = request
     NotFound(views.html.errors.e404())
   }
-
+  override protected def onForbidden(request: RequestHeader, message: String): Future[Result] = Future.successful{
+    implicit val rq = request
+    NotFound(views.html.errors.e403())
+  }
 }

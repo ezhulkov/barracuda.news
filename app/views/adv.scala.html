@@ -1,19 +1,21 @@
 @()(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
-@layout.front(messages("title.advertising")) {
+    @layout.front(messages("title.advertising")){
 
-    <section class="container">
-        <div class="content-body generic">
-            <h1>@messages("title.advertising")</h1>
-            @en {
-                <p>
-                    If you have any questions about advertising please email to this address: <a href="mailto:adv@@barracuda.news" class="active-link">adv@@barracuda.news</a>
-                </p>
-            }
-            @ru {
-                текст
-            }
-        </div>
-    </section>
+        <section class="container">
+            <div class="content-body generic">
+                <h1>@messages("title.advertising")</h1>
+                @en{
+                    <p>
+                        If you have any questions about advertising please email to this address: <a href="mailto:adv@@barracuda.news" class="active-link">adv@@barracuda.news</a>
+                    </p>
+                }
+                @ru{
+                    <p>
+                        По вопросам рекламы просьба писать на почту: <a href="mailto:adv@@barracuda.news" class="active-link">adv@@barracuda.news</a><br/>
+                    </p>
+                }
+            </div>
+        </section>
 
-}
+    }
