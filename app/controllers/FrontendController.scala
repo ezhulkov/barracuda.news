@@ -79,14 +79,14 @@ class FrontendController @Inject()(
   def contacts = AsyncStack(implicit request => Future(Ok(views.html.contacts())))
   def exception = StackAction(request => throw new RuntimeException())
   def adv = AsyncStack(implicit request => Future(Ok(views.html.adv())))
-  def forbidden = AsyncStack(implicit request => Future(Ok(views.html.errors.e403())))
+  def forbidden = AsyncStack(implicit request => Future(Forbidden(views.html.errors.e403())))
   def sitemapPage = AsyncStack(implicit request => Future(Ok(views.html.sitemapPage())))
   def sitemapXml = AsyncStack(implicit request => Future{
     val news = articleService.allArticles(true)
     Ok(views.html.sitemapXml(news).body.trim).as(XML)
   })
   def rss = AsyncStack(implicit request => Future{
-    val news = articleService.allArticles(true)
+    val news = articleService.allArticles()
     Ok(views.html.rss(news).body.trim).as(XML)
   })
 

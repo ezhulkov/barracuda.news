@@ -78,13 +78,14 @@ object CoreModels {
   }
   case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   object Article {
-    def newArticle = Article(None, None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
+    def newArticle = Article(None, None, None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
   }
   case class Article(
     id: Option[Long],
     url: Option[String],
     origin: Option[String],
     coverMedia: Option[String],
+    coverMediaLength: Option[Int],
     coverYoutube: Option[String],
     publish: DateTime,
     tags: Seq[Tag] = Nil,
@@ -94,6 +95,7 @@ object CoreModels {
     val publishFormatted            = publish.toString(dateFormat)
     val publishShortFormatted       = publish.toString("YYYY-MM-dd-")
     val publishSitemap              = publish.toString("YYYY-MM-dd")
+    val publishRss                  = publish.toString("EEE, dd MMM yyyy HH:mm:ss Z")
     var crossArticles: Seq[Article] = Nil
     def transliteratedUrl = translation(LangUtils.defaultLang).flatMap(t => t.caption).map(t => Utils.transliterate(t)).getOrElse(id.toString)
     def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
@@ -108,9 +110,19 @@ object CoreModels {
     }
   }
   object Translation {
-    def newTranslations = LangUtils.langs.map(l => Translation(None, None, l, None, None, Nil)).toSeq
+    def newTranslations = LangUtils.langs.map(l => Translation(None, None, l, None, None, None, None, None, Nil))
   }
-  case class Translation(id: Option[Long], articleId: Option[Long], lang: Lang, caption: Option[String], text: Option[String], media: Seq[NewsMedia] = Nil) {
+  case class Translation(
+    id: Option[Long],
+    articleId: Option[Long],
+    lang: Lang,
+    caption: Option[String],
+    text: Option[String],
+    description: Option[String],
+    title: Option[String],
+    keywords: Option[String],
+    media: Seq[NewsMedia] = Nil
+  ) {
     def searchMatch(q: String) = (text ++ caption).mkString(" ").toLowerCase.contains(q.toLowerCase)
   }
   case class TrackingEvent(id: Option[UUID], name: Option[String], eventStart: Option[DateTime], eventEnd: Option[DateTime], imageUrl: Option[String], races: Option[Seq[TrackingRace]]) {

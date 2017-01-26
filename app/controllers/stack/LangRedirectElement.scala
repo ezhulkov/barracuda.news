@@ -51,7 +51,7 @@ trait LangRedirectElement extends StackableController {
     Try(ipDbReader.country(address).getCountry.getIsoCode.toLowerCase) match {
       case Success(c) => Some(c)
       case _ =>
-        Logger.error(s"Error getting country by ip $ip")
+        Logger.warn(s"Error getting country by ip $ip")
         None
     }
   }

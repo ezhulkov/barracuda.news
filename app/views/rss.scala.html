@@ -1,22 +1,23 @@
-@(news: Seq[Article])(implicit lang: Lang)
+@(news: Seq[Article])(implicit lang: Lang, env: Environment, request: RequestHeader)
 
 <rss version="2.0">
     <channel>
+        <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://barracuda.news@addLang("/rss")" rel="self" type="application/rss+xml" />
         <title>Barracuda News</title>
-        <link>https://barracuda.news/rss</link>
+        <link>https://barracuda.news@addLang("/")</link>
         <description>We cover all the intense regattas of various classes around the world!</description>
         <image>
             <url>https://barracuda.news/assets/favs/apple-icon-120x120.png</url>
-            <title>Barracuda Mews</title>
-            <link>https://barracuda.news</link>
+            <title>Barracuda News</title>
+            <link>https://barracuda.news@addLang("/")</link>
         </image>
-        @for(article <- news.sortBy(t => t.publish).take(25)) {
+        @for(article <- news.sortBy(t => t.publish)) {
             <item>
                 <title>@article.translationOrDefault.caption.getOrElse("barracuda.news")</title>
-                <link>https://barracuda.news/article/@article.url </link>
-                <guid>https://barracuda.news/article/@article.url</guid>
-                @article.coverMedia.map(t => Html(s"""<enclosure url="${scala.xml.Utility.escape(t)}" type="image/jpg"/>"""))
-                <pubDate>@article.publish.toString</pubDate>
+                <link>https://barracuda.news@addLang("/article/" + article.url.orNull)</link>
+                <guid>https://barracuda.news@addLang("/article/" + article.url.orNull)</guid>
+                @article.coverMedia.map(t => Html(s"""<enclosure url="http://barracuda.news${scala.xml.Utility.escape(t)}" length="${article.coverMediaLength.getOrElse(0)}" type="image/jpg"/>"""))
+                <pubDate>@article.publishRss</pubDate>
             </item>
         }
     </channel>

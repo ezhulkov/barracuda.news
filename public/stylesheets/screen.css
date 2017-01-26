@@ -688,7 +688,7 @@ header .menu ul.tools li.lang > div:after {
   margin-left: 5px;
   content: "";
 }
-header .menu ul.tools li.lang:hover ul {
+header .menu ul.tools li.lang.menu-active ul, header .menu ul.tools li.lang:hover ul {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
   visibility: visible;

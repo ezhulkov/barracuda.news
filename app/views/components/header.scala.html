@@ -19,7 +19,7 @@
             </div>
             <ul class="tools">
                 <li class="search" ng-click="toggleSearch()"><div></div></li>
-                <li class="lang">
+                <li class="lang" ng-class="{'menu-active': langOn}" ng-click="toggleLang()">
                     <div>@Messages("lang." + lang.code)</div>
                     <ul>
                     @for(l <- langs) {

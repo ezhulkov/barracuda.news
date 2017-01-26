@@ -103,11 +103,13 @@ object Mappers {
       'publish -> article.publish
     ))
     def updateCover(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(
-      'coverMedia -> article.coverMedia.filter(_.nonEmpty).orNull
+      'coverMedia -> article.coverMedia.filter(_.nonEmpty).orNull,
+      'coverMediaLength -> article.coverMediaLength.orNull
     ))
     def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(
       'origin -> article.origin.filter(_.nonEmpty).orNull,
       'coverMedia -> article.coverMedia.filter(_.nonEmpty).orNull,
+      'coverMediaLength -> article.coverMediaLength.orNull,
       'coverYoutube -> article.coverYoutube.filter(_.nonEmpty).orNull,
       'publish -> article.publish
     ))

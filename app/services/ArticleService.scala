@@ -60,7 +60,7 @@ class ArticleServiceImpl extends ArticleService {
   override def deleteArticle(id: Long): Unit = Mappers.Article.deleteById(id)
   override def allRootTags: Set[Tag] = Mappers.Tag.findAllRoot()
   override def allTags(text: Set[String]): Set[Tag] = Mappers.Tag.allTags(text.toSeq)
-  override def saveArticle(article: Article): Try[Long] = DB.autoCommit { implicit session =>
+  override def saveArticle(article: Article): Try[Long] = DB.autoCommit{ implicit session =>
     for {
       article <- tryExtractImages(article)
       articleId <- trySaveArticle(article)
@@ -75,7 +75,7 @@ class ArticleServiceImpl extends ArticleService {
   }
   override def search(q: String): Seq[Article] = Nil
   override def findArticle(url: String, lang: Lang = LangUtils.defaultLang): Option[Article] = Mappers.Article.findByUrl(url).map(joinCrossLinks)
-  override def extractImages(translation: Translation): Try[Translation] = Try {
+  override def extractImages(translation: Translation): Try[Translation] = Try{
     translation.text match {
       case Some(text) =>
         val imgMatcher = imgPattern.matcher(text)
@@ -98,21 +98,22 @@ class ArticleServiceImpl extends ArticleService {
         translation
     }
   }
-  override def attachCoverPhoto(id: Long, file: File) = DB.autoCommit { implicit session =>
+  override def attachCoverPhoto(id: Long, file: File) = DB.autoCommit{ implicit session =>
     findArticle(id) match {
       case Some(article) =>
         val bytes = Files.readAllBytes(Paths.get(file.toURI))
         val savedFile = decodeAndStore(article.translationOrDefault(LangUtils.defaultLang).caption.getOrElse(DateTime.now().toString), None, None, bytes)
-        val newArticle = article.copy(coverMedia = Some(s"$imageUrl/$savedFile"))
+        val newArticle = article.copy(coverMedia = Some(s"$imageUrl/$savedFile"), coverMediaLength = Some(new File(savedFile).length().toInt))
         Mappers.Article.updateCover(newArticle)
       case _ => Logger.error(s"Can not find article $id")
     }
   }
   private def decodeAndStore(caption: String, lang: Option[Lang], number: Option[Int], bytes: Array[Byte]): String = {
     val image = ImageIO.read(new ByteArrayInputStream(bytes))
-    val resized = image.getWidth > articleImageWidth match {
-      case true => Thumbnails.of(image).width(articleImageWidth).keepAspectRatio(true).asBufferedImage
-      case false => image
+    val resized = if (image.getWidth > articleImageWidth) {
+      Thumbnails.of(image).width(articleImageWidth).keepAspectRatio(true).asBufferedImage
+    } else {
+      image
     }
     val fileName = s"${Utils.transliterate(caption)}${lang.map(l => s"-${l.code}").getOrElse("")}${number.map(n => s"-$n").getOrElse("")}.jpg"
     val file = new File(s"$imageFolder/$fileName")
@@ -126,10 +127,10 @@ class ArticleServiceImpl extends ArticleService {
     article.withCrossLinks(articles)
   }
 
-  private def tryExtractImages(article: Article): Try[Article] = Try {
+  private def tryExtractImages(article: Article): Try[Article] = Try{
     val extracted = article.translations
-      .map { translation => extractImages(translation).recoverWith(loggedFailure()) }
-      .collect { case Success(x) => x }
+      .map{ translation => extractImages(translation).recoverWith(loggedFailure()) }
+      .collect{ case Success(x) => x }
     article.copy(translations = extracted)
   }
   private def trySaveArticle(article: Article)(implicit s: DBSession): Try[Long] = {
@@ -143,15 +144,15 @@ class ArticleServiceImpl extends ArticleService {
         result
     }
   }
-  private def trySaveCrossLinks(article: Article, articleId: Long)(implicit s: DBSession): Try[Long] = Try {
+  private def trySaveCrossLinks(article: Article, articleId: Long)(implicit s: DBSession): Try[Long] = Try{
     Mappers.CrossLinkArticle.deleteForArticle(articleId)
-    article.crossLinks.getOrElse(Nil).filter(t => t != 0).map { link =>
+    article.crossLinks.getOrElse(Nil).filter(t => t != 0).map{ link =>
       Mappers.CrossLinkArticle.create(articleId, link).recoverWith(loggedFailure())
     }
     articleId
   }
-  private def trySaveTranslations(article: Article, articleId: Long)(implicit s: DBSession): Try[Long] = Try {
-    article.translations.map { translation =>
+  private def trySaveTranslations(article: Article, articleId: Long)(implicit s: DBSession): Try[Long] = Try{
+    article.translations.map{ translation =>
       Mappers.Translation.findByLang(articleId, translation.lang) match {
         case Some(a) => Mappers.Translation.update(translation, a.id.get)
         case None => Mappers.Translation.create(articleId, translation.lang, translation)
@@ -159,15 +160,15 @@ class ArticleServiceImpl extends ArticleService {
     }
     articleId
   }
-  private def trySaveTags(article: Article, articleId: Long)(implicit s: DBSession): Try[Long] = Try {
+  private def trySaveTags(article: Article, articleId: Long)(implicit s: DBSession): Try[Long] = Try{
     val existingTags = Mappers.Tag.allTags(article.tags.map(t => t.text.orNull))
     val newTags = article.tags.filterNot(t => existingTags.exists(m => m.text == t.text))
     val createdTags = newTags.map(t => Mappers.Tag.create(t.text.orNull))
       .map(t => t.recoverWith(loggedFailure()))
-      .collect { case Success(tag) => tag }
+      .collect{ case Success(tag) => tag }
     val tagIds = existingTags.flatMap(t => t.id) ++ createdTags
     Mappers.ArticleTag.deleteForArticle(articleId)
-    tagIds.map(t => Mappers.ArticleTag.create(articleId, t).recoverWith(loggedFailure())).collect { case Success(tag) => tag }
+    tagIds.map(t => Mappers.ArticleTag.create(articleId, t).recoverWith(loggedFailure())).collect{ case Success(tag) => tag }
     articleId
   }
 
