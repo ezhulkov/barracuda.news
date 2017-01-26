@@ -26,7 +26,7 @@
 
 @layout.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
 
-    <div class="app-wrapper" ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}'")).orNull ng-class="{'loading-active': loading}">
+    <div class="app-wrapper" data-ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}'")).orNull data-ng-class="{'loading-active': loading}">
 
         <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
 
@@ -56,7 +56,7 @@
             }.orNull
 
             <section class="main-section ng-cloak @sectionClass">
-                <div class="flash" ng-show="result.result">{{result.result}}</div>
+                <div class="flash" data-ng-show="result.result">{{result.result}}</div>
                 @content
             </section>
 

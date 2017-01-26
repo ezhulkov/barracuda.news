@@ -2,24 +2,24 @@
 
 <header>
 
-    <section class="corporate">
-        <section class="container">
-            <a class="banner" href="http://bedynamiq.com/" target="_blanc">
+    <div class="corporate">
+        <div class="container">
+            <a class="banner" href="http://bedynamiq.com/" target="_blank">
                 <img src="@routes.Assets.versioned("/banners/bd_990x90.gif")" alt="bedynamiq.com" title="bedynamiq.com"/>
             </a>
             <a class="logo" href="@routes.FrontendController.index.withLang">
                 <img src="@routes.Assets.versioned("/images/logo.png")" srcset="@routes.Assets.versioned("/images/logo.2x.png") 2x" alt="barracuda.news" title="barracuda.news"/>
             </a>
-        </section>
-    </section>
-    <section class="menu" ng-class="{'menu-active': menuOn}">
-        <section class="container">
-            <div class="menu-button" ng-click="toggleMenu()">
+        </div>
+    </div>
+    <div class="menu" data-ng-class="{'menu-active': menuOn}">
+        <div class="container">
+            <div class="menu-button" data-ng-click="toggleMenu()">
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </div>
             <ul class="tools">
-                <li class="search" ng-click="toggleSearch()"><div></div></li>
-                <li class="lang" ng-class="{'menu-active': langOn}" ng-click="toggleLang()">
+                @*<li class="search" data-ng-click="toggleSearch()"><div></div></li>*@
+                <li class="lang" data-ng-class="{'menu-active': langOn}" data-ng-click="toggleLang()">
                     <div>@Messages("lang." + lang.code)</div>
                     <ul>
                     @for(l <- langs) {
@@ -41,7 +41,7 @@
                 <li class="color4"><a href="@routes.FrontendController.topic("media").withLang">@messages("title.media")</a></li>
                 <li class="color5"><a href="@routes.FrontendController.topic("fish").withLang">@messages("title.fish")</a></li>
             </ul>
-        </section>
-    </section>
+        </div>
+    </div>
 
 </header>

@@ -26,8 +26,8 @@
     @layout.front(article.translation.flatMap(_.caption).getOrElse("barracuda.news"), metaTags = metaTags) {
 
         <article>
-            <span class="close" ng-click="closeArticle()"></span>
-            <section class="container">
+            <span class="close" data-ng-click="closeArticle()"></span>
+            <div class="container">
                 <div class="content-body">
                     <div class="article-header">
                         <h1>@article.translation.flatMap(_.caption)</h1>
@@ -81,7 +81,7 @@
                 </div>
 
 
-            </section>
+            </div>
         </article>
 
     }

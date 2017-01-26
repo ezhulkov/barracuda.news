@@ -2,13 +2,13 @@
 
 @sidebar = {
     <ul>
-        <li ng-hide="layoutModel.id">
-            <a href="#" ng-click="save()">Create</a>
+        <li data-ng-hide="layoutModel.id">
+            <a href="#" data-ng-click="save()">Create</a>
         </li>
-        <li ng-show="layoutModel.id">
-            <a href="#" ng-click="save()">Save</a>
+        <li data-ng-show="layoutModel.id">
+            <a href="#" data-ng-click="save()">Save</a>
         </li>
-        <li ng-show="layoutModel.id">
+        <li data-ng-show="layoutModel.id">
             <a data-remodal-target="delete-modal">Delete</a>
         </li>
     </ul>
@@ -25,39 +25,39 @@
         <fieldset>
             <dl class="name">
                 <dt><label for="name">Layout name:</label></dt>
-                <dd><input type="text" name="name" ng-model="layoutModel.name"></dd>
+                <dd><input type="text" name="name" data-ng-model="layoutModel.name"></dd>
             </dl>
             <dl class="tag">
                 <dt><label for="tag">Page tag (optional):</label></dt>
                 <dd>
                     <select chosen
-                    ng-model="layoutModel.tag.id"
+                    data-ng-model="layoutModel.tag.id"
                     data-placeholder="Choose page tag...">
                         <option value="">&nbsp;</option>
-                        <option ng-repeat="option in rootTags" value="{{option.id}}">{{option.name}}</option>
+                        <option data-ng-repeat="option in rootTags" value="{{option.id}}">{{option.name}}</option>
                     </select>
                 </dd>
             </dl>
         </fieldset>
         <h3>Layout config</h3>
         <div class="grid">
-            <div class="row" ng-repeat="row in layoutModel.config.rows">
+            <div class="row" data-ng-repeat="row in layoutModel.config.rows">
                 <div class="row-edit">
                     <a data-remodal-target="del-row-modal-{{$id}}" title="Delete row"><i class="fa fa-2 fa-minus-square-o" aria-hidden="true"></i></a>
                     <a data-remodal-target="edit-row-modal-{{$id}}" title="Edit row"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
                 </div>
                 <div class="row-edit row-add-before">
-                    <a ng-click="addRowBefore(row)" title="Add row before"><i class="fa fa-2 fa-arrow-circle-o-up" aria-hidden="true"></i></a>
+                    <a data-ng-click="addRowBefore(row)" title="Add row before"><i class="fa fa-2 fa-arrow-circle-o-up" aria-hidden="true"></i></a>
                 </div>
                 <div class="row-edit row-add-after">
-                    <a ng-click="addRowAfter(row)" title="Add row after"><i class="fa fa-2 fa-arrow-circle-o-down" aria-hidden="true"></i></a>
+                    <a data-ng-click="addRowAfter(row)" title="Add row after"><i class="fa fa-2 fa-arrow-circle-o-down" aria-hidden="true"></i></a>
                 </div>
                 <div class="remodal" data-remodal-id="del-row-modal-{{$id}}">
                     <h3>Delete row?</h3>
                     <br>
                     <div class="controls">
                         <input data-remodal-action="cancel" type="button" value="Cancel">
-                        <input data-remodal-action="confirm" type="button" value="Delete" ng-click="deleteRow(row)">
+                        <input data-remodal-action="confirm" type="button" value="Delete" data-ng-click="deleteRow(row)">
                     </div>
                 </div>
                 <div class="remodal edit-row-modal" data-remodal-id="edit-row-modal-{{$id}}">
@@ -65,8 +65,8 @@
                         <dl class="height">
                             <dt><label for="height-{{$id}}">Row height:</label></dt>
                             <dd>
-                                <select id="height-{{$id}}" chosen ng-model="row.height" data-placeholder="Choose row height...">
-                                    <option ng-repeat="option in rowHeights | orderBy" value="{{option}}">{{option}}</option>
+                                <select id="height-{{$id}}" chosen data-ng-model="row.height" data-placeholder="Choose row height...">
+                                    <option data-ng-repeat="option in rowHeights | orderBy" value="{{option}}">{{option}}</option>
                                 </select>
                             </dd>
                         </dl>
@@ -76,8 +76,8 @@
                             <dt><label>Choose row layout:</label></dt>
                         </dl>
                         <div class="types-block">
-                            <div class="row-type active-{{rowBlueprintMatches(row, rowBlueprint)}}" ng-repeat="rowBlueprint in rowBlueprints track by $index" ng-click="setRowType(row,rowBlueprint)" data-remodal-action="confirm">
-                                <div class="row-type-block" ng-class="blockBlueprint.size" ng-repeat="blockBlueprint in rowBlueprint.blocks track by $index"></div>
+                            <div class="row-type active-{{rowBlueprintMatches(row, rowBlueprint)}}" data-ng-repeat="rowBlueprint in rowBlueprints track by $index" data-ng-click="setRowType(row,rowBlueprint)" data-remodal-action="confirm">
+                                <div class="row-type-block" data-ng-class="blockBlueprint.size" data-ng-repeat="blockBlueprint in rowBlueprint.blocks track by $index"></div>
                             </div>
                         </div>
                     </fieldset>
@@ -85,41 +85,41 @@
                         <input data-remodal-action="confirm" type="button" value="Close">
                     </div>
                 </div>
-                <div class="block {{block.size}}" ng-repeat="block in row.blocks track by $index">
+                <div class="block {{block.size}}" data-ng-repeat="block in row.blocks track by $index">
                     <div class="info">
-                        <p ng-show="block.captions[0].text">Caption: {{block.captions[0].text}}</p>
+                        <p data-ng-show="block.captions[0].text">Caption: {{block.captions[0].text}}</p>
                         <p>News type: {{block.newsType}}</p>
                         <p>Tag: {{block.tag}}</p>
-                        <p ng-show="block.featured">Featured block</p>
+                        <p data-ng-show="block.featured">Featured block</p>
                     </div>
                     <a data-remodal-target="edit-block-modal-{{$id}}" class="edit" title="Edit block"><i class="fa fa-2 fa-pencil-square-o" aria-hidden="true"></i></a>
                     <div class="remodal edit-block-modal" data-remodal-id="edit-block-modal-{{$id}}">
                         <fieldset>
-                            <dl class="caption" ng-repeat="lang in langs">
+                            <dl class="caption" data-ng-repeat="lang in langs">
                                 <dt><label for="caption-{{lang.value}}-{{$id}}">{{lang.label}} caption:</label></dt>
-                                <dd ng-repeat="c in block.captions | filter:byLangCode(lang.value)">
-                                    <input type="text" id="caption-{{lang.value}}-{{$id}}" ng-model="c.text"/>
+                                <dd data-ng-repeat="c in block.captions | filter:byLangCode(lang.value)">
+                                    <input type="text" id="caption-{{lang.value}}-{{$id}}" data-ng-model="c.text"/>
                                 </dd>
                             </dl>
                             <dl class="tag">
                                 <dt><label for="tags-{{$id}}">Tags:</label></dt>
                                 <dd>
-                                    <select id="tags-{{$id}}" chosen ng-model="block.tag" data-placeholder="Choose block tag...">
-                                        <option ng-repeat="option in tags | orderBy" value="{{option}}">{{option}}</option>
+                                    <select id="tags-{{$id}}" chosen data-ng-model="block.tag" data-placeholder="Choose block tag...">
+                                        <option data-ng-repeat="option in tags | orderBy" value="{{option}}">{{option}}</option>
                                     </select>
                                 </dd>
                             </dl>
                             <dl class="featured">
                                 <dt><label for="featured-{{$id}}">Featured:</label></dt>
                                 <dd>
-                                    <input id="featured-{{$id}}" type="checkbox" ng-model="block.featured"/>
+                                    <input id="featured-{{$id}}" type="checkbox" data-ng-model="block.featured"/>
                                 </dd>
                             </dl>
                             <dl class="type">
                                 <dt><label for="type-{{$id}}">Content type:</label></dt>
                                 <dd>
-                                    <select id="type-{{$id}}" chosen ng-model="block.newsType" data-placeholder="Choose content type...">
-                                        <option ng-repeat="option in newsTypes" value="{{option}}">{{option}}</option>
+                                    <select id="type-{{$id}}" chosen data-ng-model="block.newsType" data-placeholder="Choose content type...">
+                                        <option data-ng-repeat="option in newsTypes" value="{{option}}">{{option}}</option>
                                     </select>
                                 </dd>
                             </dl>
@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row-add" ng-hide="hasRows()" ng-click="addRow()">Add new row...</div>
+            <div class="row-add" data-ng-hide="hasRows()" data-ng-click="addRow()">Add new row...</div>
         </div>
     </div>
 
@@ -139,7 +139,7 @@
         <br>
         <div class="controls">
             <input data-remodal-action="cancel" type="button" value="Cancel">
-            <input data-remodal-action="confirm" type="button" value="Delete" ng-click="delete()">
+            <input data-remodal-action="confirm" type="button" value="Delete" data-ng-click="delete()">
         </div>
     </div>
 

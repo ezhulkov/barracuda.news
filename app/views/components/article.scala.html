@@ -3,7 +3,7 @@
 <div class="item @if(first) {first-item}">
 
     @title = {
-        <h2><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString)).withLang">@item.translationOrDefault.caption</a></h2>
+        <h3><a href="@routes.FrontendController.article(item.url.getOrElse(item.id.toString)).withLang">@item.translationOrDefault.caption</a></h3>
         <div class="add-info">
             <span class="type"></span>
             <span class="date">@item.publishFormatted</span>

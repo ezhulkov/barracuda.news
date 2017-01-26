@@ -1,8 +1,8 @@
 @()(implicit messages: Messages, lang: Lang, env: Environment)
 
 <footer>
-    <section class="links">
-        <section class="container">
+    <div class="links">
+        <div class="container">
             <div class="logo">
                 <a href="@routes.FrontendController.index.withLang">
                     <img src="@routes.Assets.versioned("/images/logo200px.png")" srcset="@routes.Assets.versioned("/images/logo200px.2x.png") 2x" alt="barracuda.news" title="barracuda.news"/>
@@ -48,16 +48,16 @@
                     <input class="inp" type="email" placeholder="@messages("title.enterEmail")" title="@messages("title.enterEmail")">
                 </div>
                 <div class="control-container">
-                    <input class="btn" type="submit" class="btn btn-md" value="@messages("title.subscribe")">
+                    <input type="submit" class="btn btn-md" value="@messages("title.subscribe")">
                 </div>
             </div>
-        </section>
-    </section>
-    <section class="copyright">
-        <section class="container">
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="container">
             <span>
                     &copy; <script>document.write(new Date().getFullYear())</script> &mdash; Barracuda News. All rights reserved.
             </span>
-        </section>
-    </section>
+        </div>
+    </div>
 </footer>

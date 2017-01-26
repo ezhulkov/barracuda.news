@@ -2,22 +2,22 @@
 
     @sidebar = {
         <ul class="langs">
-            <li ng-repeat="l in langs">
-                <input type="radio" name="lang" id="{{l.value}}" ng-value="l" ng-model="$parent.selectedLang" ng-change="changeLang()"/><label for="{{l.value}}">{{l.label}}</label>
+            <li data-ng-repeat="l in langs">
+                <input type="radio" name="lang" id="{{l.value}}" data-ng-value="l" data-ng-model="$parent.selectedLang" data-ng-change="changeLang()"/><label for="{{l.value}}">{{l.label}}</label>
             </li>
         </ul>
         <ul>
-            <li ng-hide="articleModel.id">
-                <a href="#" ng-click="save()">Create</a>
+            <li data-ng-hide="articleModel.id">
+                <a href="#" data-ng-click="save()">Create</a>
             </li>
-            <li ng-show="articleModel.id">
-                <a href="#" ng-click="save()">Save</a>
+            <li data-ng-show="articleModel.id">
+                <a href="#" data-ng-click="save()">Save</a>
             </li>
-            <li ng-show="articleModel.id">
+            <li data-ng-show="articleModel.id">
                 <a data-remodal-target="delete-modal">Delete</a>
             </li>
-            <li ng-show="articleModel.id">
-                <a href="#" ng-click="show()">Show</a>
+            <li data-ng-show="articleModel.id">
+                <a href="#" data-ng-click="show()">Show</a>
             </li>
         </ul>
 
@@ -32,46 +32,46 @@
             </ul>
             <fieldset class="info-controls">
                 <div class="cover">
-                    <span ng-hide="articleHasId()">In order to upload cover photo push 'Create' button first</span>
-                    <img ng-show="articleHasId()" ng-src="{{articleModel.coverMedia}}"/>
-                    <input id="uploader" ng-show="articleHasId()" type="file" nv-file-select uploader="uploader"/>
+                    <span data-ng-hide="articleHasId()">In order to upload cover photo push 'Create' button first</span>
+                    <img data-ng-show="articleHasId()" data-ng-src="{{articleModel.coverMedia}}"/>
+                    <input id="uploader" data-ng-show="articleHasId()" type="file" nv-file-select uploader="uploader"/>
                 </div>
                 <dl class="tags">
                     <dt><label for="tags">Tags:</label></dt>
                     <dd>
-                        <tags-input id="tags" class="tags-input" ng-model="articleModel.tags" placeholder="Add tags" add-on-paste="true">
+                        <tags-input id="tags" class="tags-input" data-ng-model="articleModel.tags" placeholder="Add tags" add-on-paste="true">
                             <auto-complete min-length="0" load-on-focus="true" load-on-empty="true" source="loadTags($query)"></auto-complete>
                         </tags-input>
                     </dd>
                 </dl>
                 <dl class="publish">
                     <dt><label for="publish">Publish date:</label></dt>
-                    <dd><input type="text" date-time view="hours" timezone="Europe/Moscow" format="dd.MM.YYYY HH:mm z" name="publish" ng-model="articleModel.publish_moment"></dd>
+                    <dd><input type="text" date-time view="hours" timezone="Europe/Moscow" format="dd.MM.YYYY HH:mm z" name="publish" data-ng-model="articleModel.publish_moment"></dd>
                 </dl>
                 <dl class="youtube">
                     <dt><label for="youtube">Youtube cover ID (optional):</label></dt>
-                    <dd><input type="text" name="youtube" ng-model="articleModel.coverYoutube"></dd>
+                    <dd><input type="text" name="youtube" data-ng-model="articleModel.coverYoutube"></dd>
                 </dl>
                 <dl class="origin">
                     <dt><label for="origin">Original url (optional):</label></dt>
-                    <dd><input type="text" name="origin" ng-model="articleModel.origin"></dd>
+                    <dd><input type="text" name="origin" data-ng-model="articleModel.origin"></dd>
                 </dl>
             </fieldset>
             <fieldset>
                 <div class="lang-label">Cross links:
-                    <a href="#" ng-click="addLink()" class="pull-right add-link">Add link</a>
+                    <a href="#" data-ng-click="addLink()" class="pull-right add-link">Add link</a>
                 </div>
                 <div class="links">
-                    <div class="link" ng-repeat="link in articleModel.crossLinks">
+                    <div class="link" data-ng-repeat="link in articleModel.crossLinks">
                         <div class="sel">
                             <select chosen
-                            ng-model="link.id"
+                            data-ng-model="link.id"
                             data-placeholder="Choose cross article...">
-                                <option ng-repeat="option in articleLinks" value="{{option.id}}">{{option.name}}</option>
+                                <option data-ng-repeat="option in articleLinks" value="{{option.id}}">{{option.name}}</option>
                             </select>
                         </div>
                         <div class="del">
-                            <a href="#" ng-click="delLink(link)">Delete</a>
+                            <a href="#" data-ng-click="delLink(link)">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -79,21 +79,21 @@
             <fieldset>
                 <div class="lang-label">{{selectedLang.label}}:</div>
                 <dl class="caption">
-                    <dd><input id="caption" type="text" name="caption" ng-model="translation.caption" placeholder="Enter caption to enable {{selectedLang.label | lowercase}} translation"></dd>
+                    <dd><input id="caption" type="text" name="caption" data-ng-model="translation.caption" placeholder="Enter caption to enable {{selectedLang.label | lowercase}} translation"></dd>
                 </dl>
-                <dl ng-show="hasCaption(translation)">
+                <dl data-ng-show="hasCaption(translation)">
                     <dd>
                         <article class="edit">
-                            <section class="container">
+                            <div class="container">
                                 <div class="article-edit">
-                                    <alloy-editor id="article_editor" ng-model="translation.text" config="alloyConfig"></alloy-editor>
+                                    <alloy-editor id="article_editor" data-ng-model="translation.text" config="alloyConfig"></alloy-editor>
                                 </div>
                                 <div class="adv hidden">
                                     <div class="banner">
                                         <img src="https://placehold.it/300x600">
                                     </div>
                                 </div>
-                            </section>
+                            </div>
                         </article>
                     </dd>
                 </dl>
@@ -106,7 +106,7 @@
             <br>
             <div class="controls">
                 <input data-remodal-action="cancel" type="button" value="Cancel">
-                <input data-remodal-action="confirm" type="button" value="Delete" ng-click="delete()">
+                <input data-remodal-action="confirm" type="button" value="Delete" data-ng-click="delete()">
             </div>
         </div>
 

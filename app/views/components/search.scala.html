@@ -1,15 +1,15 @@
 @()(implicit messages: Messages)
 
 <div class="search-overlay">
-    <span class="close" ng-click="toggleSearch()"></span>
-    <section class="container">
+    <span class="close" data-ng-click="toggleSearch()"></span>
+    <div class="container">
         <div class="search-input">
-            <input type="text" placeholder="@messages("title.search")" ng-model="searchString" ng-change="search()" auto-focus="{{ searchOn }}"/>
+            <input type="text" placeholder="@messages("title.search")" data-ng-model="searchString" data-ng-change="search()"/>
         </div>
         <ul class="result">
-            <li ng-repeat="item in items">
-                <h2><a href="/article/{{item.url}}" rel="nofollow">{{item.caption}}</a></h2>
+            <li data-ng-repeat="item in items">
+                @*<h2><a href="/article/{{item.url}}" rel="nofollow">{{item.caption}}</a></h2>*@
             </li>
         </ul>
-    </section>
+    </div>
 </div>

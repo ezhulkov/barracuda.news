@@ -2,7 +2,7 @@
 
 @layout.front(messages("title.sitemap")){
 
-    <section class="container">
+    <div class="container">
         <div class="content-body generic sitemap">
             <h1>@messages("title.sitemap")</h1>
             <h3>@messages("title.information"):</h3>
@@ -21,6 +21,6 @@
                 <li class="color5"><a href="@routes.FrontendController.topic("fish").withLang">@messages("title.fish")</a></li>
             </ul>
         </div>
-    </section>
+    </div>
 
 }

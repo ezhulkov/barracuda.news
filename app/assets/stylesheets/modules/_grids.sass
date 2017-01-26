@@ -42,7 +42,7 @@ $col-spans: (4, 6, 8, 12)
       +flex-direction(column)
       +align-content(stretch)
     .item
-      h2
+      h3
         +active-link($color: $blackTextColor)
         +t-base
       .cover
@@ -59,14 +59,14 @@ $col-spans: (4, 6, 8, 12)
         .type:before
           +fa
           +t-tiny
-    h1
-      +t-base
+    h2
+      +t-medium
       +padding-leader(1/2)
       +padding-trailer(1/2)
       +active-link($color: $blackTextColor)
     &.featured
       border-top: $featured-width solid $activeLink
-      h1
+      h2
         margin-top: - $featured-width
     &.featured.no-caption
       .items
@@ -77,7 +77,7 @@ $col-spans: (4, 6, 8, 12)
   //custom styles
   .topic-col.type-photo, .topic-col.type-video, .topic-col.type-cover-photo
     +pad(0, 0)
-    h1, h2, .add-info
+    h2, h3, .add-info
       margin-left: $pad-col
       margin-right: $pad-col
     .item
@@ -118,7 +118,7 @@ $col-spans: (4, 6, 8, 12)
         display: block
       .title
         z-index: 100
-        h2 a
+        h3 a
           +t-xlarge
           +active-link($color: white)
         .add-info
@@ -126,7 +126,7 @@ $col-spans: (4, 6, 8, 12)
     &.no-caption
       .cover
         top: 0
-    &.span4 .item .title h2 a
+    &.span4 .item .title h3 a
       +t-base
   .topic-col.type-video
     .type:before
@@ -152,14 +152,14 @@ $col-spans: (4, 6, 8, 12)
           width: 50%
         .first-item
           padding-right: $pad-col
-          h2
+          h3
             +t-large
           .add-info
             border: none
   .topic-col.type-cover-photo
     &.span12
 
-      h2
+      h3
         +t-large
         +t-strong
 
@@ -171,7 +171,7 @@ $col-spans: (4, 6, 8, 12)
     margin-bottom: -1px
     .photo
       display: none
-    h2 a
+    h3 a
       +active-link($color: $blackTextColor)
     .date
       +t-tiny
@@ -190,5 +190,5 @@ $col-spans: (4, 6, 8, 12)
           width: 200px
           top: 50%
           left: 50%
-      h2, .date
+      h3, .date
         padding-left: 200px+$pad-col
