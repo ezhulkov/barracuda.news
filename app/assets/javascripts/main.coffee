@@ -57,17 +57,6 @@ $(window).load ->
 frontendApp = angular.module 'frontendApp', []
 adminApp = angular.module 'adminApp', ['bw.paging', 'alloyeditor', 'ngTagsInput', 'datePicker', 'localytics.directives', 'angularFileUpload']
 
-adminApp.service "fileUpload", ($http) ->
-  this.uploadFileToUrl = (file, uploadUrl, success, error) ->
-    fd = new FormData();
-    fd.append('file', file);
-    $http.post(uploadUrl, fd, {
-      transformRequest: angular.identity,
-      headers: {'Content-Type': undefined}
-    })
-      .success(success)
-      .error(error)
-
 frontendApp.directive "autoFocus", ($timeout) ->
   return link: (scope, element, attrs) ->
     attrs.$observe("autoFocus", (newValue) ->
@@ -88,9 +77,8 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
   $scope.items = []
   $scope.search = ->
     if($scope.searchString != undefined && $scope.searchString.length >= 2)
-      $http.post("/search?q=" + $scope.searchString)
-        .success (data) ->
-      $scope.items = data
+      $http.post("/search?q=" + $scope.searchString).then (rs) ->
+        $scope.items = rs.data
     else
       $scope.items = []
   $scope.closeArticle = ->
@@ -218,18 +206,11 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
       layout.tag.id = parseInt(layout.tag.id)
     else
       layout.tag = undefined
-    $http.post("/admin/layout", layout)
-      .error (data, status) ->
-    $scope.processResponse(data)
-      .success (data) ->
-    $scope.processResponse(data)
+    $http.post("/admin/layout", layout).then (rs) ->
+      $scope.processResponse(rs.data)
   $scope.delete = ->
-    $http.delete("/admin/layout/" + $scope.layoutModel.id)
-      .error (data, status) ->
-    $scope.processResponse(data)
-      .success (data) ->
-    $window.location.pathname = data.redirect_url
-
+    $http.delete("/admin/layout/" + $scope.layoutModel.id).tnen (rs) ->
+      $window.location.pathname = data.redirect_url
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList
   $scope.total = $scope.newsList.length
@@ -306,21 +287,15 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
     if $scope.articleModel.crossLinks.length == 0
       $scope.articleModel.crossLinks = undefined
   $scope.delete = ->
-    $http.delete("/admin/article/" + $scope.articleModel.id)
-      .error (data, status) ->
-    console.log("error")
-      .success (data) ->
-    $window.location.pathname = data.redirect_url
+    $http.delete("/admin/article/" + $scope.articleModel.id).then (rs) ->
+      $window.location.pathname = rs.data.redirect_url
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
     article.publish = article.publish_moment.valueOf()
     if(article.crossLinks != undefined)
       article.crossLinks = article.crossLinks.map (t)-> parseInt(t.id)
-    request = $http.post("/admin/article", article)
-  #    request.error (data) ->
-  #      $scope.processResponse(data)
-  #      .success (data) ->
-  #        $scope.processResponse(data)
+    $http.post("/admin/article", article).then (rs) ->
+      $scope.processResponse(rs.data)
   $scope.hasCaption = (translation)->
     translation.caption != undefined && translation.caption.length > 0
