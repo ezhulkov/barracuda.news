@@ -1,73 +1,73 @@
-@(sectionClass: String = "", subMenu: Option[Html], activeMenu: Option[String] = None, controller: Option[String] = None)(content: Html)(implicit user: Account)
+@(sectionClass: String = "", subMenu: Option[Html], activeMenu: Option[String] = None, controller: Option[String] = None)(content: Html)(implicit user: Account, messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
-@cssFiles = {
-    <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
-    <link rel="stylesheet" href="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.css")">
-    <link rel="stylesheet" href="@routes.Assets.versioned("lib/chosen/chosen.min.css")">
-    <link rel="stylesheet" href="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.css")">
-    <link rel="stylesheet" href="@routes.Assets.versioned("lib/remodal/dist/remodal.css")">
-    <link rel="stylesheet" href="@routes.Assets.versioned("lib/remodal/dist/remodal-default-theme.css")">
-}
+    @cssFiles = {
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/chosen/chosen.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/remodal/dist/remodal.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("lib/remodal/dist/remodal-default-theme.css")">
+    }
 
-@jsFiles = {
-    <script src="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/alloy-editor-all-min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("lib/moment/min/moment.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("lib/moment-timezone/builds/moment-timezone.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("lib/angular-chosen-localytics/dist/angular-chosen.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("lib/chosen/chosen.jquery.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("lib/remodal/dist/remodal.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("lib/github-com-nervgh-angular-file-upload/dist/angular-file-upload.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/paging.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("javascripts/alloy_custom.js")" type="text/javascript"></script>
-}
+    @jsFiles = {
+        <script src="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/alloy-editor-all-min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("lib/moment/min/moment.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("lib/moment-timezone/builds/moment-timezone.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("lib/angular-chosen-localytics/dist/angular-chosen.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("lib/chosen/chosen.jquery.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("lib/remodal/dist/remodal.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("lib/github-com-nervgh-angular-file-upload/dist/angular-file-upload.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/paging.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/alloy_custom.js")" type="text/javascript"></script>
+    }
 
-@layout.main("Admin area", cssFiles = cssFiles, jsFiles = jsFiles) {
+    @layout.main(title = Some("Admin area"), cssFiles = cssFiles, jsFiles = jsFiles){
 
-    <div class="app-wrapper" data-ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}'")).orNull data-ng-class="{'loading-active': loading}">
+        <div class="app-wrapper" data-ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}'")).orNull data-ng-class="{'loading-active': loading}">
 
-        <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
+            <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
 
-            <header>
-                <h2><a href="@routes.FrontendController.index()">Admin space</a></h2>
-                <ul class="auth">
-                    <li>@user.name</li>
-                    <li><a href="@routes.AuthController.logout()">logout</a></li>
-                </ul>
-            </header>
+                <header>
+                    <h2><a href="@routes.FrontendController.index()">Admin space</a></h2>
+                    <ul class="auth">
+                        <li>@user.name</li>
+                        <li><a href="@routes.AuthController.logout()">logout</a></li>
+                    </ul>
+                </header>
 
-            <aside class="main-menu">
-                <ul>
-                    <li id="news">
-                        <a href="@routes.AdminController.index" alt-href="article">News</a>
-                    </li>
-                    <li id="layouts">
-                        <a href="@routes.AdminController.layouts" alt-href="layout">Layouts</a>
-                    </li>
-                </ul>
-            </aside>
+                <aside class="main-menu">
+                    <ul>
+                        <li id="news">
+                            <a href="@routes.AdminController.index" alt-href="article">News</a>
+                        </li>
+                        <li id="layouts">
+                            <a href="@routes.AdminController.layouts" alt-href="layout">Layouts</a>
+                        </li>
+                    </ul>
+                </aside>
 
-            @subMenu.map { menu =>
-            <aside class="sub-menu ng-cloak">
-                @menu
-            </aside>
-            }.orNull
+                @subMenu.map{ menu =>
+                <aside class="sub-menu ng-cloak">
+                    @menu
+                </aside>
+                }.orNull
 
-            <section class="main-section ng-cloak @sectionClass">
-                <div class="flash" data-ng-show="result.result">{{result.result}}</div>
-                @content
-            </section>
+                <section class="main-section ng-cloak @sectionClass">
+                    <div class="flash" data-ng-show="result.result">{{result.result}}</div>
+                    @content
+                </section>
 
-        </main>
+            </main>
 
-        <div class="loading-overlay">
-            <div>
-                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+            <div class="loading-overlay">
+                <div>
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
             </div>
+
         </div>
 
-    </div>
-
-}
+    }

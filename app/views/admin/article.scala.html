@@ -1,4 +1,4 @@
-@(article: String, tags: String, langs: String, articleNames: String)(implicit user: Account)
+@(article: String, tags: String, langs: String, articleNames: String)(implicit user: Account, messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
     @sidebar = {
         <ul class="langs">
@@ -23,7 +23,7 @@
 
     }
 
-    @layout.admin("article-section", subMenu = Some(sidebar), activeMenu = Some("#news"), controller = Some("ArticleController")) {
+    @layout.admin("article-section", subMenu = Some(sidebar), activeMenu = Some("#news"), controller = Some("ArticleController")){
 
         <div>
             <ul class="breadcrumbs">
@@ -46,7 +46,7 @@
                 </dl>
                 <dl class="publish">
                     <dt><label for="publish">Publish date:</label></dt>
-                    <dd><input type="text" date-time view="hours" timezone="Europe/Moscow" format="dd.MM.YYYY HH:mm z" name="publish" data-ng-model="articleModel.publish_moment"></dd>
+                    <dd><input type="text" date-time view="hours" timezone="Europe/Moscow" format="DD.MM.YYYY HH:mm z" name="publish" data-ng-model="articleModel.publish_moment"></dd>
                 </dl>
                 <dl class="youtube">
                     <dt><label for="youtube">Youtube cover ID (optional):</label></dt>
@@ -79,7 +79,16 @@
             <fieldset>
                 <div class="lang-label">{{selectedLang.label}}:</div>
                 <dl class="caption">
-                    <dd><input id="caption" type="text" name="caption" data-ng-model="translation.caption" placeholder="Enter caption to enable {{selectedLang.label | lowercase}} translation"></dd>
+                    <dd><input type="text" name="caption" data-ng-model="translation.caption" placeholder="Enter article title to enable {{selectedLang.label | lowercase}} translation"></dd>
+                </dl>
+                <dl data-ng-show="hasCaption(translation)">
+                    <dd><input type="text" name="title" data-ng-model="translation.title" placeholder="SEO: title, might be equal to article title"></dd>
+                </dl>
+                <dl data-ng-show="hasCaption(translation)">
+                    <dd><input type="text" name="keywords" data-ng-model="translation.keywords" placeholder="SEO: article keywords"></dd>
+                </dl>
+                <dl class="seo-description" data-ng-show="hasCaption(translation)">
+                    <dd><textarea type="text" name="description" data-ng-model="translation.description" placeholder="SEO: article short description"></textarea></dd>
                 </dl>
                 <dl data-ng-show="hasCaption(translation)">
                     <dd>
@@ -87,11 +96,6 @@
                             <div class="container">
                                 <div class="article-edit">
                                     <alloy-editor id="article_editor" data-ng-model="translation.text" config="alloyConfig"></alloy-editor>
-                                </div>
-                                <div class="adv hidden">
-                                    <div class="banner">
-                                        <img src="https://placehold.it/300x600">
-                                    </div>
                                 </div>
                             </div>
                         </article>

@@ -8,6 +8,8 @@ import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
 import org.apache.commons.lang3.StringUtils
 import play.api.i18n.Lang
+import play.api.i18n.Messages
+import play.api.i18n.Messages.Message
 import play.api.libs.json.Json
 import services.LangUtils
 import services.Utils
@@ -123,6 +125,9 @@ object CoreModels {
     keywords: Option[String],
     media: Seq[NewsMedia] = Nil
   ) {
+    def pageTitle(implicit messages: Messages) = Seq(title, caption).flatten.headOption.getOrElse(messages("site.title"))
+    def pageDescription(implicit messages: Messages) = Seq(description, caption).flatten.headOption.getOrElse(messages("site.description"))
+    def pageKeywords(implicit messages: Messages) = keywords.getOrElse(messages("site.keywords"))
     def searchMatch(q: String) = (text ++ caption).mkString(" ").toLowerCase.contains(q.toLowerCase)
   }
   case class TrackingEvent(id: Option[UUID], name: Option[String], eventStart: Option[DateTime], eventEnd: Option[DateTime], imageUrl: Option[String], races: Option[Seq[TrackingRace]]) {

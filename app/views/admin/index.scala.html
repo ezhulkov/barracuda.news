@@ -1,4 +1,4 @@
-@(news: String)(implicit user: Account)
+@(news: String)(implicit user: Account, messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
 @sidebar = {
     <ul>

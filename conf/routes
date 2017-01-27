@@ -2,7 +2,7 @@
 #Frontend
 
 GET           /                             controllers.FrontendController.index
-GET           /topic/:tag                   controllers.FrontendController.topic(tag:String,title:Option[String]?=None)
+GET           /topic/:tag                   controllers.FrontendController.topic(tag:String)
 GET           /news_list/:tag               controllers.FrontendController.newsList(tag:String,from:Option[Int]?=None)
 GET           /article/:url                 controllers.FrontendController.article(url:String)
 GET           /tracking                     controllers.FrontendController.tracking

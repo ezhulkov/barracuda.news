@@ -1,8 +1,7 @@
-@(news: Seq[Article], rootTagName: Option[String], offset: Option[Int])(implicit messages: Messages, lang: Lang, env: Environment)
+@(news: Seq[Article], rootTag: String, offset: Option[Int])(implicit messages: Messages, lang: Lang, env: Environment)
 
-<section class="news-list container">
+<div class="news-list container">
     <div class="content-body cut-images">
-        @rootTagName.map { t => <h1>@t</h1> }
         @components.newsListBlock(news, offset)
     </div>
-</section>
+</div>

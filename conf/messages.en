@@ -1,7 +1,20 @@
+site.title=Barracuda News - Regattas of various classes news agency
+site.description=Barracuda News agency covers all the intense regattas of various classes around the world!
+site.keywords=barracuda news, regatta, sailing news, regatta news, sailing, melges, regattascope
+
+topic.title.stories=Barracuda News - Regattas stories
+topic.description.stories=
+topic.keywords.stories=barracuda news, regatta, regatta stories, sailing stories, sailing news, regatta news, sailing, melges
+
+topic.title.tracking=Barracuda News - Tracking
+topic.description.tracking=
+topic.keywords.tracking=barracuda news, tracking, regattascope, melges
+
+title.tracking.short=Regattascope
+title.tracking=Regattascope - tracking
 title.topics=Topics
 title.news=News
 title.stories=Stories
-title.tracking=Tracking
 title.media=Media
 title.fish=Fish production
 title.search=Search
@@ -14,14 +27,17 @@ title.follow=Follow us
 title.newsletter=Newsletter
 title.enterEmail=Enter your email
 title.subscribe=Subscribe
+
 tracking.show=Show event
 tracking.hide=Hide event
 tracking.replay=Replay
 tracking.online=Online
 tracking.soon=Soon
+
 error.403=Error 403 - forbidden
 error.404=Error 404 - page not found
 error.500=Error 500 - server error
+
 see.more=Read more:
 empty.article=Empty article
 

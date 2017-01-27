@@ -1,4 +1,4 @@
-@(layoutModel: String, tags: String, rootTags: String, langs: String, newsTypes: String, rowHeights: String)(implicit user: Account)
+@(layoutModel: String, tags: String, rootTags: String, langs: String, newsTypes: String, rowHeights: String)(implicit user: Account, messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
 @sidebar = {
     <ul>

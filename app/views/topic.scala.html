@@ -1,14 +1,18 @@
-@(layoutOpt: Option[LayoutConfig], news: Seq[Article], rootTag: String, rootTagName: Option[String])(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
+@(layoutOpt: Option[LayoutConfig], news: Seq[Article], rootTag: String)(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
-@layout.front(rootTagName.getOrElse("barracuda.news")) {
+    @layout.front(
+        title = messages.get(s"topic.title.$rootTag").filterNot(_.isEmpty),
+        description = messages.get(s"topic.description.$rootTag").filterNot(_.isEmpty),
+        keywords = messages.get(s"topic.keywords.$rootTag").filterNot(_.isEmpty)
+    ){
 
-    @layoutOpt match {
-        case Some(layout) => {
-            @components.newsGrid(layout, news, rootTag)
+        @layoutOpt match {
+            case Some(layout) => {
+                @components.newsGrid(layout, news, rootTag)
+            }
+            case None => {
+                @components.newsList(news, rootTag, None)
+            }
         }
-        case None => {
-            @components.newsList(news, rootTagName, None)
-        }
+
     }
-
-}

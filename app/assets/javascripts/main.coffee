@@ -1,5 +1,6 @@
 @baseLine = 24
-Array::filter = (func) -> x for x in @ when func(x)
+
+Array::filterArray = (func) -> x for x in @ when func(x)
 
 cutImages = (parent)->
   $(".cut-images img", parent).each (i, e) ->
@@ -10,7 +11,6 @@ cutImages = (parent)->
 setActiveImage = (li) ->
   wrapper = $(li).closest(".gallery-wrapper")
   preview = $(wrapper).find(".gallery-preview")
-  imageErapper = $(wrapper).closest(".image-wrapper")
   image = $(li).find("p.image img").clone()
   caption = $(li).find("p.caption").clone()
   preview.find("p").remove()
@@ -90,7 +90,7 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
     if($scope.searchString != undefined && $scope.searchString.length >= 2)
       $http.post("/search?q=" + $scope.searchString)
         .success (data) ->
-        $scope.items = data
+      $scope.items = data
     else
       $scope.items = []
   $scope.closeArticle = ->
@@ -104,8 +104,8 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
 
 adminApp.controller "LayoutsController", ($timeout, $window, $scope, $http) ->
   $scope.layouts = $window.layouts
-  $scope.layoutsTagged = $scope.layouts.filter (item)-> item.tag != undefined
-  $scope.layoutsUntagged = $scope.layouts.filter (item)-> item.tag == undefined
+  $scope.layoutsTagged = $scope.layouts.filterArray (item)-> item.tag != undefined
+  $scope.layoutsUntagged = $scope.layouts.filterArray (item)-> item.tag == undefined
   $scope.hasUntagged = ()->
     $scope.layoutsUntagged != undefined && $scope.layoutsUntagged.length > 0
 
@@ -173,7 +173,7 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
   $scope.loadTags = (query) ->
     if(query.length == 0)
       return $scope.tags
-    return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
+    return $scope.tags.filterArray (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
   initRemodal = () ->
     $timeout ->
       $('.remodal').remodal()
@@ -220,15 +220,15 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
       layout.tag = undefined
     $http.post("/admin/layout", layout)
       .error (data, status) ->
-      $scope.processResponse(data)
+    $scope.processResponse(data)
       .success (data) ->
-      $scope.processResponse(data)
+    $scope.processResponse(data)
   $scope.delete = ->
     $http.delete("/admin/layout/" + $scope.layoutModel.id)
       .error (data, status) ->
-      $scope.processResponse(data)
+    $scope.processResponse(data)
       .success (data) ->
-      $window.location.pathname = data.redirect_url
+    $window.location.pathname = data.redirect_url
 
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
   $scope.newsList = $window.newsList
@@ -276,7 +276,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
   $scope.loadTags = (query) ->
     if(query.length == 0)
       return $scope.tags
-    return $scope.tags.filter (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
+    return $scope.tags.filterArray (x) -> x.toLowerCase().indexOf(query.toLowerCase()) != -1
   $scope.showCoverPhoto = ->
     $scope.articleHasId && $scope.articleModel.coverMedia != undefined
   $scope.articleHasId = ->
@@ -308,19 +308,19 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
   $scope.delete = ->
     $http.delete("/admin/article/" + $scope.articleModel.id)
       .error (data, status) ->
-      console.log("error")
+    console.log("error")
       .success (data) ->
-      $window.location.pathname = data.redirect_url
+    $window.location.pathname = data.redirect_url
   $scope.save = ->
     $scope.loading = true
     article = angular.copy($scope.articleModel)
     article.publish = article.publish_moment.valueOf()
     if(article.crossLinks != undefined)
       article.crossLinks = article.crossLinks.map (t)-> parseInt(t.id)
-    $http.post("/admin/article", article)
-      .error (data, status) ->
-      $scope.processResponse(data)
-      .success (data) ->
-      $scope.processResponse(data)
+    request = $http.post("/admin/article", article)
+  #    request.error (data) ->
+  #      $scope.processResponse(data)
+  #      .success (data) ->
+  #        $scope.processResponse(data)
   $scope.hasCaption = (translation)->
     translation.caption != undefined && translation.caption.length > 0

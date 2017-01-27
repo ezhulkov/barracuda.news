@@ -9,7 +9,7 @@
                 @if(block.tag) {
                     <div class="topic-col @block.size.cssClass @if(block.featured) {featured} type-@block.newsType.cssClass @if(block.localCaption.isEmpty) {no-caption}">
                         @for(caption <- block.localCaption) {
-                            <h2><a href="@routes.FrontendController.topic(block.tag, Some(caption)).withLang">@caption</a></h2>
+                            <h2><a href="@routes.FrontendController.topic(block.tag).withLang">@caption</a></h2>
                         }
                         <div class="items">
                         @{

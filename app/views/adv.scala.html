@@ -1,6 +1,6 @@
 @()(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
-    @layout.front(messages("title.advertising")){
+    @layout.front(title = Some(messages("title.advertising"))){
 
         <div class="container">
             <div class="content-body generic">

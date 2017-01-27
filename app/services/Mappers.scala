@@ -132,10 +132,16 @@ object Mappers {
     def create(articleId: Long, lang: Lang, translation: Translation)(implicit session: DBSession): Try[Long] = Try(Translation.createWithAttributes(
       'articleId -> articleId,
       'lang -> lang.code,
+      'title -> translation.title.filter(_.nonEmpty).orNull,
+      'keywords -> translation.keywords.filter(_.nonEmpty).orNull,
+      'description -> translation.description.filter(_.nonEmpty).orNull,
       'caption -> translation.caption.filter(_.nonEmpty).orNull,
       'text -> translation.text.filter(_.nonEmpty).orNull
     ))
     def update(translation: Translation, translationId: Long)(implicit session: DBSession): Try[Int] = Try(Translation.updateById(translationId).withAttributes(
+      'title -> translation.title.filter(_.nonEmpty).orNull,
+      'keywords -> translation.keywords.filter(_.nonEmpty).orNull,
+      'description -> translation.description.filter(_.nonEmpty).orNull,
       'caption -> translation.caption.filter(_.nonEmpty).orNull,
       'text -> translation.text.filter(_.nonEmpty).orNull
     ))

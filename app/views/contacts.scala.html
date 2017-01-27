@@ -1,49 +1,49 @@
 @()(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
-    @layout.front(messages("title.contacts")){
+@layout.front(title = Some(messages("title.contacts"))){
 
-        <div class="container">
-            <div class="content-body generic">
-                <h1>@messages("title.contacts")</h1>
-                @en{
-                    <h3>Address:</h3>
-                    <p>
-                        Lacplesa iela 47-21, Riga, Latvia, LV-1011
-                    </p>
+    <div class="container">
+        <div class="content-body generic">
+            <h1>@messages("title.contacts")</h1>
+            @en{
+                <h3>Address:</h3>
+                <p>
+                    Lacplesa iela 47-21, Riga, Latvia, LV-1011
+                </p>
 
-                    <h3>Phone numbers:</h3>
-                    <p>
-                        Italy: +393270676764<br/>
-                        Russia: +79119088684<br/>
-                        Russia: +79219716525<br/>
-                    </p>
+                <h3>Phone numbers:</h3>
+                <p>
+                    Italy: +393270676764<br/>
+                    Russia: +79119088684<br/>
+                    Russia: +79219716525<br/>
+                </p>
 
-                    <h3>emails:</h3>
-                    <p>
-                        <a href="mailto:editor@@barracuda.news" class="active-link">editor@@barracuda.news</a><br/>
-                        <a href="mailto:editor@@barracuda.news" class="active-link">contacts@@barracuda.news</a><br/>
-                    </p>
-                }
-                @ru{
-                    <h3>Адрес:</h3>
-                    <p>
-                        Lacplesa iela 47-21, Riga, Latvia, LV-1011
-                    </p>
+                <h3>emails:</h3>
+                <p>
+                    <a href="mailto:editor@@barracuda.news" class="active-link">editor@@barracuda.news</a><br/>
+                    <a href="mailto:editor@@barracuda.news" class="active-link">contacts@@barracuda.news</a><br/>
+                </p>
+            }
+            @ru{
+                <h3>Адрес:</h3>
+                <p>
+                    Lacplesa iela 47-21, Riga, Latvia, LV-1011
+                </p>
 
-                    <h3>Телефон:</h3>
-                    <p>
-                        Италия: +393270676764<br/>
-                        Россия: +79119088684<br/>
-                        Россия: +79219716525<br/>
-                    </p>
+                <h3>Телефон:</h3>
+                <p>
+                    Италия: +393270676764<br/>
+                    Россия: +79119088684<br/>
+                    Россия: +79219716525<br/>
+                </p>
 
-                    <h3>emails:</h3>
-                    <p>
-                        <a href="mailto:editor@@barracuda.news" class="active-link">editor@@barracuda.news</a><br/>
-                        <a href="mailto:editor@@barracuda.news" class="active-link">contacts@@barracuda.news</a><br/>
-                    </p>
-                }
-            </div>
+                <h3>emails:</h3>
+                <p>
+                    <a href="mailto:editor@@barracuda.news" class="active-link">editor@@barracuda.news</a><br/>
+                    <a href="mailto:editor@@barracuda.news" class="active-link">contacts@@barracuda.news</a><br/>
+                </p>
+            }
         </div>
+    </div>
 
-    }
+}

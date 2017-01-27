@@ -57,12 +57,12 @@ class FrontendController @Inject()(
   def parsedLayout(name: String) = name -> Json.parse(layoutContentStr(name)).as[Layout]
 
   def index() = topic(MAIN_LAYOUT)
-  def topic(tag: String, title: Option[String] = None) = AsyncStack{ implicit request =>
+  def topic(tag: String) = AsyncStack{ implicit request =>
     Future{
       val articles = articleService.allTagged(tag)
         .filter(article => article.translation.exists(t => t.caption.isDefined))
         .take(100)
-      Ok(views.html.topic(layoutService.findByTag(tag).flatMap(l => l.config), articles, tag, title))
+      Ok(views.html.topic(layoutService.findByTag(tag).flatMap(l => l.config), articles, tag))
     }
   }
   def article(url: String) = AsyncStack(implicit request => Future{

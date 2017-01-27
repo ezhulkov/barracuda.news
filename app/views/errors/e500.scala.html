@@ -1,6 +1,6 @@
 @(cause: String)(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
-@layout.front(Messages("error.500")) {
+@layout.front(title = Some(messages("error.500"))){
 
     <div class="container">
         <div class="content-body">

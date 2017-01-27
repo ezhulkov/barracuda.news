@@ -1562,7 +1562,7 @@ footer .copyright span {
 .news-list .item .photo {
   display: none;
 }
-.news-list .item h3 a, .news-list .item h3 a * {
+.news-list .item h2 a, .news-list .item h2 a * {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -1572,7 +1572,7 @@ footer .copyright span {
   background-color: initial;
   text-decoration: none;
 }
-.news-list .item h3 a:hover, .news-list .item h3 a:hover * {
+.news-list .item h2 a:hover, .news-list .item h2 a:hover * {
   color: #f26522 !important;
   background-color: initial;
   text-decoration: none;
@@ -1606,7 +1606,7 @@ footer .copyright span {
   .news-list .item .photo img:hover {
     opacity: 0.95;
   }
-  .news-list .item h3, .news-list .item .date {
+  .news-list .item h2, .news-list .item .date {
     padding-left: 220px;
   }
 }
@@ -2424,6 +2424,9 @@ main.admin-area section.article-section dl.origin {
   float: left;
   margin-right: 33.33333%;
   padding-right: 20px;
+}
+main.admin-area section.article-section dl.seo-description textarea, main.admin-area section.article-section dl.seo-description dd {
+  height: 3rem;
 }
 main.admin-area section.article-section dl.caption {
   padding-top: 24px;

@@ -5,6 +5,7 @@ import play.api.Mode
 import play.api.i18n.Lang
 import play.api.mvc.Call
 import play.api.mvc.RequestHeader
+import play.api.i18n.Messages
 import play.twirl.api.Html
 import utils.Configuration
 
@@ -43,6 +44,10 @@ object LangUtils {
 
   implicit class LangCall(url: Call) {
     def withLang(implicit env: Environment, lang: Lang): String = addLang(url)
+  }
+
+  implicit class MessagesPimped(messages: Messages) {
+    def get(key: String) = if (messages.isDefinedAt(key)) Some(messages(key)) else None
   }
 
 }
