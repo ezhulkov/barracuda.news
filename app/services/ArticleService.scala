@@ -33,6 +33,7 @@ trait ArticleService {
   def allArticles(onlyPublished: Boolean = true): Seq[Article]
   def allTagged(tag: String): Seq[Article]
   def findArticle(id: Long): Option[Article]
+  def findArticleByOldUrl(url: String): Option[Article]
   def findArticle(url: String, lang: Lang = LangUtils.defaultLang): Option[Article]
   def deleteArticle(id: Long)
   def saveArticle(article: Article): Try[Long]
@@ -74,7 +75,8 @@ class ArticleServiceImpl extends ArticleService {
     Mappers.Article.findAllByIdsSeq(tagged.map(t => t.id.getOrElse(0L))).sortBy(t => -t.publish.getMillis)
   }
   override def search(q: String): Seq[Article] = Nil
-  override def findArticle(url: String, lang: Lang = LangUtils.defaultLang): Option[Article] = Mappers.Article.findByUrl(url).map(joinCrossLinks)
+  override def findArticleByOldUrl(url: String) = Mappers.Article.findByUrl(url)
+  override def findArticle(url: String, lang: Lang = LangUtils.defaultLang): Option[Article] = Mappers.Article.findByShortUrl(url).map(joinCrossLinks)
   override def extractImages(translation: Translation): Try[Translation] = Try{
     translation.text match {
       case Some(text) =>
@@ -136,7 +138,12 @@ class ArticleServiceImpl extends ArticleService {
   private def trySaveArticle(article: Article)(implicit s: DBSession): Try[Long] = {
     article.id match {
       case Some(id) =>
-        Mappers.Article.update(article)
+        val shortUrl = article.generateUrl()
+        val articleToSave = Mappers.Article.findByShortUrlAndNotId(shortUrl, id) match {
+          case Some(dup) => article.copy(shortUrl = Some(article.generateUrl(idOpt = Some(id))))
+          case _ => article.copy(shortUrl = Some(shortUrl))
+        }
+        Mappers.Article.update(articleToSave)
         Success(id)
       case None =>
         val result = Mappers.Article.create(article)

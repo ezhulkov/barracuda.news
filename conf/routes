@@ -15,6 +15,7 @@ POST          /search                       controllers.FrontendController.searc
 GET           /sitemap.xml                  controllers.FrontendController.sitemapXml
 GET           /rss                          controllers.FrontendController.rss
 GET           /forbidden                    controllers.FrontendController.forbidden
+GET           /updateAllArticles            controllers.FrontendController.updateAllArticles
 
 #Admin area
 GET           /login                        controllers.AuthController.login

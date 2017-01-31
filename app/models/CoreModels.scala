@@ -80,11 +80,12 @@ object CoreModels {
   }
   case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   object Article {
-    def newArticle = Article(None, None, None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
+    def newArticle = Article(None, None, None, None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
   }
   case class Article(
     id: Option[Long],
     url: Option[String],
+    shortUrl: Option[String],
     origin: Option[String],
     coverMedia: Option[String],
     coverMediaLength: Option[Int],
@@ -95,12 +96,15 @@ object CoreModels {
     crossLinks: Option[Seq[Long]] = None
   ) {
     val publishFormatted            = publish.toString(dateFormat)
-    val publishShortFormatted       = publish.toString("YYYY-MM-dd-")
     val publishSitemap              = publish.toString("YYYY-MM-dd")
     val publishRss                  = publish.toString("EEE, dd MMM yyyy HH:mm:ss Z")
     var crossArticles: Seq[Article] = Nil
-    def transliteratedUrl = translation(LangUtils.defaultLang).flatMap(t => t.caption).map(t => Utils.transliterate(t)).getOrElse(id.toString)
-    def generateUrl = s"$publishShortFormatted-$transliteratedUrl-${id.orNull}"
+    def transliteratedUrl(idOpt: Option[Long] = None) = translation(LangUtils.defaultLang)
+      .flatMap(t => t.caption)
+      .map(t => Utils.transliterate(t))
+      .map(t => idOpt.map(id => s"$t-$id").getOrElse(t))
+      .getOrElse(id.toString)
+    def generateUrl(idOpt: Option[Long] = None) = transliteratedUrl(idOpt)
     def hasTag(tag: String): Boolean = tags.exists(t => t.text.contains(tag))
     def translation(implicit lang: Lang) = translations.find(t => t.lang == lang)
     def translationOrDefault(implicit lang: Lang) = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t => t.caption.isDefined).get)

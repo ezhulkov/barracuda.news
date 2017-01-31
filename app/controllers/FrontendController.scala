@@ -14,6 +14,7 @@ import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 import services.ArticleService
+import services.LangUtils
 import services.LayoutService
 import utils.Configuration
 import scala.concurrent.Future
@@ -66,10 +67,15 @@ class FrontendController @Inject()(
     }
   }
   def article(url: String) = AsyncStack(implicit request => Future{
-    articleService.findArticle(url).orElse(articleService.findArticle(Try(url.toLong).getOrElse(-1L)))
-      .filter(article => article.translation.exists(t => t.caption.isDefined))
-      .map(article => Ok(views.html.article(article)))
-      .getOrElse(NotFound(views.html.errors.e404()))
+    articleService.findArticleByOldUrl(url) match {
+      case Some(article) if article.shortUrl.isDefined =>
+        Logger.info(s"Redirecting from old url $url to ${article.shortUrl.get}")
+        MovedPermanently(LangUtils.addLang(s"/article/${article.shortUrl.get}"))
+      case _ => articleService.findArticle(url).orElse(articleService.findArticle(Try(url.toLong).getOrElse(-1L)))
+        .filter(article => article.translation.exists(t => t.caption.isDefined))
+        .map(article => Ok(views.html.article(article)))
+        .getOrElse(NotFound(views.html.errors.e404()))
+    }
   }
   )
   def newsList(tag: String, offset: Option[Int]) = AsyncStack(implicit request => Future(Ok(views.html.components.newsListBlock(articleService.allTagged(tag), None))))
@@ -89,5 +95,12 @@ class FrontendController @Inject()(
     val news = articleService.allArticles()
     Ok(views.html.rss(news).body.trim).as(XML)
   })
+  def updateAllArticles() = AsyncStack(implicit request => Future{
+    articleService.allArticles(false).foreach{ a =>
+      articleService.saveArticle(a)
+    }
+    Ok("done")
+  }
+  )
 
 }

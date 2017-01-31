@@ -5,7 +5,7 @@
     }
 
     @url(article: Article) = @{
-        routes.FrontendController.article(article.url.getOrElse(article.id.toString)).withLang
+        routes.FrontendController.article(article.shortUrl.getOrElse(article.id.toString)).withLang
     }
 
     @for(item <- news) {

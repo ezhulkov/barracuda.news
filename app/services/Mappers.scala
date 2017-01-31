@@ -93,11 +93,13 @@ object Mappers {
     }
 
     def findById(id: Long): Option[Article] = joins(tagsRef, transRef).findById(id)
-    def findByUrl(url: String): Option[Article] = joins(tagsRef, transRef).findBy(sqls.eq(defaultAlias.url, url))
+    def findByShortUrlAndNotId(url: String, id: Long): Option[Article] = joins(tagsRef, transRef).findBy(sqls.eq(defaultAlias.shortUrl, url).and(sqls.ne(defaultAlias.id, id)))
+    def findByUrl(url: String): Option[Article] = findBy(sqls.eq(defaultAlias.url, url))
+    def findByShortUrl(url: String): Option[Article] = joins(tagsRef, transRef).findBy(sqls.eq(defaultAlias.shortUrl, url))
     def findAllTagged(tag: String): Seq[Article] = joins(tagsRef, transRef).findAllBy(sqls.eq(Tag.defaultAlias.text, tag), ordering)
     def findAllByIdsSeq(ids: Seq[Long]): Seq[Article] = joins(tagsRef, transRef).findAllByIds(ids: _*)
     def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(
-      'url -> article.generateUrl,
+      'shortUrl -> article.shortUrl.filter(_.nonEmpty).orNull,
       'origin -> article.origin.filter(_.nonEmpty).orNull,
       'coverYoutube -> article.coverYoutube.filter(_.nonEmpty).orNull,
       'publish -> article.publish
