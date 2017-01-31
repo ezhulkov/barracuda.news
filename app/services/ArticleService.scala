@@ -138,7 +138,7 @@ class ArticleServiceImpl extends ArticleService {
   private def trySaveArticle(article: Article)(implicit s: DBSession): Try[Long] = {
     article.id match {
       case Some(id) =>
-        val shortUrl = article.generateUrl()
+        val shortUrl = article.shortUrl.getOrElse(article.generateUrl())
         val articleToSave = Mappers.Article.findByShortUrlAndNotId(shortUrl, id) match {
           case Some(dup) => article.copy(shortUrl = Some(article.generateUrl(idOpt = Some(id))))
           case _ => article.copy(shortUrl = Some(shortUrl))
