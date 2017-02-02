@@ -9,6 +9,6 @@ images_dir = "../../public/images"
 javascripts_dir = "../../public/javascripts"
 line_comments = false
 preferred_syntax = :sass
-# output_style = :compressed
+output_style = :compressed
 sourcemap = true
 

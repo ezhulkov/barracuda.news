@@ -42,7 +42,6 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "angular-datepicker" % "2.0.3",
   "org.webjars.bower" % "moment" % "2.10.6",
   "org.webjars.bower" % "moment-timezone" % "0.4.1",
-  "org.webjars.bower" % "jquery-cookie" % "1.4.1",
   "org.webjars.bower" % "chosen" % "1.4.2",
   "org.webjars.bower" % "remodal" % "1.1.0",
   "org.webjars.bower" % "github-com-nervgh-angular-file-upload" % "v2.3.4",
