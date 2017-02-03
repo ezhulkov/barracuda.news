@@ -35,36 +35,37 @@ object Implicits {
   }
   implicit val trackingRaceReads   = Json.reads[TrackingRace]
   implicit val trackingEventReads  = Json.reads[TrackingEvent]
-  implicit val trackingRaceWrites  = JsonPimped.writes[TrackingRace](Json.writes[TrackingRace]) { case (json, obj) =>
+  implicit val trackingRaceWrites  = JsonPimped.writes[TrackingRace](Json.writes[TrackingRace]){ case (json, obj) =>
     json.asInstanceOf[JsObject] +
       ("start_formatted", JsString(obj.startFormatted)) +
       ("end_formatted", JsString(obj.endFormatted))
   }
-  implicit val trackingEventWrites = JsonPimped.writes[TrackingEvent](Json.writes[TrackingEvent]) { case (json, obj) =>
+  implicit val trackingEventWrites = JsonPimped.writes[TrackingEvent](Json.writes[TrackingEvent]){ case (json, obj) =>
     json.asInstanceOf[JsObject] +
       ("start_formatted", JsString(obj.startFormatted)) +
       ("end_formatted", JsString(obj.endFormatted))
   }
   implicit val tagFormat           = Json.format[Tag]
+  implicit val subscribeFormat     = Json.format[Subscribe]
   implicit val mediaFormat         = Json.format[NewsMedia]
   implicit val translationFormat   = Json.format[Translation]
   implicit val blockCaptionFormat  = Json.format[BlockCaption]
   implicit val newsFormat          = Json.format[NewsBlock]
   implicit val rowFormat           = Json.format[NewsRow]
   implicit val layoutConfigFormat  = Json.format[LayoutConfig]
-  implicit val layoutFormatReads   = JsonPimped.reads[Layout](Json.reads[Layout])() { case (json, obj) =>
+  implicit val layoutFormatReads   = JsonPimped.reads[Layout](Json.reads[Layout])(){ case (json, obj) =>
     (json \ "config").toOption match {
       case Some(config) => obj.copy(rawConfig = Some(Json.stringify(config)))
       case _ => obj
     }
   }
-  implicit val layoutFormatWrites  = JsonPimped.writes[Layout](Json.writes[Layout]) { case (json, obj) => obj.rawConfig match {
+  implicit val layoutFormatWrites  = JsonPimped.writes[Layout](Json.writes[Layout]){ case (json, obj) => obj.rawConfig match {
     case Some(conf) => json.asInstanceOf[JsObject] + ("config", Json.parse(conf)) - "rawConfig"
     case _ => json
   }
   }
   implicit val articleReads        = Json.reads[Article]
-  implicit val articleWrites       = JsonPimped.writes[Article](Json.writes[Article]) { case (json, obj) =>
+  implicit val articleWrites       = JsonPimped.writes[Article](Json.writes[Article]){ case (json, obj) =>
     json.asInstanceOf[JsObject] +
       ("publish_time_formatted", JsString(obj.publishFormatted)) +
       ("caption", JsString(obj.translationOrDefault(LangUtils.defaultLang).caption.getOrElse("-")))

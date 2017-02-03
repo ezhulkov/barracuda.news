@@ -44,11 +44,14 @@
             </div>
             <div class="subscribe">
                 <h4>@messages("title.newsletter"):</h4>
-                <div class="control-container">
-                    <input class="inp" type="email" placeholder="@messages("title.enterEmail")" title="@messages("title.enterEmail")">
+                <div data-ng-show="subscribeResult" class="control-container ng-cloak">
+                    <p>@messages("subscribe.result")</p>
                 </div>
-                <div class="control-container">
-                    <input type="submit" class="btn btn-md" value="@messages("title.subscribe")">
+                <div data-ng-hide="subscribeResult" class="control-container ng-cloak">
+                    <input class="inp" placeholder="@messages("title.enterEmail")" data-ng-model="emailString" title="@messages("title.enterEmail")">
+                </div>
+                <div data-ng-hide="subscribeResult" class="control-container ng-cloak">
+                    <input type="button" data-ng-click="subscribe()" class="btn btn-md" value="@messages("title.subscribe")">
                 </div>
             </div>
         </div>

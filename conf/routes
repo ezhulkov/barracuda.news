@@ -12,6 +12,7 @@ GET           /contacts                     controllers.FrontendController.conta
 GET           /sitemap                      controllers.FrontendController.sitemapPage
 GET           /exception                    controllers.FrontendController.exception
 POST          /search                       controllers.FrontendController.search(q:String)
+POST          /subscribe                    controllers.FrontendController.subscribe
 GET           /sitemap.xml                  controllers.FrontendController.sitemapXml
 GET           /rss                          controllers.FrontendController.rss
 GET           /forbidden                    controllers.FrontendController.forbidden

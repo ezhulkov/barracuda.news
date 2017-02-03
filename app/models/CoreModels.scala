@@ -9,7 +9,6 @@ import models.CoreModels.RowHeight.RowHeight
 import org.apache.commons.lang3.StringUtils
 import play.api.i18n.Lang
 import play.api.i18n.Messages
-import play.api.i18n.Messages.Message
 import play.api.libs.json.Json
 import services.LangUtils
 import services.Utils
@@ -65,6 +64,7 @@ object CoreModels {
     val FINISHED = Value("FINISHED")
   }
 
+  case class Subscribe(email: String)
   case class Tag(id: Option[Long], text: Option[String], root: Option[Boolean] = None)
   object Layout {
     def newLayout = Layout(None, None, None, None)

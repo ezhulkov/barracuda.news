@@ -1,19 +1,23 @@
 package controllers
 
 import javax.inject._
+import akka.util.ByteString
 import controllers.stack.LangRedirectElement
 import controllers.stack.LoggingElement
 import models.CoreModels.Layout
+import models.CoreModels.Subscribe
 import models.CoreModels.TrackingEvent
 import play.api.Environment
 import play.api.Logger
 import play.api.cache.CacheApi
+import play.api.http.HttpEntity
 import play.api.i18n.I18nSupport
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 import services.ArticleService
+import services.EmailService
 import services.LangUtils
 import services.LayoutService
 import utils.Configuration
@@ -27,6 +31,7 @@ import scala.util.Try
 class FrontendController @Inject()(
   implicit val env: Environment,
   articleService: ArticleService,
+  emailService: EmailService,
   layoutService: LayoutService,
   cache: CacheApi,
   ws: WSClient,
@@ -87,8 +92,19 @@ class FrontendController @Inject()(
   def adv = AsyncStack(implicit request => Future(Ok(views.html.adv())))
   def forbidden = AsyncStack(implicit request => Future(Forbidden(views.html.errors.e403())))
   def sitemapPage = AsyncStack(implicit request => Future(Ok(views.html.sitemapPage())))
+  def subscribe = AsyncStack{ implicit request =>
+    request.body.asJson.map(json => json.as[Subscribe])
+      .map(emailService.subscribe)
+      .getOrElse(Future(play.api.http.Status.BAD_REQUEST))
+      .map{ rs =>
+        Result(
+          header = ResponseHeader(rs, Map.empty),
+          body = HttpEntity.Strict(ByteString("done"), Some("text/plain"))
+        )
+      }
+  }
   def sitemapXml = AsyncStack(implicit request => Future{
-    val news = articleService.allArticles(true)
+    val news = articleService.allArticles()
     Ok(views.html.sitemapXml(news).body.trim).as(XML)
   })
   def rss = AsyncStack(implicit request => Future{
