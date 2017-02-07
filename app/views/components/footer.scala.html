@@ -43,16 +43,18 @@
                 </ul>
             </div>
             <div class="subscribe">
-                <h4>@messages("title.newsletter"):</h4>
-                <div data-ng-show="subscribeResult" class="control-container ng-cloak">
-                    <p>@messages("subscribe.result")</p>
-                </div>
-                <div data-ng-hide="subscribeResult" class="control-container ng-cloak">
-                    <input class="inp" placeholder="@messages("title.enterEmail")" data-ng-model="emailString" title="@messages("title.enterEmail")">
-                </div>
-                <div data-ng-hide="subscribeResult" class="control-container ng-cloak">
-                    <input type="button" data-ng-click="subscribe()" class="btn btn-md" value="@messages("title.subscribe")">
-                </div>
+                <form ng-submit="subscribe('@addLang("/subscribe")(env, lang)')">
+                    <h4>@messages("title.newsletter"):</h4>
+                    <div data-ng-show="subscribeResult" class="control-container ng-cloak">
+                        <p class="result">@messages("subscribe.result")</p>
+                    </div>
+                    <div data-ng-hide="subscribeResult" class="control-container ng-cloak">
+                        <input class="inp" placeholder="@messages("title.enterEmail")" data-ng-model="emailString" title="@messages("title.enterEmail")">
+                    </div>
+                    <div data-ng-hide="subscribeResult" class="control-container ng-cloak">
+                        <input type="submit" class="btn btn-md" value="@messages("title.subscribe")">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -1,12 +1,19 @@
 package services
 
+import javax.inject.Inject
 import com.google.inject.ImplementedBy
 import javax.inject.Singleton
 import models.CoreModels.Subscribe
 import org.apache.commons.lang3.StringUtils
+import play.api.Logger
+import play.api.http.Status
 import play.api.i18n.Lang
 import play.api.libs.json.Json
+import play.api.libs.ws.WSAuthScheme
+import play.api.libs.ws.WSClient
 import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+import scala.concurrent.duration.SECONDS
 
 /**
   * Created by ezhulkov on 03/02/2017.
@@ -19,32 +26,39 @@ trait EmailService {
 }
 
 @Singleton
-class EmailServiceImpl extends EmailService {
+class EmailServiceImpl @Inject()(
+  ws: WSClient
+) extends EmailService {
 
   import scala.concurrent.ExecutionContext.Implicits.global
 
-  val MC_SUB_ENDPOINT = "https://us11.api.mailchimp.com/2.0/lists/subscribe"
-  val RUS_LIST        = "218833"
-  val INT_LIST        = "218817"
+  val MC_SUB_ENDPOINT = "https://us13.api.mailchimp.com/3.0/lists/%s/members"
+  val RUS_LIST        = "33280126dd"
+  val INT_LIST        = "1c3fda29ec"
   val API_KEY         = "cc9eb7cb331b7f91d768d31342747d2a-us13"
 
-  override def subscribe(info: Subscribe)(implicit lang: Lang): Future[Int] = Future{
-    if (StringUtils.isEmpty(info.email)) 400 else {
+  override def subscribe(info: Subscribe)(implicit lang: Lang): Future[Int] = {
+    if (StringUtils.isEmpty(info.email)) Future.successful(Status.BAD_REQUEST)
+    else {
       val listId = if (lang.code == "ru") RUS_LIST else INT_LIST
       val json = mcJsonBody(listId, info.email)
-      200
+      val duration = Duration(1, SECONDS)
+      ws.url(MC_SUB_ENDPOINT.format(listId))
+        .withAuth("barracuda", API_KEY, WSAuthScheme.BASIC)
+        .withFollowRedirects(true)
+        .withRequestTimeout(duration)
+        .post(json)
+        .map{ response =>
+          Logger.info(s"User ${info.email} mailchimp subscription, response: ${response.status}, ${response.body}")
+          response.status
+        }
     }
   }
 
   private def mcJsonBody(listId: String, email: String) = {
     Json.stringify(Json.obj(
-      "apikey" -> API_KEY,
-      "id" -> listId,
-      "email" -> Json.obj(
-        "email" -> email,
-        "euid" -> email,
-        "luid" -> email
-      )
+      "email_address" -> email,
+      "status" -> "subscribed"
     ))
   }
 

@@ -77,9 +77,11 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
   $scope.emailString = undefined
   $scope.subscribeResult = undefined
   $scope.items = []
-  $scope.subscribe = ->
-    $http.post("/subscribe", {email: $scope.emailString}).then (rs) ->
-      $scope.subscribeResult=rs
+  $scope.subscribe = (url) ->
+    $http.post(url, {email: $scope.emailString}).then ((rs) ->
+      $scope.subscribeResult = rs
+    ), (error)->
+      console.log(error)
   $scope.search = ->
     if($scope.searchString != undefined && $scope.searchString.length >= 2)
       $http.post("/search?q=" + $scope.searchString).then (rs) ->
