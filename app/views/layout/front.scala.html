@@ -1,38 +1,38 @@
 @(title: Option[String] = None, description: Option[String] = None, keywords: Option[String] = None, metaTags: Option[Html] = None)(content: Html)(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
-    @jsFiles = {
+@jsFiles = {
 
-        <script>
-                (function (i, s, o, g, r, a, m) {
-                    i['GoogleAnalyticsObject'] = r;
-                    i[r] = i[r] || function () {
-                                (i[r].q = i[r].q || []).push(arguments)
-                            }, i[r].l = 1 * new Date();
-                    a = s.createElement(o),
-                            m = s.getElementsByTagName(o)[0];
-                    a.async = 1;
-                    a.src = g;
-                    m.parentNode.insertBefore(a, m)
-                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    <script src="https://cdn.ravenjs.com/3.10.0/raven.min.js"></script>
+    <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-82748149-1', 'auto');
+            ga('send', 'pageview');
+            Raven.config('https://7f3b1a91420a45ebbdc6bbcad92f8feb@@sentry.io/136564').install()
+    </script>
 
-                ga('create', 'UA-82748149-1', 'auto');
-                ga('send', 'pageview');
+}
 
-        </script>
+@layout.main(title = title, description = description, keywords = keywords, jsFiles = jsFiles, cssFiles = Html(""), metaTags = metaTags){
 
-    }
+    <div class="app-wrapper" data-ng-app="frontendApp" data-ng-controller="FrontendController as frontendCtrl" data-data-ng-class="{'search-active': searchOn}">
+        <main>
+            @components.header()
+            <div class="main-content">
+            @content
+            </div>
+            @components.footer()
+        </main>
+        @components.search()
+    </div>
 
-    @layout.main(title = title, description = description, keywords = keywords, jsFiles = jsFiles, cssFiles = Html(""), metaTags = metaTags){
-
-        <div class="app-wrapper" data-ng-app="frontendApp" data-ng-controller="FrontendController as frontendCtrl" data-data-ng-class="{'search-active': searchOn}">
-            <main>
-                @components.header()
-                <div class="main-content">
-                @content
-                </div>
-                @components.footer()
-            </main>
-            @components.search()
-        </div>
-
-    }
+}

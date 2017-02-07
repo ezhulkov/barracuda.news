@@ -18,8 +18,15 @@
         <appender-ref ref="FILE"/>
     </appender>
 
+    <appender name="SENTRY" class="com.getsentry.raven.logback.SentryAppender">
+        <dsn>https://7f3b1a91420a45ebbdc6bbcad92f8feb:76daee6048914dbcb3f2a419fa8dfe66@sentry.io/136564?options</dsn>
+    </appender>
+
     <logger name="play" level="INFO"/>
     <logger name="application" level="INFO"/>
+    <logger name="application" level="ERROR">
+        <appender-ref ref="SENTRY"/>
+    </logger>
 
     <logger name="org.apache.hadoop" level="WARN"/>
     <logger name="io.netty" level="WARN"/>

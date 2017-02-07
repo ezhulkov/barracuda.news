@@ -47,7 +47,8 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "github-com-nervgh-angular-file-upload" % "v2.3.4",
   "org.webjars.npm" % "angular-chosen-localytics" % "1.4.0",
   "org.webjars" % "jquery" % "2.2.4",
-  "org.webjars" % "font-awesome" % "4.6.3"
+  "org.webjars" % "font-awesome" % "4.6.3",
+  "com.getsentry.raven" % "raven-logback" % "7.8.1"
 )
 
 TwirlKeys.templateImports ++= Seq(
@@ -60,6 +61,8 @@ TwirlKeys.templateImports ++= Seq(
   "play.api.i18n._",
   "models.Implicits._"
 )
+
+pipelineStages := Seq(digest)
 
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, UniversalPlugin, SbtWeb)
