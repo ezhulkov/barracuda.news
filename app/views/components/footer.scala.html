@@ -43,7 +43,7 @@
                 </ul>
             </div>
             <div class="subscribe">
-                <form ng-submit="subscribe('@addLang("/subscribe")(env, lang)')">
+                <form data-ng-submit="subscribe('@addLang("/subscribe")(env, lang)')">
                     <h4>@messages("title.newsletter"):</h4>
                     <div data-ng-show="subscribeResult" class="control-container ng-cloak">
                         <p class="result">@messages("subscribe.result")</p>

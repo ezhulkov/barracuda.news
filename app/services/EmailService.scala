@@ -55,10 +55,11 @@ class EmailServiceImpl @Inject()(
     }
   }
 
-  private def mcJsonBody(listId: String, email: String) = {
+  private def mcJsonBody(listId: String, email: String)(implicit lang: Lang) = {
     Json.stringify(Json.obj(
       "email_address" -> email,
-      "status" -> "subscribed"
+      "status" -> "subscribed",
+      "language" -> lang.code
     ))
   }
 

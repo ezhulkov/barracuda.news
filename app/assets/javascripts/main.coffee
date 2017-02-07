@@ -81,6 +81,7 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
     $http.post(url, {email: $scope.emailString}).then ((rs) ->
       $scope.subscribeResult = rs
     ), (error)->
+      $scope.subscribeResult = "error"
       console.log(error)
   $scope.search = ->
     if($scope.searchString != undefined && $scope.searchString.length >= 2)
