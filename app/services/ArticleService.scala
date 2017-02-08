@@ -80,8 +80,7 @@ class ArticleServiceImpl extends ArticleService {
     else {
       val allNews = Mappers.Article.findAll(true)
       allNews.filter{ article =>
-        val translation = article.translationOrDefault
-        translation.caption.map(_.toLowerCase()).exists(_.contains(q.toLowerCase)) || translation.text.map(_.toLowerCase()).exists(_.contains(q.toLowerCase))
+        article.translations.flatMap(t => Seq(t.caption, t.text).flatten).map(_.toLowerCase).distinct.exists(text => text.contains(q.toLowerCase))
       }
     }
   }
