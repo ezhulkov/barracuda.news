@@ -37,11 +37,10 @@ class EmailServiceImpl @Inject()(
   val INT_LIST        = "1c3fda29ec"
   val API_KEY         = "cc9eb7cb331b7f91d768d31342747d2a-us13"
 
-  override def subscribe(info: Subscribe)(implicit lang: Lang): Future[Int] = {
-    if (StringUtils.isEmpty(info.email)) Future.successful(Status.BAD_REQUEST)
-    else {
+  override def subscribe(info: Subscribe)(implicit lang: Lang): Future[Int] = info.email match {
+    case Some(email) =>
       val listId = if (lang.code == "ru") RUS_LIST else INT_LIST
-      val json = mcJsonBody(listId, info.email)
+      val json = mcJsonBody(listId, email)
       val duration = Duration(1, SECONDS)
       ws.url(MC_SUB_ENDPOINT.format(listId))
         .withAuth("barracuda", API_KEY, WSAuthScheme.BASIC)
@@ -52,7 +51,7 @@ class EmailServiceImpl @Inject()(
           Logger.info(s"User ${info.email} mailchimp subscription, response: ${response.status}, ${response.body}")
           response.status
         }
-    }
+    case _ => Future.successful(Status.BAD_REQUEST)
   }
 
   private def mcJsonBody(listId: String, email: String)(implicit lang: Lang) = {

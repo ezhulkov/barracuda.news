@@ -13,7 +13,9 @@ import play.api.cache.CacheApi
 import play.api.http.HttpEntity
 import play.api.i18n.I18nSupport
 import play.api.i18n.MessagesApi
+import play.api.libs.json.JsArray
 import play.api.libs.json.Json
+import play.api.libs.json.__
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 import services.ArticleService
@@ -84,7 +86,13 @@ class FrontendController @Inject()(
   }
   )
   def newsList(tag: String, offset: Option[Int]) = AsyncStack(implicit request => Future(Ok(views.html.components.newsListBlock(articleService.allTagged(tag), None))))
-  def search(q: String) = AsyncStack{ implicit request => Future(Ok(Json.toJson(articleService.search(q))).as(JSON)) }
+  def search(q: String) = AsyncStack{ implicit request =>
+    Future{
+      val articles = Json.toJson(articleService.search(q).sortBy(-_.publish.getMillis))
+      val pruned = JsArray(articles.asInstanceOf[JsArray].value.map{ t => t.transform((__ \ 'translations).json.prune).get })
+      Ok(pruned).as(JSON)
+    }
+  }
   def tracking = AsyncStack(implicit request => trackingData.map(t => Ok(views.html.tracking(t))))
   def about = AsyncStack(implicit request => Future(Ok(views.html.about())))
   def contacts = AsyncStack(implicit request => Future(Ok(views.html.contacts())))

@@ -14,6 +14,7 @@ import models.CoreModels.Article
 import models.CoreModels.Tag
 import models.CoreModels.Translation
 import net.coobird.thumbnailator.Thumbnails
+import org.apache.commons.lang3.StringUtils
 import org.joda.time.DateTime
 import play.api.Logger
 import play.api.i18n.Lang
@@ -74,7 +75,16 @@ class ArticleServiceImpl extends ArticleService {
     val tagged = Mappers.Article.findAllTagged(tag: String)
     Mappers.Article.findAllByIdsSeq(tagged.map(t => t.id.getOrElse(0L))).sortBy(t => -t.publish.getMillis)
   }
-  override def search(q: String): Seq[Article] = Nil
+  override def search(q: String): Seq[Article] = {
+    if (StringUtils.isEmpty(q)) Nil
+    else {
+      val allNews = Mappers.Article.findAll(true)
+      allNews.filter{ article =>
+        val translation = article.translationOrDefault
+        translation.caption.map(_.toLowerCase()).exists(_.contains(q.toLowerCase)) || translation.text.map(_.toLowerCase()).exists(_.contains(q.toLowerCase))
+      }
+    }
+  }
   override def findArticleByOldUrl(url: String) = Mappers.Article.findByUrl(url)
   override def findArticle(url: String, lang: Lang = LangUtils.defaultLang): Option[Article] = Mappers.Article.findByShortUrl(url).map(joinCrossLinks)
   override def extractImages(translation: Translation): Try[Translation] = Try{

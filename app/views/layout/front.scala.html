@@ -24,7 +24,7 @@
 
 @layout.main(title = title, description = description, keywords = keywords, jsFiles = jsFiles, cssFiles = Html(""), metaTags = metaTags){
 
-    <div class="app-wrapper" data-ng-app="frontendApp" data-ng-controller="FrontendController as frontendCtrl" data-data-ng-class="{'search-active': searchOn}">
+    <div class="app-wrapper" data-ng-app="frontendApp" data-ng-controller="FrontendController as frontendCtrl" data-ng-class="{'search-active': searchOn}">
         <main>
             @components.header()
             <div class="main-content">

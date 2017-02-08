@@ -68,7 +68,8 @@ object Implicits {
   implicit val articleWrites       = JsonPimped.writes[Article](Json.writes[Article]){ case (json, obj) =>
     json.asInstanceOf[JsObject] +
       ("publish_time_formatted", JsString(obj.publishFormatted)) +
-      ("caption", JsString(obj.translations.flatMap(_.caption).mkString("/")))
+      ("caption", JsString(obj.translations.flatMap(_.caption).mkString("/"))) +
+      ("caption_lang", JsString(obj.translationOrDefault(LangUtils.defaultLang).caption.getOrElse("-")))
   }
 
 }

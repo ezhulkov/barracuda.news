@@ -83,9 +83,9 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
     ), (error)->
       $scope.subscribeResult = "error"
       console.log(error)
-  $scope.search = ->
+  $scope.search = (url) ->
     if($scope.searchString != undefined && $scope.searchString.length >= 2)
-      $http.post("/search?q=" + $scope.searchString).then (rs) ->
+      $http.post(url + "?q=" + $scope.searchString).then (rs) ->
         $scope.items = rs.data
     else
       $scope.items = []

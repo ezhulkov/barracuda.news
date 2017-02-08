@@ -64,7 +64,7 @@ object CoreModels {
     val FINISHED = Value("FINISHED")
   }
 
-  case class Subscribe(email: String)
+  case class Subscribe(email: Option[String])
   case class Tag(id: Option[Long], text: Option[String], root: Option[Boolean] = None)
   object Layout {
     def newLayout = Layout(None, None, None, None)
