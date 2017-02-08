@@ -62,8 +62,6 @@ TwirlKeys.templateImports ++= Seq(
   "models.Implicits._"
 )
 
-pipelineStages := Seq(digest)
-
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, UniversalPlugin, SbtWeb)
   .disablePlugins(PlayLogback)
