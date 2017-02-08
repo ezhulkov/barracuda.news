@@ -220,14 +220,20 @@ adminApp.controller "LayoutController", ($timeout, $window, $scope, $http) ->
     $http.delete("/admin/layout/" + $scope.layoutModel.id).tnen (rs) ->
       $window.location.pathname = data.redirect_url
 adminApp.controller "NewsController", ($timeout, $window, $scope, $http) ->
+  filterNews = () ->
+    $scope.filteredNewsList = $scope.newsList.filterArray (x) -> $scope.searchStr == undefined || x.caption.toLowerCase().indexOf($scope.searchStr.toLowerCase()) != -1
+    $scope.total = $scope.filteredNewsList.length
+    $scope.page = 1
+    $scope.pageSize = 25
+    $scope.newsPage = $scope.filteredNewsList.slice(0, $scope.pageSize)
+  $scope.searchStr = undefined
   $scope.newsList = $window.newsList
-  $scope.total = $scope.newsList.length
-  $scope.page = 1
-  $scope.pageSize = 50
-  $scope.newsPage = $scope.newsList.slice(0, $scope.pageSize)
+  filterNews()
+  $scope.search = () ->
+    filterNews()
   $scope.showPage = (p) ->
     from = (p - 1) * $scope.pageSize
-    $scope.newsPage = $scope.newsList.slice(from, from + $scope.pageSize);
+    $scope.newsPage = $scope.filteredNewsList.slice(from, from + $scope.pageSize);
     return false
 
 adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $location, FileUploader) ->

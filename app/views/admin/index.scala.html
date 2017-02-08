@@ -1,29 +1,35 @@
 @(news: String)(implicit user: Account, messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
-@sidebar = {
-    <ul>
-        <li>
-            <a href="@routes.AdminController.articleNew">Add article</a>
-        </li>
-    </ul>
-}
+    @sidebar = {
+        <ul>
+            <li>
+                <a href="@routes.AdminController.articleNew">Add article</a>
+            </li>
+        </ul>
+    }
 
-@layout.admin("news-section", Some(sidebar), controller = Some("NewsController")) {
+    @layout.admin("news-section", Some(sidebar), controller = Some("NewsController")){
 
-    <ul class="news">
-        <li class="item" data-ng-repeat="item in newsPage">
-            <a href="/admin/article/{{item.id}}">
-                <h3>{{item.caption}}</h3>
-                <ul class="tags">
-                    <li data-ng-repeat="tag in item.tags">{{tag.text}}</li>
-                </ul>
-                <div class="date">{{item.publish_time_formatted}}</div>
-            </a>
-        </li>
-        <div paging page="page" page-size="pageSize" total="total" paging-action="showPage(page)" data-ng-hide="news.length <= pageSize"></div>
-    </ul>
-    <script type="application/javascript">
+        <fieldset>
+            <dl class="search">
+                <dd><input type="text" placeholder="Search news by caption" data-ng-model="searchStr" data-ng-change="search()"></dd>
+            </dl>
+        </fieldset>
+
+        <ul class="news">
+            <li class="item" data-ng-repeat="item in newsPage">
+                <a href="/admin/article/{{item.id}}">
+                    <h3>{{item.caption}}</h3>
+                    <ul class="tags">
+                        <li data-ng-repeat="tag in item.tags">{{tag.text}}</li>
+                    </ul>
+                    <div class="date">{{item.publish_time_formatted}}</div>
+                </a>
+            </li>
+            <div paging page="page" page-size="pageSize" total="total" paging-action="showPage(page)" data-ng-hide="news.length <= pageSize"></div>
+        </ul>
+        <script type="application/javascript">
             var newsList=@Html(news)
-    </script>
+        </script>
 
-}
+    }

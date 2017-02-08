@@ -187,7 +187,6 @@ main.admin-area
           +input-style
   section.news-section
     .pagination
-      +margin-leader(1)
       li
         +t-large
         +active-link($blackTextColor)
@@ -207,6 +206,10 @@ main.admin-area
           padding-right: 5px
       .date
         +t-small
+    .search
+      input
+        +t-medium
+        height: rhythm(2)
   section.article-section
     +with-layout(12 fluid inside)
       dl.tags
