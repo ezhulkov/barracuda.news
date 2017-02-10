@@ -70,6 +70,8 @@ frontendApp.filter "rawHtml", ($sce) ->
     return $sce.trustAsHtml(text)
 
 frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) ->
+  articleHeader = $("#page-header")
+  articleHeaderTop = if articleHeader != undefined then articleHeader.offset().top
   $scope.searchOn = false
   $scope.menuOn = false
   $scope.langOn = false
@@ -97,6 +99,9 @@ frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) 
     $scope.langOn = !$scope.langOn
   $scope.toggleMenu = ->
     $scope.menuOn = !$scope.menuOn
+  angular.element($window).bind "scroll", () ->
+    if articleHeaderTop != undefined
+      if this.pageYOffset >= articleHeaderTop then $("body").addClass("fixed-article-header") else $("body").removeClass("fixed-article-header")
 
 adminApp.controller "LayoutsController", ($timeout, $window, $scope, $http) ->
   $scope.layouts = $window.layouts

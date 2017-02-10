@@ -1,9 +1,34 @@
 @import "compass"
 @import "susy"
+@import "base"
 @import "mixins"
 
+body
+  #page-header
+    display: none
+    .social-likes
+      display: none
+  +tablet-media
+    #page-header
+      display: block
+  &.fixed-article-header
+    #page-header
+      position: fixed
+      top: 0
+      width: 100%
+      height: rhythm(5/2)
+      opacity: 0.9
+      background-color: white
+      .social-likes
+        display: block
+        margin: 15px
+
+.social-likes
+  margin: 0
+  .social-likes__widget
+    margin: 0 5px 0 0
+
 article
-  //+debug-vertical-alignment()
   +rhythm-margins(1)
   background-color: rgba(white, 1)
   position: relative
@@ -150,6 +175,11 @@ article
             content: ""
             border: 2px solid $activeLink
             height: rhythm(3)
+    .article-social-footer
+      +span(12 no-gutter)
+      +desktop-media
+        +span(8 no-gutter)
+      height: rhythm(1)
     .related
       +span(12 no-gutter)
       +desktop-media
@@ -170,11 +200,9 @@ article
     .date:before
       content: "\f017"
     .close
-      display: none
-      +desktop-media
-        display: block
-        &:before, &:after
-          background-color: $blackTextColor
+      display: block
+      &:before, &:after
+        background-color: $blackTextColor
     .source-quote
       +margin-trailer(1)
       padding: rhythm(1)
