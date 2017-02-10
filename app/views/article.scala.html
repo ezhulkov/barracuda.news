@@ -76,13 +76,6 @@
                 <div class="adv">
                 @components.adv()
                 </div>
-                <div class="article-social-footer">
-                    <div class="social-likes">
-                        <div class="facebook">Facebook</div>
-                        <div class="vkontakte">ВКонтакте</div>
-                        <div class="twitter" data-via="barracudanews">Twitter</div>
-                    </div>
-                </div>
                 @if(article.crossArticles.nonEmpty) {
                     <div class="related news-list">
                         <h3>@Messages("see.more")</h3>
@@ -97,6 +90,13 @@
                         </div>
                     </div>
                 }
+                <div class="article-social-footer">
+                    <div class="social-likes">
+                        <div class="facebook">Facebook</div>
+                        <div class="vkontakte">ВКонтакте</div>
+                        <div class="twitter" data-via="barracudanews">Twitter</div>
+                    </div>
+                </div>
             </div>
 
         </div>
