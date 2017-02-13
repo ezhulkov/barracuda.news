@@ -71,7 +71,7 @@ frontendApp.filter "rawHtml", ($sce) ->
 
 frontendApp.controller "FrontendController", ($timeout, $window, $scope, $http) ->
   articleHeader = $("#page-header")
-  articleHeaderTop = if articleHeader != undefined then articleHeader.offset().top
+  articleHeaderTop = if articleHeader == undefined || articleHeader.offset() == undefined then undefined else articleHeader.offset().top
   $scope.searchOn = false
   $scope.menuOn = false
   $scope.langOn = false
