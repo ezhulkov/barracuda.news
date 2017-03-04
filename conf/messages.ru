@@ -1,14 +1,22 @@
 site.title=Barracuda News - Новости парусного спорта
-site.description=Barracuda News рассказывает новости о регатах различных классов со всего мира!
-site.keywords=barracuda news, барракуда ньюз, регата, новости парусного спорта, новости регат, парусный спорт, сейлинг, melges, регатаскоп
+site.description=Barracuda News: у нас вы найдете новости о парусном спорте со всего мира!
+site.keywords=barracuda news, барракуда ньюз, регата, новости парусного спорта, новости регат, парусный спорт, сейлинг, melges, регатаскоп, парус
 
-topic.title.stories=Barracuda News - Истории
-topic.description.stories=
-topic.keywords.stories=barracuda news, барракуда ньюз, регата, истории парусного спорта, новости парусного спорта, новости регат, парусный спорт, сейлинг, melges
+topic.title.stories=Barracuda News - Новости парусного спорта
+topic.description.stories=Эксклюзивные истории про команды, людей и парус только на Barracuda News!
+topic.keywords.stories=barracuda news, барракуда ньюз, регата, новости парусного спорта, новости регат, парусный спорт, сейлинг, melges, регатаскоп, Эд Бёрд, Валентин Завадников, Александр Новоселов, Александр Ежков
 
-topic.title.tracking=Barracuda News - Трекинг
-topic.description.tracking=
-topic.keywords.tracking=barracuda news, барракуда ньюз, трекинг, регатаскоп, melges
+topic.title.tracking=Регатаскоп - уникальный 3D трекер регат на Barracuda News!
+topic.description.tracking=Следите за гонками в режиме онлайн на нашем сайте!
+topic.keywords.tracking=barracuda news, барракуда ньюз, регата, новости парусного спорта, новости регат, парусный спорт, сейлинг, melges, регатаскоп, трекер регат
+
+topic.title.fish=Fish Production - яхтинг с забавной стороны
+topic.description.fish=Barracuda News рассказывает новости о регатах различных классов со всего мира!
+topic.keywords.fish=barracuda news, барракуда ньюз, регата, новости парусного спорта, новости регат, парусный спорт, сейлинг, melges, регатаскоп, фиш продакшн, fish production, смешные яхтенные видео
+
+topic.title.media=Лучшие фото парусного спорта на Barracuda News
+topic.description.media=Barracuda News рассказывает новости о регатах различных классов со всего мира!
+topic.keywords.media=barracuda news, барракуда ньюз, регата, новости парусного спорта, новости регат, парусный спорт, сейлинг, melges, регатаскоп, яхтенная фотография, Марина Семенова, фото парусных гонок
 
 title.tracking.short=Регатаскоп
 title.tracking=Регатаскоп - трекинг

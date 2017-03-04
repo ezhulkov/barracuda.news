@@ -1,14 +1,22 @@
-site.title=Barracuda News - Regattas of various classes news agency
-site.description=Barracuda News agency covers all the intense regattas of various classes around the world!
-site.keywords=barracuda news, regatta, sailing news, regatta news, sailing, melges, regattascope
+site.title=Barracuda News - Best news of sailing world
+site.description=Unique content and hottest news about regattas around the world!
+site.keywords=barracuda news, regatta, sailing news, russian sailing, sailing, melges, regattascope
 
-topic.title.stories=Barracuda News - Regattas stories
-topic.description.stories=
-topic.keywords.stories=barracuda news, regatta, regatta stories, sailing stories, sailing news, regatta news, sailing, melges
+topic.title.stories=Barracuda News - Best news of sailing world
+topic.description.stories=One of a kind, exclusive stories only on Barracuda News
+topic.keywords.stories=barracuda news, regatta, sailing news, russian sailing, sailing, melges, regattascope, people in sailing, Ed Baird, Alexander Ezhkov
 
-topic.title.tracking=Barracuda News - Tracking
-topic.description.tracking=
-topic.keywords.tracking=barracuda news, tracking, regattascope, melges
+topic.title.tracking=Regattascope - 3D tracking on Barracuda News
+topic.description.tracking=Follow regattas with unique 3D tracker on Barracuda News!
+topic.keywords.tracking=barracuda news, regatta, sailing news, regatta news, sailing, melges, regattascope, russian sailing, tracking, sailing tracker
+
+topic.title.fish=Fish Production - hularious sailing videos
+topic.description.fish=”Sailing is about fun” they said...
+topic.keywords.fish=barracuda news, regatta, sailing news, regatta news, sailing, melges, regattascope, fish production, funny sailing videos, Melges 20
+
+topic.title.media=Barracuda News Media: best photos and videos of sailing
+topic.description.media=Barracuda News Media: best photos and videos of sailing
+topic.keywords.media=barracuda news, regatta, sailing news, regatta news, sailing, melges, regattascope, Marina Semenova, barracuda communication, sailing photo, sailing video, best sailing photos
 
 title.tracking.short=Regattascope
 title.tracking=Regattascope - tracking
