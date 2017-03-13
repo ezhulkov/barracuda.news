@@ -1,16 +1,15 @@
 @(sectionClass: String = "", subMenu: Option[Html], activeMenu: Option[String] = None, controller: Option[String] = None)(content: Html)(implicit user: Account, messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
     @cssFiles = {
-        <link rel="stylesheet" href="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
         <link rel="stylesheet" href="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("lib/chosen/chosen.min.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("lib/remodal/dist/remodal.css")">
         <link rel="stylesheet" href="@routes.Assets.versioned("lib/remodal/dist/remodal-default-theme.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("alloy-editor/assets/alloy-editor-ocean-min.css")" media="all" type="text/css"/>
     }
 
     @jsFiles = {
-        <script src="@routes.Assets.versioned("lib/alloyeditor/dist/alloy-editor/alloy-editor-all-min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("lib/ng-tags-input/ng-tags-input.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("lib/angular-datepicker/dist/angular-datepicker.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("lib/moment/min/moment.min.js")" type="text/javascript"></script>
@@ -20,8 +19,9 @@
         <script src="@routes.Assets.versioned("lib/remodal/dist/remodal.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("lib/github-com-nervgh-angular-file-upload/dist/angular-file-upload.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/paging.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("alloy-editor/alloy-editor-all-min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/alloy_custom.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular-alloyeditor.min.js")" type="text/javascript"></script>
     }
 
     @layout.main(title = Some("Admin area"), cssFiles = cssFiles, jsFiles = jsFiles){

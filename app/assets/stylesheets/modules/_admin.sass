@@ -298,47 +298,6 @@ main.admin-area
         min-height: 50px
         padding-left: $pad/2
         padding-right: $pad/2
-      .gallery
-        +rhythm-margins(1/2)
-        border: 1px dashed $blueColor
-        list-style: none
-        padding: 0
-        overflow: auto
-        li
-          +span(12)
-          +rhythm-margins(1/4)
-          p
-            +span(6)
-            position: relative
-            padding: 20px rhythm(1/4) rhythm(1/4) rhythm(1/4)
-            min-height: rhythm(4)
-            border: 1px solid $activeLink
-            display: none
-            &.image
-              display: block
-              &:before
-                +t-tiny
-                position: absolute
-                content: "Insert image here"
-                color: $activeLink
-                top: 0
-            &.caption
-              display: block
-              &:before
-                +t-tiny
-                position: absolute
-                content: "Insert caption here"
-                color: $activeLink
-                top: 0
-        .photo-caption
-          +t-small
-          +margin-leader(0)
-          text-align: center
-        img
-          width: 100%
-          margin: 0 !important
-          display: block
-          height: initial
   section.layout-section
     +with-layout(12 fluid inside)
       dl.name
@@ -524,14 +483,8 @@ main.admin-area
 .ae-button
   margin-left: 13px
 
-.ae-icon-gallery:before
+.ae-icon-jsplus_gallery:before
   +fa
-  content: "\f0c5"
+  content: "\f083"
   vertical-align: top
-  margin-top: 3px
-
-.ae-icon-gallery-item:before
-  +fa
-  content: "\f1c5"
-  vertical-align: top
-  margin-top: 3px
+  margin-top: -2px
