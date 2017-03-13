@@ -1,13 +1,17 @@
 if (typeof AlloyEditor != 'undefined')
 
   CKEDITOR.DEFAULT_AE_EMBED_URL_TPL = '//iframe.ly/api/oembed?url={url}&callback={callback}&api_key=70ef4f2a4a266b31fc44b5';
-  #  CKEDITOR.basePath = '/'
 
   @alloyConfig = {
+    jsplus_gallery_template_wrap: "<div class='jsplus_gallery'>{ITEMS}</div>",
+    jsplus_gallery_template: "<div class='item'><div class='preview'><img src='{PREVIEW}'/></div><div class='caption'>&nbsp;</div></div>",
+    jsplus_gallery_thumb_resize_show: false,
+    jsplus_gallery_default_thumb_enlarge: false,
+    jsplus_gallery_img_resize_show: false,
+    jsplus_gallery_default_img_resize: false,
     extraPlugins: AlloyEditor.Core.ATTRS.extraPlugins.value + ",jsplus_gallery,ae_buttonbridge"
     toolbars: {
       add: {
-#        buttons: ['image', 'link', 'table', 'embed', 'gallery', 'gallery-item']
         buttons: ['image', 'link', 'table', 'embed', 'jsplus_gallery']
       },
       styles: {

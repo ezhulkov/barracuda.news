@@ -63,6 +63,9 @@ class AdminController @Inject()(
       case _ => Ok(Json.obj("result" -> "Error saving photo!", "article_id" -> id)).as(JSON)
     }
   }
+  def galleryUpload = StackAction(AuthorityKey -> Administrator) { implicit request =>
+    Ok(s"https://barracuda.news/media/michael-illbruck-i-love-competing-against-the-best-sailors-in-th-en-1.jpg?${System.currentTimeMillis()}")
+  }
 
   def layouts = StackAction(AuthorityKey -> Administrator) { implicit request =>
     val layouts = Json.toJson(layoutService.allLayouts)

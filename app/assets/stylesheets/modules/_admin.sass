@@ -298,6 +298,41 @@ main.admin-area
         min-height: 50px
         padding-left: $pad/2
         padding-right: $pad/2
+
+    .jsplus_gallery
+      +rhythm-margins(1/2)
+      border: 1px dashed $blueColor
+      padding: 0
+      overflow: auto
+      .item
+        +span(12)
+        +rhythm-margins(1/4)
+        +display-flex()
+        +flex-direction(row)
+        div
+          position: relative
+          padding: 20px rhythm(1/4) rhythm(1/4) rhythm(1/4)
+          border: 1px solid $activeLink
+          &.preview
+            +span(4)
+            max-width: 100%
+            img
+              padding: 0
+            &:before
+              +t-tiny
+              position: absolute
+              content: "Image preview"
+              color: $activeLink
+              top: 0
+          &.caption
+            +span(8)
+            &:before
+              +t-tiny
+              position: absolute
+              content: "Insert caption here (optional)"
+              color: $activeLink
+              top: 0
+
   section.layout-section
     +with-layout(12 fluid inside)
       dl.name
