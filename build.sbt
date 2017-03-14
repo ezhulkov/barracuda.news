@@ -43,6 +43,7 @@ libraryDependencies ++= Seq(
   "org.webjars.bower" % "moment-timezone" % "0.4.1",
   "org.webjars.bower" % "chosen" % "1.4.2",
   "org.webjars.bower" % "remodal" % "1.1.0",
+  "org.webjars.bower" % "fotorama" % "4.6.4",
   "org.webjars.bower" % "github-com-nervgh-angular-file-upload" % "v2.3.4",
   "org.webjars.npm" % "social-likes" % "3.1.2",
   "org.webjars.npm" % "angular-chosen-localytics" % "1.4.0",

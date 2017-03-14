@@ -28,7 +28,7 @@
     description = article.translation.map(_.pageDescription).filterNot(_.isEmpty),
     keywords = article.translation.map(_.pageKeywords).filterNot(_.isEmpty),
     metaTags = Some(metaTags)
-){
+) {
 
     <article>
         <div id="page-header">
@@ -56,7 +56,7 @@
                         </span>
                         <span class="date">@article.publishFormatted</span>
                     </div>
-                    @article.coverMedia.map{ t =>
+                    @article.coverMedia.map { t =>
                         <div class="cover-image">
                             <img src="@t" alt=""/>
                         </div>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="article-body">
                     @article.translation.flatMap(_.text).map(t => Html(t)).getOrElse(Messages("empty.article"))
-                    @article.origin.map{ t =>
+                    @article.origin.map { t =>
                         <blockquote class="source-quote">
                             <a href="@t" target="_blank">
                                 <p>@article.translation.flatMap(_.caption)</p>
@@ -82,7 +82,7 @@
                         <div class="news-list cut-images">
                         @for(item <- article.crossArticles) {
                             <div class="item">
-                                <div class="photo">@item.coverMedia.map{ t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
+                                <div class="photo">@item.coverMedia.map { t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
                                 <h2><a href="@url(item)">@caption(item)</a></h2>
                                 <div class="date">@item.publishFormatted</div>
                             </div>
