@@ -304,6 +304,9 @@ main.admin-area
       border: 1px dashed $blueColor
       padding: 0
       overflow: auto
+      display: table
+      .item_wrap
+        display: table
       .item
         +span(12)
         +rhythm-margins(1/4)
@@ -329,7 +332,7 @@ main.admin-area
             &:before
               +t-tiny
               position: absolute
-              content: "Insert caption here (optional)"
+              content: "Insert caption here (optional, shift+enter for a new line)"
               color: $activeLink
               top: 0
 

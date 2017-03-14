@@ -33,7 +33,7 @@ GET           /admin/article                                                   c
 GET           /admin/article/:id                                               controllers.AdminController.article(id:Long)
 DELETE        /admin/article/:id                                               controllers.AdminController.articleDelete(id:Long)
 POST          /admin/article                                                   controllers.AdminController.articleSave
-POST          /assets/alloy-editor/plugins/jsplus_uploader/uploader.php        controllers.AdminController.galleryUpload
+POST          /admin/gallery_upload                                            controllers.AdminController.galleryUpload
 
 #Assets
 GET           /assets/*file                                                    controllers.Assets.versioned(path="/public", file: Asset)

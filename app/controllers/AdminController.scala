@@ -64,7 +64,14 @@ class AdminController @Inject()(
     }
   }
   def galleryUpload = StackAction(AuthorityKey -> Administrator) { implicit request =>
-    Ok(s"https://barracuda.news/media/michael-illbruck-i-love-competing-against-the-best-sailors-in-th-en-1.jpg?${System.currentTimeMillis()}")
+    val result = request.body.asMultipartFormData match {
+      case Some(data) if data.files.size == 1 =>
+        val file = data.files.head.ref.file
+        val thumbnail = articleService.storeGalleryUpload(request.getQueryString("caption"), request.getQueryString("lang"), file)
+        Ok(thumbnail)
+      case _ => BadRequest("bad request")
+    }
+    result
   }
 
   def layouts = StackAction(AuthorityKey -> Administrator) { implicit request =>

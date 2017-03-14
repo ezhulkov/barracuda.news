@@ -10761,6 +10761,8 @@
             });
         }
         var aB = {};
+        var caption = encodeURIComponent(angular.element(document.getElementById('admin_app')).scope().translation.caption || 'gallery_image');
+        var lang = encodeURIComponent(angular.element(document.getElementById('admin_app')).scope().translation.lang || 'gallery_image');
         if (O(aA, "allowed_ext") != "*") {
             aB = {mime_types: [{title: o(aA, "file_filter_name"), extensions: O(aA, "allowed_ext")}]};
         }
@@ -10771,6 +10773,9 @@
             ay += "?";
         }
         ay += "client=plupload&";
+        ay += "caption=" + caption + "&";
+        ay += "lang=" + lang + "&";
+
         if (h == 101) {
             ay += "type=Images";
         } else {

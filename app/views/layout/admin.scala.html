@@ -26,7 +26,7 @@
 
     @layout.main(title = Some("Admin area"), cssFiles = cssFiles, jsFiles = jsFiles){
 
-        <div class="app-wrapper" data-ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}'")).orNull data-ng-class="{'loading-active': loading}">
+        <div class="app-wrapper" id="admin_app" data-ng-app="adminApp" @controller.map(c => Html(s"ng-controller='$c as ${c.toLowerCase()}'")).orNull data-ng-class="{'loading-active': loading}">
 
             <main class="admin-area @subMenu.map(t => "submenu-on").orNull">
 
