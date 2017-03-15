@@ -5,7 +5,7 @@ if (typeof AlloyEditor != 'undefined')
   @alloyConfig = {
     jsplus_uploader_url: "/admin/gallery_upload",
     jsplus_gallery_template_wrap: "<div class='jsplus_gallery fotorama' data-width='100%' data-ratio='3/2'>{ITEMS}</div>",
-    jsplus_gallery_template: "<div class='item_wrap'><div class='item'><div class='preview'><img src='{PREVIEW}'/></div><div class='caption'>&nbsp;</div></div></div>",
+    jsplus_gallery_template: "<div class='item_wrap'><div class='item'><div class='preview'><img class='gallery-image' src='{PREVIEW}'/></div><div class='caption'>&nbsp;</div></div></div>",
     jsplus_gallery_thumb_resize_show: false,
     jsplus_gallery_default_thumb_enlarge: false,
     jsplus_gallery_img_resize_show: false,

@@ -30,7 +30,7 @@ body
     margin: 0 5px 0 0
 
 article
-  +debug-vertical-alignment()
+  //+debug-vertical-alignment()
   +rhythm-margins(1)
   background-color: rgba(white, 1)
   position: relative
@@ -107,9 +107,23 @@ article
       #{headers(2,4)}
         +margin-trailer(1)
     .article-body
-      .fotorama__nav-wrap
-        height: rhythm(1)
       .fotorama
+        +padding-trailer(1)
+        .fotorama__nav-wrap
+          position: absolute
+          top: rhythm(1/2)
+          right: 0
+          left: 0
+        .fotorama__nav
+          text-align: right
+          padding-right: rhythm(1/2)
+        .fotorama__dot
+          +border-radius(100%)
+          width: 10px
+          height: 10px
+          border: 1px solid $blackTextColor
+        .fotorama__active .fotorama__dot
+          border-width: 5px
         .item
           position: relative
         .caption

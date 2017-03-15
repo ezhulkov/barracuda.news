@@ -8,19 +8,6 @@ cutImages = (parent)->
     if(h % baseLine != 0)
       $(e).closest("div").height(h - h % baseLine)
 
-#setActiveImage = (li) ->
-#  wrapper = $(li).closest(".gallery-wrapper")
-#  preview = $(wrapper).find(".gallery-preview")
-#  image = $(li).find("p.image img").clone()
-#  caption = $(li).find("p.caption").clone()
-#  preview.find("p").remove()
-#  preview.find("img").remove()
-#  preview.find(".image-wrapper").append(image)
-#  preview.append(caption)
-#  $(".gallery-wrapper li").removeClass("sel")
-#  $(li).addClass("sel")
-#  cutImages(wrapper)
-
 $(window).load ->
   path = this.location.pathname
   $('a[href="' + path + '"]').parents('li,ul').addClass('active')
@@ -28,30 +15,10 @@ $(window).load ->
     altHref = $(e).attr("alt-href")
     if(path.indexOf(altHref) != -1)
       $(e).parents('li,ul').addClass('active')
-  $(".article-body img,.article-header img").keepTheRhythm({
+  $(".article-body img:not('.gallery-image'),.article-header img,.fotorama").keepTheRhythm({
     baseLine: baseLine,
     spacing: "margin"
   })
-  #  $(".article-body .jsplus_gallery").each (i, e) ->
-  #    preview = $("<div class='gallery-preview'><div class='image-wrapper cut-images'></div></div>")
-  #    firstImage = $(e).find(".item").first()
-  #    $(e).wrap("<div class='gallery-wrapper'></div>")
-  #    preview.find(".image-wrapper").prepend($("<span class='prev fa-angle-left'></span>"))
-  #    preview.find(".image-wrapper").prepend($("<span class='next fa-angle-right'></span>"))
-  #    preview.insertBefore(e)
-  #    firstImage.addClass("sel")
-  #    preview.find(".image-wrapper").append(firstImage.find(".preview img").clone())
-  #    preview.append(firstImage.find(".caption").clone())
-  #    $(".gallery-wrapper .prev").unbind("click").bind "click", ()->
-  #      li = $(this).closest(".gallery-wrapper").find("li.sel").prev("li")
-  #      if(li.length > 0)
-  #        setActiveImage(li)
-  #    $(".gallery-wrapper .next").unbind("click").bind "click", ()->
-  #      li = $(this).closest(".gallery-wrapper").find("li.sel").next("li")
-  #      if(li.length > 0)
-  #        setActiveImage(li)
-  #    $(".gallery-wrapper li").unbind("click").bind "click", ()->
-  #      setActiveImage(this)
   cutImages(document)
 
 frontendApp = angular.module 'frontendApp', []
