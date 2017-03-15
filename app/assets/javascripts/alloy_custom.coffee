@@ -10,7 +10,10 @@ if (typeof AlloyEditor != 'undefined')
     jsplus_gallery_default_thumb_enlarge: false,
     jsplus_gallery_img_resize_show: false,
     jsplus_gallery_default_img_resize: false,
-    extraPlugins: AlloyEditor.Core.ATTRS.extraPlugins.value + ",jsplus_gallery,ae_buttonbridge"
+    extraPlugins: AlloyEditor.Core.ATTRS.extraPlugins.value + ",jsplus_gallery,ae_buttonbridge,gallery_admin"
+    keystrokes: [
+      [13, 'gallery_admin']
+    ]
     toolbars: {
       add: {
         buttons: ['image', 'link', 'table', 'embed', 'jsplus_gallery']
