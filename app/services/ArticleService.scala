@@ -117,7 +117,7 @@ class ArticleServiceImpl extends ArticleService {
   }
   override def storeGalleryUpload(caption: Option[String], lang: Option[String], file: File): String = {
     val url = decodeAndStore(caption.getOrElse("gallery-image"), lang.map(l => Lang(l)), Some(rnd.nextInt(1000)), file)
-    s"https://barracuda.news/media/michael-illbruck-i-love-competing-against-the-best-sailors-in-th-en-1.jpg?${System.currentTimeMillis()}"
+    s"$imageUrl/$url"
   }
   override def attachCoverPhoto(id: Long, file: File) = DB.autoCommit { implicit session =>
     findArticle(id) match {
