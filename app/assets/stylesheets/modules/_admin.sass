@@ -302,16 +302,28 @@ main.admin-area
     .jsplus_gallery
       +rhythm-margins(1/2)
       border: 1px dashed $blueColor
-      padding: 0
+      padding: 20px 0 0 0
       overflow: auto
       display: table
+      position: relative
+      &:before
+        +t-tiny
+        margin-left: 16px
+        position: absolute
+        content: "Image gallery"
+        color: $activeLink
+        top: 0
       .item_wrap
+        +span(12 no-gutters)
         display: table
+        margin: 10px
+        border: 1px dashed red
       .item
-        +span(12)
+        +span(12 no-gutters)
         +rhythm-margins(1/4)
         +display-flex()
         +flex-direction(row)
+        min-height: rhythm(2)
         div
           position: relative
           padding: 20px rhythm(1/4) rhythm(1/4) rhythm(1/4)
@@ -332,7 +344,7 @@ main.admin-area
             &:before
               +t-tiny
               position: absolute
-              content: "Insert caption here (optional, shift+enter for a new line)"
+              content: "Insert caption here (shift+enter for a new line, enter for a new gallery item)"
               color: $activeLink
               top: 0
 
