@@ -63,6 +63,10 @@ TwirlKeys.templateImports ++= Seq(
   "models.Implicits._"
 )
 
+pipelineStages := Seq(digest)
+excludeFilter in digest := "alloy-editor-all-min.js" || "angular-alloyeditor.min.js"
+
+
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, UniversalPlugin, SbtWeb)
   .disablePlugins(PlayLogback)
