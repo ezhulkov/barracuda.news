@@ -1,6 +1,6 @@
 name := """barracuda.news"""
 version := "1.0-SNAPSHOT"
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.11"
 scalacOptions ++= Seq("-feature", "-language", "postfixOps")
 
 routesGenerator := InjectedRoutesGenerator
@@ -65,7 +65,7 @@ TwirlKeys.templateImports ++= Seq(
 
 pipelineStages := Seq(digest)
 excludeFilter in digest := "alloy-editor-all-min.js" || "angular-alloyeditor.min.js"
-
+com.jamesward.play.BrowserNotifierKeys.shouldOpenBrowser := false
 
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, UniversalPlugin, SbtWeb)

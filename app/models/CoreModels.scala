@@ -2,16 +2,16 @@ package models
 
 import java.net.URL
 import java.util.UUID
+
 import com.github.nscala_time.time.Imports._
 import models.CoreModels.BlockSize.BlockSize
 import models.CoreModels.NewsType.NewsType
 import models.CoreModels.RowHeight.RowHeight
 import org.apache.commons.lang3.StringUtils
-import play.api.i18n.Lang
-import play.api.i18n.Messages
+import play.api.i18n.{Lang, Messages}
 import play.api.libs.json.Json
-import services.LangUtils
-import services.Utils
+import services.{LangUtils, Utils}
+
 import scala.language.implicitConversions
 import scala.util.Try
 
@@ -76,7 +76,7 @@ object CoreModels {
   case class NewsRow(height: RowHeight, blocks: Seq[NewsBlock])
   case class BlockCaption(lang: Lang, text: Option[String])
   case class NewsBlock(tag: String, size: BlockSize, featured: Option[Boolean] = None, captions: Option[Seq[BlockCaption]] = None, newsType: NewsType = NewsType.TEXT) {
-    def localCaption(implicit lang: Lang) = captions.getOrElse(Nil).find(t => t.lang == lang && t.text.exists(c => StringUtils.isNotEmpty(c))).flatMap(t => t.text)
+    def localCaption(implicit lang: Lang): Option[String] = captions.getOrElse(Nil).find(t => t.lang == lang && t.text.exists(c => StringUtils.isNotEmpty(c))).flatMap(t => t.text)
   }
   case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   object Article {
@@ -95,28 +95,28 @@ object CoreModels {
     translations: Seq[Translation] = Nil,
     crossLinks: Option[Seq[Long]] = None
   ) {
-    val publishFormatted            = publish.toString(dateFormat)
-    val publishSitemap              = publish.toString("YYYY-MM-dd")
-    val publishRss                  = publish.toString("EEE, dd MMM yyyy HH:mm:ss Z")
-    var crossArticles: Seq[Article] = Nil
-    def transliteratedUrl(idOpt: Option[Long] = None) = translation(LangUtils.defaultLang)
+    val publishFormatted: String       = publish.toString(dateFormat)
+    val publishSitemap  : String       = publish.toString("YYYY-MM-dd")
+    val publishRss      : String       = publish.toString("EEE, dd MMM yyyy HH:mm:ss Z")
+    var crossArticles   : Seq[Article] = Nil
+    def transliteratedUrl(idOpt: Option[Long] = None): String = translation(LangUtils.defaultLang)
       .flatMap(t => t.caption)
       .map(t => Utils.transliterate(t))
       .map(t => idOpt.map(id => s"$t-$id").getOrElse(t))
       .getOrElse(id.toString)
-    def generateUrl(idOpt: Option[Long] = None) = transliteratedUrl(idOpt)
+    def generateUrl(idOpt: Option[Long] = None): String = transliteratedUrl(idOpt)
     def hasTag(tag: String): Boolean = tags.exists(t => t.text.contains(tag))
-    def translation(implicit lang: Lang) = translations.find(t => t.lang == lang)
-    def translationOrDefault(implicit lang: Lang) = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t => t.caption.isDefined).get)
-    def originDomain = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
-    def withCrossLinks(links: Seq[Article]) = {
+    def translation(implicit lang: Lang): Option[Translation] = translations.find(t => t.lang == lang)
+    def translationOrDefault(implicit lang: Lang): Translation = translation(lang).orElse(translation(LangUtils.defaultLang)).getOrElse(translations.find(t => t.caption.isDefined).get)
+    def originDomain: Option[String] = origin.flatMap(t => Try(new URL(t)).toOption).map(t => t.getHost).orElse(origin)
+    def withCrossLinks(links: Seq[Article]): Article = {
       val c = copy(crossLinks = Some(links.flatMap(t => t.id)))
       c.crossArticles = links
       c
     }
   }
   object Translation {
-    def newTranslations = LangUtils.langs.map(l => Translation(None, None, l, None, None, None, None, None, Nil))
+    def newTranslations: List[Translation] = LangUtils.langs.map(l => Translation(None, None, l, None, None, None, None, None, Nil))
   }
   case class Translation(
     id: Option[Long],
@@ -129,26 +129,26 @@ object CoreModels {
     keywords: Option[String],
     media: Seq[NewsMedia] = Nil
   ) {
-    def pageTitle(implicit messages: Messages) = Seq(title, caption).flatten.headOption.getOrElse(messages("site.title"))
-    def pageDescription(implicit messages: Messages) = Seq(description, caption).flatten.headOption.getOrElse(messages("site.description"))
-    def pageKeywords(implicit messages: Messages) = keywords.getOrElse(messages("site.keywords"))
-    def searchMatch(q: String) = (text ++ caption).mkString(" ").toLowerCase.contains(q.toLowerCase)
+    def pageTitle(implicit messages: Messages): String = Seq(title, caption).flatten.headOption.getOrElse(messages("site.title"))
+    def pageDescription(implicit messages: Messages): String = Seq(description, caption).flatten.headOption.getOrElse(messages("site.description"))
+    def pageKeywords(implicit messages: Messages): String = keywords.getOrElse(messages("site.keywords"))
+    def searchMatch(q: String): Boolean = (text ++ caption).mkString(" ").toLowerCase.contains(q.toLowerCase)
   }
   case class TrackingEvent(id: Option[UUID], name: Option[String], eventStart: Option[DateTime], eventEnd: Option[DateTime], imageUrl: Option[String], races: Option[Seq[TrackingRace]]) {
-    val interval       = new org.joda.time.Interval(eventStart.getOrElse(DateTime.now()), eventEnd.getOrElse(DateTime.now()))
-    val startTrimmed   = eventStart.map(t => t.withTimeAtStartOfDay)
-    val endTrimmed     = eventEnd.map(t => t.withTimeAtStartOfDay)
-    val startFormatted = startTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
-    val endFormatted   = endTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
-    def isActive = interval.containsNow()
+    val interval      : Interval         = new org.joda.time.Interval(eventStart.getOrElse(DateTime.now()), eventEnd.getOrElse(DateTime.now()))
+    val startTrimmed  : Option[DateTime] = eventStart.map(t => t.withTimeAtStartOfDay)
+    val endTrimmed    : Option[DateTime] = eventEnd.map(t => t.withTimeAtStartOfDay)
+    val startFormatted: String           = startTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
+    val endFormatted  : String           = endTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
+    def isActive: Boolean = interval.containsNow()
   }
   case class TrackingRace(id: Option[UUID], name: Option[String], start: Option[DateTime], end: Option[DateTime], localUrl: Option[String]) {
-    val interval       = new org.joda.time.Interval(start.getOrElse(DateTime.now()), end.getOrElse(DateTime.now()))
-    val endTrimmed     = end.map(t => t.withTimeAtStartOfDay)
-    val startTrimmed   = start.map(t => t.withTimeAtStartOfDay).orElse(endTrimmed)
-    val startFormatted = startTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
-    val endFormatted   = endTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
-    val raceStatus     = {
+    val interval      : Interval         = new org.joda.time.Interval(start.getOrElse(DateTime.now()), end.getOrElse(DateTime.now()))
+    val endTrimmed    : Option[DateTime] = end.map(t => t.withTimeAtStartOfDay)
+    val startTrimmed  : Option[DateTime] = start.map(t => t.withTimeAtStartOfDay).orElse(endTrimmed)
+    val startFormatted: String           = startTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
+    val endFormatted  : String           = endTrimmed.map(t => t.toString(dateFormatShort)).getOrElse("")
+    val raceStatus    : RaceStatus.Value = {
       if (start.isEmpty || end.isEmpty || start.exists(t => t.isAfterNow)) RaceStatus.SOON
       else if (end.exists(t => t.isBeforeNow)) RaceStatus.FINISHED
       else RaceStatus.ACTIVE

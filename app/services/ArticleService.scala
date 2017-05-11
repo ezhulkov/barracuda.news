@@ -1,9 +1,7 @@
 package services
 
-import java.io.ByteArrayInputStream
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.Paths
+import java.io.{ByteArrayInputStream, File}
+import java.nio.file.{Files, Paths}
 import java.util.Base64
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.regex.Pattern
@@ -11,17 +9,13 @@ import javax.imageio.ImageIO
 import javax.inject.Singleton
 
 import com.google.inject.ImplementedBy
-import models.CoreModels.Article
-import models.CoreModels.Tag
-import models.CoreModels.Translation
+import models.CoreModels.{Article, Tag, Translation}
 import net.coobird.thumbnailator.Thumbnails
-import org.apache.commons.io.IOUtils
 import org.apache.commons.lang3.StringUtils
 import org.joda.time.DateTime
 import play.api.Logger
 import play.api.i18n.Lang
-import scalikejdbc.DB
-import scalikejdbc.DBSession
+import scalikejdbc.{DB, DBSession}
 import services.Utils.loggedFailure
 import utils.Configuration
 
