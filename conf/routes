@@ -1,42 +1,43 @@
 
 #Frontend
 
-GET           /                                                                controllers.FrontendController.index
-GET           /topic/:tag                                                      controllers.FrontendController.topic(tag:String)
-GET           /news_list/:tag                                                  controllers.FrontendController.newsList(tag:String,from:Option[Int]?=None)
-GET           /article/:url                                                    controllers.FrontendController.article(url:String)
-GET           /tracking                                                        controllers.FrontendController.tracking
-GET           /about                                                           controllers.FrontendController.about
-GET           /adv                                                             controllers.FrontendController.adv
-GET           /contacts                                                        controllers.FrontendController.contacts
-GET           /sitemap                                                         controllers.FrontendController.sitemapPage
-GET           /exception                                                       controllers.FrontendController.exception
-POST          /search                                                          controllers.FrontendController.search(q:String)
-POST          /subscribe                                                       controllers.FrontendController.subscribe
-GET           /sitemap.xml                                                     controllers.FrontendController.sitemapXml
-GET           /rss                                                             controllers.FrontendController.rss
-GET           /forbidden                                                       controllers.FrontendController.forbidden
-GET           /updateAllArticles                                               controllers.FrontendController.updateAllArticles
+GET           /                             controllers.FrontendController.index
+GET           /topic/:tag                   controllers.FrontendController.topic(tag:String)
+GET           /news_list/:tag               controllers.FrontendController.newsList(tag:String,from:Option[Int]?=None)
+GET           /article/:url                 controllers.FrontendController.article(url:String)
+GET           /tracking                     controllers.FrontendController.tracking
+GET           /about                        controllers.FrontendController.about
+GET           /adv                          controllers.FrontendController.adv
+GET           /contacts                     controllers.FrontendController.contacts
+GET           /sitemap                      controllers.FrontendController.sitemapPage
+GET           /exception                    controllers.FrontendController.exception
+POST          /search                       controllers.FrontendController.search(q:String)
+POST          /subscribe                    controllers.FrontendController.subscribe
+GET           /sitemap.xml                  controllers.FrontendController.sitemapXml
+GET           /rss                          controllers.FrontendController.rss
+GET           /forbidden                    controllers.FrontendController.forbidden
+GET           /updateAllArticles            controllers.FrontendController.updateAllArticles
 
 #Admin area
-GET           /login                                                           controllers.AuthController.login
-POST          /login                                                           controllers.AuthController.authenticate
-GET           /logout                                                          controllers.AuthController.logout
-GET           /admin                                                           controllers.AdminController.index
-POST          /admin/cover_photo/:id                                           controllers.AdminController.uploadCoverPhoto(id:Long)
-GET           /admin/layouts                                                   controllers.AdminController.layouts
-GET           /admin/layout                                                    controllers.AdminController.layoutNew
-GET           /admin/layout/:id                                                controllers.AdminController.layout(id:Long)
-DELETE        /admin/layout/:id                                                controllers.AdminController.layoutDelete(id:Long)
-POST          /admin/layout                                                    controllers.AdminController.layoutSave
-GET           /admin/article                                                   controllers.AdminController.articleNew
-GET           /admin/article/:id                                               controllers.AdminController.article(id:Long)
-DELETE        /admin/article/:id                                               controllers.AdminController.articleDelete(id:Long)
-POST          /admin/article                                                   controllers.AdminController.articleSave
-POST          /admin/gallery_upload                                            controllers.AdminController.galleryUpload
+GET           /login                        controllers.AuthController.login
+POST          /login                        controllers.AuthController.authenticate
+GET           /logout                       controllers.AuthController.logout
+GET           /admin                        controllers.AdminController.index
+POST          /admin/cover_photo/:id        controllers.AdminController.uploadCoverPhoto(id:Long)
+DELETE        /admin/cover_photo/:id        controllers.AdminController.deleteCoverPhoto(id:Long)
+GET           /admin/layouts                controllers.AdminController.layouts
+GET           /admin/layout                 controllers.AdminController.layoutNew
+GET           /admin/layout/:id             controllers.AdminController.layout(id:Long)
+DELETE        /admin/layout/:id             controllers.AdminController.layoutDelete(id:Long)
+POST          /admin/layout                 controllers.AdminController.layoutSave
+GET           /admin/article                controllers.AdminController.articleNew
+GET           /admin/article/:id            controllers.AdminController.article(id:Long)
+DELETE        /admin/article/:id            controllers.AdminController.articleDelete(id:Long)
+POST          /admin/article                controllers.AdminController.articleSave
+POST          /admin/gallery_upload         controllers.AdminController.galleryUpload
 
 #Assets
-GET           /assets/*file                                                    controllers.Assets.versioned(path="/public", file: Asset)
-GET           /alloy-editor/*file                                              controllers.Assets.at(path="/public/alloy-editor", file:String)
-GET           /favicon.ico                                                     controllers.Assets.at(path="/public/favs", file="favicon.ico")
-GET           /robots.txt                                                      controllers.Assets.at(path="/public", file="robots.txt")
+GET           /assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)
+GET           /alloy-editor/*file           controllers.Assets.at(path="/public/alloy-editor", file:String)
+GET           /favicon.ico                  controllers.Assets.at(path="/public/favs", file="favicon.ico")
+GET           /robots.txt                   controllers.Assets.at(path="/public", file="robots.txt")

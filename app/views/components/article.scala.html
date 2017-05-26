@@ -12,11 +12,11 @@
 
     @newsType match {
         case NewsType.PHOTO | NewsType.COVER_PHOTO => {
-            <a class="cover" style="background-image: url('@{item.coverMedia.orNull}')" href="@routes.FrontendController.article(item.shortUrl.getOrElse(item.id.toString)).withLang"></a>
+            <a class="cover" style="background-image: url('@{item.translation.flatMap(_.coverMedia).orNull}')" href="@routes.FrontendController.article(item.shortUrl.getOrElse(item.id.toString)).withLang"></a>
             <div class="title">@title</div>
         }
         case NewsType.VIDEO => {
-            <a class="cover" style="background-image: url('https://img.youtube.com/vi/@{item.coverYoutube.orNull}/0.jpg')" href="@routes.FrontendController.article(item.shortUrl.getOrElse(item.id.toString)).withLang">
+            <a class="cover" style="background-image: url('https://img.youtube.com/vi/@{item.translation.flatMap(_.coverYoutube).orNull}/0.jpg')" href="@routes.FrontendController.article(item.shortUrl.getOrElse(item.id.toString)).withLang">
                 <i class="fa fa-youtube-play playback" aria-hidden="true"></i>
             </a>
             <div class="title">@title</div>

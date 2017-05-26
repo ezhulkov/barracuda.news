@@ -221,15 +221,14 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
   $scope.loading = false
   $scope.newArticle = $scope.articleModel.id == undefined
   $scope.uploader = new FileUploader({
-    url: "/admin/cover_photo/" + $scope.articleModel.id
+    url: "/admin/cover_photo"
   })
   $scope.uploader.onAfterAddingFile = (fileItem) ->
     file = document.getElementById("uploader").files[0]
     fileReader = new FileReader()
-    fileReader.onload = (data) ->
-      $scope.$apply ->
-        $scope.articleModel.coverMedia = data.target.result
+    fileReader.onload = (data) -> $scope.$apply -> $scope.translation.coverMedia = data.target.result
     fileReader.readAsDataURL(file)
+    fileItem.url = "/admin/cover_photo/" + $scope.translation.id
     $scope.uploader.uploadAll()
   $scope.uploader.onSuccessItem = (fileItem, response, status, headers) ->
     $scope.processResponse(response)
@@ -237,6 +236,10 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
     $scope.articleModel.crossLinks = $scope.articleModel.crossLinks.map (id)-> {id: id.toString()}
   $scope.findTranslation = () ->
     (t for t in $scope.articleModel.translations when t.lang is $scope.selectedLang.value)[0]
+  $scope.deleteCover = (tr) ->
+    $http.delete("/admin/cover_photo/" + tr.id).then (rs) ->
+      tr.coverMedia = undefined
+      $scope.processResponse(rs.data)
   $scope.translation = $scope.findTranslation()
   $scope.changeLang = ->
     $scope.translation = $scope.findTranslation()
@@ -259,7 +262,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
       $scope.result = {}
     , 1000
   $scope.show = ->
-    $window.open("http://barracuda.news/article/" + $scope.articleModel.id, "_blank")
+    $window.open("http://barracuda.news/article/" + $scope.articleModel.shortUrl, "_blank")
     return true
   $scope.addLink = ->
     if($scope.articleModel.crossLinks == undefined)

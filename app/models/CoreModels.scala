@@ -80,16 +80,13 @@ object CoreModels {
   }
   case class NewsMedia(id: Long, translationId: Long, url: String, text: Option[String])
   object Article {
-    def newArticle = Article(None, None, None, None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
+    def newArticle = Article(None, None, None, None, DateTime.now(), Nil, Translation.newTranslations)
   }
   case class Article(
     id: Option[Long],
     url: Option[String],
     shortUrl: Option[String],
     origin: Option[String],
-    coverMedia: Option[String],
-    coverMediaLength: Option[Int],
-    coverYoutube: Option[String],
     publish: DateTime,
     tags: Seq[Tag] = Nil,
     translations: Seq[Translation] = Nil,
@@ -116,7 +113,7 @@ object CoreModels {
     }
   }
   object Translation {
-    def newTranslations: List[Translation] = LangUtils.langs.map(l => Translation(None, None, l, None, None, None, None, None, Nil))
+    def newTranslations: List[Translation] = LangUtils.langs.map(l => Translation(None, None, l, None, None, None, None, None, Nil, None, None, None))
   }
   case class Translation(
     id: Option[Long],
@@ -127,7 +124,10 @@ object CoreModels {
     description: Option[String],
     title: Option[String],
     keywords: Option[String],
-    media: Seq[NewsMedia] = Nil
+    media: Seq[NewsMedia] = Nil,
+    coverMedia: Option[String],
+    coverMediaLength: Option[Int],
+    coverYoutube: Option[String]
   ) {
     def pageTitle(implicit messages: Messages): String = Seq(title, caption).flatten.headOption.getOrElse(messages("site.title"))
     def pageDescription(implicit messages: Messages): String = Seq(description, caption).flatten.headOption.getOrElse(messages("site.description"))

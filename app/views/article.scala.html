@@ -1,105 +1,105 @@
 @(article: Article)(implicit messages: Messages, lang: Lang, env: Environment, request: RequestHeader)
 
-@caption(article: Article) = @{
-    article.translationOrDefault.caption
-}
+    @caption(article: Article) = @{
+        article.translationOrDefault.caption
+    }
 
-@url(article: Article) = @{
-    routes.FrontendController.article(article.shortUrl.getOrElse(article.id.toString)).withLang
-}
+    @url(article: Article) = @{
+        routes.FrontendController.article(article.shortUrl.getOrElse(article.id.toString)).withLang
+    }
 
-@metaTags = {
-    <meta property="og:site_name" content="Barracuda.news" />
-    <meta property="og:title" content="@article.translation.map(_.pageTitle)" />
-    <meta property="og:description" content="@article.translation.map(_.pageDescription)"/>
-    <meta property="og:url" content="https://barracuda.news@request.path" />
-    <meta property="og:type" content="article" />
-    <meta property="og:locale" content="en_EN" />
-    <meta property="og:image" content="@Html(article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png"))" />
-    <meta name="twitter:image" content="@Html(article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png"))"/>
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="barracuda.news" />
-    <meta name="twitter:title" content="@article.translation.map(_.pageTitle)" />
-    <link rel="image_src" href="@Html(article.coverMedia.getOrElse("https://barracuda.news/assets/images/logo-dark.png"))"/>
-}
+    @metaTags = {
+        <meta property="og:site_name" content="Barracuda.news" />
+        <meta property="og:title" content="@article.translation.map(_.pageTitle)" />
+        <meta property="og:description" content="@article.translation.map(_.pageDescription)"/>
+        <meta property="og:url" content="https://barracuda.news@request.path" />
+        <meta property="og:type" content="article" />
+        <meta property="og:locale" content="en_EN" />
+        <meta property="og:image" content="@Html(article.translation.flatMap(_.coverMedia).getOrElse("https://barracuda.news/assets/images/logo-dark.png"))" />
+        <meta name="twitter:image" content="@Html(article.translation.flatMap(_.coverMedia).getOrElse("https://barracuda.news/assets/images/logo-dark.png"))"/>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="barracuda.news" />
+        <meta name="twitter:title" content="@article.translation.map(_.pageTitle)" />
+        <link rel="image_src" href="@Html(article.translation.flatMap(_.coverMedia).getOrElse("https://barracuda.news/assets/images/logo-dark.png"))"/>
+    }
 
-@layout.front(
-    title = article.translation.map(_.pageTitle).filterNot(_.isEmpty),
-    description = article.translation.map(_.pageDescription).filterNot(_.isEmpty),
-    keywords = article.translation.map(_.pageKeywords).filterNot(_.isEmpty),
-    metaTags = Some(metaTags)
-) {
+    @layout.front(
+        title = article.translation.map(_.pageTitle).filterNot(_.isEmpty),
+        description = article.translation.map(_.pageDescription).filterNot(_.isEmpty),
+        keywords = article.translation.map(_.pageKeywords).filterNot(_.isEmpty),
+        metaTags = Some(metaTags)
+    ) {
 
-    <article>
-        <div id="page-header">
-            <div class="social-likes">
-                <div class="facebook">Facebook</div>
-                <div class="vkontakte">ВКонтакте</div>
-                <div class="twitter" data-via="barracudanews">Twitter</div>
+        <article>
+            <div id="page-header">
+                <div class="social-likes">
+                    <div class="facebook">Facebook</div>
+                    <div class="vkontakte">ВКонтакте</div>
+                    <div class="twitter" data-via="barracudanews">Twitter</div>
+                </div>
+                <span class="close" data-ng-click="closeArticle()"></span>
             </div>
-            <span class="close" data-ng-click="closeArticle()"></span>
-        </div>
-        <div class="container">
-            <div class="content-body">
-                <div class="article-header">
-                    <h1>@article.translation.flatMap(_.caption)</h1>
-                    <div class="article-info">
-                        <span class="source">
-                        @article.origin match {
-                            case Some(t) => {
-                                <a href="@t" target="_blank">@article.originDomain</a>
+            <div class="container">
+                <div class="content-body">
+                    <div class="article-header">
+                        <h1>@article.translation.flatMap(_.caption)</h1>
+                        <div class="article-info">
+                            <span class="source">
+                            @article.origin match {
+                                case Some(t) => {
+                                    <a href="@t" target="_blank">@article.originDomain</a>
+                                }
+                                case None => {
+                                    "barracuda.news"
+                                }
                             }
-                            case None => {
-                                "barracuda.news"
-                            }
-                        }
-                        </span>
-                        <span class="date">@article.publishFormatted</span>
-                    </div>
-                    @article.coverMedia.map { t =>
-                        <div class="cover-image">
-                            <img src="@t" alt=""/>
+                            </span>
+                            <span class="date">@article.publishFormatted</span>
                         </div>
-                    }
-                </div>
-                <div class="article-body">
-                    @article.translation.flatMap(_.text).map(t => Html(t)).getOrElse(Messages("empty.article"))
-                    @article.origin.map { t =>
-                        <blockquote class="source-quote">
-                            <a href="@t" target="_blank">
-                                <p>@article.translation.flatMap(_.caption)</p>
-                                <cite class="source">@article.originDomain</cite>
-                            </a>
-                        </blockquote>
-                    }
-                </div>
-                <div class="adv">
-                @components.adv()
-                </div>
-                @if(article.crossArticles.nonEmpty) {
-                    <div class="related news-list">
-                        <h3>@Messages("see.more")</h3>
-                        <div class="news-list cut-images">
-                        @for(item <- article.crossArticles) {
-                            <div class="item">
-                                <div class="photo">@item.coverMedia.map { t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
-                                <h2><a href="@url(item)">@caption(item)</a></h2>
-                                <div class="date">@item.publishFormatted</div>
+                        @article.translation.flatMap(_.coverMedia).map { t =>
+                            <div class="cover-image">
+                                <img src="@t" alt=""/>
                             </div>
                         }
+                    </div>
+                    <div class="article-body">
+                        @article.translation.flatMap(_.text).map(t => Html(t)).getOrElse(Messages("empty.article"))
+                        @article.origin.map { t =>
+                            <blockquote class="source-quote">
+                                <a href="@t" target="_blank">
+                                    <p>@article.translation.flatMap(_.caption)</p>
+                                    <cite class="source">@article.originDomain</cite>
+                                </a>
+                            </blockquote>
+                        }
+                    </div>
+                    <div class="adv">
+                    @components.adv()
+                    </div>
+                    @if(article.crossArticles.nonEmpty) {
+                        <div class="related news-list">
+                            <h3>@Messages("see.more")</h3>
+                            <div class="news-list cut-images">
+                            @for(item <- article.crossArticles) {
+                                <div class="item">
+                                    <div class="photo">@item.translation.flatMap(_.coverMedia).map { t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
+                                    <h2><a href="@url(item)">@caption(item)</a></h2>
+                                    <div class="date">@item.publishFormatted</div>
+                                </div>
+                            }
+                            </div>
+                        </div>
+                    }
+                    <div class="article-social-footer">
+                        <div class="social-likes">
+                            <div class="facebook">Facebook</div>
+                            <div class="vkontakte">ВКонтакте</div>
+                            <div class="twitter" data-via="barracudanews">Twitter</div>
                         </div>
                     </div>
-                }
-                <div class="article-social-footer">
-                    <div class="social-likes">
-                        <div class="facebook">Facebook</div>
-                        <div class="vkontakte">ВКонтакте</div>
-                        <div class="twitter" data-via="barracudanews">Twitter</div>
-                    </div>
                 </div>
+
             </div>
+        </article>
 
-        </div>
-    </article>
-
-}
+    }

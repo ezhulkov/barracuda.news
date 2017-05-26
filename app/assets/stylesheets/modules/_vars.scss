@@ -1,3 +1,5 @@
+@import "breakpoint";
+
 $textColor: #ddd;
 $blackTextColor: #333;
 $activeLink: #f26522;
@@ -9,7 +11,7 @@ $blackColor4: #777;
 $whiteColor: #eee;
 $blueColor: blue;
 $darkBlueColor: darkblue;
-$bgColor: #f4f4f4  !global;
+$bgColor: #f4f4f4 !global;
 
 $featured-width: 5px;
 $pad-col: 20px;
@@ -18,7 +20,7 @@ $xDesktopWidth: 80em;
 $desktopWidth: 60em;
 $tabletWidth: 48em;
 
-$breakpoint-default-media: screen;
+@include breakpoint-set('default media', 'screen');
 
 $susy: (
         columns: 12,

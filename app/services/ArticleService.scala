@@ -39,7 +39,8 @@ trait ArticleService {
   def allRootTags: Set[Tag]
   def search(q: String): Seq[Article]
   def extractImages(translation: Translation): Try[Translation]
-  def attachCoverPhoto(id: Long, file: File)
+  def deleteCoverPhoto(translationId: Long)
+  def attachCoverPhoto(translationId: Long, file: File)
   def storeGalleryUpload(caption: Option[String], lang: Option[String], file: File): String
 
 }
@@ -60,7 +61,7 @@ class ArticleServiceImpl extends ArticleService {
   override def deleteArticle(id: Long): Unit = Mappers.Article.deleteById(id)
   override def allRootTags: Set[Tag] = Mappers.Tag.findAllRoot()
   override def allTags(text: Set[String]): Set[Tag] = Mappers.Tag.allTags(text.toSeq)
-  override def saveArticle(article: Article): Try[Long] = DB.autoCommit { implicit session =>
+  override def saveArticle(article: Article): Try[Long] = DB.localTx { implicit session =>
     for {
       article <- tryExtractImages(article)
       articleId <- trySaveArticle(article)
@@ -113,14 +114,17 @@ class ArticleServiceImpl extends ArticleService {
     val url = decodeAndStore(caption.getOrElse("gallery-image"), lang.map(l => Lang(l)), Some(rnd.nextInt(1000)), file)
     s"$imageUrl/$url"
   }
-  override def attachCoverPhoto(id: Long, file: File) = DB.autoCommit { implicit session =>
-    findArticle(id) match {
-      case Some(article) =>
+  override def deleteCoverPhoto(translationId: Long): Unit = DB.localTx { implicit session =>
+    Mappers.Translation.deleteCover(translationId)
+  }
+  override def attachCoverPhoto(translationId: Long, file: File) = DB.localTx { implicit session =>
+    Mappers.Translation.findById(translationId) match {
+      case Some(translation) =>
         val bytes = Files.readAllBytes(Paths.get(file.toURI))
-        val savedFile = decodeAndStore(article.translationOrDefault(LangUtils.defaultLang).caption.getOrElse(DateTime.now().toString), None, None, bytes)
-        val newArticle = article.copy(coverMedia = Some(s"$imageUrl/$savedFile"), coverMediaLength = Some(new File(savedFile).length().toInt))
-        Mappers.Article.updateCover(newArticle)
-      case _ => Logger.error(s"Can not find article $id")
+        val savedFile = decodeAndStore(translation.caption.getOrElse(DateTime.now().toString), None, None, bytes)
+        val newTranslation = translation.copy(coverMedia = Some(s"$imageUrl/$savedFile"), coverMediaLength = Some(new File(savedFile).length().toInt))
+        Mappers.Translation.updateCover(newTranslation)
+      case _ => Logger.error(s"Can not find article $translationId")
     }
   }
   private def decodeAndStore(caption: String, lang: Option[Lang], number: Option[Int], bytes: Array[Byte]): String = {
@@ -157,7 +161,7 @@ class ArticleServiceImpl extends ArticleService {
       case Some(id) =>
         val shortUrl = article.shortUrl.getOrElse(article.generateUrl())
         val articleToSave = Mappers.Article.findByShortUrlAndNotId(shortUrl, id) match {
-          case Some(dup) => article.copy(shortUrl = Some(article.generateUrl(idOpt = Some(id))))
+          case Some(_) => article.copy(shortUrl = Some(article.generateUrl(idOpt = Some(id))))
           case _ => article.copy(shortUrl = Some(shortUrl))
         }
         Mappers.Article.update(articleToSave)

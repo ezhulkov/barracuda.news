@@ -11,7 +11,7 @@
     @for(item <- news) {
 
         <div class="item">
-            <div class="photo">@item.coverMedia.map { t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
+            <div class="photo">@item.translation.flatMap(_.coverMedia).map { t => <a href="@url(item)"><img src="@t" alt="@caption(item)" title="@caption(item)"/></a> }</div>
             <h2><a href="@url(item)">@caption(item)</a></h2>
             <div class="date">@item.publishFormatted</div>
         </div>

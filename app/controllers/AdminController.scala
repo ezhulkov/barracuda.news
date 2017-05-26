@@ -54,6 +54,10 @@ class AdminController @Inject()(
     articleService.deleteArticle(id)
     Ok(Json.obj("result" -> "Article deleted!", "redirect_url" -> routes.AdminController.index().url.toString)).as(JSON)
   }
+  def deleteCoverPhoto(id: Long) = StackAction(AuthorityKey -> Administrator) { implicit request =>
+    articleService.deleteCoverPhoto(id)
+    Ok(Json.obj("result" -> "Cover photo deleted!", "article_id" -> id)).as(JSON)
+  }
   def uploadCoverPhoto(id: Long) = StackAction(AuthorityKey -> Administrator) { implicit request =>
     request.body.asMultipartFormData match {
       case Some(data) if data.files.size == 1 =>

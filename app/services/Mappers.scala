@@ -1,15 +1,11 @@
 package services
 
-import models.CoreModels.Article
-import models.CoreModels._
+import models.CoreModels.{Article, _}
 import org.joda.time.DateTime
 import play.api.i18n.Lang
-import scalikejdbc.DBSession
-import scalikejdbc.WrappedResultSet
-import scalikejdbc._
-import scalikejdbc.autoConstruct
-import skinny.orm.SkinnyCRUDMapper
-import skinny.orm.SkinnyJoinTable
+import scalikejdbc.{DBSession, WrappedResultSet, autoConstruct, _}
+import skinny.orm.{SkinnyCRUDMapper, SkinnyJoinTable}
+
 import scala.util.Try
 
 /**
@@ -101,18 +97,10 @@ object Mappers {
     def update(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(
       'shortUrl -> article.shortUrl.filter(_.nonEmpty).orNull,
       'origin -> article.origin.filter(_.nonEmpty).orNull,
-      'coverYoutube -> article.coverYoutube.filter(_.nonEmpty).orNull,
       'publish -> article.publish
-    ))
-    def updateCover(article: Article)(implicit s: DBSession): Try[Int] = Try(updateById(article.id.get).withAttributes(
-      'coverMedia -> article.coverMedia.filter(_.nonEmpty).orNull,
-      'coverMediaLength -> article.coverMediaLength.orNull
     ))
     def create(article: Article)(implicit s: DBSession): Try[Long] = Try(createWithAttributes(
       'origin -> article.origin.filter(_.nonEmpty).orNull,
-      'coverMedia -> article.coverMedia.filter(_.nonEmpty).orNull,
-      'coverMediaLength -> article.coverMediaLength.orNull,
-      'coverYoutube -> article.coverYoutube.filter(_.nonEmpty).orNull,
       'publish -> article.publish
     ))
 
@@ -138,7 +126,10 @@ object Mappers {
       'keywords -> translation.keywords.filter(_.nonEmpty).orNull,
       'description -> translation.description.filter(_.nonEmpty).orNull,
       'caption -> translation.caption.filter(_.nonEmpty).orNull,
-      'text -> translation.text.filter(_.nonEmpty).orNull
+      'text -> translation.text.filter(_.nonEmpty).orNull,
+      'coverMedia -> translation.coverMedia.filter(_.nonEmpty).orNull,
+      'coverMediaLength -> translation.coverMediaLength.orNull,
+      'coverYoutube -> translation.coverYoutube.filter(_.nonEmpty).orNull
     ))
     def update(translation: Translation, translationId: Long)(implicit session: DBSession): Try[Int] = Try(Translation.updateById(translationId).withAttributes(
       'title -> translation.title.filter(_.nonEmpty).orNull,
@@ -146,6 +137,14 @@ object Mappers {
       'description -> translation.description.filter(_.nonEmpty).orNull,
       'caption -> translation.caption.filter(_.nonEmpty).orNull,
       'text -> translation.text.filter(_.nonEmpty).orNull
+    ))
+    def deleteCover(translationId: Long)(implicit s: DBSession): Try[Int] = Try(updateById(translationId).withAttributes(
+      'coverMedia -> None,
+      'coverMediaLength -> None
+    ))
+    def updateCover(translation: Translation)(implicit s: DBSession): Try[Int] = Try(updateById(translation.id.get).withAttributes(
+      'coverMedia -> translation.coverMedia.filter(_.nonEmpty).orNull,
+      'coverMediaLength -> translation.coverMediaLength.orNull
     ))
 
   }

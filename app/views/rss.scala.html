@@ -16,7 +16,7 @@
                 <title>@article.translationOrDefault.caption.getOrElse("barracuda.news")</title>
                 <link>https://barracuda.news@addLang("/article/" + article.shortUrl.orNull)</link>
                 <guid>https://barracuda.news@addLang("/article/" + article.shortUrl.orNull)</guid>
-                @article.coverMedia.map(t => Html(s"""<enclosure url="http://barracuda.news${scala.xml.Utility.escape(t)}" length="${article.coverMediaLength.getOrElse(0)}" type="image/jpg"/>"""))
+                @article.translation.flatMap(_.coverMedia).map(t => Html(s"""<enclosure url="http://barracuda.news${scala.xml.Utility.escape(t)}" length="${article.translation.flatMap(_.coverMediaLength).getOrElse(0)}" type="image/jpg"/>"""))
                 <pubDate>@article.publishRss</pubDate>
             </item>
         }

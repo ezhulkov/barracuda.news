@@ -23,7 +23,7 @@
 
     }
 
-    @layout.admin("article-section", subMenu = Some(sidebar), activeMenu = Some("#news"), controller = Some("ArticleController")){
+    @layout.admin("article-section", subMenu = Some(sidebar), activeMenu = Some("#news"), controller = Some("ArticleController")) {
 
         <div>
             <ul class="breadcrumbs">
@@ -31,11 +31,6 @@
                 <li>{{translation.caption}}</li>
             </ul>
             <fieldset class="info-controls">
-                <div class="cover">
-                    <span data-ng-hide="articleHasId()">In order to upload cover photo push 'Create' button first</span>
-                    <img data-ng-show="articleHasId()" data-ng-src="{{articleModel.coverMedia}}"/>
-                    <input id="uploader" data-ng-show="articleHasId()" type="file" nv-file-select uploader="uploader"/>
-                </div>
                 <dl class="tags">
                     <dt><label for="tags">Tags:</label></dt>
                     <dd>
@@ -47,10 +42,6 @@
                 <dl class="publish">
                     <dt><label for="publish">Publish date:</label></dt>
                     <dd><input type="text" date-time view="hours" timezone="Europe/Moscow" format="DD.MM.YYYY HH:mm z" name="publish" data-ng-model="articleModel.publish_moment"></dd>
-                </dl>
-                <dl class="youtube">
-                    <dt><label for="youtube">Youtube cover ID (optional):</label></dt>
-                    <dd><input type="text" name="youtube" data-ng-model="articleModel.coverYoutube"></dd>
                 </dl>
                 <dl class="origin">
                     <dt><label for="origin">Original url (optional):</label></dt>
@@ -81,16 +72,32 @@
                 <dl class="caption">
                     <dd><input type="text" name="caption" data-ng-model="translation.caption" placeholder="Enter article title to enable {{selectedLang.label | lowercase}} translation"></dd>
                 </dl>
-                <dl data-ng-show="hasCaption(translation)">
-                    <dd><input type="text" name="title" data-ng-model="translation.title" placeholder="SEO: title, might be equal to article title"></dd>
-                </dl>
-                <dl data-ng-show="hasCaption(translation)">
-                    <dd><input type="text" name="keywords" data-ng-model="translation.keywords" placeholder="SEO: article keywords"></dd>
-                </dl>
-                <dl class="seo-description" data-ng-show="hasCaption(translation)">
-                    <dd><textarea type="text" name="description" data-ng-model="translation.description" placeholder="SEO: article short description"></textarea></dd>
-                </dl>
-                <dl data-ng-show="hasCaption(translation)">
+
+                <div ng-if="hasCaption(translation)" class="left-block">
+                    <dl>
+                        <dd><input type="text" name="youtube" data-ng-model="translation.coverYoutube" placeholder="Youtube cover ID (optional)"></dd>
+                    </dl>
+                    <dl>
+                        <dd><input type="text" name="title" data-ng-model="translation.title" placeholder="SEO: title, might be equal to article title"></dd>
+                    </dl>
+                    <dl>
+                        <dd><input type="text" name="keywords" data-ng-model="translation.keywords" placeholder="SEO: article keywords"></dd>
+                    </dl>
+                    <dl class="seo-description">
+                        <dd><textarea type="text" name="description" data-ng-model="translation.description" placeholder="SEO: article short description"></textarea></dd>
+                    </dl>
+                </div>
+                <div ng-if="hasCaption(translation)" class="right-block cover">
+                    <span ng-if="!articleHasId()">In order to upload cover photo push 'Create' button first</span>
+                    <img ng-if="translation.coverMedia" ng-src="{{translation.coverMedia}}"/>
+                    <div class="ctrls" ng-if="articleHasId()">
+                        <div class="deleter" ng-if="translation.coverMedia">
+                            <input ng-if="articleHasId()" type="button" ng-click="deleteCover(translation)" value="Delete"/>
+                        </div>
+                        <input class="uploader" ng-if="translation.coverMedia===undefined" id="uploader" type="file" nv-file-select uploader="uploader"/>
+                    </div>
+                </div>
+                <dl ng-if="hasCaption(translation)">
                     <dd>
                         <article class="edit">
                             <div class="container">

@@ -211,27 +211,21 @@ main.admin-area
         +t-medium
         height: rhythm(2)
   section.article-section
-    +with-layout(12 fluid inside)
+    +with-layout(12 fluid after)
       dl.tags
-        +span(8 no-gutter)
-        +post(4)
+        +span(8)
         +tags-style
-        padding-right: $pad-col
       dl.youtube
         +span(4 no-gutter)
         +post(4)
-        padding-right: $pad-col
       dl.publish
-        +span(4 no-gutter)
-        padding-right: $pad-col
+        +span(4 last)
         input
           +t-small
         dd
           margin-top: -1px
       dl.origin
-        +span(8 no-gutter)
-        +post(4)
-        padding-right: $pad-col
+        +span(12)
       dl.seo-description
         textarea, dd
           height: rhythm(2)
@@ -240,31 +234,37 @@ main.admin-area
         input
           +t-large
           height: rhythm(2)
+      .left-block
+        +span(8)
+      .right-block
+        +span(4 last)
       .cover
-        +display-flex()
-        +justify-content(center)
-        +align-items(center)
-        +span(4)
+        position: relative
         overflow: hidden
         background: white
         border: 1px dashed $activeLink
-        position: absolute
-        right: 0
-        top: rhythm(1)
-        bottom: rhythm(1)
+        height: rhythm(8)
         text-align: center
-        input
+        .ctrls
+          width: 100%
+        .uploader, .deleter
           position: absolute
-          bottom: 0
+          width: 100%
           left: 0
           right: 0
-          height: rhythm(1)
+          bottom: 0
           padding: 3px 15px
+          text-align: left
           background: rgba(255, 255, 255, 0.8)
+        .deleter input
+          border: none
+        .uploader
+          height: rhythm(1)
         img
           height: 100%
         span
           +flex(0 1 auto)
+          +t-tiny
       .lang-label
         border-bottom: 1px solid $blackTextColor
         margin-bottom: -1px
