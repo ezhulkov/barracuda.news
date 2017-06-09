@@ -136,7 +136,8 @@ object Mappers {
       'keywords -> translation.keywords.filter(_.nonEmpty).orNull,
       'description -> translation.description.filter(_.nonEmpty).orNull,
       'caption -> translation.caption.filter(_.nonEmpty).orNull,
-      'text -> translation.text.filter(_.nonEmpty).orNull
+      'text -> translation.text.filter(_.nonEmpty).orNull,
+      'coverYoutube -> translation.coverYoutube.filter(_.nonEmpty).orNull
     ))
     def deleteCover(translationId: Long)(implicit s: DBSession): Try[Int] = Try(updateById(translationId).withAttributes(
       'coverMedia -> None,

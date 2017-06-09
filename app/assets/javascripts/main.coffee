@@ -262,7 +262,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
       $scope.result = {}
     , 1000
   $scope.show = ->
-    $window.open("http://barracuda.news/article/" + $scope.articleModel.shortUrl, "_blank")
+    $window.open("https://barracuda.news/article/" + $scope.articleModel.shortUrl, "_blank")
     return true
   $scope.addLink = ->
     if($scope.articleModel.crossLinks == undefined)
@@ -284,6 +284,7 @@ adminApp.controller "ArticleController", ($timeout, $window, $scope, $http, $loc
     article.publish = article.publish_moment.valueOf()
     if(article.crossLinks != undefined)
       article.crossLinks = article.crossLinks.map (t)-> parseInt(t.id)
+    console.log(JSON.stringify(article))
     $http.post("/admin/article", article).then (rs) ->
       $scope.processResponse(rs.data)
   $scope.hasCaption = (translation)->
